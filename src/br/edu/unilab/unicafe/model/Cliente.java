@@ -152,6 +152,8 @@ public class Cliente {
 									public void run() {
 										String login  = pa.substring(0, pa.indexOf(','));
 										frameDesbloqueado.getFieldUsuario().setText(login);
+										String tempo = pa.substring(pa.indexOf(',')+1);
+										System.out.println("Tempo: "+tempo);
 										for(int i = 30; i >= 0; i--){
 											try {
 												Thread.sleep(1000);
