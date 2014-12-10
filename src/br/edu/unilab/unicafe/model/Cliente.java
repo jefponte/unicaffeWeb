@@ -48,7 +48,7 @@ public class Cliente {
 			public void run() {
 				try {
 
-					conexao = new Socket(servidor.getIp(), 12346);
+					conexao = new Socket(servidor.getIp(), 12345);
 
 					janelaBloqueado.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 					janelaBloqueado.setVisible(true);
