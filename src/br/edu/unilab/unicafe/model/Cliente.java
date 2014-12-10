@@ -70,6 +70,7 @@ public class Cliente {
 		this.frameBloqueado = new FrameClientBloqueado();
 		this.frameBloqueado.getTextLogin().setEditable(false);
 		this.frameBloqueado.getJPasswordSenha().setEditable(false);
+		this.frameBloqueado.getLabelMensagem().setText("");
 		
 		this.frameBloqueado.setVisible(true);
 		
@@ -144,11 +145,35 @@ public class Cliente {
 								break;
 
 							case "desbloqueia":
+								final String pa = parametros;
+								Thread sessao = new Thread(new Runnable() {
+									
+									@Override
+									public void run() {
+										String login  = pa.substring(0, pa.indexOf(','));
+										frameDesbloqueado.getFieldUsuario().setText(login);
+										for(int i = 30; i >= 0; i--){
+											try {
+												Thread.sleep(1000);
+												
+												frameDesbloqueado.getFieldTempo().setText("00:"+i);
+											} catch (InterruptedException e) {
+												// TODO Auto-generated catch block
+												e.printStackTrace();
+											}
+										}
+										frameDesbloqueado.setVisible(false);
+										frameBloqueado.setVisible(true);
+										
+										
+									}
+								});
 								frameBloqueado.setVisible(false);
 								frameDesbloqueado.setVisible(true);
+								sessao.start();
 								break;
 							case "printc":
-								frameBloqueado.getLabelStatus().setText(frameBloqueado.getLabelStatus().getText()+" \n Errou a senha!");
+								frameBloqueado.getLabelMensagem().setText(""+parametros);
 								break;
 							default:
 								

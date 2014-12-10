@@ -78,7 +78,7 @@ public class Servidor {
 
 		} catch (IOException e) {
 			printd("Erro de IO.");
-			e.printStackTrace();
+			//e.printStackTrace();
 		}
 
 	}
@@ -107,6 +107,10 @@ public class Servidor {
 
 	}
 
+	/**
+	 * 
+	 * @param conexao
+	 */
 	public void processaConexao(final Socket conexao) {
 		Thread processando = new Thread(new Runnable() {
 			
@@ -119,7 +123,7 @@ public class Servidor {
 					cliente.setSaida(new ObjectOutputStream(conexao.getOutputStream()));
 				} catch (IOException e) {
 					printd("Errinho de IO.");
-					e.printStackTrace();
+					//e.printStackTrace();
 				}
 				
 				cliente.getMaquina().setNome("NAO LISTADO");
@@ -148,7 +152,7 @@ public class Servidor {
 							if(dao.autentica(usuario)){
 								printd(cliente.getMaquina().getNome()+">> Autenticação bem sucedida.");
 								cliente.getSaida().flush();
-								cliente.getSaida().writeObject("desbloqueia(jefponte, 10)");
+								cliente.getSaida().writeObject("desbloqueia("+login+", 30)");
 							}
 							else{
 								printd(cliente.getMaquina().getNome()+">> Errou login ou senha.");
