@@ -1,6 +1,5 @@
 package br.edu.unilab.unicafe.model;
 
-import java.io.EOFException;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -8,131 +7,210 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
 
-import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
+import javax.swing.plaf.SliderUI;
 
-import br.edu.unilab.unicafe.view.JanelaServidor;
+import br.edu.unilab.unicafe.dao.UsuarioDAO;
+import br.edu.unilab.unicafe.view.FrameApresentacao;
+import br.edu.unilab.unicafe.view.FrameServidor;
 
 public class Servidor {
-
 	private Maquina maquina;
 	private String ip;
 	private ServerSocket serverSocket;
 	private ArrayList<Cliente> listaDeClientes;
-	private JanelaServidor janelaServidor;
 
-	public Servidor(){
-		this.listaDeClientes = new ArrayList<Cliente>();
-	}
-	
-	public void iniciaServidor() {
-		this.janelaServidor = new JanelaServidor();
-		this.janelaServidor.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.janelaServidor.setVisible(true);
-		this.janelaServidor.print("Iniciar Servidor.");
-		this.iniciarServico();
-	}
+	private FrameServidor frameServidor;
 
-	public void iniciarServico() {
+	public Servidor() {
 		this.maquina = new Maquina();
-		this.maquina.preencheComMaquinaLocal();
-		
-		Thread esperandoConexao = new Thread(new Runnable() {
+		this.ip = "";
+		this.listaDeClientes = new ArrayList<Cliente>();
+
+	}
+
+	public void printd(final String mensagem) {
+
+		SwingUtilities.invokeLater(new Runnable() {
+
 			@Override
 			public void run() {
-				try {
-					serverSocket = new ServerSocket(12346, 100);
-					while(true){
-						try{
-							//Espera conexoes
-							janelaServidor.println("Servidor iniciado, esperando Conexões. ");
-							janelaServidor.println("Dados da Máquina do Servidor:  "+maquina);
-							
-							Socket conexao = serverSocket.accept();
-							//pra cadaa conexão que chegar 
-							//vou abrir uma trhead pra que fique
-							janelaServidor.println("Nova Conexão feita. ");
-							Cliente cliente = new Cliente();
-							cliente.setConexao(conexao);
-							Maquina maquinaDoCliente = new Maquina();
-							maquinaDoCliente.setIp(conexao.getInetAddress().toString());
-
-							//ObjectInputStream input = new ObjectInputStream(conexao.getInputStream());
-							
-							cliente.setMaquina(maquinaDoCliente);
-							listaDeClientes.add(cliente);
-							
-							processandoConexao(cliente);
-							
-							
-							//Sempre escutando o cliente. 
-							//nessa versão a conexão estará disponível 
-							//pra qualquer máquina. 
-							
-						}
-						catch(EOFException eofException){
-							
-						}
-					}
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				
+				frameServidor.getDisplay().append("\n" + mensagem);
 
 			}
 		});
-		esperandoConexao.start();
 
 	}
 
-	public void processandoConexao(final Cliente cliente){
-		final Socket conexao = cliente.getConexao();
-		
-		
+	public void iniciaSplash() {
+		Thread iniciando = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				FrameApresentacao frame = new FrameApresentacao();
+				frame.setLocationRelativeTo(null);  
+				frame.setVisible(true);
+				try {
+					Thread.sleep(3000);
+					frame.setVisible(false);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+				iniciaServico();
+			}
+		});
+		iniciando.start();
+	}
+
+	public void iniciaServico() {
+
+		frameServidor = new FrameServidor();
+		this.maquina.preencheComMaquinaLocal();
+		this.ip = this.maquina.getIp();
+		frameServidor.setVisible(true);
+		printd("Iniciando servidor...");
 		try {
-			cliente.setInput(new ObjectInputStream(conexao.getInputStream()));
+			this.serverSocket = new ServerSocket(12345, 100);
+			printd("Servidor iniciado. ");
+			printd("Dados do Servidor: Ip-> " + this.ip + " - MAC-> "
+					+ this.maquina.getEnderecoMac());
+			esperaConexoes();
+
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			printd("Erro de IO.");
 			e.printStackTrace();
 		}
-		janelaServidor.println("Vou escrever tudo que esse cliente mandar.");
+
+	}
+
+	public void esperaConexoes() {
+		Thread recebendoConexao = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					while (true) {
+						printd("Aguardando conexoes...");
+						Socket conexao = serverSocket.accept();
+						printd("Nova conexão! "
+								+ conexao.getInetAddress().toString());
+						processaConexao(conexao);
+
+					}
+				} catch (IOException e) {
+					System.out.println("???");
+					e.printStackTrace();
+				}
+			}
+		});
+		recebendoConexao.start();
+
+	}
+
+	public void processaConexao(final Socket conexao) {
 		Thread processando = new Thread(new Runnable() {
 			
 			@Override
 			public void run() {
-				boolean flag = true;
-				while(true){
-					
-					try{
-						ObjectInputStream input = cliente.getInput();
-						String mensagem = (String)  input.readObject();
+				Cliente cliente = new Cliente();
+				listaDeClientes.add(cliente); 
+				try {
+					cliente.setEntrada(new ObjectInputStream(conexao.getInputStream()));
+					cliente.setSaida(new ObjectOutputStream(conexao.getOutputStream()));
+				} catch (IOException e) {
+					printd("Errinho de IO.");
+					e.printStackTrace();
+				}
+				
+				cliente.getMaquina().setNome("NAO LISTADO");
+				while(!conexao.isClosed()){
+				
+					try {
+						String mensagem = (String) cliente.getEntrada().readObject();
+						String comando = mensagem.substring(0, mensagem.indexOf('('));
+						String parametros = mensagem.substring(mensagem.indexOf('(')+1, mensagem.indexOf(')'));
 						
-						if(flag){
-							//vamos as apresentações. 
-							//primeiro contato vc diz o seu nome. 
-							flag = false;
-							cliente.getMaquina().setNome(mensagem);
+						printd(cliente.getMaquina().getNome()+">> "+mensagem);
+						
+						switch (comando) {
+						case "autentica":
 							
+							String login = parametros.substring(0, parametros.indexOf(','));
+							String senha = parametros.substring(parametros.indexOf(',')+1);
+							printd(cliente.getMaquina().getNome()+">> Tentativa de Autenticação.");
+							printd(cliente.getMaquina().getNome()+">> Login : "+login);
+							printd(cliente.getMaquina().getNome()+">> Senha : "+senha);
+							UsuarioDAO dao = new UsuarioDAO();
+							Usuario usuario = new Usuario();
+							usuario.setLogin(login);
+							usuario.setSenha(senha);
+							
+							if(dao.autentica(usuario)){
+								printd(cliente.getMaquina().getNome()+">> Autenticação bem sucedida.");
+								cliente.getSaida().flush();
+								cliente.getSaida().writeObject("desbloqueia(jefponte, 10)");
+							}
+							else{
+								printd(cliente.getMaquina().getNome()+">> Errou login ou senha.");
+								cliente.getSaida().flush();
+								cliente.getSaida().writeObject("printc(Beleza, Fera! Mas e a senha correta, vc sabe?)");
+							}
+							break;
+
+						case "setNome":
+							String nome = parametros;
+							printd(cliente.getMaquina().getNome()+">> Tentou mudar o nome para : "+nome);
+							cliente.getMaquina().setNome(nome);
+							break;
+						case "setMac":
+							
+							break;
+						case "setStatus":
+							break;
+						default:
+							printd(cliente.getMaquina().getNome()+">>"+" Comando não encontrado.");
+							break;
 						}
 						
-						janelaServidor.println("Cliente "+cliente.getMaquina().getNome()+">> "+mensagem);
+					} catch (ClassNotFoundException e) {
 						
-					}catch(ClassNotFoundException | IOException classNotFoundException){
-						janelaServidor.println(cliente.getMaquina().getNome()+">> "+"Conexão terminou");
+						//e.printStackTrace();
+						break;
+					} catch (IOException e) {
+						
+						//e.printStackTrace();
 						break;
 					}
-					
 				}
+				printd(cliente.getMaquina().getNome() +">> Conexão fechada. ");
+				
 			}
 		});
+		
 		processando.start();
+		
+		//Iremos ouvir String. Processar essa string. 
+		//Ouvir direto até a conexão acabar. 
+		//A fala vai ter que ser impulsionada por algum evento. 
+		//Logo não precismos nos procupar com ela agora. 
+
 	}
+
+	
 	public Maquina getMaquina() {
 		return maquina;
 	}
 
 	public void setMaquina(Maquina maquina) {
 		this.maquina = maquina;
+	}
+
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
 
 	public ServerSocket getServerSocket() {
@@ -151,12 +229,11 @@ public class Servidor {
 		this.listaDeClientes = listaDeClientes;
 	}
 
-	public String getIp() {
-		return ip;
+	public FrameServidor getFrameServidor() {
+		return frameServidor;
 	}
 
-	public void setIp(String ip) {
-		this.ip = ip;
+	public void setFrameServidor(FrameServidor frameServidor) {
+		this.frameServidor = frameServidor;
 	}
-
 }

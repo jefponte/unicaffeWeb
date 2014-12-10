@@ -72,5 +72,10 @@ public class Maquina {
 				+ this.enderecoMac + " | Status: " + this.status;
 
 	}
+	public static final int STATUS_DISPONIVEL = 0;
+	public static final int STATUS_OCUPADA = 1;
+	public static final int STATUS_DESCONECTADA = 2;
+
+
 
 }
