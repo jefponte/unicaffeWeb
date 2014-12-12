@@ -167,9 +167,13 @@ public class Servidor {
 							cliente.getMaquina().setNome(nome);
 							break;
 						case "setMac":
-							
+							cliente.getMaquina().setEnderecoMac(parametros);
+							printd(cliente.getMaquina().getNome()+">> Mudou endereço MAC para: "+parametros);
 							break;
 						case "setStatus":
+							int status = Integer.parseInt(parametros);
+							cliente.getMaquina().setStatus(status);
+							printd(cliente.getMaquina().getNome()+">> Mudou o Status para "+Maquina.statusString(status));
 							break;
 						default:
 							printd(cliente.getMaquina().getNome()+">>"+" Comando não encontrado.");

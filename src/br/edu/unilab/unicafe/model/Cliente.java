@@ -74,7 +74,7 @@ public class Cliente {
 		
 		this.frameBloqueado.setVisible(true);
 		
-		this.servidor.setIp("DTI43");
+		this.servidor.setIp("LABTI37");
 		
 		Thread tentandoConexao = new Thread(new Runnable() {
 			
@@ -130,8 +130,11 @@ public class Cliente {
 			@Override
 			public void run() {
 				try {
+					maquina.setStatus(Maquina.STATUS_DISPONIVEL);
 					saida = new ObjectOutputStream(conexao.getOutputStream());
-					saida.writeObject("setNome("+maquina.getNome()+")");
+					saida.writeObject("setNome("+maquina.getNome()+")");					
+					saida.writeObject("setStatus("+maquina.getStatus()+")");
+					saida.writeObject("setMac("+maquina.getEnderecoMac()+")");
 					entrada = new ObjectInputStream(conexao.getInputStream());
 					while(true){
 						try {
@@ -141,7 +144,17 @@ public class Cliente {
 							String parametros = mensagem.substring(mensagem.indexOf('(')+1, mensagem.indexOf(')'));
 							switch (comando) {
 							case "bloqueia":
-								//printd(cliente.getMaquina().getNome()+">> Tentativa de Autenticação.");
+								Thread bloqueando = new Thread(new Runnable() {
+									
+									@Override
+									public void run() {		
+										frameDesbloqueado.setVisible(false);
+										frameBloqueado.setVisible(true);
+										
+										
+									}
+								});
+								bloqueando.start();
 								break;
 
 							case "desbloqueia":

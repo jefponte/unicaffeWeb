@@ -77,5 +77,24 @@ public class Maquina {
 	public static final int STATUS_DESCONECTADA = 2;
 
 
+	public static String statusString(int status){
+		String strStatus = "";
+
+		switch (status) {
+		case STATUS_DESCONECTADA:
+			strStatus = "Desconectada";
+			break;
+
+		case STATUS_OCUPADA:
+			strStatus = "Ocupada";
+			break;
+		case STATUS_DISPONIVEL:
+			strStatus = "Disponível";
+			break;
+		default:
+			break;
+		}
+		return strStatus;
+	}
 
 }
