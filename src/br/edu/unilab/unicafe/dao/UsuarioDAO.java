@@ -12,6 +12,13 @@ import br.edu.unilab.unicafe.model.Usuario;
 
 public class UsuarioDAO extends DAO {
 
+	public UsuarioDAO(){
+		super();
+	}
+	public UsuarioDAO(int tipoDeConexao){
+		super(tipoDeConexao);
+		
+	}
 	public boolean autentica(Usuario usuario){
 		try {
 			PreparedStatement ps = this.getConexao().prepareStatement("SELECT * FROM usuario WHERE login = ? AND senha = ?");
@@ -47,6 +54,7 @@ public class UsuarioDAO extends DAO {
 			while(rs.next())
 				return false;
 			PreparedStatement ps2 = this.getConexao().prepareStatement("INSERT into usuario(nome, email, login, senha, nivel_acesso, cpf) VALUES(?, ?, ?, ?, 1, ?)");
+			
 			ps2.setString(1, usuario.getNome());
 			ps2.setString(2, usuario.getEmail());
 			ps2.setString(3, usuario.getLogin());

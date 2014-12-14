@@ -18,8 +18,10 @@ public class MainTeste2 {
 	public static void main(String[] args) {
 
 	
+		
+		
 		//testeAdd();
-		//testeLista();
+		testeLista();
 		
 	
 	

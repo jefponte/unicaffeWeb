@@ -74,7 +74,7 @@ public class Cliente {
 		
 		this.frameBloqueado.setVisible(true);
 		
-		this.servidor.setIp("LABTI37");
+		this.servidor.setIp("localhost");
 		
 		Thread tentandoConexao = new Thread(new Runnable() {
 			
