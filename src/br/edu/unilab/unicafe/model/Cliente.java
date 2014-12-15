@@ -148,8 +148,9 @@ public class Cliente {
 							System.out.println("Servidor >> " + mensagem);
 							String comando = mensagem.substring(0, mensagem.indexOf('('));
 							String parametros = mensagem.substring(mensagem.indexOf('(') + 1, mensagem.indexOf(')'));
-							switch (comando) {
-							case "bloqueia":
+							
+							
+							if(comando.equals("bloqueia")){
 								Thread bloqueando = new Thread(new Runnable() {
 
 									@Override
@@ -160,9 +161,8 @@ public class Cliente {
 									}
 								});
 								bloqueando.start();
-								break;
-
-							case "desbloqueia":
+							}
+							else if(comando.equals("desbloqueia")){
 								final String pa = parametros;
 								Thread sessao = new Thread(new Runnable() {
 
@@ -193,16 +193,16 @@ public class Cliente {
 								frameBloqueado.setVisible(false);
 								frameDesbloqueado.setVisible(true);
 								sessao.start();
-								break;
-							case "printc":
+								
+								
+							}
+							else if(comando.equals("printc")){
+								
 								frameBloqueado.getLabelMensagem().setText(
 										"" + parametros);
-								break;
-							default:
-
-								break;
 							}
-
+							else{}
+							
 						} catch (ClassNotFoundException e) {
 							frameBloqueado.setVisible(true);
 							frameBloqueado.getLabelStatus().setForeground(Color.red);

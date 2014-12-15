@@ -139,9 +139,9 @@ public class Servidor {
 
 						printd(cliente.getMaquina().getNome() + ">> " + mensagem);
 
-						switch (comando) {
-						case "autentica":
-
+						
+						
+						if(comando.equals("autentica")){
 							String login = parametros.substring(0, parametros.indexOf(','));
 							String senha = parametros.substring(parametros.indexOf(',') + 1);
 							printd(cliente.getMaquina().getNome() + ">> Tentativa de Autenticação.");
@@ -161,26 +161,33 @@ public class Servidor {
 								cliente.getSaida().flush();
 								cliente.getSaida().writeObject("printc(Beleza, Fera! Mas e a senha correta, vc sabe?)");
 							}
-							break;
-
-						case "setNome":
+							
+							
+						}
+						else if (comando.equals("setNome")) {
+							
 							String nome = parametros;
 							printd(cliente.getMaquina().getNome() + ">> Tentou mudar o nome para : " + nome);
 							cliente.getMaquina().setNome(nome);
-							break;
-						case "setMac":
+							
+						}
+						else if (comando.equals("setMac")) {
+							
 							cliente.getMaquina().setEnderecoMac(parametros);
 							printd(cliente.getMaquina().getNome() + ">> Mudou endereço MAC para: " + parametros);
-							break;
-						case "setStatus":
+							
+						}
+						else if (comando.equals("setStatus")) {
+							
 							int status = Integer.parseInt(parametros);
 							cliente.getMaquina().setStatus(status);
 							printd(cliente.getMaquina().getNome() + ">> Mudou o Status para " + Maquina.statusString(status));
-							break;
-						default:
-							printd(cliente.getMaquina().getNome() + ">>" + " Comando não encontrado.");
-							break;
 						}
+						else{
+							
+							printd(cliente.getMaquina().getNome() + ">>" + " Comando não encontrado.");
+						}
+						
 
 					} catch (ClassNotFoundException e) {
 
