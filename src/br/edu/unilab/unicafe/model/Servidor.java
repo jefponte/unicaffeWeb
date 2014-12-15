@@ -8,11 +8,16 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 import javax.swing.SwingUtilities;
-import javax.swing.plaf.SliderUI;
 
 import br.edu.unilab.unicafe.dao.UsuarioDAO;
 import br.edu.unilab.unicafe.view.FrameApresentacao;
 import br.edu.unilab.unicafe.view.FrameServidor;
+
+/**
+ * 
+ * @author Jefferson
+ *
+ */
 
 public class Servidor {
 	private Maquina maquina;
@@ -48,7 +53,7 @@ public class Servidor {
 			@Override
 			public void run() {
 				FrameApresentacao frame = new FrameApresentacao();
-				frame.setLocationRelativeTo(null);  
+				frame.setLocationRelativeTo(null);
 				frame.setVisible(true);
 				try {
 					Thread.sleep(3000);
@@ -72,13 +77,12 @@ public class Servidor {
 		try {
 			this.serverSocket = new ServerSocket(12345, 100);
 			printd("Servidor iniciado. ");
-			printd("Dados do Servidor: Ip-> " + this.ip + " - MAC-> "
-					+ this.maquina.getEnderecoMac());
+			printd("Dados do Servidor: Ip-> " + this.ip + " - MAC-> " + this.maquina.getEnderecoMac());
 			esperaConexoes();
 
 		} catch (IOException e) {
 			printd("Erro de IO.");
-			//e.printStackTrace();
+			// e.printStackTrace();
 		}
 
 	}
@@ -92,8 +96,7 @@ public class Servidor {
 					while (true) {
 						printd("Aguardando conexoes...");
 						Socket conexao = serverSocket.accept();
-						printd("Nova conexão! "
-								+ conexao.getInetAddress().toString());
+						printd("Nova conexão! " + conexao.getInetAddress().toString());
 						processaConexao(conexao);
 
 					}
@@ -113,49 +116,48 @@ public class Servidor {
 	 */
 	public void processaConexao(final Socket conexao) {
 		Thread processando = new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				Cliente cliente = new Cliente();
-				listaDeClientes.add(cliente); 
+				listaDeClientes.add(cliente);
 				try {
 					cliente.setEntrada(new ObjectInputStream(conexao.getInputStream()));
 					cliente.setSaida(new ObjectOutputStream(conexao.getOutputStream()));
 				} catch (IOException e) {
 					printd("Errinho de IO.");
-					//e.printStackTrace();
+					// e.printStackTrace();
 				}
-				
+
 				cliente.getMaquina().setNome("NAO LISTADO");
-				while(!conexao.isClosed()){
-				
+				while (!conexao.isClosed()) {
+
 					try {
 						String mensagem = (String) cliente.getEntrada().readObject();
 						String comando = mensagem.substring(0, mensagem.indexOf('('));
-						String parametros = mensagem.substring(mensagem.indexOf('(')+1, mensagem.indexOf(')'));
-						
-						printd(cliente.getMaquina().getNome()+">> "+mensagem);
-						
+						String parametros = mensagem.substring(mensagem.indexOf('(') + 1, mensagem.indexOf(')'));
+
+						printd(cliente.getMaquina().getNome() + ">> " + mensagem);
+
 						switch (comando) {
 						case "autentica":
-							
+
 							String login = parametros.substring(0, parametros.indexOf(','));
-							String senha = parametros.substring(parametros.indexOf(',')+1);
-							printd(cliente.getMaquina().getNome()+">> Tentativa de Autenticação.");
-							printd(cliente.getMaquina().getNome()+">> Login : "+login);
-							printd(cliente.getMaquina().getNome()+">> Senha : "+senha);
+							String senha = parametros.substring(parametros.indexOf(',') + 1);
+							printd(cliente.getMaquina().getNome() + ">> Tentativa de Autenticação.");
+							printd(cliente.getMaquina().getNome() + ">> Login : " + login);
+							printd(cliente.getMaquina().getNome() + ">> Senha : " + senha);
 							UsuarioDAO dao = new UsuarioDAO();
 							Usuario usuario = new Usuario();
 							usuario.setLogin(login);
 							usuario.setSenha(senha);
-							
-							if(dao.autentica(usuario)){
-								printd(cliente.getMaquina().getNome()+">> Autenticação bem sucedida.");
+
+							if (dao.autentica(usuario)) {
+								printd(cliente.getMaquina().getNome() + ">> Autenticação bem sucedida.");
 								cliente.getSaida().flush();
-								cliente.getSaida().writeObject("desbloqueia("+login+", 30)");
-							}
-							else{
-								printd(cliente.getMaquina().getNome()+">> Errou login ou senha.");
+								cliente.getSaida().writeObject("desbloqueia(" + login + ", 30)");
+							} else {
+								printd(cliente.getMaquina().getNome() + ">> Errou login ou senha.");
 								cliente.getSaida().flush();
 								cliente.getSaida().writeObject("printc(Beleza, Fera! Mas e a senha correta, vc sabe?)");
 							}
@@ -163,48 +165,47 @@ public class Servidor {
 
 						case "setNome":
 							String nome = parametros;
-							printd(cliente.getMaquina().getNome()+">> Tentou mudar o nome para : "+nome);
+							printd(cliente.getMaquina().getNome() + ">> Tentou mudar o nome para : " + nome);
 							cliente.getMaquina().setNome(nome);
 							break;
 						case "setMac":
 							cliente.getMaquina().setEnderecoMac(parametros);
-							printd(cliente.getMaquina().getNome()+">> Mudou endereço MAC para: "+parametros);
+							printd(cliente.getMaquina().getNome() + ">> Mudou endereço MAC para: " + parametros);
 							break;
 						case "setStatus":
 							int status = Integer.parseInt(parametros);
 							cliente.getMaquina().setStatus(status);
-							printd(cliente.getMaquina().getNome()+">> Mudou o Status para "+Maquina.statusString(status));
+							printd(cliente.getMaquina().getNome() + ">> Mudou o Status para " + Maquina.statusString(status));
 							break;
 						default:
-							printd(cliente.getMaquina().getNome()+">>"+" Comando não encontrado.");
+							printd(cliente.getMaquina().getNome() + ">>" + " Comando não encontrado.");
 							break;
 						}
-						
+
 					} catch (ClassNotFoundException e) {
-						
-						//e.printStackTrace();
+
+						// e.printStackTrace();
 						break;
 					} catch (IOException e) {
-						
-						//e.printStackTrace();
+
+						// e.printStackTrace();
 						break;
 					}
 				}
-				printd(cliente.getMaquina().getNome() +">> Conexão fechada. ");
-				
+				printd(cliente.getMaquina().getNome() + ">> Conexão fechada. ");
+
 			}
 		});
-		
+
 		processando.start();
-		
-		//Iremos ouvir String. Processar essa string. 
-		//Ouvir direto até a conexão acabar. 
-		//A fala vai ter que ser impulsionada por algum evento. 
-		//Logo não precismos nos procupar com ela agora. 
+
+		// Iremos ouvir String. Processar essa string.
+		// Ouvir direto até a conexão acabar.
+		// A fala vai ter que ser impulsionada por algum evento.
+		// Logo não precismos nos procupar com ela agora.
 
 	}
 
-	
 	public Maquina getMaquina() {
 		return maquina;
 	}

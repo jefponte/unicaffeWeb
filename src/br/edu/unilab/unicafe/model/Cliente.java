@@ -12,10 +12,15 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 import javax.swing.AbstractAction;
-import javax.swing.JOptionPane;
 
 import br.edu.unilab.unicafe.view.FrameClientBloqueado;
 import br.edu.unilab.unicafe.view.FrameClientDesbloqueio;
+
+/**
+ * 
+ * @author Jefferson
+ *
+ */
 
 public class Cliente {
 
@@ -27,17 +32,18 @@ public class Cliente {
 	private FrameClientBloqueado frameBloqueado;
 	private FrameClientDesbloqueio frameDesbloqueado;
 
-	public ObjectOutputStream getSaida(){
+	public ObjectOutputStream getSaida() {
 		return this.saida;
 	}
-	public void setSaida(ObjectOutputStream saida){
+
+	public void setSaida(ObjectOutputStream saida) {
 		this.saida = saida;
 	}
 
 	public Cliente() {
 		this.maquina = new Maquina();
 		this.servidor = new Servidor();
-		
+
 	}
 
 	public Maquina getMaquina() {
@@ -71,34 +77,35 @@ public class Cliente {
 		this.frameBloqueado.getTextLogin().setEditable(false);
 		this.frameBloqueado.getJPasswordSenha().setEditable(false);
 		this.frameBloqueado.getLabelMensagem().setText("");
-		
+
 		this.frameBloqueado.setVisible(true);
-		
+
 		this.servidor.setIp("localhost");
-		
+
 		Thread tentandoConexao = new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				int i = 0;
-				while(true){
+				while (true) {
 					i++;
-					frameBloqueado.getLabelStatus().setText("Tentativa "+i);
-					
+					frameBloqueado.getLabelStatus().setText("Tentativa " + i);
+
 					System.out.println("Tentarei infinitamente uma conexão, esperando 30 segundos a cada tentativa.. ");
-					
+
 					try {
 						conexao = new Socket(servidor.getIp(), 12345);
 						processaConexao(conexao);
-						
-						
-						frameBloqueado.getLabelStatus().setText("Conexão Feita!");
-						//processa conexao
 
+						frameBloqueado.getLabelStatus().setText("Conexão Feita!");
+						
+						// processa conexao
 						frameBloqueado.getTextLogin().setEditable(true);
 						frameBloqueado.getJPasswordSenha().setEditable(true);
-						frameBloqueado.getLabelStatus().setForeground(Color.GREEN);
-						frameBloqueado.getBtnLogar().addActionListener(new TentativaDeLogin(frameBloqueado));
+						frameBloqueado.getLabelStatus().setForeground(
+								Color.GREEN);
+						frameBloqueado.getBtnLogar().addActionListener(
+								new TentativaDeLogin(frameBloqueado));
 						break;
 					} catch (UnknownHostException e1) {
 						// TODO Auto-generated catch block
@@ -113,45 +120,43 @@ public class Cliente {
 						System.out.println("Tentativa fracassada");
 						e.printStackTrace();
 					}
-					
-					
-					
+
 				}
-				
+
 			}
 		});
 		tentandoConexao.start();
 	}
-	public void processaConexao(final Socket conexao){
-		
-		
+
+	public void processaConexao(final Socket conexao) {
+
 		Thread processando = new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				try {
 					maquina.setStatus(Maquina.STATUS_DISPONIVEL);
 					saida = new ObjectOutputStream(conexao.getOutputStream());
-					saida.writeObject("setNome("+maquina.getNome()+")");					
-					saida.writeObject("setStatus("+maquina.getStatus()+")");
-					saida.writeObject("setMac("+maquina.getEnderecoMac()+")");
+					saida.writeObject("setNome(" + maquina.getNome() + ")");
+					saida.writeObject("setStatus(" + maquina.getStatus() + ")");
+					saida.writeObject("setMac(" + maquina.getEnderecoMac()
+							+ ")");
 					entrada = new ObjectInputStream(conexao.getInputStream());
-					while(true){
+					while (true) {
 						try {
 							String mensagem = (String) getEntrada().readObject();
-							System.out.println("Servidor >> "+mensagem);
+							System.out.println("Servidor >> " + mensagem);
 							String comando = mensagem.substring(0, mensagem.indexOf('('));
-							String parametros = mensagem.substring(mensagem.indexOf('(')+1, mensagem.indexOf(')'));
+							String parametros = mensagem.substring(mensagem.indexOf('(') + 1, mensagem.indexOf(')'));
 							switch (comando) {
 							case "bloqueia":
 								Thread bloqueando = new Thread(new Runnable() {
-									
+
 									@Override
-									public void run() {		
+									public void run() {
 										frameDesbloqueado.setVisible(false);
 										frameBloqueado.setVisible(true);
-										
-										
+
 									}
 								});
 								bloqueando.start();
@@ -160,27 +165,29 @@ public class Cliente {
 							case "desbloqueia":
 								final String pa = parametros;
 								Thread sessao = new Thread(new Runnable() {
-									
+
 									@Override
 									public void run() {
-										String login  = pa.substring(0, pa.indexOf(','));
+										String login = pa.substring(0, pa.indexOf(','));
 										frameDesbloqueado.getFieldUsuario().setText(login);
-										String tempo = pa.substring(pa.indexOf(',')+1);
-										System.out.println("Tempo: "+tempo);
-										for(int i = 30; i >= 0; i--){
+										String tempo = pa.substring(pa.indexOf(',') + 1);
+										System.out.println("Tempo: " + tempo);
+										for (int i = 30; i >= 0; i--) {
 											try {
 												Thread.sleep(1000);
-												
-												frameDesbloqueado.getFieldTempo().setText("00:"+i);
+
+												frameDesbloqueado
+														.getFieldTempo()
+														.setText("00:" + i);
 											} catch (InterruptedException e) {
-												// TODO Auto-generated catch block
+												// TODO Auto-generated catch
+												// block
 												e.printStackTrace();
 											}
 										}
 										frameDesbloqueado.setVisible(false);
 										frameBloqueado.setVisible(true);
-										
-										
+
 									}
 								});
 								frameBloqueado.setVisible(false);
@@ -188,13 +195,14 @@ public class Cliente {
 								sessao.start();
 								break;
 							case "printc":
-								frameBloqueado.getLabelMensagem().setText(""+parametros);
+								frameBloqueado.getLabelMensagem().setText(
+										"" + parametros);
 								break;
 							default:
-								
+
 								break;
 							}
-							
+
 						} catch (ClassNotFoundException e) {
 							frameBloqueado.setVisible(true);
 							frameBloqueado.getLabelStatus().setForeground(Color.red);
@@ -218,6 +226,7 @@ public class Cliente {
 		});
 		processando.start();
 	}
+
 	public ObjectInputStream getEntrada() {
 		return entrada;
 	}
@@ -225,41 +234,44 @@ public class Cliente {
 	public void setEntrada(ObjectInputStream entrada) {
 		this.entrada = entrada;
 	}
-	class TentativaDeLogin extends AbstractAction{
+
+	class TentativaDeLogin extends AbstractAction {
 		FrameClientBloqueado frame;
+
 		public TentativaDeLogin(FrameClientBloqueado frame) {
 			this.frame = frame;
 		}
+
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			//ObjectOutputStream saida;
+			// ObjectOutputStream saida;
 			String senha = "";
 			try {
-				
+
 				MessageDigest m;
 				try {
 					m = MessageDigest.getInstance("MD5");
-					m.update(String.copyValueOf(frame.getJPasswordSenha().getPassword()).getBytes(),0, String.copyValueOf(frame.getJPasswordSenha().getPassword()).length());
-					senha  = new BigInteger(1,m.digest()).toString(16);
-					saida.writeObject("autentica("+frame.getTextLogin().getText()+","+senha+")");
+					m.update(
+							String.copyValueOf(frame.getJPasswordSenha().getPassword()).getBytes(), 0,
+							String.copyValueOf(frame.getJPasswordSenha().getPassword()).length());
+					senha = new BigInteger(1, m.digest()).toString(16);
+					saida.writeObject("autentica("+ frame.getTextLogin().getText() + "," + senha+ ")");
 
 				} catch (NoSuchAlgorithmException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				if(frame.getTextLogin().getText().equals("sair"))
+				if (frame.getTextLogin().getText().equals("sair"))
 					System.exit(0);
-				
+
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			frame.getTextLogin().setText("");
 			frame.getJPasswordSenha().setText("");
-			
-			
-			
+
 		}
-		
+
 	}
 }
