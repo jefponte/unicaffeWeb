@@ -73,21 +73,21 @@ public class FrameClientBloqueado extends javax.swing.JFrame {
 
 		jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
 		jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-		jLabel1.setText("UniCafe - Sistema de Controle de Laborat√≥rios");
+		jLabel1.setText("UniCafe - Sistema de Controle de LaboratÛrios");
 
 		jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
 		jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-		jLabel2.setText("UNILAB - Universidade da Integra√ß√£o Internacional da Lusofonia");
+		jLabel2.setText("UNILAB - Universidade da IntegraÁ„o Internacional da Lusofonia");
 
 		jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
 		jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-		jLabel3.setText("Autentica√ß√£o");
+		jLabel3.setText("AutenticaÁ„o");
 
 		jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
 		jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-		jLabel4.setText("Nome De Usu√°rio:");
+		jLabel4.setText("Nome De Usu·rio:");
 
-		btnLogar.setText("Iniciar Sess√£o");
+		btnLogar.setText("Iniciar Sess„o");
 		btnLogar.addActionListener(new java.awt.event.ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
 				btnLogarActionPerformed(evt);

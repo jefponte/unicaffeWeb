@@ -1,7 +1,10 @@
 package br.edu.unilab.unicafe.model;
 
+import java.awt.AWTException;
 import java.awt.Color;
+import java.awt.Robot;
 import java.awt.event.ActionEvent;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -31,6 +34,7 @@ public class Cliente {
 	private ObjectInputStream entrada;
 	private FrameClientBloqueado frameBloqueado;
 	private FrameClientDesbloqueio frameDesbloqueado;
+	private Thread escInfinito;
 
 	public ObjectOutputStream getSaida() {
 		return this.saida;
@@ -80,10 +84,34 @@ public class Cliente {
 
 		this.frameBloqueado.setVisible(true);
 
-		this.servidor.setIp("localhost");
+		this.servidor.setIp("10.11.45.231");
 
+		escInfinito = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				Robot roboEsc;
+				try {
+					roboEsc = new Robot();
+					while(true){
+						try {
+							Thread.sleep(500);
+							roboEsc.keyPress(KeyEvent.VK_ESCAPE);
+						} catch (InterruptedException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+					}
+				} catch (AWTException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+			}
+		});
 		Thread tentandoConexao = new Thread(new Runnable() {
 
+			
 			@Override
 			public void run() {
 				int i = 0;
@@ -98,7 +126,7 @@ public class Cliente {
 						processaConexao(conexao);
 
 						frameBloqueado.getLabelStatus().setText("Conexão Feita!");
-						
+						escInfinito.start();
 						// processa conexao
 						frameBloqueado.getTextLogin().setEditable(true);
 						frameBloqueado.getJPasswordSenha().setEditable(true);
@@ -163,6 +191,7 @@ public class Cliente {
 								bloqueando.start();
 							}
 							else if(comando.equals("desbloqueia")){
+								
 								final String pa = parametros;
 								Thread sessao = new Thread(new Runnable() {
 
@@ -172,6 +201,7 @@ public class Cliente {
 										frameDesbloqueado.getFieldUsuario().setText(login);
 										String tempo = pa.substring(pa.indexOf(',') + 1);
 										System.out.println("Tempo: " + tempo);
+										escInfinito.interrupt();
 										for (int i = 30; i >= 0; i--) {
 											try {
 												Thread.sleep(1000);
