@@ -21,3 +21,4 @@ Adicione um novo valor binário denominado NoLogOff a essa chave com o seguinte v
 
 http://support.microsoft.com/kb/177903/pt-br
 
+http://www.hardware.com.br/tutoriais/inno-setup/
