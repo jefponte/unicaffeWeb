@@ -266,6 +266,10 @@ public class Cliente {
 	}
 
 	class TentativaDeLogin extends AbstractAction {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
 		FrameClientBloqueado frame;
 
 		public TentativaDeLogin(FrameClientBloqueado frame) {
