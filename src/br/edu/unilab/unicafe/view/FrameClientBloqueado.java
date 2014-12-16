@@ -105,7 +105,7 @@ public class FrameClientBloqueado extends javax.swing.JFrame {
 
 		labelStatus.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
 		labelStatus.setForeground(new java.awt.Color(204, 0, 51));
-		labelStatus.setText("Sem Conexão");
+		labelStatus.setText("Sem Conex\u00E3o");
 
 		jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
 		jLabel7.setForeground(new java.awt.Color(255, 255, 255));
