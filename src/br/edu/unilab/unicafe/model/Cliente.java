@@ -13,6 +13,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Scanner;
 
 import javax.swing.AbstractAction;
 
@@ -74,44 +75,118 @@ public class Cliente {
 		this.servidor = servidor;
 	}
 
+	public void desBloqueandoServicos() {
+
+		try {
+
+			// Começar por retirar opção de muar de usuário.
+			/*
+			 * HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies
+			 * \System Na pasta System, altere o valor do campo
+			 * "HideFastUserSwitching" para "0".
+			 */
+			// BLoqueio de opcao pra mudar de usuario.
+			Process process = Runtime
+					.getRuntime()
+					.exec("REG add HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v HideFastUserSwitching /t REG_DWORD /d 0 /f");
+			Scanner leitor = new Scanner(process.getInputStream());
+			while (leitor.hasNextLine()) {
+				System.out.println(leitor.nextLine());
+			}
+			// Bloqueio de opcao do Gerenciador de tarefas, Current User.
+			process = Runtime
+					.getRuntime()
+					.exec("REG add HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v DisableTaskMgr /t REG_DWORD /d 0 /f");
+			leitor = new Scanner(process.getInputStream());
+
+			while (leitor.hasNextLine()) {
+				System.out.println(leitor.nextLine());
+			}
+
+			process = Runtime
+					.getRuntime()
+					.exec("REG add HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer /v NoLogOff /t REG_DWORD /d 0 /f");
+			leitor = new Scanner(process.getInputStream());
+
+			while (leitor.hasNextLine()) {
+				System.out.println(leitor.nextLine());
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	/**
+	 * Este método serve pra bloquear alguns serviços do windows. Ele mexe no
+	 * Registro. Esse método não produz efeito se o programa não for executado
+	 * como administrador.
+	 */
+	public void bloqueiaServicos() {
+
+		Thread bloqueandoServicos = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+
+					// Começar por retirar opção de muar de usuário.
+					/*
+					 * HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion
+					 * \Policies\System Na pasta System, altere o valor do campo
+					 * "HideFastUserSwitching" para "0".
+					 */
+					// BLoqueio de opcao pra mudar de usuario.
+					Process process = Runtime
+							.getRuntime()
+							.exec("REG add HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v HideFastUserSwitching /t REG_DWORD /d 1 /f");
+					Scanner leitor = new Scanner(process.getInputStream());
+					while (leitor.hasNextLine()) {
+						System.out.println(leitor.nextLine());
+					}
+					// Bloqueio de opcao do Gerenciador de tarefas, Current
+					// User.
+					process = Runtime
+							.getRuntime()
+							.exec("REG add HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v DisableTaskMgr /t REG_DWORD /d 1 /f");
+					leitor = new Scanner(process.getInputStream());
+
+					while (leitor.hasNextLine()) {
+						System.out.println(leitor.nextLine());
+					}
+
+					process = Runtime
+							.getRuntime()
+							.exec("REG add HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer /v NoLogOff /t REG_DWORD /d 1 /f");
+					leitor = new Scanner(process.getInputStream());
+
+					while (leitor.hasNextLine()) {
+						System.out.println(leitor.nextLine());
+					}
+
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+
+			}
+		});
+		bloqueandoServicos.start();
+
+	}
+
 	public void iniciaCilente() {
 		this.maquina.preencheComMaquinaLocal();
 		this.frameDesbloqueado = new FrameClientDesbloqueio();
 		this.frameBloqueado = new FrameClientBloqueado();
-		this.frameBloqueado.getTextLogin().setEditable(false);
-		this.frameBloqueado.getJPasswordSenha().setEditable(false);
+		frameBloqueado.getBtnLogar().addActionListener(
+				new TentativaDeLogin(frameBloqueado));
 		this.frameBloqueado.getLabelMensagem().setText("");
+		this.servidor.setIp("dti43");
+		this.bloqueia();
 
-		this.frameBloqueado.setVisible(true);
-
-		this.servidor.setIp("10.11.45.231");
-
-		escInfinito = new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				Robot roboEsc;
-				try {
-					roboEsc = new Robot();
-					while(true){
-						try {
-							Thread.sleep(500);
-							roboEsc.keyPress(KeyEvent.VK_ESCAPE);
-						} catch (InterruptedException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-					}
-				} catch (AWTException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
-			}
-		});
 		Thread tentandoConexao = new Thread(new Runnable() {
 
-			
 			@Override
 			public void run() {
 				int i = 0;
@@ -119,21 +194,20 @@ public class Cliente {
 					i++;
 					frameBloqueado.getLabelStatus().setText("Tentativa " + i);
 
-					System.out.println("Tentarei infinitamente uma conexão, esperando 30 segundos a cada tentativa.. ");
+					System.out
+							.println("Tentarei infinitamente uma conexão, esperando 30 segundos a cada tentativa.. ");
 
 					try {
 						conexao = new Socket(servidor.getIp(), 12345);
 						processaConexao(conexao);
 
-						frameBloqueado.getLabelStatus().setText("Conexão Feita!");
-						escInfinito.start();
+						frameBloqueado.getLabelStatus().setText(
+								"Conexão Feita!");
 						// processa conexao
-						frameBloqueado.getTextLogin().setEditable(true);
-						frameBloqueado.getJPasswordSenha().setEditable(true);
+
 						frameBloqueado.getLabelStatus().setForeground(
 								Color.GREEN);
-						frameBloqueado.getBtnLogar().addActionListener(
-								new TentativaDeLogin(frameBloqueado));
+
 						break;
 					} catch (UnknownHostException e1) {
 						// TODO Auto-generated catch block
@@ -156,6 +230,79 @@ public class Cliente {
 		tentandoConexao.start();
 	}
 
+	/**
+	 * 
+	 */
+	private boolean continuaESC = true;
+
+	public void desbloqueia(final int segundos, final String login) {
+		continuaESC = false;
+
+		Thread sessao = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+
+				frameDesbloqueado.getFieldUsuario().setText(login);
+				System.out.println("Tempo: " + segundos);
+				frameBloqueado.setVisible(false);
+				frameDesbloqueado.setVisible(true);
+				for (int i = segundos; i >= 0; i--) {
+					try {
+						Thread.sleep(1000);
+
+						frameDesbloqueado.getFieldTempo().setText("00:" + i);
+					} catch (InterruptedException e) {
+
+						e.printStackTrace();
+					}
+				}
+				bloqueia();
+
+			}
+		});
+		sessao.start();
+
+	}
+
+	/**
+	 * 
+	 */
+	public void bloqueia() {
+		bloqueiaServicos();
+		Thread bloqueando = new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				frameDesbloqueado.setVisible(false);
+				frameBloqueado.setVisible(true);
+				continuaESC = true;
+				while (continuaESC) {
+					if (!continuaESC) {
+						break;
+					}
+					try {
+						Thread.sleep(500);
+						Robot android;
+						try {
+							android = new Robot();
+							android.keyPress(KeyEvent.VK_ESCAPE);
+						} catch (AWTException e) {
+
+							e.printStackTrace();
+						}
+
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+			}
+		});
+
+		bloqueando.start();
+	}
+
 	public void processaConexao(final Socket conexao) {
 
 		Thread processando = new Thread(new Runnable() {
@@ -172,77 +319,42 @@ public class Cliente {
 					entrada = new ObjectInputStream(conexao.getInputStream());
 					while (true) {
 						try {
-							String mensagem = (String) getEntrada().readObject();
+							String mensagem = (String) getEntrada()
+									.readObject();
 							System.out.println("Servidor >> " + mensagem);
-							String comando = mensagem.substring(0, mensagem.indexOf('('));
-							String parametros = mensagem.substring(mensagem.indexOf('(') + 1, mensagem.indexOf(')'));
-							
-							
-							if(comando.equals("bloqueia")){
-								Thread bloqueando = new Thread(new Runnable() {
+							String comando = mensagem.substring(0,
+									mensagem.indexOf('('));
+							String parametros = mensagem.substring(
+									mensagem.indexOf('(') + 1,
+									mensagem.indexOf(')'));
 
-									@Override
-									public void run() {
-										frameDesbloqueado.setVisible(false);
-										frameBloqueado.setVisible(true);
+							if (comando.equals("bloqueia")) {
+								bloqueia();
+							} else if (comando.equals("desbloqueia")) {
+								String login = parametros.substring(0,
+										parametros.indexOf(','));
+								desbloqueia(30, login);
+							} else if (comando.equals("printc")) {
 
-									}
-								});
-								bloqueando.start();
-							}
-							else if(comando.equals("desbloqueia")){
-								
-								final String pa = parametros;
-								Thread sessao = new Thread(new Runnable() {
-
-									@Override
-									public void run() {
-										String login = pa.substring(0, pa.indexOf(','));
-										frameDesbloqueado.getFieldUsuario().setText(login);
-										String tempo = pa.substring(pa.indexOf(',') + 1);
-										System.out.println("Tempo: " + tempo);
-										escInfinito.interrupt();
-										for (int i = 30; i >= 0; i--) {
-											try {
-												Thread.sleep(1000);
-
-												frameDesbloqueado
-														.getFieldTempo()
-														.setText("00:" + i);
-											} catch (InterruptedException e) {
-												// TODO Auto-generated catch
-												// block
-												e.printStackTrace();
-											}
-										}
-										frameDesbloqueado.setVisible(false);
-										frameBloqueado.setVisible(true);
-
-									}
-								});
-								frameBloqueado.setVisible(false);
-								frameDesbloqueado.setVisible(true);
-								sessao.start();
-								
-								
-							}
-							else if(comando.equals("printc")){
-								
 								frameBloqueado.getLabelMensagem().setText(
 										"" + parametros);
+							} else {
 							}
-							else{}
-							
+
 						} catch (ClassNotFoundException e) {
 							frameBloqueado.setVisible(true);
-							frameBloqueado.getLabelStatus().setForeground(Color.red);
-							frameBloqueado.getLabelStatus().setText("Erro no servidor.");
+							frameBloqueado.getLabelStatus().setForeground(
+									Color.red);
+							frameBloqueado.getLabelStatus().setText(
+									"Erro no servidor.");
 							e.printStackTrace();
 							break;
 						} catch (IOException e) {
 							frameBloqueado.setVisible(true);
-							frameBloqueado.getLabelStatus().setForeground(Color.red);
-							frameBloqueado.getLabelStatus().setText("Erro no servidor.");
+							frameBloqueado.getLabelStatus().setForeground(
+									Color.red);
+							frameBloqueado.getLabelStatus().setText(
+									"Erro no servidor.");
 							e.printStackTrace();
 							break;
 						}
@@ -266,9 +378,7 @@ public class Cliente {
 	}
 
 	class TentativaDeLogin extends AbstractAction {
-		/**
-		 * 
-		 */
+
 		private static final long serialVersionUID = 1L;
 		FrameClientBloqueado frame;
 
@@ -279,6 +389,11 @@ public class Cliente {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// ObjectOutputStream saida;
+			if (frame.getTextLogin().getText().equals("sair")) {
+				desBloqueandoServicos();
+
+				System.exit(0);
+			}
 			String senha = "";
 			try {
 
@@ -286,21 +401,32 @@ public class Cliente {
 				try {
 					m = MessageDigest.getInstance("MD5");
 					m.update(
-							String.copyValueOf(frame.getJPasswordSenha().getPassword()).getBytes(), 0,
-							String.copyValueOf(frame.getJPasswordSenha().getPassword()).length());
+							String.copyValueOf(
+									frame.getJPasswordSenha().getPassword())
+									.getBytes(),
+							0,
+							String.copyValueOf(
+									frame.getJPasswordSenha().getPassword())
+									.length());
 					senha = new BigInteger(1, m.digest()).toString(16);
-					saida.writeObject("autentica("+ frame.getTextLogin().getText() + "," + senha+ ")");
+					saida.writeObject("autentica("
+							+ frame.getTextLogin().getText() + "," + senha
+							+ ")");
 
 				} catch (NoSuchAlgorithmException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					frame.getLabelMensagem()
+							.setText(
+									frame.getLabelMensagem().getText()
+											+ ". Tentativa falha. Erro de Não achou o algoritimo.");
+					// e.printStackTrace();
 				}
-				if (frame.getTextLogin().getText().equals("sair"))
-					System.exit(0);
 
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				frame.getLabelMensagem()
+						.setText(
+								frame.getLabelMensagem().getText()
+										+ ". Tentativa falha. Erro de Não achou o algoritimo.");
+				// e.printStackTrace();
 			}
 			frame.getTextLogin().setText("");
 			frame.getJPasswordSenha().setText("");

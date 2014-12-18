@@ -22,3 +22,10 @@ Adicione um novo valor binário denominado NoLogOff a essa chave com o seguinte v
 http://support.microsoft.com/kb/177903/pt-br
 
 http://www.hardware.com.br/tutoriais/inno-setup/
+
+
+
+Antes de bloquear aplicativos é necessário criar uma regra e reiniciar
+Aqui nesse link temos informações sobre isso. 
+Testado e aprovado. 
+http://www.todoespacoonline.com/post.php?id=2771

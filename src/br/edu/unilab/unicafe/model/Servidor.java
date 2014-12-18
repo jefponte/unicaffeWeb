@@ -27,7 +27,7 @@ public class Servidor {
 	private String ip;
 	private ServerSocket serverSocket;
 	private ArrayList<Cliente> listaDeClientes;
-
+	public FrameApresentacao frameApresentacao;
 	private FrameServidor frameServidor;
 
 	public Servidor() {
@@ -55,12 +55,12 @@ public class Servidor {
 
 			@Override
 			public void run() {
-				FrameApresentacao frame = new FrameApresentacao();
-				frame.setLocationRelativeTo(null);
-				frame.setVisible(true);
+				frameApresentacao = new FrameApresentacao();
+				frameApresentacao.setLocationRelativeTo(null);
+				frameApresentacao.setVisible(true);
 				try {
 					Thread.sleep(3000);
-					frame.setVisible(false);
+					frameApresentacao.setVisible(false);
 				} catch (InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -168,7 +168,7 @@ public class Servidor {
 							
 						}
 						else if (comando.equals("setNome")) {
-							
+											
 							String nome = parametros;
 							printd(cliente.getMaquina().getNome() + ">> Tentou mudar o nome para : " + nome);
 							cliente.getMaquina().setNome(nome);
@@ -255,4 +255,5 @@ public class Servidor {
 	public void setFrameServidor(FrameServidor frameServidor) {
 		this.frameServidor = frameServidor;
 	}
+	
 }
