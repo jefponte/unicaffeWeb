@@ -182,7 +182,7 @@ public class Cliente {
 		frameBloqueado.getBtnLogar().addActionListener(
 				new TentativaDeLogin(frameBloqueado));
 		this.frameBloqueado.getLabelMensagem().setText("");
-		this.servidor.setIp("dti43");
+		this.servidor.setIp("10.11.46.184");
 		this.bloqueia();
 
 		Thread tentandoConexao = new Thread(new Runnable() {
