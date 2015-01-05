@@ -6,12 +6,22 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 
 public class Maquina {
+	
+	private Usuario usuarioLogado;
+	
 	private String nome;
 	private String ip;
 	private String enderecoMac;
 	private int status;
 
-	public void preencheComMaquinaLocal() {
+	public Maquina(){
+		
+		this.usuarioLogado = new Usuario();
+		this.usuarioLogado.setNome("Usuario Nao Informado");
+		this.usuarioLogado.setLogin("NaoInformado");
+	}
+	public void preencheComMaquinaLocal() 
+	{
 		InetAddress ia = null;
 		try {
 			ia = InetAddress.getLocalHost();
@@ -95,6 +105,14 @@ public class Maquina {
 			break;
 		}
 		return strStatus;
+	}
+
+	public Usuario getUsuarioLogado() {
+		return usuarioLogado;
+	}
+
+	public void setUsuarioLogado(Usuario usuarioLogado) {
+		this.usuarioLogado = usuarioLogado;
 	}
 
 }

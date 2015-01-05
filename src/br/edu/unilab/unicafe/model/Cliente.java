@@ -28,7 +28,9 @@ import br.edu.unilab.unicafe.view.FrameClientDesbloqueio;
 
 public class Cliente {
 
+	public boolean bloqueado;
 	private Maquina maquina;
+	//teste
 	private Socket conexao;
 	private Servidor servidor;
 	private ObjectOutputStream saida;
@@ -117,6 +119,31 @@ public class Cliente {
 		}
 
 	}
+	public void iniciaEscInfinito(){
+		
+		this.escInfinito = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				while(bloqueado){
+					Robot robo;
+					try {
+						Thread.sleep(250);
+						robo = new Robot();
+						robo.keyPress(KeyEvent.VK_ESCAPE);
+						
+					} catch (AWTException | InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					
+				}
+			}
+		});
+		
+		escInfinito.start();
+	}
 
 	/**
 	 * Este método serve pra bloquear alguns serviços do windows. Ele mexe no
@@ -176,13 +203,16 @@ public class Cliente {
 	}
 
 	public void iniciaCilente() {
+		this.bloqueado = true;
+		this.iniciaEscInfinito();
 		this.maquina.preencheComMaquinaLocal();
 		this.frameDesbloqueado = new FrameClientDesbloqueio();
 		this.frameBloqueado = new FrameClientBloqueado();
+		this.frameBloqueado.setAlwaysOnTop(true);
 		frameBloqueado.getBtnLogar().addActionListener(
 				new TentativaDeLogin(frameBloqueado));
 		this.frameBloqueado.getLabelMensagem().setText("");
-		this.servidor.setIp("10.11.46.184");
+		this.servidor.setIp("localhost");
 		this.bloqueia();
 
 		Thread tentandoConexao = new Thread(new Runnable() {
@@ -230,6 +260,7 @@ public class Cliente {
 		tentandoConexao.start();
 	}
 
+	
 	/**
 	 * 
 	 */
@@ -269,6 +300,8 @@ public class Cliente {
 	 * 
 	 */
 	public void bloqueia() {
+		this.bloqueado = true;
+		this.iniciaEscInfinito();
 		bloqueiaServicos();
 		Thread bloqueando = new Thread(new Runnable() {
 
@@ -331,6 +364,7 @@ public class Cliente {
 							if (comando.equals("bloqueia")) {
 								bloqueia();
 							} else if (comando.equals("desbloqueia")) {
+								bloqueado = false;
 								String login = parametros.substring(0,
 										parametros.indexOf(','));
 								desbloqueia(30, login);
