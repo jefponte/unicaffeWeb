@@ -13,7 +13,7 @@ import br.edu.unilab.unicafe.model.Usuario;
 public class UsuarioDAO extends DAO {
 
 	public UsuarioDAO(){
-		super();
+		super(DAO.TIPO_POSTGRESQL);
 	}
 	public UsuarioDAO(int tipoDeConexao){
 		super(tipoDeConexao);
