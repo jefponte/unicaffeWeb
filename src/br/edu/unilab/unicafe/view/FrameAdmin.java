@@ -64,7 +64,7 @@ public class FrameAdmin extends javax.swing.JFrame {
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	// <editor-fold defaultstate="collapsed"
 	// desc="Generated Code">//GEN-BEGIN:initComponents
-	private void initComponents() {
+	private void initComponents() {   
 
 		jTabbedPane1 = new javax.swing.JTabbedPane();
 		jPanel1 = new javax.swing.JPanel();
