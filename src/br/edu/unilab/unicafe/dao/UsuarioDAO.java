@@ -36,6 +36,31 @@ public class UsuarioDAO extends DAO {
 		
 		return false;
 	}
+	
+	public Usuario logado(String login) {
+		Usuario usuario = new Usuario();
+		PreparedStatement ps;
+		try {
+			ps = this.getConexao().prepareStatement("SELECT * FROM usuario WHERE login = ? ORDER BY nome");
+			ps.setString(1, login);
+			ResultSet resultSet = ps.executeQuery();
+			while (resultSet.next()) {
+				usuario.setNome(resultSet.getString("nome"));
+				usuario.setLogin(resultSet.getString("login"));
+				usuario.setEmail(resultSet.getString("email"));
+				usuario.setId(resultSet.getInt("id_usuario"));
+				usuario.setCpf(resultSet.getString("cpf"));
+				usuario.setSenha(resultSet.getString("senha"));
+				usuario.setNivelAcesso(resultSet.getInt("nivel_acesso"));	
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return usuario;
+	}
+	
 	/**
 	 * Ele vai retornar verdadeiro caso o cadastro tenha dado certo e falso se o cadastro tiver dado errado. 
 	 * O cadastro pode dar errado pelos seguintes motivos: 
@@ -97,8 +122,6 @@ public class UsuarioDAO extends DAO {
 			usuario.setSenha(resultSet.getString("senha"));
 			usuario.setNivelAcesso(resultSet.getInt("nivel_acesso"));
 			lista.add(usuario);
-
-			
 		}
 		return lista;
 	}

@@ -6,6 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.swing.SwingUtilities;
 
@@ -23,6 +24,7 @@ import br.edu.unilab.unicafe.view.FrameServidor;
  */
 
 public class Servidor {
+
 	private Maquina maquina;
 	private String ip;
 	private ServerSocket serverSocket;
@@ -159,6 +161,7 @@ public class Servidor {
 								printd(cliente.getMaquina().getNome() + ">> Autenticação bem sucedida.");
 								cliente.getSaida().flush();
 								cliente.getSaida().writeObject("desbloqueia(" + login + ", 30)");
+								
 							} else {
 								printd(cliente.getMaquina().getNome() + ">> Errou login ou senha.");
 								cliente.getSaida().flush();
@@ -255,5 +258,6 @@ public class Servidor {
 	public void setFrameServidor(FrameServidor frameServidor) {
 		this.frameServidor = frameServidor;
 	}
+
 	
 }

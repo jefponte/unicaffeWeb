@@ -17,6 +17,7 @@ import java.util.Scanner;
 
 import javax.swing.AbstractAction;
 
+import br.edu.unilab.unicafe.dao.UsuarioDAO;
 import br.edu.unilab.unicafe.view.FrameClientBloqueado;
 import br.edu.unilab.unicafe.view.FrameClientDesbloqueio;
 
@@ -38,6 +39,7 @@ public class Cliente {
 	private FrameClientBloqueado frameBloqueado;
 	private FrameClientDesbloqueio frameDesbloqueado;
 	private Thread escInfinito;
+	private Usuario usuarioLogado;
 
 	public ObjectOutputStream getSaida() {
 		return this.saida;
@@ -76,6 +78,17 @@ public class Cliente {
 	public void setServidor(Servidor servidor) {
 		this.servidor = servidor;
 	}
+
+
+	public Usuario getUsuarioLogado() {
+		return usuarioLogado;
+	}
+
+	public void setUsuarioLogado(Usuario usuarioLogado) {
+		this.usuarioLogado = usuarioLogado;
+	}
+
+
 
 	public void desBloqueandoServicos() {
 
@@ -145,6 +158,7 @@ public class Cliente {
 		escInfinito.start();
 	}
 
+
 	/**
 	 * Este método serve pra bloquear alguns serviços do windows. Ele mexe no
 	 * Registro. Esse método não produz efeito se o programa não for executado
@@ -208,12 +222,21 @@ public class Cliente {
 		this.maquina.preencheComMaquinaLocal();
 		this.frameDesbloqueado = new FrameClientDesbloqueio();
 		this.frameBloqueado = new FrameClientBloqueado();
+
+		frameBloqueado.getBtnLogar().addActionListener(new TentativaDeLogin(frameBloqueado));
+
 		this.frameBloqueado.setAlwaysOnTop(true);
 		frameBloqueado.getBtnLogar().addActionListener(
 				new TentativaDeLogin(frameBloqueado));
+
 		this.frameBloqueado.getLabelMensagem().setText("");
+
+		this.servidor.setIp("dti15");
+
 		this.servidor.setIp("localhost");
+
 		this.bloqueia();
+		this.usuarioLogado = new Usuario();
 
 		Thread tentandoConexao = new Thread(new Runnable() {
 
@@ -347,8 +370,7 @@ public class Cliente {
 					saida = new ObjectOutputStream(conexao.getOutputStream());
 					saida.writeObject("setNome(" + maquina.getNome() + ")");
 					saida.writeObject("setStatus(" + maquina.getStatus() + ")");
-					saida.writeObject("setMac(" + maquina.getEnderecoMac()
-							+ ")");
+					saida.writeObject("setMac(" + maquina.getEnderecoMac() + ")");
 					entrada = new ObjectInputStream(conexao.getInputStream());
 					while (true) {
 						try {
@@ -367,7 +389,14 @@ public class Cliente {
 								bloqueado = false;
 								String login = parametros.substring(0,
 										parametros.indexOf(','));
-								desbloqueia(30, login);
+								desbloqueia(300, login);
+
+								// identifica o usuario logado no cliente
+								UsuarioDAO dao = new UsuarioDAO();
+								setUsuarioLogado(dao.logado(login));
+								
+								System.out.println(usuarioLogado.getLogin());
+								
 							} else if (comando.equals("printc")) {
 
 								frameBloqueado.getLabelMensagem().setText(

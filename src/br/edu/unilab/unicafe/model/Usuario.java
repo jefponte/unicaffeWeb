@@ -100,9 +100,8 @@ public class Usuario {
 
 	@Override
 	public String toString() {
-		return "Usuario: id=" + id + "\n" + "nome=" + nome + "\n" + "email="
-				+ email + "\n" + "login=" + login + "\n" + "senha=" + senha
-				+ "\n" + "nivelAcesso=" + nivelAcesso + "\n" + "cpf=" + cpf;
+		// return "Usuario: id=" + id + "\n" + "nome=" + nome + "\n" + "email=" + email + "\n" + "login=" + login + "\n" + "senha=" + senha + "\n" + "nivelAcesso=" + nivelAcesso + "\n" + "cpf=" + cpf;
+		return login;
 	}
 
 }

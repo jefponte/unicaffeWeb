@@ -5,6 +5,23 @@
  */
 package br.edu.unilab.unicafe.view;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.swing.DefaultListModel;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.JLabel;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
+import br.edu.unilab.unicafe.model.Maquina;
+import br.edu.unilab.unicafe.model.Usuario;
+import java.awt.Font;
+
 /**
  *
  * @author jefponte
@@ -21,6 +38,22 @@ public class FrameAdmin extends javax.swing.JFrame {
 	 */
 	public FrameAdmin() {
 		initComponents();
+		getUsuariosOnline();
+	}
+	
+	public void getUsuariosOnline() {
+		
+		Maquina maquina = new Maquina();
+		List<Usuario> lista = new ArrayList<Usuario>();
+		Usuario usuario = maquina.getUsuarioLogado();
+		lista.add(usuario);
+
+		DefaultListModel<Usuario> model = new DefaultListModel<Usuario>();
+		for(Usuario u : lista) {
+		    model.addElement(u);
+		}
+		jListUsuarios.setModel(model);
+
 	}
 
 	/**
@@ -36,19 +69,35 @@ public class FrameAdmin extends javax.swing.JFrame {
 		jTabbedPane1 = new javax.swing.JTabbedPane();
 		jPanel1 = new javax.swing.JPanel();
 		jScrollPane1 = new javax.swing.JScrollPane();
-		jList1 = new javax.swing.JList();
+		jListUsuarios = new javax.swing.JList();
+		final JLabel lblNomeUsuario = new JLabel();
+		final JLabel lblLoginUsuario = new JLabel();
+		jListUsuarios.addListSelectionListener(new ListSelectionListener() {
+			public void valueChanged(ListSelectionEvent arg0) {
+
+				if (!arg0.getValueIsAdjusting()) {
+	                  lblNomeUsuario.setText(jListUsuarios.getSelectedValue().getNome().toString());
+	                  lblLoginUsuario.setText(jListUsuarios.getSelectedValue().getLogin().toString());
+	                }
+			}
+		});
+		jListUsuarios.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+			
+			}
+		});
 		jLabel1 = new javax.swing.JLabel();
 		jPanel2 = new javax.swing.JPanel();
 
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 				
-		jList1.setModel(new javax.swing.AbstractListModel() {
+		jListUsuarios.setModel(new javax.swing.AbstractListModel() {
 			/**
 			 * 
 			 */
 			private static final long serialVersionUID = 1L;
-			String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4",
-					"Item 5" };
+			String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4","Item 5" };
 
 			public int getSize() {
 				return strings.length;
@@ -58,42 +107,54 @@ public class FrameAdmin extends javax.swing.JFrame {
 				return strings[i];
 			}
 		});
-		jScrollPane1.setViewportView(jList1);
+		jScrollPane1.setViewportView(jListUsuarios);
 
-		jLabel1.setText("jLabel1");
+		jLabel1.setText("Nome");
+		
+		jLabel2 = new JLabel();
+		jLabel2.setText("Login");
+		
+		lblPropriedadesDoUsurio = new JLabel("Propriedades do Usu\u00E1rio");
+		lblPropriedadesDoUsurio.setFont(new Font("Tahoma", Font.BOLD, 11));
 
 		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(
 				jPanel1);
+		jPanel1Layout.setHorizontalGroup(
+			jPanel1Layout.createParallelGroup(Alignment.LEADING)
+				.addGroup(jPanel1Layout.createSequentialGroup()
+					.addComponent(jScrollPane1, GroupLayout.PREFERRED_SIZE, 225, GroupLayout.PREFERRED_SIZE)
+					.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+						.addGroup(jPanel1Layout.createSequentialGroup()
+							.addGap(10)
+							.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(jLabel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addComponent(jLabel2, GroupLayout.PREFERRED_SIZE, 40, GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+								.addComponent(lblNomeUsuario, GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+								.addComponent(lblLoginUsuario, GroupLayout.PREFERRED_SIZE, 357, GroupLayout.PREFERRED_SIZE)))
+						.addGroup(jPanel1Layout.createSequentialGroup()
+							.addGap(140)
+							.addComponent(lblPropriedadesDoUsurio, GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap())
+		);
+		jPanel1Layout.setVerticalGroup(
+			jPanel1Layout.createParallelGroup(Alignment.LEADING)
+				.addComponent(jScrollPane1, GroupLayout.DEFAULT_SIZE, 394, Short.MAX_VALUE)
+				.addGroup(jPanel1Layout.createSequentialGroup()
+					.addGap(5)
+					.addComponent(lblPropriedadesDoUsurio)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(jLabel1)
+						.addComponent(lblNomeUsuario, GroupLayout.PREFERRED_SIZE, 14, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING, false)
+						.addComponent(lblLoginUsuario, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+						.addComponent(jLabel2))
+					.addContainerGap(330, Short.MAX_VALUE))
+		);
 		jPanel1.setLayout(jPanel1Layout);
-		jPanel1Layout
-				.setHorizontalGroup(jPanel1Layout
-						.createParallelGroup(
-								javax.swing.GroupLayout.Alignment.LEADING)
-						.addGroup(
-								jPanel1Layout
-										.createSequentialGroup()
-										.addComponent(
-												jScrollPane1,
-												javax.swing.GroupLayout.PREFERRED_SIZE,
-												225,
-												javax.swing.GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-										.addComponent(jLabel1)
-										.addGap(0, 370, Short.MAX_VALUE)));
-		jPanel1Layout.setVerticalGroup(jPanel1Layout
-				.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-				.addComponent(jScrollPane1,
-						javax.swing.GroupLayout.DEFAULT_SIZE, 394,
-						Short.MAX_VALUE)
-				.addGroup(
-						jPanel1Layout
-								.createSequentialGroup()
-								.addContainerGap()
-								.addComponent(jLabel1)
-								.addContainerGap(
-										javax.swing.GroupLayout.DEFAULT_SIZE,
-										Short.MAX_VALUE)));
 
 		jTabbedPane1.addTab("Principal", jPanel1);
 
@@ -169,11 +230,12 @@ public class FrameAdmin extends javax.swing.JFrame {
 
 	// Variables declaration - do not modify//GEN-BEGIN:variables
 	private javax.swing.JLabel jLabel1;
-	@SuppressWarnings("rawtypes")
-	private javax.swing.JList jList1;
+	private javax.swing.JList<Usuario> jListUsuarios;
 	private javax.swing.JPanel jPanel1;
 	private javax.swing.JPanel jPanel2;
 	private javax.swing.JScrollPane jScrollPane1;
 	private javax.swing.JTabbedPane jTabbedPane1;
-	// End of variables declaration//GEN-END:variables
+	private JLabel jLabel2;
+	private JLabel lblLoginUsuario;
+	private JLabel lblPropriedadesDoUsurio;
 }

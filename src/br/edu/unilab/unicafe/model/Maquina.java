@@ -15,7 +15,6 @@ public class Maquina {
 	private int status;
 
 	public Maquina(){
-		
 		this.usuarioLogado = new Usuario();
 		this.usuarioLogado.setNome("Usuario Nao Informado");
 		this.usuarioLogado.setLogin("NaoInformado");
