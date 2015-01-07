@@ -40,26 +40,14 @@ public class MainTeste2 {
 	public static void testeAdd() {
 		UsuarioDAO dao = new UsuarioDAO();
 		Usuario usuario = new Usuario();
-<<<<<<< .mine
-=======
-
->>>>>>> .r36
 		usuario.setNome("Erivando Sena");
 		usuario.setEmail("erivandoramos@unilab.edu.br");
 		usuario.setLogin("erivando");
 		usuario.setCpf("12345678912");
-<<<<<<< .mine
-=======
-
->>>>>>> .r36
 		usuario.setNome("admin");
 		usuario.setEmail("admin");
 		usuario.setLogin("admin");
 		usuario.setCpf("123456");
-<<<<<<< .mine
-=======
-
->>>>>>> .r36
 		usuario.setNivelAcesso(1);
 		usuario.setSenha("123456");
 
