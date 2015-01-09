@@ -1,0 +1,22 @@
+[2015-01-02 14:37:03] [error] [ 7316] StartServiceCtrlDispatcher for 'RunnableTester' failed
+[2015-01-02 14:37:03] [error] [ 7316] O processo do serviço não pôde se conectar ao controlador do serviço.
+[2015-01-02 14:37:03] [error] [ 7316] Commons Daemon procrun failed with exit value: 4 (Failed to run service)
+[2015-01-02 14:37:03] [error] [ 7316] O processo do serviço não pôde se conectar ao controlador do serviço.
+[2015-01-02 14:39:48] [error] [ 6228] O serviço especificado já existe.
+[2015-01-02 14:39:48] [error] [ 6228] Failed installing 'RunnableTester' service
+[2015-01-02 14:39:48] [error] [ 6228] O serviço especificado já existe.
+[2015-01-02 14:39:48] [error] [ 6228] Commons Daemon procrun failed with exit value: 8 (Failed to install service)
+[2015-01-02 14:39:48] [error] [ 6228] O serviço especificado já existe.
+[2015-01-02 14:39:48] [error] [ 5164] StartServiceCtrlDispatcher for 'RunnableTester' failed
+[2015-01-02 14:39:48] [error] [ 5164] O processo do serviço não pôde se conectar ao controlador do serviço.
+[2015-01-02 14:39:48] [error] [ 5164] Commons Daemon procrun failed with exit value: 4 (Failed to run service)
+[2015-01-02 14:39:48] [error] [ 5164] O processo do serviço não pôde se conectar ao controlador do serviço.
+[2015-01-02 14:48:45] [error] [ 8156] O serviço especificado já existe.
+[2015-01-02 14:48:45] [error] [ 8156] Failed installing 'RunnableTester' service
+[2015-01-02 14:48:45] [error] [ 8156] O serviço especificado já existe.
+[2015-01-02 14:48:45] [error] [ 8156] Commons Daemon procrun failed with exit value: 8 (Failed to install service)
+[2015-01-02 14:48:45] [error] [ 8156] O serviço especificado já existe.
+[2015-01-02 14:48:45] [error] [ 7576] StartServiceCtrlDispatcher for 'RunnableTester' failed
+[2015-01-02 14:48:45] [error] [ 7576] O processo do serviço não pôde se conectar ao controlador do serviço.
+[2015-01-02 14:48:45] [error] [ 7576] Commons Daemon procrun failed with exit value: 4 (Failed to run service)
+[2015-01-02 14:48:45] [error] [ 7576] O processo do serviço não pôde se conectar ao controlador do serviço.
