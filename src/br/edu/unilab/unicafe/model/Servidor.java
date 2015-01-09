@@ -218,6 +218,26 @@ public class Servidor {
 		// Logo não precismos nos procupar com ela agora.
 
 	}
+	/**
+	 * Método criado durante o desenvolvimento para facilitar atualização do software. 
+	 * Com este método podemos atualizar o sistema em todos os clientes. 
+	 * Uma nova opção foi adicionada na tela do servidor, um menu para mandar a atualização. 
+	 * Esse menu vai chamar este método. 
+	 */
+	public void atualizaGalera(){
+		for (Cliente cliente : listaDeClientes) {
+			printd("Atualizar Cliente "+cliente.getMaquina().getNome());
+			try {
+				cliente.getSaida().writeObject("printc(Sistema em atualizacao)");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		
+	}
 
 	public Maquina getMaquina() {
 		return maquina;
