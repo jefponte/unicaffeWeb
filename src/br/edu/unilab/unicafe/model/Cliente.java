@@ -392,7 +392,7 @@ public class Cliente {
 								System.out.println("Arquivo recebido. ");
 								fos.close();
 								System.out.println("Abrir o Atualizar");
-								Runtime.getRuntime().exec("java -jar atualizar.jar");
+								Runtime.getRuntime().exec("java -jar atualiza.jar");
 								System.out.println("Sair");
 								System.exit(0);
 								

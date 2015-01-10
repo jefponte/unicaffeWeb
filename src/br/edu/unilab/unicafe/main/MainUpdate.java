@@ -40,7 +40,7 @@ public class MainUpdate {
 
 				janelaDeAtualizacao.setVisible(true);
 				try {
-					Thread.sleep(5000);
+					Thread.sleep(3000);
 				} catch (InterruptedException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -50,9 +50,9 @@ public class MainUpdate {
 				// Cria channel na origem
 				FileChannel oriChannel;
 				try {
-					oriChannel = new FileInputStream("update/cliente.jar").getChannel();
+					oriChannel = new FileInputStream("update\\cliente.jar").getChannel();
 					// Cria channel no destino
-					FileChannel destChannel = new FileOutputStream("cliente.jar").getChannel();
+					FileChannel destChannel = new FileOutputStream(".\\cliente.jar").getChannel();
 					// Copia conteúdo da origem no destino
 					destChannel.transferFrom(oriChannel, 0, oriChannel.size());
 
