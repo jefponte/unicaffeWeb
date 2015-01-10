@@ -39,7 +39,14 @@ public class MainUpdate {
 						.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 				janelaDeAtualizacao.setVisible(true);
-
+				try {
+					Thread.sleep(5000);
+				} catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
 				// Cria channel na origem
 				FileChannel oriChannel;
 				try {

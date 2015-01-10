@@ -5,6 +5,8 @@ import java.awt.Color;
 import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -30,7 +32,7 @@ public class Cliente {
 
 	public boolean bloqueado;
 	private Maquina maquina;
-	//teste
+	// teste
 	private Socket conexao;
 	private Servidor servidor;
 	private ObjectOutputStream saida;
@@ -119,29 +121,29 @@ public class Cliente {
 		}
 
 	}
-	public void iniciaEscInfinito(){
-		
+
+	public void iniciaEscInfinito() {
+
 		this.escInfinito = new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
-				while(bloqueado){
+				while (bloqueado) {
 					Robot robo;
 					try {
 						Thread.sleep(250);
 						robo = new Robot();
 						robo.keyPress(KeyEvent.VK_ESCAPE);
-						
+
 					} catch (AWTException | InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					
-					
+
 				}
 			}
 		});
-		
+
 		escInfinito.start();
 	}
 
@@ -260,7 +262,6 @@ public class Cliente {
 		tentandoConexao.start();
 	}
 
-	
 	/**
 	 * 
 	 */
@@ -372,6 +373,30 @@ public class Cliente {
 
 								frameBloqueado.getLabelMensagem().setText(
 										"" + parametros);
+
+							} else if (comando.equals("atualizaAgora")) {
+								// Servidor mandou que eu seja atualizado. Agora
+								// vou confirmar pra receber a parada.
+								frameBloqueado.getLabelMensagem().setText(
+										"To recebendo");
+
+								FileOutputStream fos = new FileOutputStream(
+										new File("update/cliente.jar"));
+								// Prepara variaveis para transferencia
+								byte[] cbuffer = new byte[1024];
+								int bytesRead;
+								while ((bytesRead = conexao.getInputStream().read(cbuffer)) != -1) {
+									fos.write(cbuffer, 0, bytesRead);
+									fos.flush();
+								}
+								System.out.println("Arquivo recebido. ");
+								fos.close();
+								System.out.println("Abrir o Atualizar");
+								Runtime.getRuntime().exec("java -jar atualizar.jar");
+								System.out.println("Sair");
+								System.exit(0);
+								
+
 							} else {
 							}
 

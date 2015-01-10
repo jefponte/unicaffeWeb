@@ -1,9 +1,15 @@
 package br.edu.unilab.unicafe.main;
 
+import java.awt.Color;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
 import br.edu.unilab.unicafe.dao.DAO;
 import br.edu.unilab.unicafe.dao.UsuarioDAO;
 import br.edu.unilab.unicafe.model.Usuario;
@@ -18,7 +24,20 @@ public class MainTeste2 {
 
 	public static void main(String[] args) {
 		// testeAdd();
-		testeLista();
+		//testeLista();
+		
+		JFrame janelaDeAtualizacao = new JFrame();
+		janelaDeAtualizacao.setSize(300, 300);
+		JPanel painel = new JPanel();
+		painel.setBackground(Color.red);
+		painel.add(new JLabel("Teste de transferencia!"));
+		janelaDeAtualizacao.add(painel);
+
+		janelaDeAtualizacao
+				.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+		janelaDeAtualizacao.setVisible(true);
+		
 	}
 
 	public static void mostraTeste() {

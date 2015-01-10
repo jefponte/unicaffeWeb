@@ -1,8 +1,13 @@
 package br.edu.unilab.unicafe.model;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -14,11 +19,8 @@ import br.edu.unilab.unicafe.dao.UsuarioDAO;
 import br.edu.unilab.unicafe.view.FrameApresentacao;
 import br.edu.unilab.unicafe.view.FrameServidor;
 
-
-
-
 /**
- * 	
+ * 
  * @author Jefferson
  *
  */
@@ -75,6 +77,7 @@ public class Servidor {
 	public void iniciaServico() {
 
 		frameServidor = new FrameServidor();
+		
 		this.maquina.preencheComMaquinaLocal();
 		this.ip = this.maquina.getIp();
 		frameServidor.setVisible(true);
@@ -82,7 +85,8 @@ public class Servidor {
 		try {
 			this.serverSocket = new ServerSocket(12345, 100);
 			printd("Servidor iniciado. ");
-			printd("Dados do Servidor: Ip-> " + this.ip + " - MAC-> " + this.maquina.getEnderecoMac());
+			printd("Dados do Servidor: Ip-> " + this.ip + " - MAC-> "
+					+ this.maquina.getEnderecoMac());
 			esperaConexoes();
 
 		} catch (IOException e) {
@@ -101,7 +105,8 @@ public class Servidor {
 					while (true) {
 						printd("Aguardando conexoes...");
 						Socket conexao = serverSocket.accept();
-						printd("Nova conexão! " + conexao.getInetAddress().toString());
+						printd("Nova conexão! "
+								+ conexao.getInetAddress().toString());
 						processaConexao(conexao);
 
 					}
@@ -127,8 +132,15 @@ public class Servidor {
 				Cliente cliente = new Cliente();
 				listaDeClientes.add(cliente);
 				try {
-					cliente.setEntrada(new ObjectInputStream(conexao.getInputStream()));
-					cliente.setSaida(new ObjectOutputStream(conexao.getOutputStream()));
+					cliente.setEntrada(new ObjectInputStream(conexao
+							.getInputStream()));
+					final OutputStream outputStream = conexao.getOutputStream();
+					cliente.setSaida(new ObjectOutputStream(outputStream));
+					frameServidor.getItemAtualiza().addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							atualizaGalera(outputStream);
+						}
+					});
 				} catch (IOException e) {
 					printd("Errinho de IO.");
 					// e.printStackTrace();
@@ -138,62 +150,75 @@ public class Servidor {
 				while (!conexao.isClosed()) {
 
 					try {
-						String mensagem = (String) cliente.getEntrada().readObject();
-						String comando = mensagem.substring(0, mensagem.indexOf('('));
-						String parametros = mensagem.substring(mensagem.indexOf('(') + 1, mensagem.indexOf(')'));
+						String mensagem = (String) cliente.getEntrada()
+								.readObject();
+						String comando = mensagem.substring(0,
+								mensagem.indexOf('('));
+						String parametros = mensagem.substring(
+								mensagem.indexOf('(') + 1,
+								mensagem.indexOf(')'));
 
-						printd(cliente.getMaquina().getNome() + ">> " + mensagem);
+						printd(cliente.getMaquina().getNome() + ">> "
+								+ mensagem);
 
-						
-						
-						if(comando.equals("autentica")){
-							String login = parametros.substring(0, parametros.indexOf(','));
-							String senha = parametros.substring(parametros.indexOf(',') + 1);
-							printd(cliente.getMaquina().getNome() + ">> Tentativa de Autenticação.");
-							printd(cliente.getMaquina().getNome() + ">> Login : " + login);
-							printd(cliente.getMaquina().getNome() + ">> Senha : " + senha);
+						if (comando.equals("autentica")) {
+							String login = parametros.substring(0,
+									parametros.indexOf(','));
+							String senha = parametros.substring(parametros
+									.indexOf(',') + 1);
+							printd(cliente.getMaquina().getNome()
+									+ ">> Tentativa de Autenticação.");
+							printd(cliente.getMaquina().getNome()
+									+ ">> Login : " + login);
+							printd(cliente.getMaquina().getNome()
+									+ ">> Senha : " + senha);
 							UsuarioDAO dao = new UsuarioDAO();
 							Usuario usuario = new Usuario();
 							usuario.setLogin(login);
 							usuario.setSenha(senha);
 
 							if (dao.autentica(usuario)) {
-								printd(cliente.getMaquina().getNome() + ">> Autenticação bem sucedida.");
+								printd(cliente.getMaquina().getNome()
+										+ ">> Autenticação bem sucedida.");
 								cliente.getSaida().flush();
-								cliente.getSaida().writeObject("desbloqueia(" + login + ", 30)");
-								
+								cliente.getSaida().writeObject(
+										"desbloqueia(" + login + ", 30)");
+
 							} else {
-								printd(cliente.getMaquina().getNome() + ">> Errou login ou senha.");
+								printd(cliente.getMaquina().getNome()
+										+ ">> Errou login ou senha.");
 								cliente.getSaida().flush();
-								cliente.getSaida().writeObject("printc(Beleza, Fera! Mas e a senha correta, vc sabe?)");
+								cliente.getSaida()
+										.writeObject(
+												"printc(Beleza, Fera! Mas e a senha correta, vc sabe?)");
 							}
-							
-							
-						}
-						else if (comando.equals("setNome")) {
-											
+
+						} else if (comando.equals("setNome")) {
+
 							String nome = parametros;
-							printd(cliente.getMaquina().getNome() + ">> Tentou mudar o nome para : " + nome);
+							printd(cliente.getMaquina().getNome()
+									+ ">> Tentou mudar o nome para : " + nome);
 							cliente.getMaquina().setNome(nome);
-							
-						}
-						else if (comando.equals("setMac")) {
-							
+
+						} else if (comando.equals("setMac")) {
+
 							cliente.getMaquina().setEnderecoMac(parametros);
-							printd(cliente.getMaquina().getNome() + ">> Mudou endereço MAC para: " + parametros);
-							
-						}
-						else if (comando.equals("setStatus")) {
-							
+							printd(cliente.getMaquina().getNome()
+									+ ">> Mudou endereço MAC para: "
+									+ parametros);
+
+						} else if (comando.equals("setStatus")) {
+
 							int status = Integer.parseInt(parametros);
 							cliente.getMaquina().setStatus(status);
-							printd(cliente.getMaquina().getNome() + ">> Mudou o Status para " + Maquina.statusString(status));
+							printd(cliente.getMaquina().getNome()
+									+ ">> Mudou o Status para "
+									+ Maquina.statusString(status));
+						} else {
+
+							printd(cliente.getMaquina().getNome() + ">>"
+									+ " Comando não encontrado.");
 						}
-						else{
-							
-							printd(cliente.getMaquina().getNome() + ">>" + " Comando não encontrado.");
-						}
-						
 
 					} catch (ClassNotFoundException e) {
 
@@ -218,25 +243,48 @@ public class Servidor {
 		// Logo não precismos nos procupar com ela agora.
 
 	}
+
 	/**
-	 * Método criado durante o desenvolvimento para facilitar atualização do software. 
-	 * Com este método podemos atualizar o sistema em todos os clientes. 
-	 * Uma nova opção foi adicionada na tela do servidor, um menu para mandar a atualização. 
-	 * Esse menu vai chamar este método. 
+	 * Método criado durante o desenvolvimento para facilitar atualização do
+	 * software. Com este método podemos atualizar o sistema em todos os
+	 * clientes. Uma nova opção foi adicionada na tela do servidor, um menu para
+	 * mandar a atualização. Esse menu vai chamar este método.
 	 */
-	public void atualizaGalera(){
+	public void atualizaGalera(OutputStream socketOut) {
 		for (Cliente cliente : listaDeClientes) {
-			printd("Atualizar Cliente "+cliente.getMaquina().getNome());
+			printd("Atualizar Cliente " + cliente.getMaquina().getNome());
 			try {
-				cliente.getSaida().writeObject("printc(Sistema em atualizacao)");
+				cliente.getSaida()
+						.writeObject("printc(Sistema em atualizacao)");
+				cliente.getSaida().writeObject("atualizaAgora()");
+
+				// Criando tamanho de leitura
+				byte[] cbuffer = new byte[1024];
+				int bytesRead;
+
+				// Criando arquivo que sera transferido pelo servidor
+				File file = new File("update_pasta_server\\cliente.jar");
+				 FileInputStream fileIn = new FileInputStream(file);
+				System.out.println("Lendo arquivo...");
+
+				// Criando canal de transferencia
+				//OutputStream socketOut = cliente.getConexao().getOutputStream();
+
+				System.out.println("Enviando Arquivo...");
+				while ((bytesRead = fileIn.read(cbuffer)) != -1) {
+					socketOut.write(cbuffer, 0, bytesRead);
+					socketOut.flush();
+				}
+
+				System.out.println("Arquivo Enviado!");
+
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 		}
-		
-		
+
 	}
 
 	public Maquina getMaquina() {
@@ -279,5 +327,4 @@ public class Servidor {
 		this.frameServidor = frameServidor;
 	}
 
-	
 }

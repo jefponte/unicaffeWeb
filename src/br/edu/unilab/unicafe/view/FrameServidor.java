@@ -53,6 +53,10 @@ public class FrameServidor extends javax.swing.JFrame {
 			}
 		});
 
+		jMenuItem5 = new javax.swing.JMenuItem();
+		jMenuItem5.setText("Atualizar Cambada");
+		
+		
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 		setTitle("uniCafeServer - Servidor do UniCafe");
 
@@ -93,6 +97,7 @@ public class FrameServidor extends javax.swing.JFrame {
 		jMenuItem4.setText("Sobre");
 		jMenu2.add(jMenuItem4);
 
+		jMenu2.add(jMenuItem5);
 		jMenuBar1.add(jMenu2);
 
 		setJMenuBar(jMenuBar1);
@@ -125,6 +130,11 @@ public class FrameServidor extends javax.swing.JFrame {
 	private javax.swing.JMenuItem jMenuItem2;
 	private javax.swing.JMenuItem jMenuItem3;
 	private javax.swing.JMenuItem jMenuItem4;
+	private javax.swing.JMenuItem jMenuItem5;
+	
+	public javax.swing.JMenuItem getItemAtualiza(){
+		return this.jMenuItem5;
+	}
 	private javax.swing.JPanel jPanel1;
 	private javax.swing.JScrollPane jScrollPane1;
 	private javax.swing.JTextArea jTextArea1;
