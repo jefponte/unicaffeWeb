@@ -50,7 +50,7 @@ public class MainUpdate {
 				// Cria channel na origem
 				FileChannel oriChannel;
 				try {
-					oriChannel = new FileInputStream("update\\cliente.jar").getChannel();
+					oriChannel = new FileInputStream(".\\update\\cliente.jar").getChannel();
 					// Cria channel no destino
 					
 					File f = new File(".\\cliente.jar"); 
