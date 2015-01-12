@@ -52,6 +52,10 @@ public class MainUpdate {
 				try {
 					oriChannel = new FileInputStream("update\\cliente.jar").getChannel();
 					// Cria channel no destino
+					
+					File f = new File(".\\cliente.jar"); 
+					f.delete();
+					
 					FileChannel destChannel = new FileOutputStream(".\\cliente.jar").getChannel();
 					// Copia conteúdo da origem no destino
 					destChannel.transferFrom(oriChannel, 0, oriChannel.size());
