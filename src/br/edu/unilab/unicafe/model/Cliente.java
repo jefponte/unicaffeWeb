@@ -115,7 +115,37 @@ public class Cliente {
 			while (leitor.hasNextLine()) {
 				System.out.println(leitor.nextLine());
 			}
+			
+			process = Runtime
+					.getRuntime()
+					.exec("REG add HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v DisableLockWorkstation /t REG_DWORD /d 0 /f");
+			leitor = new Scanner(process.getInputStream());
 
+			while (leitor.hasNextLine()) {
+				System.out.println(leitor.nextLine());
+			}
+			
+			process = Runtime
+					.getRuntime()
+					.exec("REG add HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v DisableChangePassword  /t REG_DWORD /d 0 /f");
+			leitor = new Scanner(process.getInputStream());
+
+			while (leitor.hasNextLine()) {
+				System.out.println(leitor.nextLine());
+			}
+			
+			
+
+			process = Runtime
+					.getRuntime()
+					.exec("REG add HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer /v NoClose /t REG_DWORD /d  0  /f");
+			leitor = new Scanner(process.getInputStream());
+
+			while (leitor.hasNextLine()) {
+				System.out.println(leitor.nextLine());
+			}
+			
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -193,6 +223,38 @@ public class Cliente {
 					while (leitor.hasNextLine()) {
 						System.out.println(leitor.nextLine());
 					}
+					
+					process = Runtime
+							.getRuntime()
+							.exec("REG add HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v DisableLockWorkstation /t REG_DWORD /d 1 /f");
+					leitor = new Scanner(process.getInputStream());
+
+					while (leitor.hasNextLine()) {
+						System.out.println(leitor.nextLine());
+					}
+					
+					
+					process = Runtime
+							.getRuntime()
+							.exec("REG add HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v DisableChangePassword  /t REG_DWORD /d 1 /f");
+					leitor = new Scanner(process.getInputStream());
+
+					while (leitor.hasNextLine()) {
+						System.out.println(leitor.nextLine());
+					}
+					
+					
+					
+					process = Runtime
+							.getRuntime()
+							.exec("REG add HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer /v NoClose /t REG_DWORD /d  0x00000001  /f");
+					leitor = new Scanner(process.getInputStream());
+
+					while (leitor.hasNextLine()) {
+						System.out.println(leitor.nextLine());
+					}
+					
+					//
 
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -214,7 +276,7 @@ public class Cliente {
 		frameBloqueado.getBtnLogar().addActionListener(
 				new TentativaDeLogin(frameBloqueado));
 		this.frameBloqueado.getLabelMensagem().setText("");
-		this.servidor.setIp("10.11.46.184");
+		this.servidor.setIp("DTI43");
 		this.bloqueia();
 
 		Thread tentandoConexao = new Thread(new Runnable() {

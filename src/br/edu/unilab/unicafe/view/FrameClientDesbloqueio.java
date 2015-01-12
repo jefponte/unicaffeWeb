@@ -58,7 +58,7 @@ public class FrameClientDesbloqueio extends javax.swing.JFrame {
 		jLabel1.setText("Tempo Restante: ");
 
 		jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-		jLabel2.setText("Usuário: ");
+		jLabel2.setText("Usuario: ");
 
 		fieldUsuario.setEditable(false);
 		fieldUsuario.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -71,10 +71,10 @@ public class FrameClientDesbloqueio extends javax.swing.JFrame {
 		fieldHoraEntrada.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
 		fieldHoraEntrada.setText("17:32");
 
-		btnEncerrar.setText("Encerrar Sessão");
+		btnEncerrar.setText("Encerrar Sessao");
 
 		jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-		jLabel4.setText("Status Conexão:");
+		jLabel4.setText("Status Conexao:");
 
 		fieldTempo1.setEditable(false);
 		fieldTempo1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
