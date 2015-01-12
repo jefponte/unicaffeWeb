@@ -145,6 +145,15 @@ public class Cliente {
 				System.out.println(leitor.nextLine());
 			}
 			
+			process = Runtime
+					.getRuntime()
+					.exec("REG add HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v ShutdownWithoutLogon /t REG_DWORD /d  0  /f");
+			while (leitor.hasNextLine()) {
+				System.out.println(leitor.nextLine());
+			}
+			
+			
+			
 			
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -253,6 +262,15 @@ public class Cliente {
 					while (leitor.hasNextLine()) {
 						System.out.println(leitor.nextLine());
 					}
+					
+					
+					process = Runtime
+							.getRuntime()
+							.exec("REG add HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v ShutdownWithoutLogon /t REG_DWORD /d  1  /f");
+					while (leitor.hasNextLine()) {
+						System.out.println(leitor.nextLine());
+					}
+					
 					
 					//
 
