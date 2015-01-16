@@ -126,4 +126,15 @@ public class UsuarioDAO extends DAO {
 		return lista;
 	}
 	
+	
+	/**
+	 * Esse método vai determinar como será a cota. 
+	 * Antes de criar regras mais dinâmicas iremos deixar
+	 * @param usuario
+	 * @return
+	 */
+	public int retornaCota(Usuario usuario){
+		return 216000;
+	}
+	
 }

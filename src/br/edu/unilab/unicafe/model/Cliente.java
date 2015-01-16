@@ -6,6 +6,8 @@ import java.awt.Robot;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -15,6 +17,7 @@ import java.net.Socket;
 import java.net.UnknownHostException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Properties;
 import java.util.Scanner;
 
 import javax.swing.AbstractAction;
@@ -280,7 +283,39 @@ public class Cliente {
 		frameBloqueado.getBtnLogar().addActionListener(
 				new TentativaDeLogin(frameBloqueado));
 		this.frameBloqueado.getLabelMensagem().setText("");
-		this.servidor.setIp("10.11.46.184");
+		/*
+		 * O IP do servidor é definido pelo INI. 
+		 * Caso o valor no INI não seja existente iremos criar um INI com 
+		 * a variável para o IP de valor padrão igual ao nome da máquina do JEFPONTE. 
+		 */
+		Properties config = new Properties();
+		String ipDoServidor = "DTI43";
+		try {
+			FileInputStream fileInputStream= new FileInputStream("config.ini");
+			config.load(fileInputStream);
+			ipDoServidor = config.getProperty("host_unicafeserver");
+			fileInputStream.close();
+		} catch (FileNotFoundException e2) {
+			//Se o arquivo não existir agente cria e adiciona valor. 
+			
+			try {
+
+				FileOutputStream fileOutputStream = new FileOutputStream("config.ini");
+				config.setProperty("host_unicafeserver", "DTI43");
+				config.store(fileOutputStream, "Arquivo de Configuração do uniCafeClient");
+				fileOutputStream.flush();
+				fileOutputStream.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} catch (IOException e) {
+
+		}
+		
+		this.servidor.setIp(config.getProperty("host_unicafeserver"));
+		System.out.println("IP DO SERVIDOR: "+this.servidor.getIp());
 		this.bloqueia();
 
 		Thread tentandoConexao = new Thread(new Runnable() {
