@@ -1,1 +1,0 @@
-Elevate.exe javaw.exe -jar cliente.jar
