@@ -110,6 +110,7 @@ public class Cliente {
 				System.out.println(leitor.nextLine());
 			}
 
+			/*
 			process = Runtime
 					.getRuntime()
 					.exec("REG add HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer /v NoLogOff /t REG_DWORD /d 0 /f");
@@ -118,6 +119,7 @@ public class Cliente {
 			while (leitor.hasNextLine()) {
 				System.out.println(leitor.nextLine());
 			}
+			*/
 			
 			process = Runtime
 					.getRuntime()
@@ -217,7 +219,7 @@ public class Cliente {
 					while (leitor.hasNextLine()) {
 						System.out.println(leitor.nextLine());
 					}
-
+/*
 					process = Runtime
 							.getRuntime()
 							.exec("REG add HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer /v NoLogOff /t REG_DWORD /d 1 /f");
@@ -226,7 +228,7 @@ public class Cliente {
 					while (leitor.hasNextLine()) {
 						System.out.println(leitor.nextLine());
 					}
-					
+					*/
 					process = Runtime
 							.getRuntime()
 							.exec("REG add HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v DisableLockWorkstation /t REG_DWORD /d 1 /f");
@@ -256,9 +258,6 @@ public class Cliente {
 					while (leitor.hasNextLine()) {
 						System.out.println(leitor.nextLine());
 					}
-					
-					
-				
 					
 					
 					//
@@ -551,7 +550,25 @@ public class Cliente {
 			// ObjectOutputStream saida;
 			if (frame.getTextLogin().getText().equals("sair")) {
 				desBloqueandoServicos();
-
+				
+				
+				
+				Process process;
+				try {
+					process = Runtime
+							.getRuntime()
+							.exec("explorer.exe");
+					Scanner leitor = new Scanner(process.getInputStream());
+					while (leitor.hasNextLine()) {
+						System.out.println(leitor.nextLine());
+					}
+					
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
+				
 				System.exit(0);
 			}
 			String senha = "";

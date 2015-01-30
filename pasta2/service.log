@@ -1,0 +1,209 @@
+18:44.03 :Constructing winservice object jefponteServiceJavaJSmoot
+18:44.03 :setting up a connection with the control dispatcher (jefponteServiceJavaJSmoot)
+18:44.11 :Constructing winservice object jefponteServiceJavaJSmoot
+18:44.11 :setting up a connection with the control dispatcher (jefponteServiceJavaJSmoot)
+18:45.15 :Constructing winservice object jefponteServiceJavaJSmoot
+18:45.15 :setting up a connection with the control dispatcher (jefponteServiceJavaJSmoot)
+18:45.22 :Constructing winservice object jefponteServiceJavaJSmoot
+18:45.22 :setting up a connection with the control dispatcher (jefponteServiceJavaJSmoot)
+18:48.46 :Constructing winservice object jefponteServiceJavaJSmoot
+18:48.46 :setting up a connection with the control dispatcher (jefponteServiceJavaJSmoot)
+18:48.46 :in service main... (1 args)
+18:48.46 :argument 0: jefponteServiceJavaJSmoot
+18:48.46 :set status 2 (SERVICE_START_PENDING)
+18:48.46 :set status 2 (SERVICE_START_PENDING)
+18:48.46 :set status 4 (SERVICE_RUNNING)
+18:48.46 :set status 2 (SERVICE_START_PENDING)
+18:48.46 :Run...
+18:48.46 :set status 4 (SERVICE_RUNNING)
+18:48.46 :JVM found and instanciated successfully (<C:\Program Files (x86)\Java\jre7><C:\Program Files (x86)\Java\jre7\bin\client\jvm.dll><1.7.0>)
+18:48.46 :set status 4 (SERVICE_RUNNING)
+18:50.43 :set status 3 (SERVICE_STOP_PENDING)
+18:50.43 :Stopping the service...
+18:50.43 :set status 1 (SERVICE_STOPPED)
+18:50.43 :Calling java.lang.System.exit(0)...
+18:51.32 :Constructing winservice object jefponteServiceJavaJSmoot
+18:51.32 :setting up a connection with the control dispatcher (jefponteServiceJavaJSmoot)
+18:51.32 :in service main... (1 args)
+18:51.32 :argument 0: jefponteServiceJavaJSmoot
+18:51.32 :set status 2 (SERVICE_START_PENDING)
+18:51.32 :set status 2 (SERVICE_START_PENDING)
+18:51.32 :set status 4 (SERVICE_RUNNING)
+18:51.32 :set status 2 (SERVICE_START_PENDING)
+18:51.32 :Run...
+18:51.32 :set status 4 (SERVICE_RUNNING)
+18:51.32 :JVM found and instanciated successfully (<C:\Program Files (x86)\Java\jre7><C:\Program Files (x86)\Java\jre7\bin\client\jvm.dll><1.7.0>)
+18:51.32 :set status 4 (SERVICE_RUNNING)
+18:52.22 :set status 3 (SERVICE_STOP_PENDING)
+18:52.22 :Stopping the service...
+18:52.22 :set status 1 (SERVICE_STOPPED)
+18:52.22 :Calling java.lang.System.exit(0)...
+18:52.32 :Constructing winservice object jefponteServiceJavaJSmoot
+18:52.32 :setting up a connection with the control dispatcher (jefponteServiceJavaJSmoot)
+18:52.32 :in service main... (1 args)
+18:52.32 :argument 0: jefponteServiceJavaJSmoot
+18:52.32 :set status 2 (SERVICE_START_PENDING)
+18:52.32 :set status 2 (SERVICE_START_PENDING)
+18:52.32 :set status 4 (SERVICE_RUNNING)
+18:52.32 :set status 2 (SERVICE_START_PENDING)
+18:52.32 :Run...
+18:52.32 :set status 4 (SERVICE_RUNNING)
+18:52.32 :JVM found and instanciated successfully (<C:\Program Files (x86)\Java\jre7><C:\Program Files (x86)\Java\jre7\bin\client\jvm.dll><1.7.0>)
+18:52.32 :set status 4 (SERVICE_RUNNING)
+18:54.12 :set status 3 (SERVICE_STOP_PENDING)
+18:54.12 :Stopping the service...
+18:54.12 :set status 1 (SERVICE_STOPPED)
+18:54.12 :Calling java.lang.System.exit(0)...
+18:55.07 :Constructing winservice object jefponteServiceJavaJSmoot
+18:55.07 :setting up a connection with the control dispatcher (jefponteServiceJavaJSmoot)
+18:55.07 :in service main... (1 args)
+18:55.07 :argument 0: jefponteServiceJavaJSmoot
+18:55.07 :set status 2 (SERVICE_START_PENDING)
+18:55.07 :set status 2 (SERVICE_START_PENDING)
+18:55.07 :set status 4 (SERVICE_RUNNING)
+18:55.07 :set status 2 (SERVICE_START_PENDING)
+18:55.07 :Run...
+18:55.07 :set status 4 (SERVICE_RUNNING)
+18:55.07 :JVM found and instanciated successfully (<C:\Program Files (x86)\Java\jre7><C:\Program Files (x86)\Java\jre7\bin\client\jvm.dll><1.7.0>)
+18:55.07 :set status 4 (SERVICE_RUNNING)
+18:55.36 :set status 3 (SERVICE_STOP_PENDING)
+18:55.36 :Stopping the service...
+18:55.36 :set status 1 (SERVICE_STOPPED)
+18:55.36 :Calling java.lang.System.exit(0)...
+18:56.59 :Constructing winservice object jefponteServiceJavaJSmoot
+18:56.59 :setting up a connection with the control dispatcher (jefponteServiceJavaJSmoot)
+18:57.03 :Constructing winservice object jefponteServiceJavaJSmoot
+18:57.03 :setting up a connection with the control dispatcher (jefponteServiceJavaJSmoot)
+18:57.35 :Constructing winservice object jefponteServiceJavaJSmoot
+18:57.35 :setting up a connection with the control dispatcher (jefponteServiceJavaJSmoot)
+18:57.35 :in service main... (1 args)
+18:57.35 :argument 0: jefponteService
+18:57.35 :set status 2 (SERVICE_START_PENDING)
+18:57.35 :set status 2 (SERVICE_START_PENDING)
+18:57.35 :set status 4 (SERVICE_RUNNING)
+18:57.35 :set status 2 (SERVICE_START_PENDING)
+18:57.35 :Run...
+18:57.35 :set status 4 (SERVICE_RUNNING)
+18:57.35 :JVM found and instanciated successfully (<C:\Program Files (x86)\Java\jre7><C:\Program Files (x86)\Java\jre7\bin\client\jvm.dll><1.7.0>)
+18:57.35 :set status 4 (SERVICE_RUNNING)
+18:59.07 :set status 3 (SERVICE_STOP_PENDING)
+18:59.07 :Stopping the service...
+18:59.07 :set status 1 (SERVICE_STOPPED)
+18:59.07 :Calling java.lang.System.exit(0)...
+19:02.31 :Constructing winservice object jefponteServiceJavaJSmoot
+19:02.31 :setting up a connection with the control dispatcher (jefponteServiceJavaJSmoot)
+19:06.10 :Constructing winservice object unicafeServer
+19:06.10 :setting up a connection with the control dispatcher (unicafeServer)
+19:06.10 :in service main... (1 args)
+19:06.10 :argument 0: uniCafeServer
+19:06.10 :set status 2 (SERVICE_START_PENDING)
+19:06.10 :set status 2 (SERVICE_START_PENDING)
+19:06.10 :set status 4 (SERVICE_RUNNING)
+19:06.10 :set status 2 (SERVICE_START_PENDING)
+19:06.10 :Run...
+19:06.10 :set status 4 (SERVICE_RUNNING)
+19:06.10 :JVM found and instanciated successfully (<C:\Program Files (x86)\Java\jre7><C:\Program Files (x86)\Java\jre7\bin\client\jvm.dll><1.7.0>)
+19:06.10 :set status 4 (SERVICE_RUNNING)
+19:06.28 :Constructing winservice object uniCafeClient
+19:06.28 :setting up a connection with the control dispatcher (uniCafeClient)
+19:06.28 :in service main... (1 args)
+19:06.28 :argument 0: uniCafeClient
+19:06.28 :set status 2 (SERVICE_START_PENDING)
+19:06.28 :set status 2 (SERVICE_START_PENDING)
+19:06.28 :set status 4 (SERVICE_RUNNING)
+19:06.28 :set status 2 (SERVICE_START_PENDING)
+19:06.28 :Run...
+19:06.28 :set status 4 (SERVICE_RUNNING)
+19:06.28 :JVM found and instanciated successfully (<C:\Program Files (x86)\Java\jre7><C:\Program Files (x86)\Java\jre7\bin\client\jvm.dll><1.7.0>)
+19:06.28 :set status 4 (SERVICE_RUNNING)
+19:07.15 :set status 3 (SERVICE_STOP_PENDING)
+19:07.15 :Stopping the service...
+19:07.15 :set status 1 (SERVICE_STOPPED)
+19:07.15 :Calling java.lang.System.exit(0)...
+19:07.20 :Constructing winservice object uniCafeClient
+19:07.20 :setting up a connection with the control dispatcher (uniCafeClient)
+19:07.20 :in service main... (1 args)
+19:07.20 :argument 0: uniCafeClient
+19:07.20 :set status 2 (SERVICE_START_PENDING)
+19:07.20 :set status 2 (SERVICE_START_PENDING)
+19:07.20 :set status 4 (SERVICE_RUNNING)
+19:07.20 :set status 2 (SERVICE_START_PENDING)
+19:07.20 :Run...
+19:07.20 :set status 4 (SERVICE_RUNNING)
+19:07.20 :JVM found and instanciated successfully (<C:\Program Files (x86)\Java\jre7><C:\Program Files (x86)\Java\jre7\bin\client\jvm.dll><1.7.0>)
+19:07.20 :set status 4 (SERVICE_RUNNING)
+19:08.19 :set status 4 (SERVICE_RUNNING)
+19:08.19 :set status 4 (SERVICE_RUNNING)
+19:08.19 :set status 4 (SERVICE_RUNNING)
+19:08.56 :set status 3 (SERVICE_STOP_PENDING)
+19:08.56 :Stopping the service...
+19:08.56 :set status 1 (SERVICE_STOPPED)
+19:08.56 :Calling java.lang.System.exit(0)...
+19:09.02 :Constructing winservice object uniCafeClient
+19:09.02 :setting up a connection with the control dispatcher (uniCafeClient)
+19:09.02 :in service main... (1 args)
+19:09.02 :argument 0: uniCafeClient
+19:09.02 :set status 2 (SERVICE_START_PENDING)
+19:09.02 :set status 2 (SERVICE_START_PENDING)
+19:09.02 :set status 4 (SERVICE_RUNNING)
+19:09.02 :set status 2 (SERVICE_START_PENDING)
+19:09.02 :Run...
+19:09.02 :set status 4 (SERVICE_RUNNING)
+19:09.02 :JVM found and instanciated successfully (<C:\Program Files (x86)\Java\jre7><C:\Program Files (x86)\Java\jre7\bin\client\jvm.dll><1.7.0>)
+19:09.02 :set status 4 (SERVICE_RUNNING)
+19:17.59 :set status 3 (SERVICE_STOP_PENDING)
+19:17.59 :Stopping the service...
+19:17.59 :set status 1 (SERVICE_STOPPED)
+19:17.59 :Calling java.lang.System.exit(0)...
+19:18.05 :set status 3 (SERVICE_STOP_PENDING)
+19:18.05 :Stopping the service...
+19:18.05 :set status 1 (SERVICE_STOPPED)
+19:18.05 :Calling java.lang.System.exit(0)...
+13:28.05 :Constructing winservice object uniCafeClient
+13:28.05 :setting up a connection with the control dispatcher (uniCafeClient)
+13:28.05 :in service main... (1 args)
+13:28.05 :argument 0: uniCafeClient
+13:28.05 :set status 2 (SERVICE_START_PENDING)
+13:28.05 :set status 2 (SERVICE_START_PENDING)
+13:28.05 :set status 4 (SERVICE_RUNNING)
+13:28.05 :set status 2 (SERVICE_START_PENDING)
+13:28.05 :Run...
+13:28.05 :set status 4 (SERVICE_RUNNING)
+13:28.06 :JVM found and instanciated successfully (<C:\Program Files (x86)\Java\jre1.8.0_25><C:\Program Files (x86)\Java\jre1.8.0_25\bin\client\jvm.dll><1.8.0>)
+13:28.06 :set status 4 (SERVICE_RUNNING)
+13:28.08 :set status 3 (SERVICE_STOP_PENDING)
+13:28.08 :Stopping the service...
+13:28.08 :set status 1 (SERVICE_STOPPED)
+13:28.08 :Calling java.lang.System.exit(0)...
+16:44.09 :Constructing winservice object unicafeServer
+16:44.09 :setting up a connection with the control dispatcher (unicafeServer)
+16:44.09 :in service main... (1 args)
+16:44.09 :argument 0: uniCafeServer
+16:44.09 :set status 2 (SERVICE_START_PENDING)
+16:44.09 :set status 2 (SERVICE_START_PENDING)
+16:44.09 :set status 4 (SERVICE_RUNNING)
+16:44.09 :set status 2 (SERVICE_START_PENDING)
+16:44.09 :Run...
+16:44.09 :set status 4 (SERVICE_RUNNING)
+16:44.10 :JVM found and instanciated successfully (<C:\Program Files (x86)\Java\jre1.8.0_25><C:\Program Files (x86)\Java\jre1.8.0_25\bin\client\jvm.dll><1.8.0>)
+16:44.10 :set status 4 (SERVICE_RUNNING)
+16:44.33 :Constructing winservice object uniCafeClient
+16:44.33 :setting up a connection with the control dispatcher (uniCafeClient)
+16:44.33 :in service main... (1 args)
+16:44.33 :argument 0: uniCafeClient
+16:44.33 :set status 2 (SERVICE_START_PENDING)
+16:44.33 :set status 2 (SERVICE_START_PENDING)
+16:44.33 :set status 4 (SERVICE_RUNNING)
+16:44.33 :set status 2 (SERVICE_START_PENDING)
+16:44.33 :Run...
+16:44.33 :set status 4 (SERVICE_RUNNING)
+16:44.33 :JVM found and instanciated successfully (<C:\Program Files (x86)\Java\jre1.8.0_25><C:\Program Files (x86)\Java\jre1.8.0_25\bin\client\jvm.dll><1.8.0>)
+16:44.33 :set status 4 (SERVICE_RUNNING)
+16:44.40 :set status 3 (SERVICE_STOP_PENDING)
+16:44.40 :Stopping the service...
+16:44.40 :set status 1 (SERVICE_STOPPED)
+16:44.40 :Calling java.lang.System.exit(0)...
+16:44.44 :set status 3 (SERVICE_STOP_PENDING)
+16:44.44 :Stopping the service...
+16:44.44 :set status 1 (SERVICE_STOPPED)
+16:44.44 :Calling java.lang.System.exit(0)...
