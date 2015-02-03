@@ -272,6 +272,7 @@ public class Cliente {
 
 	}
 
+	public static final String IP_DO_SERVIDOR= "10.11.0.20";
 	public void iniciaCilente() {
 		this.bloqueado = true;
 		this.iniciaEscInfinito();
@@ -288,7 +289,7 @@ public class Cliente {
 		 * a variável para o IP de valor padrão igual ao nome da máquina do JEFPONTE. 
 		 */
 		Properties config = new Properties();
-		String ipDoServidor = "DTI43";
+		String ipDoServidor = IP_DO_SERVIDOR;
 		try {
 			FileInputStream fileInputStream= new FileInputStream("config.ini");
 			config.load(fileInputStream);
@@ -300,7 +301,7 @@ public class Cliente {
 			try {
 
 				FileOutputStream fileOutputStream = new FileOutputStream("config.ini");
-				config.setProperty("host_unicafeserver", "DTI43");
+				config.setProperty("host_unicafeserver", IP_DO_SERVIDOR);
 				config.store(fileOutputStream, "Arquivo de Configuração do uniCafeClient");
 				fileOutputStream.flush();
 				fileOutputStream.close();
@@ -548,7 +549,7 @@ public class Cliente {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// ObjectOutputStream saida;
-			if (frame.getTextLogin().getText().equals("sair")) {
+			if (frame.getTextLogin().getText().equals("senhasecreta")) {
 				desBloqueandoServicos();
 				
 				
