@@ -91,4 +91,25 @@ public class Perfil {
 		
 		
 	}
+	/**
+	 * Retorna uma lista de valores que para serem testados e documentados 
+	 * 
+	 * 
+	 * @return
+	 */
+	public static ArrayList<Registro> listaParaTeste(){
+		
+		
+		ArrayList<Registro> lista = new ArrayList<Registro>();
+		//HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\NoClose: 0x00000001
+
+		lista.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer", "NoClose", Registro.REG_DWORD, "1", "0", "No Close"));
+		//lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",	 "DisableTaskMgr", Registro.REG_DWORD, "1", "0", "Remove Opção para Iniciar o Gerenciador de Tarefas no Ctrl+ALT+DEL"));
+		//lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer", "NoLogOff", Registro.REG_DWORD, "1", "0", "Remove Opção para Logoff no Ctrl+ALT+DEL"));
+		//lista.add(new Registro("HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", "DisableLockWorkstation", Registro.REG_DWORD, "1", "0", "Remove Opção para Desligar no Ctrl+ALT+DEL"));
+		//lista.add(new Registro("HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", "DisableChangePassword", Registro.REG_DWORD, "1", "0", "Remove Opção para Desligar no Ctrl+ALT+DEL"));
+		return lista;
+		
+		
+	}
 }
