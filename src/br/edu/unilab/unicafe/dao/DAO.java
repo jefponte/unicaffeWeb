@@ -72,7 +72,35 @@ public class DAO {
 	}
 
 	public DAO() {
+		this.tipoDeConexao = TIPO_SQLITE;
+		try {
+			switch (this.tipoDeConexao) {
+			case TIPO_POSTGRESQL:
+				Class.forName(DRIVER_POSTGRES);
+				this.conexao = DriverManager.getConnection(JDBC_BANCO_POSTGRES+ "//" + IP_POSTGRES + "/" + BANCO_POSTGRES,USUARIO_POSTGRES, SENHA_POSTGRES);
+				break;
+			case TIPO_MYSQL:
+				Class.forName(DRIVER_MYSQL);
+				this.conexao=DriverManager.getConnection(JDBC_BANCO_MYSQL+"//"+IP_MYSQL+"/"+BANCO_MYSQL,USUARIO_MYSQL,SENHA_MYSQL);
+				break;
+			case TIPO_SQLITE:
+				Class.forName(DRIVER_SQLITE);
+				this.conexao = DriverManager.getConnection(JDBC_BANCO_SQLITE);
+				break;
+			default:
+				Class.forName(DRIVER_SQLITE);
+				this.conexao = DriverManager.getConnection(JDBC_BANCO_SQLITE);
+				System.out.println("PAssei por aqui.");
+				break;
+			}
+		} catch (ClassNotFoundException e1) {
+			e1.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 
+		
+		/*
 		try {
 
 			Class.forName(DRIVER_SQLITE);
@@ -82,6 +110,7 @@ public class DAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		*/
 
 	}
 

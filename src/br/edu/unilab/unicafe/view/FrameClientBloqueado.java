@@ -1,33 +1,261 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.edu.unilab.unicafe.view;
 
-import javax.swing.JButton;
-import javax.swing.JLabel;
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JPasswordField;
+import javax.swing.border.EmptyBorder;
+
+import java.awt.Color;
+
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
+import javax.swing.JPasswordField;
+import javax.swing.BoxLayout;
 
-/**
- *
- * @author jefponte
- */
-public class FrameClientBloqueado extends javax.swing.JFrame {
+import java.awt.Dimension;
+import java.awt.GridBagLayout;
+import java.awt.GridBagConstraints;
+import java.awt.Insets;
+import java.awt.Toolkit;
+
+import javax.swing.JSplitPane;
+import javax.swing.GroupLayout;
+import javax.swing.GroupLayout.Alignment;
+
+import java.awt.Font;
+
+import javax.swing.JButton;
+
+import java.awt.SystemColor;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
+import javax.swing.LayoutStyle.ComponentPlacement;
+
+public class FrameClientBloqueado extends JFrame {
+
+	private JPanel contentPane;
+	private JTextField textLogin;
+	private JPasswordField jpasswordSenha;
 
 	/**
-	 * 
+	 * Launch the application.
 	 */
-	private static final long serialVersionUID = 1L;
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					FrameClientBloqueado frame = new FrameClientBloqueado();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
 
 	/**
-	 * Creates new form FrameClientBloqueado
+	 * Create the frame.
 	 */
 	public FrameClientBloqueado() {
-		initComponents();
+		
+		//Metodos essenciais para uma janela de bloqueio. 
+		
+		setUndecorated(true);
+		
+		setResizable(false);
+		setAlwaysOnTop(true);
+		
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		Toolkit tk = Toolkit.getDefaultToolkit();  
+	    Dimension d = tk.getScreenSize();  
+	     
+		setBounds(100, 100, d.width, d.height);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
+		
+		JPanel panel = new JPanel();
+		panel.setBackground(new Color(51, 153, 255));
+		contentPane.add(panel, BorderLayout.NORTH);
+		
+		JLabel lblUnicafeclient = new JLabel("UniCafeClient");
+		lblUnicafeclient.setForeground(Color.WHITE);
+		lblUnicafeclient.setFont(new Font("Tahoma", Font.BOLD, 18));
+		
+		JLabel lblNewLabel = new JLabel("UNILAB -  Universidade da Integra\u00E7\u00E3o Internacional da Lusofonia Afro-Brasileira");
+		lblNewLabel.setForeground(Color.WHITE);
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
+		GroupLayout gl_panel = new GroupLayout(panel);
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(627)
+							.addComponent(lblNewLabel))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(894)
+							.addComponent(lblUnicafeclient)))
+					.addContainerGap(626, Short.MAX_VALUE))
+		);
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addContainerGap(16, Short.MAX_VALUE)
+					.addComponent(lblUnicafeclient)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblNewLabel)
+					.addContainerGap())
+		);
+		panel.setLayout(gl_panel);
+		
+		JPanel panel_1 = new JPanel();
+		panel_1.setBackground(SystemColor.menu);
+		contentPane.add(panel_1, BorderLayout.CENTER);
+		
+		JPanel panel_2 = new JPanel();
+		panel_2.setLayout(null);
+		panel_2.setBackground(SystemColor.textHighlight);
+		
+		JLabel label_1 = new JLabel("Login");
+		label_1.setForeground(Color.WHITE);
+		label_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		label_1.setBounds(95, 61, 46, 14);
+		panel_2.add(label_1);
+		
+		JLabel label_2 = new JLabel("Senha");
+		label_2.setForeground(Color.WHITE);
+		label_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		label_2.setBounds(95, 104, 46, 14);
+		panel_2.add(label_2);
+		
+		textLogin = new JTextField();
+		textLogin.setBounds(168, 60, 168, 20);
+		panel_2.add(textLogin);
+		
+		jpasswordSenha = new JPasswordField();
+		jpasswordSenha.setColumns(10);
+		jpasswordSenha.setBounds(168, 103, 168, 20);
+		panel_2.add(jpasswordSenha);
+		
+		JButton btnLogar = new JButton("Acessar");
+		this.btnLogar = btnLogar;
+		btnLogar.setBounds(168, 145, 89, 23);
+		panel_2.add(btnLogar);
+		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
+		gl_panel_1.setHorizontalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addGap(725)
+					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 457, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(728, Short.MAX_VALUE))
+		);
+		gl_panel_1.setVerticalGroup(
+			gl_panel_1.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panel_1.createSequentialGroup()
+					.addGap(241)
+					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 237, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(517, Short.MAX_VALUE))
+		);
+		
+		JLabel label = new JLabel();
+		label.setText("Status: ");
+		label.setForeground(Color.WHITE);
+		label.setFont(new Font("Times New Roman", Font.BOLD, 14));
+		label.setBounds(95, 186, 48, 17);
+		panel_2.add(label);
+		
+		JLabel label_3 = new JLabel();
+		label_3.setText("Mensagem: ");
+		label_3.setForeground(Color.WHITE);
+		label_3.setFont(new Font("Times New Roman", Font.BOLD, 14));
+		label_3.setBounds(95, 209, 75, 17);
+		panel_2.add(label_3);
+		
+		JLabel labelStatus = new JLabel();
+		this.labelStatus = labelStatus;
+		labelStatus.setText("Sem Conex\u00E3o");
+		labelStatus.setForeground(new Color(204, 0, 51));
+		labelStatus.setFont(new Font("Times New Roman", Font.BOLD, 14));
+		labelStatus.setBounds(176, 186, 84, 17);
+		panel_2.add(labelStatus);
+		
+		JLabel labelMensagem = new JLabel();
+		this.labelMensagem = labelMensagem;
+		labelMensagem.setText("Errou A Senha");
+		labelMensagem.setForeground(new Color(204, 0, 51));
+		labelMensagem.setFont(new Font("Times New Roman", Font.BOLD, 14));
+		labelMensagem.setBounds(176, 209, 91, 17);
+		panel_2.add(labelMensagem);
+		panel_1.setLayout(gl_panel_1);
+		
+		
+		  addWindowListener(new WindowListener(){  
+			  
+			  @Override  
+	            public void windowActivated(WindowEvent arg0) {  
+	                // TODO Auto-generated method stub  
+	                  
+	            }  
+	  
+	            @Override  
+	            public void windowClosed(WindowEvent arg0) {  
+	                //Não aparece pq mandamos sair do prgrama lá em cima  
+	               // JOptionPane.showMessageDialog(null, "Fechei");  
+	                  
+	            }  
+	  
+	            @Override  
+	            public void windowClosing(WindowEvent arg0) {  
+	                //JOptionPane.showMessageDialog(null, "Vou fechar");  
+	                  
+	            }  
+	  
+	            @Override  
+	            public void windowDeactivated(WindowEvent arg0) {  
+	                // TODO Auto-generated method stub  
+	                  
+	            }  
+	  
+	            @Override  
+	            public void windowDeiconified(WindowEvent arg0) {  
+	                //Você desminimizou");  
+	                  
+	            }  
+	  
+	            @Override  
+	            public void windowIconified(WindowEvent arg0) {  
+	                //Você minimizou  
+	        		setExtendedState(JFrame.MAXIMIZED_BOTH);
+	                  
+	            }  
+	  
+	            @Override  
+	            public void windowOpened(WindowEvent arg0) {  
+	               //abriu o frame  
+	                  
+	            }  
+	              
+	        });    
+	          
 	}
+	private JButton btnLogar;
+	private JLabel labelStatus;
+	private JLabel labelMensagem;
+	public JLabel getLabelStatus() {
+		return labelStatus;
+	}
+	public JLabel getLabelMensagem() {
+		return labelMensagem;
+	}
+	
+	
 
 	public JTextField getTextLogin() {
 		return this.textLogin;
@@ -43,310 +271,6 @@ public class FrameClientBloqueado extends javax.swing.JFrame {
 		return btnLogar;
 	}
 
-	/**
-	 * This method is called from within the constructor to initialize the form.
-	 * WARNING: Do NOT modify this code. The content of this method is always
-	 * regenerated by the Form Editor.
-	 */
 	
-	// <editor-fold defaultstate="collapsed"
-	// desc="Generated Code">//GEN-BEGIN:initComponents
-	private void initComponents() {
-
-		jPanel1 = new javax.swing.JPanel();
-		painelPrincipal = new javax.swing.JPanel();
-		jLabel1 = new javax.swing.JLabel();
-		jLabel2 = new javax.swing.JLabel();
-		jLabel3 = new javax.swing.JLabel();
-		jLabel4 = new javax.swing.JLabel();
-		textLogin = new javax.swing.JTextField();
-		btnLogar = new javax.swing.JButton();
-		jLabel5 = new javax.swing.JLabel();
-		jpasswordSenha = new javax.swing.JPasswordField();
-		labelStatus = new javax.swing.JLabel();
-		jLabel7 = new javax.swing.JLabel();
-		jLabel8 = new javax.swing.JLabel();
-		labelMensagem = new javax.swing.JLabel();
-
-		setDefaultCloseOperation(javax.swing.JFrame.DO_NOTHING_ON_CLOSE);
-		setAlwaysOnTop(true);
-		setExtendedState(javax.swing.JFrame.MAXIMIZED_BOTH);
-		setUndecorated(true);
-		setResizable(false);
-
-		painelPrincipal.setBackground(new java.awt.Color(51, 153, 255));
-
-		jLabel1.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-		jLabel1.setForeground(new java.awt.Color(255, 255, 255));
-		jLabel1.setText("UniCafe - Sistema de Controle de Laboratórios");
-
-		jLabel2.setFont(new java.awt.Font("Times New Roman", 1, 24)); // NOI18N
-		jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-		jLabel2.setText("UNILAB - Universidade da Integração Internacional da Lusofonia");
-
-		jLabel3.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-		jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-		jLabel3.setText("Autenticação");
-
-		jLabel4.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-		jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-		jLabel4.setText("Nome De Usuário:");
-
-		btnLogar.setText("Iniciar Sessão");
-		btnLogar.addActionListener(new java.awt.event.ActionListener() {
-			public void actionPerformed(java.awt.event.ActionEvent evt) {
-				btnLogarActionPerformed(evt);
-			}
-		});
-
-		jLabel5.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-		jLabel5.setForeground(new java.awt.Color(255, 255, 255));
-		jLabel5.setText("Senha de Acesso: ");
-
-		labelStatus.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-		labelStatus.setForeground(new java.awt.Color(204, 0, 51));
-		labelStatus.setText("Sem Conex\u00E3o");
-
-		jLabel7.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-		jLabel7.setForeground(new java.awt.Color(255, 255, 255));
-		jLabel7.setText("Status: ");
-
-		jLabel8.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-		jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-		jLabel8.setText("Mensagem: ");
-
-		labelMensagem.setFont(new java.awt.Font("Times New Roman", 1, 14)); // NOI18N
-		labelMensagem.setForeground(new java.awt.Color(204, 0, 51));
-		labelMensagem.setText("Errou A Senha");
-
-		javax.swing.GroupLayout painelPrincipalLayout = new javax.swing.GroupLayout(
-				painelPrincipal);
-		painelPrincipal.setLayout(painelPrincipalLayout);
-		painelPrincipalLayout
-				.setHorizontalGroup(painelPrincipalLayout
-						.createParallelGroup(
-								javax.swing.GroupLayout.Alignment.LEADING)
-						.addGroup(
-								javax.swing.GroupLayout.Alignment.TRAILING,
-								painelPrincipalLayout
-										.createSequentialGroup()
-										.addGroup(
-												painelPrincipalLayout
-														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.LEADING)
-														.addGroup(
-																painelPrincipalLayout
-																		.createSequentialGroup()
-																		.addGap(0,
-																				0,
-																				Short.MAX_VALUE)
-																		.addGroup(
-																				painelPrincipalLayout
-																						.createParallelGroup(
-																								javax.swing.GroupLayout.Alignment.LEADING)
-																						.addComponent(
-																								jLabel4,
-																								javax.swing.GroupLayout.Alignment.TRAILING)
-																						.addComponent(
-																								jLabel5,
-																								javax.swing.GroupLayout.Alignment.TRAILING))
-																		.addGap(33,
-																				33,
-																				33)
-																		.addGroup(
-																				painelPrincipalLayout
-																						.createParallelGroup(
-																								javax.swing.GroupLayout.Alignment.LEADING,
-																								false)
-																						.addComponent(
-																								textLogin,
-																								javax.swing.GroupLayout.DEFAULT_SIZE,
-																								233,
-																								Short.MAX_VALUE)
-																						.addComponent(
-																								jpasswordSenha)
-																						.addGroup(
-																								painelPrincipalLayout
-																										.createSequentialGroup()
-																										.addGap(69,
-																												69,
-																												69)
-																										.addComponent(
-																												jLabel3))))
-														.addGroup(
-																javax.swing.GroupLayout.Alignment.TRAILING,
-																painelPrincipalLayout
-																		.createSequentialGroup()
-																		.addContainerGap(
-																				javax.swing.GroupLayout.DEFAULT_SIZE,
-																				Short.MAX_VALUE)
-																		.addComponent(
-																				btnLogar,
-																				javax.swing.GroupLayout.PREFERRED_SIZE,
-																				233,
-																				javax.swing.GroupLayout.PREFERRED_SIZE)))
-										.addGap(260, 260, 260))
-						.addGroup(
-								javax.swing.GroupLayout.Alignment.TRAILING,
-								painelPrincipalLayout.createSequentialGroup()
-										.addContainerGap(75, Short.MAX_VALUE)
-										.addComponent(jLabel2)
-										.addGap(27, 27, 27))
-						.addGroup(
-								painelPrincipalLayout
-										.createSequentialGroup()
-										.addGroup(
-												painelPrincipalLayout
-														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.LEADING)
-														.addGroup(
-																painelPrincipalLayout
-																		.createSequentialGroup()
-																		.addGap(156,
-																				156,
-																				156)
-																		.addComponent(
-																				jLabel1))
-														.addGroup(
-																painelPrincipalLayout
-																		.createSequentialGroup()
-																		.addGap(235,
-																				235,
-																				235)
-																		.addGroup(
-																				painelPrincipalLayout
-																						.createParallelGroup(
-																								javax.swing.GroupLayout.Alignment.LEADING)
-																						.addComponent(
-																								jLabel8)
-																						.addComponent(
-																								jLabel7))
-																		.addPreferredGap(
-																				javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-																		.addGroup(
-																				painelPrincipalLayout
-																						.createParallelGroup(
-																								javax.swing.GroupLayout.Alignment.LEADING)
-																						.addComponent(
-																								labelStatus)
-																						.addComponent(
-																								labelMensagem))))
-										.addContainerGap(
-												javax.swing.GroupLayout.DEFAULT_SIZE,
-												Short.MAX_VALUE)));
-		painelPrincipalLayout
-				.setVerticalGroup(painelPrincipalLayout
-						.createParallelGroup(
-								javax.swing.GroupLayout.Alignment.LEADING)
-						.addGroup(
-								painelPrincipalLayout
-										.createSequentialGroup()
-										.addGap(22, 22, 22)
-										.addComponent(jLabel1)
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(jLabel2)
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(jLabel3)
-										.addGap(34, 34, 34)
-										.addGroup(
-												painelPrincipalLayout
-														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.BASELINE)
-														.addComponent(
-																textLogin,
-																javax.swing.GroupLayout.PREFERRED_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.PREFERRED_SIZE)
-														.addComponent(jLabel4))
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addGroup(
-												painelPrincipalLayout
-														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.BASELINE)
-														.addComponent(jLabel5)
-														.addComponent(
-																jpasswordSenha,
-																javax.swing.GroupLayout.PREFERRED_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.PREFERRED_SIZE))
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addComponent(btnLogar)
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-										.addGroup(
-												painelPrincipalLayout
-														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.BASELINE)
-														.addComponent(
-																labelStatus)
-														.addComponent(jLabel7))
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-												javax.swing.GroupLayout.DEFAULT_SIZE,
-												Short.MAX_VALUE)
-										.addGroup(
-												painelPrincipalLayout
-														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.BASELINE)
-														.addComponent(
-																labelMensagem)
-														.addComponent(jLabel8))
-										.addContainerGap()));
-
-		jPanel1.add(painelPrincipal);
-
-		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(
-				getContentPane());
-		getContentPane().setLayout(layout);
-		layout.setHorizontalGroup(layout.createParallelGroup(
-				javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-				jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 1071,
-				Short.MAX_VALUE));
-		layout.setVerticalGroup(layout.createParallelGroup(
-				javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-				jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE,
-				javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE));
-
-		pack();
-	}// </editor-fold>//GEN-END:initComponents
-
-	private void btnLogarActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_btnLogarActionPerformed
-		// Evento de fazer login
-
-	}// GEN-LAST:event_btnLogarActionPerformed
-
-	// Variables declaration - do not modify//GEN-BEGIN:variables
-	private javax.swing.JButton btnLogar;
-	private javax.swing.JLabel jLabel1;
-	private javax.swing.JLabel jLabel2;
-	private javax.swing.JLabel jLabel3;
-	private javax.swing.JLabel jLabel4;
-	private javax.swing.JLabel jLabel5;
-	private javax.swing.JLabel jLabel7;
-	private javax.swing.JLabel jLabel8;
-	private javax.swing.JPanel jPanel1;
-	private javax.swing.JPasswordField jpasswordSenha;
-	private javax.swing.JLabel labelMensagem;
-	private javax.swing.JLabel labelStatus;
-	private javax.swing.JPanel painelPrincipal;
-	private javax.swing.JTextField textLogin;
-
-	// End of variables declaration//GEN-END:variables
-
-	public JPanel getPainelPrincipal() {
-
-		return this.painelPrincipal;
-	}
-
-	public JLabel getLabelStatus() {
-		return labelStatus;
-	}
-
-	public JLabel getLabelMensagem() {
-		return labelMensagem;
-	}
+	
 }

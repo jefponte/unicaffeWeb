@@ -22,6 +22,7 @@ import java.util.Scanner;
 
 import javax.swing.AbstractAction;
 
+import br.edu.unilab.unicafe.registro.model.Perfil;
 import br.edu.unilab.unicafe.view.FrameClientBloqueado;
 import br.edu.unilab.unicafe.view.FrameClientDesbloqueio;
 
@@ -84,79 +85,28 @@ public class Cliente {
 
 	public void desBloqueandoServicos() {
 
-		try {
+		Thread desBloqueandoServicos = new Thread(new Runnable() {
 
-			// Começar por retirar opção de muar de usuário.
-			/*
-			 * HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies
-			 * \System Na pasta System, altere o valor do campo
-			 * "HideFastUserSwitching" para "0".
-			 */
-			// BLoqueio de opcao pra mudar de usuario.
-			Process process = Runtime
-					.getRuntime()
-					.exec("REG add HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v HideFastUserSwitching /t REG_DWORD /d 0 /f");
-			Scanner leitor = new Scanner(process.getInputStream());
-			while (leitor.hasNextLine()) {
-				System.out.println(leitor.nextLine());
+			@Override
+			public void run() {
+				Perfil perfilBloqueio = new Perfil();
+				perfilBloqueio.setListaDeRegistros(Perfil.listaParaBloqueio());
+				perfilBloqueio.desfazer();
+
 			}
-			// Bloqueio de opcao do Gerenciador de tarefas, Current User.
-			process = Runtime
-					.getRuntime()
-					.exec("REG add HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v DisableTaskMgr /t REG_DWORD /d 0 /f");
-			leitor = new Scanner(process.getInputStream());
-
-			while (leitor.hasNextLine()) {
-				System.out.println(leitor.nextLine());
-			}
-
-			/*
-			process = Runtime
-					.getRuntime()
-					.exec("REG add HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer /v NoLogOff /t REG_DWORD /d 0 /f");
-			leitor = new Scanner(process.getInputStream());
-
-			while (leitor.hasNextLine()) {
-				System.out.println(leitor.nextLine());
-			}
-			*/
-			
-			process = Runtime
-					.getRuntime()
-					.exec("REG add HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v DisableLockWorkstation /t REG_DWORD /d 0 /f");
-			leitor = new Scanner(process.getInputStream());
-
-			while (leitor.hasNextLine()) {
-				System.out.println(leitor.nextLine());
-			}
-			
-			process = Runtime
-					.getRuntime()
-					.exec("REG add HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v DisableChangePassword  /t REG_DWORD /d 0 /f");
-			leitor = new Scanner(process.getInputStream());
-
-			while (leitor.hasNextLine()) {
-				System.out.println(leitor.nextLine());
-			}
-			
-			
-
-			process = Runtime
-					.getRuntime()
-					.exec("REG add HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer /v NoClose /t REG_DWORD /d  0  /f");
-			leitor = new Scanner(process.getInputStream());
-
-			while (leitor.hasNextLine()) {
-				System.out.println(leitor.nextLine());
-			}
-			
-			
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		});
+		desBloqueandoServicos.start();
 
 	}
 
+	
+	
+	public void alteraRegistro(String comando){
+		
+		
+		
+	}
+	
 	public void iniciaEscInfinito() {
 
 		this.escInfinito = new Thread(new Runnable() {
@@ -193,78 +143,9 @@ public class Cliente {
 
 			@Override
 			public void run() {
-				try {
-
-					// Começar por retirar opção de muar de usuário.
-					/*
-					 * HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion
-					 * \Policies\System Na pasta System, altere o valor do campo
-					 * "HideFastUserSwitching" para "0".
-					 */
-					// BLoqueio de opcao pra mudar de usuario.
-					Process process = Runtime
-							.getRuntime()
-							.exec("REG add HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v HideFastUserSwitching /t REG_DWORD /d 1 /f");
-					Scanner leitor = new Scanner(process.getInputStream());
-					while (leitor.hasNextLine()) {
-						System.out.println(leitor.nextLine());
-					}
-					// Bloqueio de opcao do Gerenciador de tarefas, Current
-					// User.
-					process = Runtime
-							.getRuntime()
-							.exec("REG add HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v DisableTaskMgr /t REG_DWORD /d 1 /f");
-					leitor = new Scanner(process.getInputStream());
-
-					while (leitor.hasNextLine()) {
-						System.out.println(leitor.nextLine());
-					}
-/*
-					process = Runtime
-							.getRuntime()
-							.exec("REG add HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer /v NoLogOff /t REG_DWORD /d 1 /f");
-					leitor = new Scanner(process.getInputStream());
-
-					while (leitor.hasNextLine()) {
-						System.out.println(leitor.nextLine());
-					}
-					*/
-					process = Runtime
-							.getRuntime()
-							.exec("REG add HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v DisableLockWorkstation /t REG_DWORD /d 1 /f");
-					leitor = new Scanner(process.getInputStream());
-
-					while (leitor.hasNextLine()) {
-						System.out.println(leitor.nextLine());
-					}
-					
-					
-					process = Runtime
-							.getRuntime()
-							.exec("REG add HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v DisableChangePassword  /t REG_DWORD /d 1 /f");
-					leitor = new Scanner(process.getInputStream());
-
-					while (leitor.hasNextLine()) {
-						System.out.println(leitor.nextLine());
-					}
-					
-					
-					
-					process = Runtime
-							.getRuntime()
-							.exec("REG add HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer /v NoClose /t REG_DWORD /d  0x00000001  /f");
-					leitor = new Scanner(process.getInputStream());
-
-					while (leitor.hasNextLine()) {
-						System.out.println(leitor.nextLine());
-					}
-					
-					
-					//
-
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+				Perfil perfilBloqueio = new Perfil();
+				perfilBloqueio.setListaDeRegistros(Perfil.listaParaBloqueio());
+				perfilBloqueio.executar();
 
 			}
 		});
@@ -344,16 +225,15 @@ public class Cliente {
 						break;
 					} catch (UnknownHostException e1) {
 						// TODO Auto-generated catch block
-						e1.printStackTrace();
+
 					} catch (IOException e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
+
 					}
 					try {
 						Thread.sleep(5000);
 					} catch (InterruptedException e) {
 						System.out.println("Tentativa fracassada");
-						e.printStackTrace();
+						
 					}
 
 				}

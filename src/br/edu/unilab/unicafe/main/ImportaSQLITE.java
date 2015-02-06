@@ -1,5 +1,7 @@
 package br.edu.unilab.unicafe.main;
 
+import javax.swing.JFrame;
+
 
 /**
  * 
@@ -11,6 +13,12 @@ public class ImportaSQLITE {
 
 	public static void main(String[] args) {
 		
+		
+		//pequeno teste
+		JFrame frame = new JFrame();
+		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+		frame.setSize(200, 200);
+		frame.setVisible(true);
 		/*
 
 		UsuarioDAO daoSQLITE = new UsuarioDAO(DAO.TIPO_SQLITE);
