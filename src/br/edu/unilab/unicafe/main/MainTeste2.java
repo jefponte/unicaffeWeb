@@ -61,7 +61,7 @@ public class MainTeste2 {
 	}
 
 	public static void testeLista() {
-		UsuarioDAO dao = new UsuarioDAO();
+		UsuarioDAO dao = new UsuarioDAO(DAO.TIPO_POSTGRESQL);
 		ArrayList<Usuario> lista;
 		try {
 			lista = dao.retornaLista();

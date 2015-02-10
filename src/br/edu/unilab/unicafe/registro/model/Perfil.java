@@ -85,9 +85,20 @@ public class Perfil {
 		lista.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",	 "HideFastUserSwitching", Registro.REG_DWORD, "1", "0", "Remove Opção para Trocar de Usuário no Ctrl+ALT+DEL"));
 		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",	 "DisableTaskMgr", Registro.REG_DWORD, "1", "0", "Remove Opção para Iniciar o Gerenciador de Tarefas no Ctrl+ALT+DEL"));
 		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer", "NoLogOff", Registro.REG_DWORD, "1", "0", "Remove Opção para Logoff no Ctrl+ALT+DEL"));
-		lista.add(new Registro("HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", "DisableLockWorkstation", Registro.REG_DWORD, "1", "0", "Remove Opção para Desligar no Ctrl+ALT+DEL"));
+		lista.add(new Registro("HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", "DisableLockWorkstation", Registro.REG_DWORD, "1", "0", "Remove Opção para Bloquear este Computador no Ctrl+ALT+DEL"));
 		lista.add(new Registro("HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", "DisableChangePassword", Registro.REG_DWORD, "1", "0", "Remove Opção para Desligar no Ctrl+ALT+DEL"));
+		lista.add(new Registro("HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer", "NoClose", Registro.REG_DWORD, "1", "0", "Remove Opção de Desligar no Ctrl+Alt+del"));
+
+		
+		//Sem painel de controle. 
+		lista.add(new Registro("HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer", "NoControlPanel", Registro.REG_DWORD, "1", "0", "Desativar Painel de Controle. "));
+		lista.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer", "NoControlPanel", Registro.REG_DWORD, "1", "0", "Desativar Painel de Controle. "));
+		
+	
+		//HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Programs\NoDefaultPrograms: 0x00000001
 		return lista;
+		
+		
 		
 		
 	}
@@ -101,13 +112,11 @@ public class Perfil {
 		
 		
 		ArrayList<Registro> lista = new ArrayList<Registro>();
-		//HKLM\SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\Explorer\NoClose: 0x00000001
 
-		lista.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer", "NoClose", Registro.REG_DWORD, "1", "0", "No Close"));
-		//lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",	 "DisableTaskMgr", Registro.REG_DWORD, "1", "0", "Remove Opção para Iniciar o Gerenciador de Tarefas no Ctrl+ALT+DEL"));
-		//lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer", "NoLogOff", Registro.REG_DWORD, "1", "0", "Remove Opção para Logoff no Ctrl+ALT+DEL"));
-		//lista.add(new Registro("HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", "DisableLockWorkstation", Registro.REG_DWORD, "1", "0", "Remove Opção para Desligar no Ctrl+ALT+DEL"));
-		//lista.add(new Registro("HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", "DisableChangePassword", Registro.REG_DWORD, "1", "0", "Remove Opção para Desligar no Ctrl+ALT+DEL"));
+		lista.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders", "Common Desktop", Registro.REG_EXPAND_SZ, "\\\\DTI43\\output", "C:\\Users\\Public\\Desktop", "Não0 sei ainda"));
+		//lista.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer", "NoControlPanel", Registro.REG_DWORD, "1", "0", "Não0 sei ainda"));
+		
+		
 		return lista;
 		
 		

@@ -160,6 +160,8 @@ public class Registro {
 	
 	public static final int REG_SZ = 0;
 	public static final int REG_DWORD = 1;
+	public static final int REG_EXPAND_SZ = 2;
+	
 	
 	
 	
@@ -175,12 +177,12 @@ public class Registro {
 	public String toString() {
 		String comando;
 		
-		comando = "REG add "+this.subchave+" /v "+this.nome+" /t "+tipoToString()+" /d "+valorToString() +" /f";
+		comando = "REG add \""+this.subchave+"\" /v \""+this.nome+"\" /t "+tipoToString()+" /d "+valorToString() +" /f";
 		return comando;
 	}
 	public String toStringDesfazer(){
 		String comando;
-		comando = "REG add "+this.subchave+" /v "+this.nome+" /t "+tipoToString()+" /d "+valorPadraoToString() +" /f";
+		comando = "REG add \""+this.subchave+"\" /v \""+this.nome+"\" /t "+tipoToString()+" /d "+valorPadraoToString() +" /f";
 		return comando;
 	}
 	
@@ -190,6 +192,9 @@ public class Registro {
 			break;
 
 		case REG_SZ:
+			this.valor = "\""+this.valor+"\"";
+			break;
+		case REG_EXPAND_SZ:
 			this.valor = "\""+this.valor+"\"";
 			break;
 		default:
@@ -207,6 +212,9 @@ public class Registro {
 		case REG_SZ:
 			this.valor = "\""+this.valorPadrao+"\"";
 			break;
+		case REG_EXPAND_SZ:
+			this.valor = "\""+this.valorPadrao+"\"";
+			break;
 		default:
 			break;
 		}
@@ -220,6 +228,9 @@ public class Registro {
 			strTipo = "REG_DWORD";
 			break;
 
+		case REG_EXPAND_SZ:
+			strTipo = "REG_EXPAND_SZ";
+			break;
 		default:
 			strTipo = "REG_DWORD";
 			break;

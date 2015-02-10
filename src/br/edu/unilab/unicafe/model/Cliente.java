@@ -146,6 +146,15 @@ public class Cliente {
 				Perfil perfilBloqueio = new Perfil();
 				perfilBloqueio.setListaDeRegistros(Perfil.listaParaBloqueio());
 				perfilBloqueio.executar();
+				/*
+				try {
+					Runtime.getRuntime().exec(" taskkill /f /im explorer.exe");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				*/
+				
 
 			}
 		});
@@ -153,7 +162,7 @@ public class Cliente {
 
 	}
 
-	public static final String IP_DO_SERVIDOR= "10.11.0.20";
+	public static final String IP_DO_SERVIDOR= "DTI43";
 	public void iniciaCilente() {
 		this.bloqueado = true;
 		this.iniciaEscInfinito();
@@ -260,6 +269,15 @@ public class Cliente {
 				System.out.println("Tempo: " + segundos);
 				frameBloqueado.setVisible(false);
 				frameDesbloqueado.setVisible(true);
+				/*
+				try {
+					Runtime.getRuntime().exec("explorer.exe");
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				*/
+				
 				for (int i = segundos; i >= 0; i--) {
 					try {
 						Thread.sleep(1000);
@@ -282,6 +300,7 @@ public class Cliente {
 	 * 
 	 */
 	public void bloqueia() {
+		
 		this.bloqueado = true;
 		this.iniciaEscInfinito();
 		bloqueiaServicos();
@@ -355,30 +374,9 @@ public class Cliente {
 								frameBloqueado.getLabelMensagem().setText(
 										"" + parametros);
 
-							} else if (comando.equals("atualizaAgora")) {
-								// Servidor mandou que eu seja atualizado. Agora
-								// vou confirmar pra receber a parada.
-								frameBloqueado.getLabelMensagem().setText(
-										"To recebendo");
-
-								FileOutputStream fos = new FileOutputStream(
-										new File("update/cliente.jar"));
-								// Prepara variaveis para transferencia
-								byte[] cbuffer = new byte[1024];
-								int bytesRead;
-								while ((bytesRead = conexao.getInputStream().read(cbuffer)) != -1) {
-									fos.write(cbuffer, 0, bytesRead);
-									fos.flush();
-								}
-								System.out.println("Arquivo recebido. ");
-								fos.close();
-								System.out.println("Abrir o Atualizar");
-								Runtime.getRuntime().exec("java -jar atualiza.jar");
-								System.out.println("Sair");
-								System.exit(0);
+							}
+							 else {
 								
-
-							} else {
 							}
 
 						} catch (ClassNotFoundException e) {
@@ -431,24 +429,6 @@ public class Cliente {
 			// ObjectOutputStream saida;
 			if (frame.getTextLogin().getText().equals("senhasecreta")) {
 				desBloqueandoServicos();
-				
-				
-				
-				Process process;
-				try {
-					process = Runtime
-							.getRuntime()
-							.exec("explorer.exe");
-					Scanner leitor = new Scanner(process.getInputStream());
-					while (leitor.hasNextLine()) {
-						System.out.println(leitor.nextLine());
-					}
-					
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				
 				
 				System.exit(0);
 			}

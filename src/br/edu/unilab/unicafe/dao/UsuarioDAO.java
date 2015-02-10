@@ -114,13 +114,12 @@ public class UsuarioDAO extends DAO {
 		ResultSet resultSet = ps.executeQuery();
 		while(resultSet.next()){
 			Usuario usuario = new Usuario();
-			usuario.setNome(resultSet.getString("nome"));
+
 			usuario.setLogin(resultSet.getString("login"));
-			usuario.setEmail(resultSet.getString("email"));
+
 			usuario.setId(resultSet.getInt("id_usuario"));
-			usuario.setCpf(resultSet.getString("cpf"));
 			usuario.setSenha(resultSet.getString("senha"));
-			usuario.setNivelAcesso(resultSet.getInt("nivel_acesso"));
+
 			lista.add(usuario);
 		}
 		return lista;
