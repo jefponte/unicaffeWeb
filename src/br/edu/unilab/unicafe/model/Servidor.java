@@ -124,6 +124,160 @@ public class Servidor {
 
 	}
 
+	public synchronized void processaMensagem(Cliente cliente, String mensagem){
+		String comando = mensagem.substring(0,
+				mensagem.indexOf('('));
+		String parametros = mensagem.substring(
+				mensagem.indexOf('(') + 1,
+				mensagem.indexOf(')'));
+
+		printd(cliente.getMaquina().getNome() + ">> "
+				+ mensagem);
+		
+
+		if (comando.equals("autentica")) {
+			String login = parametros.substring(0,
+					parametros.indexOf(','));
+			String senha = parametros.substring(parametros
+					.indexOf(',') + 1);
+			printd(cliente.getMaquina().getNome()
+					+ ">> Tentativa de Autenticação.");
+			printd(cliente.getMaquina().getNome()
+					+ ">> Login : " + login);
+			printd(cliente.getMaquina().getNome()
+					+ ">> Senha : " + senha);
+			UsuarioDAO dao = new UsuarioDAO();
+			Usuario usuario = new Usuario();
+			usuario.setLogin(login);
+			usuario.setSenha(senha);
+
+			if (dao.autentica(usuario)) {
+				printd(cliente.getMaquina().getNome()
+						+ ">> Autenticação bem sucedida.");
+				try {
+					cliente.getSaida().flush();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				printd("Verificar tempo acessado. ");
+				AcessoDAO acessoDao = new AcessoDAO(dao.getConexao());
+				int tempo = acessoDao.retornaTempoUsado(usuario);
+				printd("Usou: "+tempo);
+				if(tempo <= AcessoDAO.COTA){
+					printd("Pode acessar durante "+((AcessoDAO.COTA)-(tempo))+" segundos");
+					try {
+						cliente.getSaida().writeObject("desbloqueia(" + login + ", "+((AcessoDAO.COTA)-(tempo))+")");
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					Acesso acesso = new Acesso();
+					acesso.setUsuario(usuario);
+					acesso.setTempoDisponibilizado(((AcessoDAO.COTA)-(tempo)));
+					acesso.setTempoUsado(0);
+					acesso.contar();
+					cliente.setAcesso(acesso);
+					
+				}else{
+					try {
+						cliente.getSaida()
+						.writeObject(
+								"printc(Que peninha, seu tempo já acabou)");
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
+				
+				
+			} else {
+				printd(cliente.getMaquina().getNome()
+						+ ">> Errou login ou senha.");
+				try {
+					cliente.getSaida().flush();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				try {
+					cliente.getSaida()
+							.writeObject(
+									"printc(Beleza, Fera! Mas e a senha correta, vc sabe?)");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+
+			try {
+				dao.getConexao().close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} else if (comando.equals("setNome")) {
+
+			String nome = parametros;
+			printd(cliente.getMaquina().getNome()
+					+ ">> Tentou mudar o nome para : " + nome);
+			cliente.getMaquina().setNome(nome);
+			//Precisamos verificar se já existe uma máquina no banco com esse nome. 
+			//Caso não exista iremos adicionar. 
+			MaquinaDAO maquinaDao = new MaquinaDAO();
+			//Existe diferente de verdadeiro== existe igual a false. 
+			if(!maquinaDao.existe(cliente.getMaquina())){
+				if(maquinaDao.cadastra(cliente.getMaquina())){
+					printd("Maquina nova cadastrada: "+cliente.getMaquina().getNome());
+					printd("Listarei as máquinas: ");
+					for(Maquina maquina : maquinaDao.retornaLista()){
+						printd(""+maquina.getNome());
+					}
+				}
+				
+			}
+			try {
+				maquinaDao.getConexao().close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+		} else if (comando.equals("setMac")) {
+
+			cliente.getMaquina().setEnderecoMac(parametros);
+			printd(cliente.getMaquina().getNome()
+					+ ">> Mudou endereço MAC para: "
+					+ parametros);
+
+		} else if (comando.equals("setStatus")) {
+
+			int status = Integer.parseInt(parametros);
+			cliente.getMaquina().setStatus(status);
+			if((status == Maquina.STATUS_DISPONIVEL) && (cliente.getAcesso() != null)){
+				cliente.getAcesso().pararDeContar();
+				AcessoDAO acessodao = new AcessoDAO();
+				acessodao.cadastra(cliente.getAcesso());
+				try {
+					acessodao.getConexao().close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			printd(cliente.getMaquina().getNome()
+					+ ">> Mudou o Status para "
+					+ Maquina.statusString(status));
+		
+
+		} else {
+
+			printd(cliente.getMaquina().getNome() + ">>"
+					+ " Comando não encontrado.");
+		}
+
+	}
 	/**
 	 * 
 	 * @param conexao
@@ -140,6 +294,7 @@ public class Servidor {
 							.getInputStream()));
 					final OutputStream outputStream = conexao.getOutputStream();
 					cliente.setSaida(new ObjectOutputStream(outputStream));
+					
 					frameServidor.getItemAtualiza().addActionListener(new ActionListener() {
 						public void actionPerformed(ActionEvent arg0) {
 							atualizaGalera(outputStream);
@@ -158,132 +313,10 @@ public class Servidor {
 					try {
 						String mensagem = (String) cliente.getEntrada()
 								.readObject();
-						String comando = mensagem.substring(0,
-								mensagem.indexOf('('));
-						String parametros = mensagem.substring(
-								mensagem.indexOf('(') + 1,
-								mensagem.indexOf(')'));
-
-						printd(cliente.getMaquina().getNome() + ">> "
-								+ mensagem);
-
-						if (comando.equals("autentica")) {
-							String login = parametros.substring(0,
-									parametros.indexOf(','));
-							String senha = parametros.substring(parametros
-									.indexOf(',') + 1);
-							printd(cliente.getMaquina().getNome()
-									+ ">> Tentativa de Autenticação.");
-							printd(cliente.getMaquina().getNome()
-									+ ">> Login : " + login);
-							printd(cliente.getMaquina().getNome()
-									+ ">> Senha : " + senha);
-							UsuarioDAO dao = new UsuarioDAO();
-							Usuario usuario = new Usuario();
-							usuario.setLogin(login);
-							usuario.setSenha(senha);
-
-							if (dao.autentica(usuario)) {
-								printd(cliente.getMaquina().getNome()
-										+ ">> Autenticação bem sucedida.");
-								cliente.getSaida().flush();
-								printd("Verificar tempo acessado. ");
-								AcessoDAO acessoDao = new AcessoDAO(dao.getConexao());
-								int tempo = acessoDao.retornaTempoUsado(usuario);
-								printd("Usou: "+tempo);
-								if(tempo <= AcessoDAO.COTA){
-									printd("Pode acessar durante "+((AcessoDAO.COTA)-(tempo))+" segundos");
-									cliente.getSaida().writeObject("desbloqueia(" + login + ", "+((AcessoDAO.COTA)-(tempo))+")");
-									
-									Acesso acesso = new Acesso();
-									acesso.setUsuario(usuario);
-									acesso.setTempoDisponibilizado(((AcessoDAO.COTA)-(tempo)));
-									acesso.setTempoUsado(0);
-									acesso.contar();
-									cliente.setAcesso(acesso);
-									
-								}else{
-									cliente.getSaida()
-									.writeObject(
-											"printc(Que peninha, seu tempo já acabou)");
-								}
-								
-								
-							} else {
-								printd(cliente.getMaquina().getNome()
-										+ ">> Errou login ou senha.");
-								cliente.getSaida().flush();
-								cliente.getSaida()
-										.writeObject(
-												"printc(Beleza, Fera! Mas e a senha correta, vc sabe?)");
-							}
-
-							try {
-								dao.getConexao().close();
-							} catch (SQLException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-						} else if (comando.equals("setNome")) {
-
-							String nome = parametros;
-							printd(cliente.getMaquina().getNome()
-									+ ">> Tentou mudar o nome para : " + nome);
-							cliente.getMaquina().setNome(nome);
-							//Precisamos verificar se já existe uma máquina no banco com esse nome. 
-							//Caso não exista iremos adicionar. 
-							MaquinaDAO maquinaDao = new MaquinaDAO();
-							//Existe diferente de verdadeiro== existe igual a false. 
-							if(!maquinaDao.existe(cliente.getMaquina())){
-								if(maquinaDao.cadastra(cliente.getMaquina())){
-									printd("Maquina nova cadastrada: "+cliente.getMaquina().getNome());
-									printd("Listarei as máquinas: ");
-									for(Maquina maquina : maquinaDao.retornaLista()){
-										printd(""+maquina.getNome());
-									}
-								}
-								
-							}
-							try {
-								maquinaDao.getConexao().close();
-							} catch (SQLException e) {
-								// TODO Auto-generated catch block
-								e.printStackTrace();
-							}
-
-						} else if (comando.equals("setMac")) {
-
-							cliente.getMaquina().setEnderecoMac(parametros);
-							printd(cliente.getMaquina().getNome()
-									+ ">> Mudou endereço MAC para: "
-									+ parametros);
-
-						} else if (comando.equals("setStatus")) {
-
-							int status = Integer.parseInt(parametros);
-							cliente.getMaquina().setStatus(status);
-							if((status == Maquina.STATUS_DISPONIVEL) && (cliente.getAcesso() != null)){
-								cliente.getAcesso().pararDeContar();
-								AcessoDAO acessodao = new AcessoDAO();
-								acessodao.cadastra(cliente.getAcesso());
-								try {
-									acessodao.getConexao().close();
-								} catch (SQLException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-							}
-							printd(cliente.getMaquina().getNome()
-									+ ">> Mudou o Status para "
-									+ Maquina.statusString(status));
 						
-
-						} else {
-
-							printd(cliente.getMaquina().getNome() + ">>"
-									+ " Comando não encontrado.");
-						}
-
+						
+						processaMensagem(cliente, mensagem);
+						
 					} catch (ClassNotFoundException e) {
 
 						// e.printStackTrace();

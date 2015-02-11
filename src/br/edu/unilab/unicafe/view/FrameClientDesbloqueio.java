@@ -52,7 +52,7 @@ public class FrameClientDesbloqueio extends javax.swing.JFrame {
 		btnEncerrar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				System.exit(0);
+				System.out.println("Apertou");
 			}
 		});
 		jLabel4 = new javax.swing.JLabel();

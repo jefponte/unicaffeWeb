@@ -9,6 +9,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import javax.sql.rowset.spi.SyncResolver;
+
 import br.edu.unilab.unicafe.model.Usuario;
 
 public class UsuarioDAO extends DAO {
@@ -23,7 +25,7 @@ public class UsuarioDAO extends DAO {
 	public UsuarioDAO(Connection conexao){
 		super(conexao);
 	}
-	public boolean autentica(Usuario usuario){
+	public  boolean autentica(Usuario usuario){
 		try {
 			PreparedStatement ps = this.getConexao().prepareStatement("SELECT * FROM usuario WHERE login = ? AND senha = ?");
 			ps.setString(1, usuario.getLogin());

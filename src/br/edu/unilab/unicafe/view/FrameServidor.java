@@ -54,7 +54,7 @@ public class FrameServidor extends javax.swing.JFrame {
 		});
 
 		jMenuItem5 = new javax.swing.JMenuItem();
-		jMenuItem5.setText("Atualizar Cambada");
+		jMenuItem5.setText("Renova Tempo");
 		
 		
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
