@@ -3,6 +3,7 @@ package br.edu.unilab.unicafe.dao;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,14 +20,19 @@ public class UsuarioDAO extends DAO {
 		super(tipoDeConexao);
 		
 	}
+	public UsuarioDAO(Connection conexao){
+		super(conexao);
+	}
 	public boolean autentica(Usuario usuario){
 		try {
 			PreparedStatement ps = this.getConexao().prepareStatement("SELECT * FROM usuario WHERE login = ? AND senha = ?");
 			ps.setString(1, usuario.getLogin());
 			ps.setString(2, usuario.getSenha());
 			ResultSet rs = ps.executeQuery();
-			while(rs.next())
+			while(rs.next()){
+				usuario.setId(rs.getInt("id_usuario"));
 				return true;
+			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

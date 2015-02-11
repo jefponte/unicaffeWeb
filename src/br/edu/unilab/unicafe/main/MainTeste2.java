@@ -4,8 +4,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+
 import br.edu.unilab.unicafe.dao.DAO;
+import br.edu.unilab.unicafe.dao.MaquinaDAO;
 import br.edu.unilab.unicafe.dao.UsuarioDAO;
+import br.edu.unilab.unicafe.model.Maquina;
 import br.edu.unilab.unicafe.model.Usuario;
 
 /**
@@ -18,9 +21,21 @@ public class MainTeste2 {
 
 	public static void main(String[] args) {
 		// testeAdd();
-		testeLista();
+		testeListaMaquinas();
 	}
 
+	public static void testeInsereMaquina(){
+		Maquina maquina = new Maquina();
+		maquina.setNome("Teste");
+		MaquinaDAO dao = new MaquinaDAO();
+		dao.cadastra(maquina);
+	}
+	public static void testeListaMaquinas(){
+		MaquinaDAO dao = new MaquinaDAO();
+		for(Maquina maquina : dao.retornaLista()){
+			System.out.println("Maquina: "+maquina.getNome());
+		}
+	}
 	public static void mostraTeste() {
 		DAO dao = new DAO();
 		try {

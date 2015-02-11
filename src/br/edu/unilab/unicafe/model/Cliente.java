@@ -45,6 +45,8 @@ public class Cliente {
 	private FrameClientDesbloqueio frameDesbloqueado;
 	private Thread escInfinito;
 
+	private Acesso acesso;
+	
 	public ObjectOutputStream getSaida() {
 		return this.saida;
 	}
@@ -56,8 +58,10 @@ public class Cliente {
 	public Cliente() {
 		this.maquina = new Maquina();
 		this.servidor = new Servidor();
+		this.setAcesso(null);
 
 	}
+	
 
 	public Maquina getMaquina() {
 		return maquina;
@@ -368,7 +372,10 @@ public class Cliente {
 								bloqueado = false;
 								String login = parametros.substring(0,
 										parametros.indexOf(','));
-								desbloqueia(30, login);
+								String tempo = parametros.substring(parametros.indexOf(',')+2);
+								System.out.println("Tempo foi de : "+tempo);
+								int time = Integer.parseInt(tempo);
+								desbloqueia(time, login);
 							} else if (comando.equals("printc")) {
 
 								frameBloqueado.getLabelMensagem().setText(
@@ -413,6 +420,14 @@ public class Cliente {
 
 	public void setEntrada(ObjectInputStream entrada) {
 		this.entrada = entrada;
+	}
+
+	public Acesso getAcesso() {
+		return acesso;
+	}
+
+	public void setAcesso(Acesso acesso) {
+		this.acesso = acesso;
 	}
 
 	class TentativaDeLogin extends AbstractAction {

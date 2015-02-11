@@ -3,7 +3,11 @@ package br.edu.unilab.unicafe.model;
 public class Acesso {
 	private int id;
 	private Usuario usuario;
-	private Cliente cliente;
+	private Thread contando;
+
+	public static final int STATUS_RODANDO = 0;
+	public static final int STATUS_ENCERRADO = 1;
+	
 	/**
 	 * Tempo que o usuário usou desse acesso. 
 	 */
@@ -12,9 +16,36 @@ public class Acesso {
 	 * Hora que o acesso se iniciou. 
 	 */
 	private int horaInicial;
+	private Maquina maquina;
+	
 	/**
 	 * Esse é o tempo que foi oferecido no início do acesso. 
 	 */
+	public Acesso() {
+		this.setTempoUsado(0);
+	}
+	public void contar(){
+		this.contando = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				while(statusDaConexao == STATUS_RODANDO){
+					try {
+						Thread.sleep(1000);
+						tempoUsado++;
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						//e.printStackTrace();
+					}
+				}
+			}
+		});
+		contando.start();
+	}
+	public void pararDeContar(){
+		this.statusDaConexao = STATUS_ENCERRADO;
+		
+	}
 	
 	private int tempoDisponibilizado;
 	private int statusDaConexao;
@@ -29,12 +60,6 @@ public class Acesso {
 	}
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
-	}
-	public Cliente getCliente() {
-		return cliente;
-	}
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
 	}
 	public int getTempoUsado() {
 		return tempoUsado;
@@ -59,6 +84,12 @@ public class Acesso {
 	}
 	public void setStatusDaConexao(int statusDaConexao) {
 		this.statusDaConexao = statusDaConexao;
+	}
+	public Maquina getMaquina() {
+		return maquina;
+	}
+	public void setMaquina(Maquina maquina) {
+		this.maquina = maquina;
 	}
 	
 	

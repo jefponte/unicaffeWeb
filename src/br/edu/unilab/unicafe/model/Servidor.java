@@ -10,11 +10,15 @@ import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.SwingUtilities;
 
+import br.edu.unilab.unicafe.dao.AcessoDAO;
+import br.edu.unilab.unicafe.dao.DAO;
+import br.edu.unilab.unicafe.dao.MaquinaDAO;
 import br.edu.unilab.unicafe.dao.UsuarioDAO;
 import br.edu.unilab.unicafe.view.FrameApresentacao;
 import br.edu.unilab.unicafe.view.FrameServidor;
@@ -147,7 +151,9 @@ public class Servidor {
 				}
 
 				cliente.getMaquina().setNome("NAO LISTADO");
+
 				while (!conexao.isClosed()) {
+
 
 					try {
 						String mensagem = (String) cliente.getEntrada()
@@ -181,9 +187,28 @@ public class Servidor {
 								printd(cliente.getMaquina().getNome()
 										+ ">> Autenticação bem sucedida.");
 								cliente.getSaida().flush();
-								cliente.getSaida().writeObject(
-										"desbloqueia(" + login + ", 30)");
-
+								printd("Verificar tempo acessado. ");
+								AcessoDAO acessoDao = new AcessoDAO(dao.getConexao());
+								int tempo = acessoDao.retornaTempoUsado(usuario);
+								printd("Usou: "+tempo);
+								if(tempo <= AcessoDAO.COTA){
+									printd("Pode acessar durante "+((AcessoDAO.COTA)-(tempo))+" segundos");
+									cliente.getSaida().writeObject("desbloqueia(" + login + ", "+((AcessoDAO.COTA)-(tempo))+")");
+									
+									Acesso acesso = new Acesso();
+									acesso.setUsuario(usuario);
+									acesso.setTempoDisponibilizado(((AcessoDAO.COTA)-(tempo)));
+									acesso.setTempoUsado(0);
+									acesso.contar();
+									cliente.setAcesso(acesso);
+									
+								}else{
+									cliente.getSaida()
+									.writeObject(
+											"printc(Que peninha, seu tempo já acabou)");
+								}
+								
+								
 							} else {
 								printd(cliente.getMaquina().getNome()
 										+ ">> Errou login ou senha.");
@@ -193,12 +218,38 @@ public class Servidor {
 												"printc(Beleza, Fera! Mas e a senha correta, vc sabe?)");
 							}
 
+							try {
+								dao.getConexao().close();
+							} catch (SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 						} else if (comando.equals("setNome")) {
 
 							String nome = parametros;
 							printd(cliente.getMaquina().getNome()
 									+ ">> Tentou mudar o nome para : " + nome);
 							cliente.getMaquina().setNome(nome);
+							//Precisamos verificar se já existe uma máquina no banco com esse nome. 
+							//Caso não exista iremos adicionar. 
+							MaquinaDAO maquinaDao = new MaquinaDAO();
+							//Existe diferente de verdadeiro== existe igual a false. 
+							if(!maquinaDao.existe(cliente.getMaquina())){
+								if(maquinaDao.cadastra(cliente.getMaquina())){
+									printd("Maquina nova cadastrada: "+cliente.getMaquina().getNome());
+									printd("Listarei as máquinas: ");
+									for(Maquina maquina : maquinaDao.retornaLista()){
+										printd(""+maquina.getNome());
+									}
+								}
+								
+							}
+							try {
+								maquinaDao.getConexao().close();
+							} catch (SQLException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
 
 						} else if (comando.equals("setMac")) {
 
@@ -211,9 +262,22 @@ public class Servidor {
 
 							int status = Integer.parseInt(parametros);
 							cliente.getMaquina().setStatus(status);
+							if((status == Maquina.STATUS_DISPONIVEL) && (cliente.getAcesso() != null)){
+								cliente.getAcesso().pararDeContar();
+								AcessoDAO acessodao = new AcessoDAO();
+								acessodao.cadastra(cliente.getAcesso());
+								try {
+									acessodao.getConexao().close();
+								} catch (SQLException e) {
+									// TODO Auto-generated catch block
+									e.printStackTrace();
+								}
+							}
 							printd(cliente.getMaquina().getNome()
 									+ ">> Mudou o Status para "
 									+ Maquina.statusString(status));
+						
+
 						} else {
 
 							printd(cliente.getMaquina().getNome() + ">>"
@@ -228,6 +292,17 @@ public class Servidor {
 
 						// e.printStackTrace();
 						break;
+					}
+				}
+				if(cliente.getAcesso() != null){
+					cliente.getAcesso().pararDeContar();
+					AcessoDAO acessodao = new AcessoDAO();
+					acessodao.cadastra(cliente.getAcesso());
+					try {
+						acessodao.getConexao().close();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
 				}
 				printd(cliente.getMaquina().getNome() + ">> Conexão fechada. ");
