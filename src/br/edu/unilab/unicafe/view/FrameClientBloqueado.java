@@ -168,14 +168,14 @@ public class FrameClientBloqueado extends JFrame {
 		label.setText("Status: ");
 		label.setForeground(Color.WHITE);
 		label.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		label.setBounds(95, 186, 48, 17);
+		label.setBounds(28, 186, 48, 17);
 		panel_2.add(label);
 		
 		JLabel label_3 = new JLabel();
 		label_3.setText("Mensagem: ");
 		label_3.setForeground(Color.WHITE);
 		label_3.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		label_3.setBounds(95, 209, 75, 17);
+		label_3.setBounds(28, 209, 75, 17);
 		panel_2.add(label_3);
 		
 		JLabel labelStatus = new JLabel();
@@ -183,7 +183,7 @@ public class FrameClientBloqueado extends JFrame {
 		labelStatus.setText("Sem Conex\u00E3o");
 		labelStatus.setForeground(new Color(204, 0, 51));
 		labelStatus.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		labelStatus.setBounds(176, 186, 249, 17);
+		labelStatus.setBounds(87, 186, 360, 17);
 		panel_2.add(labelStatus);
 		
 		JLabel labelMensagem = new JLabel();
@@ -191,7 +191,7 @@ public class FrameClientBloqueado extends JFrame {
 		labelMensagem.setText("Errou A Senha");
 		labelMensagem.setForeground(new Color(204, 0, 51));
 		labelMensagem.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		labelMensagem.setBounds(176, 209, 249, 17);
+		labelMensagem.setBounds(113, 209, 334, 17);
 		panel_2.add(labelMensagem);
 		panel_1.setLayout(gl_panel_1);
 		
