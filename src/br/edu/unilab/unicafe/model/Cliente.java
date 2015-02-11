@@ -285,8 +285,19 @@ public class Cliente {
 				for (int i = segundos; i >= 0; i--) {
 					try {
 						Thread.sleep(1000);
-
-						frameDesbloqueado.getFieldTempo().setText("00:" + i);
+					
+						int tempo = i;
+						int hora = 0;
+						int minuto = 0;
+						while(tempo >= 60){
+							tempo -= 60;
+							minuto++;
+						}
+						while(minuto >= 60){
+							minuto -= 60;
+							hora++;
+						}
+						frameDesbloqueado.getFieldTempo().setText(String.format("%02d", hora)+":"+String.format("%02d", minuto)+":"+String.format("%02d", tempo));
 					} catch (InterruptedException e) {
 
 						e.printStackTrace();

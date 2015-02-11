@@ -183,7 +183,7 @@ public class FrameClientBloqueado extends JFrame {
 		labelStatus.setText("Sem Conex\u00E3o");
 		labelStatus.setForeground(new Color(204, 0, 51));
 		labelStatus.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		labelStatus.setBounds(176, 186, 84, 17);
+		labelStatus.setBounds(176, 186, 249, 17);
 		panel_2.add(labelStatus);
 		
 		JLabel labelMensagem = new JLabel();
@@ -191,7 +191,7 @@ public class FrameClientBloqueado extends JFrame {
 		labelMensagem.setText("Errou A Senha");
 		labelMensagem.setForeground(new Color(204, 0, 51));
 		labelMensagem.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		labelMensagem.setBounds(176, 209, 91, 17);
+		labelMensagem.setBounds(176, 209, 249, 17);
 		panel_2.add(labelMensagem);
 		panel_1.setLayout(gl_panel_1);
 		

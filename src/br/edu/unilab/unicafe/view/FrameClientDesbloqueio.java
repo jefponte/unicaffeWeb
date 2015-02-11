@@ -7,6 +7,9 @@ package br.edu.unilab.unicafe.view;
 
 import javax.swing.JButton;
 import javax.swing.JTextField;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.GroupLayout;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 /**
  *
@@ -82,140 +85,67 @@ public class FrameClientDesbloqueio extends javax.swing.JFrame {
 
 		javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(
 				jPanel1);
+		jPanel1Layout.setHorizontalGroup(
+			jPanel1Layout.createParallelGroup(Alignment.LEADING)
+				.addGroup(jPanel1Layout.createSequentialGroup()
+					.addContainerGap()
+					.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+						.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING, false)
+							.addGroup(jPanel1Layout.createSequentialGroup()
+								.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+									.addComponent(jLabel2)
+									.addComponent(jLabel1))
+								.addGap(18)
+								.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING, false)
+									.addComponent(fieldUsuario)
+									.addComponent(fieldTempo1, Alignment.TRAILING)
+									.addComponent(fieldTempo, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)))
+							.addGroup(jPanel1Layout.createSequentialGroup()
+								.addComponent(jLabel3)
+								.addGap(18)
+								.addComponent(fieldHoraEntrada)))
+						.addComponent(btnEncerrar)
+						.addComponent(jLabel4))
+					.addContainerGap(35, Short.MAX_VALUE))
+		);
+		jPanel1Layout.setVerticalGroup(
+			jPanel1Layout.createParallelGroup(Alignment.LEADING)
+				.addGroup(jPanel1Layout.createSequentialGroup()
+					.addGap(9)
+					.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(jLabel3)
+						.addComponent(fieldHoraEntrada, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(jLabel2)
+						.addComponent(fieldUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(jLabel1)
+						.addComponent(fieldTempo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
+						.addComponent(jLabel4)
+						.addComponent(fieldTempo1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
+					.addComponent(btnEncerrar)
+					.addContainerGap())
+		);
 		jPanel1.setLayout(jPanel1Layout);
-		jPanel1Layout
-				.setHorizontalGroup(jPanel1Layout
-						.createParallelGroup(
-								javax.swing.GroupLayout.Alignment.LEADING)
-						.addGroup(
-								jPanel1Layout
-										.createSequentialGroup()
-										.addContainerGap()
-										.addGroup(
-												jPanel1Layout
-														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.LEADING)
-														.addGroup(
-																jPanel1Layout
-																		.createParallelGroup(
-																				javax.swing.GroupLayout.Alignment.LEADING,
-																				false)
-																		.addGroup(
-																				jPanel1Layout
-																						.createSequentialGroup()
-																						.addGroup(
-																								jPanel1Layout
-																										.createParallelGroup(
-																												javax.swing.GroupLayout.Alignment.LEADING)
-																										.addComponent(
-																												jLabel2)
-																										.addComponent(
-																												jLabel1))
-																						.addGap(18,
-																								18,
-																								18)
-																						.addGroup(
-																								jPanel1Layout
-																										.createParallelGroup(
-																												javax.swing.GroupLayout.Alignment.LEADING,
-																												false)
-																										.addComponent(
-																												fieldUsuario)
-																										.addComponent(
-																												fieldTempo)
-																										.addComponent(
-																												fieldTempo1,
-																												javax.swing.GroupLayout.Alignment.TRAILING)))
-																		.addGroup(
-																				jPanel1Layout
-																						.createSequentialGroup()
-																						.addComponent(
-																								jLabel3)
-																						.addGap(18,
-																								18,
-																								18)
-																						.addComponent(
-																								fieldHoraEntrada)))
-														.addComponent(
-																btnEncerrar)
-														.addComponent(jLabel4))
-										.addContainerGap(21, Short.MAX_VALUE)));
-		jPanel1Layout
-				.setVerticalGroup(jPanel1Layout
-						.createParallelGroup(
-								javax.swing.GroupLayout.Alignment.LEADING)
-						.addGroup(
-								jPanel1Layout
-										.createSequentialGroup()
-										.addGap(9, 9, 9)
-										.addGroup(
-												jPanel1Layout
-														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.BASELINE)
-														.addComponent(jLabel3)
-														.addComponent(
-																fieldHoraEntrada,
-																javax.swing.GroupLayout.PREFERRED_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.PREFERRED_SIZE))
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addGroup(
-												jPanel1Layout
-														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.BASELINE)
-														.addComponent(jLabel2)
-														.addComponent(
-																fieldUsuario,
-																javax.swing.GroupLayout.PREFERRED_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.PREFERRED_SIZE))
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addGroup(
-												jPanel1Layout
-														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.BASELINE)
-														.addComponent(jLabel1)
-														.addComponent(
-																fieldTempo,
-																javax.swing.GroupLayout.PREFERRED_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.PREFERRED_SIZE))
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-										.addGroup(
-												jPanel1Layout
-														.createParallelGroup(
-																javax.swing.GroupLayout.Alignment.BASELINE)
-														.addComponent(jLabel4)
-														.addComponent(
-																fieldTempo1,
-																javax.swing.GroupLayout.PREFERRED_SIZE,
-																javax.swing.GroupLayout.DEFAULT_SIZE,
-																javax.swing.GroupLayout.PREFERRED_SIZE))
-										.addPreferredGap(
-												javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-												9, Short.MAX_VALUE)
-										.addComponent(btnEncerrar)
-										.addContainerGap()));
 
 		javax.swing.GroupLayout layout = new javax.swing.GroupLayout(
 				getContentPane());
+		layout.setHorizontalGroup(
+			layout.createParallelGroup(Alignment.LEADING)
+				.addGroup(layout.createSequentialGroup()
+					.addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, 315, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+		);
+		layout.setVerticalGroup(
+			layout.createParallelGroup(Alignment.LEADING)
+				.addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+		);
 		getContentPane().setLayout(layout);
-		layout.setHorizontalGroup(layout.createParallelGroup(
-				javax.swing.GroupLayout.Alignment.LEADING).addComponent(
-				jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE,
-				javax.swing.GroupLayout.DEFAULT_SIZE,
-				javax.swing.GroupLayout.PREFERRED_SIZE));
-		layout.setVerticalGroup(layout.createParallelGroup(
-				javax.swing.GroupLayout.Alignment.LEADING).addGroup(
-				layout.createSequentialGroup()
-						.addComponent(jPanel1,
-								javax.swing.GroupLayout.PREFERRED_SIZE,
-								javax.swing.GroupLayout.DEFAULT_SIZE,
-								javax.swing.GroupLayout.PREFERRED_SIZE)
-						.addGap(0, 0, Short.MAX_VALUE)));
 
 		pack();
 	}// </editor-fold>//GEN-END:initComponents
