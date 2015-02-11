@@ -11,6 +11,9 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.GroupLayout;
 import javax.swing.LayoutStyle.ComponentPlacement;
 
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+
 /**
  *
  * @author jefponte
@@ -46,6 +49,12 @@ public class FrameClientDesbloqueio extends javax.swing.JFrame {
 		jLabel3 = new javax.swing.JLabel();
 		fieldHoraEntrada = new javax.swing.JTextField();
 		btnEncerrar = new javax.swing.JButton();
+		btnEncerrar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				System.exit(0);
+			}
+		});
 		jLabel4 = new javax.swing.JLabel();
 		fieldTempo1 = new javax.swing.JTextField();
 
@@ -89,47 +98,45 @@ public class FrameClientDesbloqueio extends javax.swing.JFrame {
 			jPanel1Layout.createParallelGroup(Alignment.LEADING)
 				.addGroup(jPanel1Layout.createSequentialGroup()
 					.addContainerGap()
-					.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
-						.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING, false)
-							.addGroup(jPanel1Layout.createSequentialGroup()
-								.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
-									.addComponent(jLabel2)
-									.addComponent(jLabel1))
-								.addGap(18)
-								.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(fieldUsuario)
-									.addComponent(fieldTempo1, Alignment.TRAILING)
-									.addComponent(fieldTempo, GroupLayout.PREFERRED_SIZE, 129, GroupLayout.PREFERRED_SIZE)))
-							.addGroup(jPanel1Layout.createSequentialGroup()
-								.addComponent(jLabel3)
-								.addGap(18)
-								.addComponent(fieldHoraEntrada)))
-						.addComponent(btnEncerrar)
-						.addComponent(jLabel4))
-					.addContainerGap(35, Short.MAX_VALUE))
+					.addComponent(jLabel3)
+					.addGap(18)
+					.addComponent(fieldHoraEntrada)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(jLabel2)
+					.addGap(18)
+					.addComponent(fieldUsuario, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(jLabel1)
+					.addGap(18)
+					.addComponent(fieldTempo, GroupLayout.PREFERRED_SIZE, 70, GroupLayout.PREFERRED_SIZE)
+					.addGap(63)
+					.addComponent(jLabel4)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(fieldTempo1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 28, Short.MAX_VALUE)
+					.addComponent(btnEncerrar)
+					.addContainerGap())
 		);
 		jPanel1Layout.setVerticalGroup(
 			jPanel1Layout.createParallelGroup(Alignment.LEADING)
 				.addGroup(jPanel1Layout.createSequentialGroup()
-					.addGap(9)
-					.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(jLabel3)
-						.addComponent(fieldHoraEntrada, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(jLabel2)
-						.addComponent(fieldUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(jLabel1)
-						.addComponent(fieldTempo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
-						.addComponent(jLabel4)
-						.addComponent(fieldTempo1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addPreferredGap(ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
-					.addComponent(btnEncerrar)
-					.addContainerGap())
+					.addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+						.addGroup(jPanel1Layout.createSequentialGroup()
+							.addGap(9)
+							.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(jLabel3)
+								.addComponent(fieldHoraEntrada, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(jLabel2)
+								.addComponent(fieldUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(jLabel1)
+								.addComponent(fieldTempo, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+								.addComponent(btnEncerrar)))
+						.addGroup(jPanel1Layout.createSequentialGroup()
+							.addContainerGap()
+							.addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
+								.addComponent(jLabel4)
+								.addComponent(fieldTempo1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))))
+					.addContainerGap(41, Short.MAX_VALUE))
 		);
 		jPanel1.setLayout(jPanel1Layout);
 
@@ -138,12 +145,14 @@ public class FrameClientDesbloqueio extends javax.swing.JFrame {
 		layout.setHorizontalGroup(
 			layout.createParallelGroup(Alignment.LEADING)
 				.addGroup(layout.createSequentialGroup()
-					.addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, 315, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+					.addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, 972, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(100, Short.MAX_VALUE))
 		);
 		layout.setVerticalGroup(
 			layout.createParallelGroup(Alignment.LEADING)
-				.addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, 162, Short.MAX_VALUE)
+				.addGroup(layout.createSequentialGroup()
+					.addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(100, Short.MAX_VALUE))
 		);
 		getContentPane().setLayout(layout);
 
