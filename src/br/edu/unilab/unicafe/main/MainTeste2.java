@@ -21,7 +21,8 @@ public class MainTeste2 {
 
 	public static void main(String[] args) {
 		// testeAdd();
-		testeListaMaquinas();
+		//testeListaMaquinas();
+		testeLista();
 	}
 
 	public static void testeInsereMaquina(){

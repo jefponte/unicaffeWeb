@@ -15,7 +15,7 @@ public class Acesso {
 	/**
 	 * Hora que o acesso se iniciou. 
 	 */
-	private int horaInicial;
+	private long horaInicial;
 	private Maquina maquina;
 	
 	/**
@@ -67,11 +67,11 @@ public class Acesso {
 	public void setTempoUsado(int tempoUsado) {
 		this.tempoUsado = tempoUsado;
 	}
-	public int getHoraInicial() {
+	public long getHoraInicial() {
 		return horaInicial;
 	}
-	public void setHoraInicial(int horaInicial) {
-		this.horaInicial = horaInicial;
+	public void setHoraInicial(long l) {
+		this.horaInicial = l;
 	}
 	public int getTempoDisponibilizado() {
 		return tempoDisponibilizado;
@@ -92,5 +92,11 @@ public class Acesso {
 		this.maquina = maquina;
 	}
 	
+	
+	@Override
+	public String toString() {
+		String acesso = "usuario: "+this.usuario.getId()+", Maquina  - "+this.maquina.getId()+", hora Acesso Long: "+this.horaInicial+", Tempo Usado: "+this.tempoUsado+", "+this.tempoDisponibilizado+"BLZ\n";
+		return acesso;
+	}
 	
 }

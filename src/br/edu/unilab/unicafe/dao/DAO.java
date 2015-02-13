@@ -41,6 +41,9 @@ public class DAO {
 	public static final int TIPO_POSTGRESQL = 2;
 	private int tipoDeConexao;
 
+	public int getTipoDeConexao(){
+		return this.tipoDeConexao;
+	}
 	public DAO(int tipoDeConexao) {
 		this.tipoDeConexao = tipoDeConexao;
 		try {

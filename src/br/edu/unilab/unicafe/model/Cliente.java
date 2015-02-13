@@ -4,6 +4,7 @@ import java.awt.AWTException;
 import java.awt.Color;
 import java.awt.Robot;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 import java.io.FileInputStream;
@@ -263,7 +264,7 @@ public class Cliente {
 
 	public void desbloqueia(final int segundos, final String login) {
 		continuaESC = false;
-
+		bloqueado = false;
 		Thread sessao = new Thread(new Runnable() {
 
 			@Override
@@ -273,16 +274,18 @@ public class Cliente {
 				System.out.println("Tempo: " + segundos);
 				frameBloqueado.setVisible(false);
 				frameDesbloqueado.setVisible(true);
-				/*
-				try {
-					Runtime.getRuntime().exec("explorer.exe");
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				*/
 				
-				for (int i = segundos; i >= 0; i--) {
+				
+				frameDesbloqueado.getBtnEncerrar().addActionListener(new ActionListener() {
+					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						
+						bloqueia();
+					}
+				});
+				
+				for (int i = segundos; ((i >= 0)&& (!bloqueado)); i--) {
 					try {
 						Thread.sleep(1000);
 					
@@ -315,6 +318,14 @@ public class Cliente {
 	 * 
 	 */
 	public void bloqueia() {
+		
+		try {
+			if(this.saida != null)
+				this.saida.writeObject("setStatus(" + maquina.STATUS_DISPONIVEL+ ")");
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		
 		this.bloqueado = true;
 		this.iniciaEscInfinito();
@@ -380,7 +391,7 @@ public class Cliente {
 							if (comando.equals("bloqueia")) {
 								bloqueia();
 							} else if (comando.equals("desbloqueia")) {
-								bloqueado = false;
+								
 								String login = parametros.substring(0,
 										parametros.indexOf(','));
 								String tempo = parametros.substring(parametros.indexOf(',')+2);

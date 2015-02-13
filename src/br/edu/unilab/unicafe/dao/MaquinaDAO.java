@@ -35,7 +35,7 @@ public class MaquinaDAO extends DAO{
 				Maquina maquina = new Maquina();
 
 				maquina.setNome(resultSet.getString("nome_maq"));
-
+				maquina.setId(resultSet.getInt("id_maquina"));
 				lista.add(maquina);
 			}
 		} catch (SQLException e) {
@@ -70,8 +70,10 @@ public class MaquinaDAO extends DAO{
 			PreparedStatement ps = this.getConexao().prepareStatement("SELECT * FROM maquina WHERE nome_maq = ?");
 			ps.setString(1, maquina.getNome());
 			ResultSet rs = ps.executeQuery();
-			while(rs.next())
+			while(rs.next()){
+				maquina.setId(rs.getInt("id_maquina"));
 				return true;
+			}
 			return false;					
 			
 		} catch (SQLException e) {
@@ -95,6 +97,14 @@ public class MaquinaDAO extends DAO{
 			PreparedStatement ps2 = this.getConexao().prepareStatement("INSERT into maquina(nome_maq) VALUES(?)");			
 			ps2.setString(1, maquina.getNome());
 			ps2.executeUpdate();
+			
+			PreparedStatement ps3 = this.getConexao().prepareStatement("SELECT * FROM maquina WHERE nome_maq = ?");
+			ps3.setString(1, ""+maquina.getNome());
+			ResultSet rs2 = ps3.executeQuery();
+			while(rs2.next()){
+				maquina.setId(rs2.getInt("id_maquina"));
+				
+			}
 			return true;					
 			
 		} catch (SQLException e) {

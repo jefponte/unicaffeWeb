@@ -16,6 +16,8 @@ import java.util.List;
 
 import javax.swing.SwingUtilities;
 
+import org.omg.CORBA.Environment;
+
 import br.edu.unilab.unicafe.dao.AcessoDAO;
 import br.edu.unilab.unicafe.dao.DAO;
 import br.edu.unilab.unicafe.dao.MaquinaDAO;
@@ -80,7 +82,16 @@ public class Servidor {
 
 	public void iniciaServico() {
 
+		
 		frameServidor = new FrameServidor();
+		
+		frameServidor.getItemRenovaTempo().addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				processaMensagem(null, "renovaGalera()");
+			}
+		});
 		
 		this.maquina.preencheComMaquinaLocal();
 		this.ip = this.maquina.getIp();
@@ -131,9 +142,11 @@ public class Servidor {
 				mensagem.indexOf('(') + 1,
 				mensagem.indexOf(')'));
 
+		/*
 		printd(cliente.getMaquina().getNome() + ">> "
 				+ mensagem);
 		
+		*/
 
 		if (comando.equals("autentica")) {
 			String login = parametros.substring(0,
@@ -163,22 +176,28 @@ public class Servidor {
 				printd("Verificar tempo acessado. ");
 				AcessoDAO acessoDao = new AcessoDAO(dao.getConexao());
 				int tempo = acessoDao.retornaTempoUsado(usuario);
+				
 				printd("Usou: "+tempo);
 				if(tempo <= AcessoDAO.COTA){
 					printd("Pode acessar durante "+((AcessoDAO.COTA)-(tempo))+" segundos");
 					try {
 						cliente.getSaida().writeObject("desbloqueia(" + login + ", "+((AcessoDAO.COTA)-(tempo))+")");
+						
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					
-					Acesso acesso = new Acesso();
+					cliente.setAcesso(new Acesso());
+					Acesso acesso = cliente.getAcesso();
 					acesso.setUsuario(usuario);
 					acesso.setTempoDisponibilizado(((AcessoDAO.COTA)-(tempo)));
 					acesso.setTempoUsado(0);
+					acesso.setMaquina(cliente.getMaquina());
 					acesso.contar();
-					cliente.setAcesso(acesso);
+					
+					acesso.setHoraInicial(System.currentTimeMillis());
+					
 					
 				}else{
 					try {
@@ -217,7 +236,12 @@ public class Servidor {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} else if (comando.equals("setNome")) {
+		}else if(comando.equals("renovaGalera")){
+			AcessoDAO dao = new AcessoDAO();
+			dao.renovaGalera();
+		
+		}
+		else if (comando.equals("setNome")) {
 
 			String nome = parametros;
 			printd(cliente.getMaquina().getNome()
@@ -232,7 +256,7 @@ public class Servidor {
 					printd("Maquina nova cadastrada: "+cliente.getMaquina().getNome());
 					printd("Listarei as máquinas: ");
 					for(Maquina maquina : maquinaDao.retornaLista()){
-						printd(""+maquina.getNome());
+						printd("ID: "+maquina.getId()+" Nome: "+maquina.getNome());
 					}
 				}
 				
@@ -255,10 +279,13 @@ public class Servidor {
 
 			int status = Integer.parseInt(parametros);
 			cliente.getMaquina().setStatus(status);
+			System.out.println("Mudou Status. ");
 			if((status == Maquina.STATUS_DISPONIVEL) && (cliente.getAcesso() != null)){
 				cliente.getAcesso().pararDeContar();
 				AcessoDAO acessodao = new AcessoDAO();
 				acessodao.cadastra(cliente.getAcesso());
+				cliente.setAcesso(null);
+				System.out.println("É pra ter cadastrado um novo acesso. ");
 				try {
 					acessodao.getConexao().close();
 				} catch (SQLException e) {
@@ -295,11 +322,7 @@ public class Servidor {
 					final OutputStream outputStream = conexao.getOutputStream();
 					cliente.setSaida(new ObjectOutputStream(outputStream));
 					
-					frameServidor.getItemAtualiza().addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent arg0) {
-							atualizaGalera(outputStream);
-						}
-					});
+					
 				} catch (IOException e) {
 					printd("Errinho de IO.");
 					// e.printStackTrace();

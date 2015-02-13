@@ -26,8 +26,25 @@ public class UsuarioDAO extends DAO {
 		super(conexao);
 	}
 	public  boolean autentica(Usuario usuario){
+		//Primeiro temos que fazer autenticação no banco local. 
+		//Até aí tudo bem. 
+		Connection conexaoPostgres;
+		Connection conexaoSqlite;
+		if(this.getTipoDeConexao() == TIPO_POSTGRESQL){
+			conexaoSqlite= new DAO(TIPO_SQLITE).getConexao();
+			conexaoPostgres = this.getConexao();
+		}else if(this.getTipoDeConexao() == TIPO_SQLITE){
+			conexaoPostgres= new DAO(TIPO_POSTGRESQL).getConexao();
+			conexaoSqlite= this.getConexao();
+		}else{
+			conexaoPostgres= new DAO(TIPO_POSTGRESQL).getConexao();
+			conexaoSqlite=  new DAO(TIPO_SQLITE).getConexao();
+		}
+		
+			
+		
 		try {
-			PreparedStatement ps = this.getConexao().prepareStatement("SELECT * FROM usuario WHERE login = ? AND senha = ?");
+			PreparedStatement ps = conexaoSqlite.prepareStatement("SELECT * FROM usuario WHERE login = ? AND senha = ?");
 			ps.setString(1, usuario.getLogin());
 			ps.setString(2, usuario.getSenha());
 			ResultSet rs = ps.executeQuery();
@@ -36,13 +53,32 @@ public class UsuarioDAO extends DAO {
 				return true;
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 			return false;
 		}
 		
 		
+		try {
+			PreparedStatement ps2 = conexaoPostgres.prepareStatement("SELECT * FROM usuario WHERE login = ? AND senha = ?");
+			ps2.setString(1, usuario.getLogin());
+			ps2.setString(2, usuario.getSenha());
+			ResultSet rs2 = ps2.executeQuery();
+			while(rs2.next()){
+				PreparedStatement ps3 = conexaoSqlite.prepareStatement("INSERT INTO usuario(login, senha) VALUES(?, ?)");
+				ps3.setString(1, rs2.getString("login"));
+				ps3.setString(2, rs2.getString("senha"));
+				ps3.executeUpdate();
+				return autentica(usuario);
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+			return false;
+		}
 		return false;
+		
+		
 	}
 	
 	public Usuario logado(String login) {
@@ -93,6 +129,7 @@ public class UsuarioDAO extends DAO {
 			ps2.setString(3, usuario.getLogin());
 			
 			
+			
 			MessageDigest m;
 			try {
 				m = MessageDigest.getInstance("MD5");
@@ -105,6 +142,7 @@ public class UsuarioDAO extends DAO {
 			ps2.setString(4, usuario.getSenha());
 			ps2.setString(5, usuario.getCpf());
 			ps2.executeUpdate();
+			
 			return true;
 					
 			

@@ -6,6 +6,7 @@ import java.net.SocketException;
 import java.net.UnknownHostException;
 
 public class Maquina {
+	private int id;
 	
 	private Usuario usuarioLogado;
 	
@@ -112,6 +113,12 @@ public class Maquina {
 
 	public void setUsuarioLogado(Usuario usuarioLogado) {
 		this.usuarioLogado = usuarioLogado;
+	}
+	public int getId() {
+		return id;
+	}
+	public void setId(int id) {
+		this.id = id;
 	}
 
 }
