@@ -17,7 +17,14 @@ public class Acesso {
 	 */
 	private long horaInicial;
 	private Maquina maquina;
+	private Cliente cliente;
 	
+	public Cliente getCliente() {
+		return cliente;
+	}
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
 	/**
 	 * Esse é o tempo que foi oferecido no início do acesso. 
 	 */
@@ -98,5 +105,6 @@ public class Acesso {
 		String acesso = "usuario: "+this.usuario.getId()+", Maquina  - "+this.maquina.getId()+", hora Acesso Long: "+this.horaInicial+", Tempo Usado: "+this.tempoUsado+", "+this.tempoDisponibilizado+"BLZ\n";
 		return acesso;
 	}
+
 	
 }

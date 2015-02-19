@@ -283,6 +283,8 @@ public class Servidor {
 			if((status == Maquina.STATUS_DISPONIVEL) && (cliente.getAcesso() != null)){
 				cliente.getAcesso().pararDeContar();
 				AcessoDAO acessodao = new AcessoDAO();
+
+				cliente.getAcesso().setCliente(cliente);
 				acessodao.cadastra(cliente.getAcesso());
 				cliente.setAcesso(null);
 				System.out.println("É pra ter cadastrado um novo acesso. ");
@@ -353,6 +355,7 @@ public class Servidor {
 				if(cliente.getAcesso() != null){
 					cliente.getAcesso().pararDeContar();
 					AcessoDAO acessodao = new AcessoDAO();
+					cliente.getAcesso().setCliente(cliente);
 					acessodao.cadastra(cliente.getAcesso());
 					try {
 						acessodao.getConexao().close();

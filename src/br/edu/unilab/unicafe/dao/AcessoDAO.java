@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Locale;
 
 import br.edu.unilab.unicafe.model.Acesso;
+import br.edu.unilab.unicafe.model.Cliente;
 import br.edu.unilab.unicafe.model.Maquina;
 import br.edu.unilab.unicafe.model.Usuario;
 
@@ -156,6 +157,7 @@ public class AcessoDAO extends DAO {
 			ps2.setInt(4, acesso.getMaquina().getId());
 			ps2.setInt(5, acesso.getTempoDisponibilizado());
 			ps2.executeUpdate();
+			System.out.println("Cadastrei acesso em: "+acesso.getCliente().getConexao().getInetAddress().toString());
 			return true;
 
 		} catch (SQLException e) {
