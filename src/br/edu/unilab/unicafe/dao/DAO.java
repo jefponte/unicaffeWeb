@@ -26,11 +26,10 @@ public class DAO {
 	public static final String JDBC_BANCO_SQLITE = "jdbc:sqlite:banco.db";
 
 	
-	private static final String USUARIO_MYSQL = "unicafe_root";
-	private static final String SENHA_MYSQL = "cti@unilab2012";
+	private static final String USUARIO_MYSQL = "root";
+	private static final String SENHA_MYSQL = "cocacola@12";
 	private static final String IP_MYSQL = "127.0.0.1";
-	//private static final String IP = "192.168.2.14";
-	private static final String BANCO_MYSQL = "unicafe";
+	private static final String BANCO_MYSQL = "banco_sigaa";
 	private static final String DRIVER_MYSQL = "com.mysql.jdbc.Driver";
 	private static final String JDBC_BANCO_MYSQL = "jdbc:mysql:";
 

@@ -19,10 +19,12 @@ import br.edu.unilab.unicafe.model.Usuario;
 
 public class MainTeste2 {
 
+
+
 	public static void main(String[] args) {
-		// testeAdd();
-		//testeListaMaquinas();
-		testeLista();
+		
+	
+		 
 	}
 
 	public static void testeInsereMaquina(){

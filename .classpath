@@ -14,5 +14,6 @@
 	</classpathentry>
 	<classpathentry kind="lib" path="src/sqlite-jdbc-3.8.7.jar"/>
 	<classpathentry kind="lib" path="src/postgresql-9.3-1102.jdbc4.jar"/>
+	<classpathentry kind="lib" path="src/mysql-connector-java-5.0.4-bin.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
