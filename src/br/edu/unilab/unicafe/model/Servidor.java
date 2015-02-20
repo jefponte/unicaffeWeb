@@ -317,6 +317,7 @@ public class Servidor {
 			@Override
 			public void run() {
 				Cliente cliente = new Cliente();
+				cliente.setConexao(conexao);
 				listaDeClientes.add(cliente);
 				try {
 					cliente.setEntrada(new ObjectInputStream(conexao

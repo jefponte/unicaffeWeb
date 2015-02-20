@@ -46,7 +46,7 @@ public class AcessoDAO extends DAO {
 
 		PreparedStatement ps;
 		try {
-			ps = this.getConexao().prepareStatement("SELECT usuario.login, acesso.id_maquina, acesso.id_usuario, maquina.nome_maq, acesso.hora_acesso, acesso.tempo_usado, acesso.tempo_oferecido FROM acesso INNER JOIN usuario ON acesso.id_usuario = usuario.id_usuario INNER JOIN maquina ON acesso.id_maquina = maquina.id_maquina;");
+			ps = this.getConexao().prepareStatement("SELECT acesso.ip, usuario.login,  acesso.id_maquina, acesso.id_usuario, maquina.nome_maq, acesso.hora_acesso, acesso.tempo_usado, acesso.tempo_oferecido FROM acesso INNER JOIN usuario ON acesso.id_usuario = usuario.id_usuario INNER JOIN maquina ON acesso.id_maquina = maquina.id_maquina;");
 			// ps.setInt(1, usuario.getId());
 			ResultSet resultSet = ps.executeQuery();
 			while (resultSet.next()) {
@@ -56,6 +56,7 @@ public class AcessoDAO extends DAO {
 						.getInt("tempo_oferecido"));
 				Maquina maquina = new Maquina();
 				maquina.setId(resultSet.getInt("id_maquina"));
+				maquina.setIp(resultSet.getString("ip"));
 				maquina.setNome(resultSet.getString("nome_maq"));
 				
 				String input = resultSet.getString("hora_acesso");
@@ -146,7 +147,7 @@ public class AcessoDAO extends DAO {
 			PreparedStatement ps2 = this
 					.getConexao()
 					.prepareStatement(
-							"INSERT into acesso(id_usuario, tempo_usado, hora_acesso, id_maquina, tempo_oferecido) VALUES(?, ?, ?, ?, ?)");
+							"INSERT into acesso(id_usuario, tempo_usado, hora_acesso, id_maquina, tempo_oferecido, ip) VALUES(?, ?, ?, ?, ?, ?)");
 			ps2.setInt(1, acesso.getUsuario().getId());
 			ps2.setInt(2, acesso.getTempoUsado());
 			Date data = new Date(System.currentTimeMillis());
@@ -156,8 +157,10 @@ public class AcessoDAO extends DAO {
 			ps2.setString(3, strData);
 			ps2.setInt(4, acesso.getMaquina().getId());
 			ps2.setInt(5, acesso.getTempoDisponibilizado());
+			ps2.setString(6, acesso.getCliente().getConexao().getInetAddress().toString().substring(1));
 			ps2.executeUpdate();
-			System.out.println("Cadastrei acesso em: "+acesso.getCliente().getConexao().getInetAddress().toString());
+			
+			
 			return true;
 
 		} catch (SQLException e) {
@@ -204,12 +207,12 @@ public class AcessoDAO extends DAO {
 				while(resultSet2.next()){
 					acesso.getUsuario().setId(resultSet2.getInt("id_usuario"));
 					
-					PreparedStatement ps3 = conexaoPostgres.prepareStatement("INSERT INTO historico_acesso(id_usuario, id_maquina, data_inicio_uso, data_termino_uso) VALUES(?, ?, ?, ?)");
+					PreparedStatement ps3 = conexaoPostgres.prepareStatement("INSERT INTO historico_acesso(id_usuario, id_maquina, data_inicio_uso, data_termino_uso, ipv4) VALUES(?, ?, ?, ?, ?)");
 					ps3.setInt(1, acesso.getUsuario().getId());
 					ps3.setInt(2, acesso.getMaquina().getId());
 					ps3.setTimestamp(3, new java.sql.Timestamp(acesso.getHoraInicial()));
 					ps3.setTimestamp(4, new java.sql.Timestamp((acesso.getHoraInicial()+acesso.getTempoUsado())));
-					
+					ps3.setString(5, acesso.getMaquina().getIp());
 					
 					ps3.executeUpdate();
 					System.out.println("Cadastrou acesso. ");

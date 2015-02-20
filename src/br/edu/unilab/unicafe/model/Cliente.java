@@ -25,7 +25,7 @@ import javax.swing.AbstractAction;
 
 import br.edu.unilab.unicafe.registro.model.Perfil;
 import br.edu.unilab.unicafe.view.FrameClientBloqueado;
-import br.edu.unilab.unicafe.view.FrameClientDesbloqueio;
+import br.edu.unilab.unicafe.view.FrameClientDesbloqueado;
 
 /**
  * 
@@ -37,13 +37,12 @@ public class Cliente {
 
 	public boolean bloqueado;
 	private Maquina maquina;
-	// teste
 	private Socket conexao;
 	private Servidor servidor;
 	private ObjectOutputStream saida;
 	private ObjectInputStream entrada;
 	private FrameClientBloqueado frameBloqueado;
-	private FrameClientDesbloqueio frameDesbloqueado;
+	private FrameClientDesbloqueado frameDesbloqueado;
 	private Thread escInfinito;
 
 	private Acesso acesso;
@@ -172,7 +171,7 @@ public class Cliente {
 		this.bloqueado = true;
 		this.iniciaEscInfinito();
 		this.maquina.preencheComMaquinaLocal();
-		this.frameDesbloqueado = new FrameClientDesbloqueio();
+		this.frameDesbloqueado = new FrameClientDesbloqueado();
 		this.frameBloqueado = new FrameClientBloqueado();
 		this.frameBloqueado.setAlwaysOnTop(true);
 		frameBloqueado.getBtnLogar().addActionListener(
@@ -269,14 +268,12 @@ public class Cliente {
 
 			@Override
 			public void run() {
-
-				frameDesbloqueado.getFieldUsuario().setText(login);
+				
+				frameDesbloqueado.getLblUsuario().setText(login);
 				System.out.println("Tempo: " + segundos);
 				frameBloqueado.setVisible(false);
 				frameDesbloqueado.setVisible(true);
-				
-				
-				frameDesbloqueado.getBtnEncerrar().addActionListener(new ActionListener() {
+				frameDesbloqueado.getBtnFinalizar().addActionListener(new ActionListener() {
 					
 					@Override
 					public void actionPerformed(ActionEvent e) {
@@ -300,7 +297,8 @@ public class Cliente {
 							minuto -= 60;
 							hora++;
 						}
-						frameDesbloqueado.getFieldTempo().setText(String.format("%02d", hora)+":"+String.format("%02d", minuto)+":"+String.format("%02d", tempo));
+						
+						frameDesbloqueado.getLblTempo().setText(String.format("%02d", hora)+":"+String.format("%02d", minuto)+":"+String.format("%02d", tempo));
 					} catch (InterruptedException e) {
 
 						e.printStackTrace();
