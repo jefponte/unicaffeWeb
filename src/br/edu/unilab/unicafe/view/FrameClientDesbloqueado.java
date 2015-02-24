@@ -74,7 +74,7 @@ public class FrameClientDesbloqueado extends JFrame {
 				+ "fundoBarTarefas.jpg");
 		getContentPane().add(panel, BorderLayout.CENTER);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setAlwaysOnTop(true);
+		setAlwaysOnTop(false);
 		setUndecorated(true);
 		setResizable(false);
 		panel.setBackground(Color.WHITE);
