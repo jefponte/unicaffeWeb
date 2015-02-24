@@ -25,7 +25,6 @@ public class FrameApresentacao extends JFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static final String BASE_PATH_IMAGES = "/br/edu/unilab/unicafe/images/";
 
 	/**
 	 * Launch the application.
@@ -53,7 +52,7 @@ public class FrameApresentacao extends JFrame {
 
 		// JLabels
 		JLabel lblLogo = new JLabel("");
-		lblLogo.setIcon(new javax.swing.ImageIcon(UtilFrames.getScaledImage(new javax.swing.ImageIcon(getClass().getResource(BASE_PATH_IMAGES + "logo-unilab.png")).getImage(), 468, 116)));
+		lblLogo.setIcon(new javax.swing.ImageIcon(UtilFrames.getScaledImage(new javax.swing.ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "logoUnilabHorizontal.png")).getImage(), 468, 116)));
 		
 		JLabel lblFechar = new JLabel("X");
 		lblFechar.addMouseListener(new MouseAdapter() {

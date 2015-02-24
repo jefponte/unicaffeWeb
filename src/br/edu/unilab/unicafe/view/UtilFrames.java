@@ -12,6 +12,8 @@ import java.awt.image.BufferedImage;
 
 public class UtilFrames {
 	
+	protected static final String BASE_PATH_IMAGES = "/br/edu/unilab/unicafe/images/";
+	
 	/**
 	 * 
 	 * Redimensionar imagem proporcionalmente conforme altura e altura sem
@@ -28,6 +30,7 @@ public class UtilFrames {
 		g2.setRenderingHint(RenderingHints.KEY_INTERPOLATION,RenderingHints.VALUE_INTERPOLATION_BILINEAR);
 		g2.drawImage(srcImg, 0, 0, w, h, null);
 		g2.dispose();
+		
 		return resizedImg;
 	}
 

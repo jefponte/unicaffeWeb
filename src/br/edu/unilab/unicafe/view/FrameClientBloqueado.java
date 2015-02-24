@@ -1,276 +1,204 @@
 package br.edu.unilab.unicafe.view;
 
 import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
 import java.awt.Color;
-
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import javax.swing.BoxLayout;
-
 import java.awt.Dimension;
-import java.awt.GridBagLayout;
-import java.awt.GridBagConstraints;
-import java.awt.Insets;
+import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
 
-import javax.swing.JSplitPane;
+import javax.imageio.ImageIO;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-
-import java.awt.Font;
-
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-
-import java.awt.SystemColor;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
-
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
 
 public class FrameClientBloqueado extends JFrame {
 
-	private JPanel contentPane;
-	private JTextField textLogin;
-	private JPasswordField jpasswordSenha;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	private JTextField textFieldUsuario;
+	private JButton btnEntrar;
+	private JPasswordField passwordFieldSenha;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FrameClientBloqueado frame = new FrameClientBloqueado();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
+	public FrameClientBloqueado() {
+		getContentPane().setForeground(new Color(27, 54, 83));
+		setBackground(new Color(27, 54, 83));
+		initComponents();
 	}
 
 	/**
 	 * Create the frame.
 	 */
-	public FrameClientBloqueado() {
+	private void initComponents() {
+		//setBounds(100, 100, 450, 300);
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		//Metodos essenciais para uma janela de bloqueio. 
-		
-		setUndecorated(true);
-		
-		setResizable(false);
-		setAlwaysOnTop(true);
-		
-		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-		setExtendedState(JFrame.MAXIMIZED_BOTH);
-		Toolkit tk = Toolkit.getDefaultToolkit();  
-	    Dimension d = tk.getScreenSize();  
-	     
-		setBounds(100, 100, d.width, d.height);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		contentPane.setLayout(new BorderLayout(0, 0));
-		setContentPane(contentPane);
-		
+		// Jpanel personalizado
+		//JPanelImageResized panel = new JPanelImageResized();
 		JPanel panel = new JPanel();
-		panel.setBackground(new Color(51, 153, 255));
-		contentPane.add(panel, BorderLayout.NORTH);
+		panel.setForeground(new Color(27, 54, 83));
+		//panel.setPathImage(UtilFrames.BASE_PATH_IMAGES + "fundoJanela.jpg");
+		getContentPane().add(panel, BorderLayout.CENTER);
+		setExtendedState(JFrame.MAXIMIZED_BOTH);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+		setAlwaysOnTop(true);
+		setUndecorated(true);
+		setResizable(false);
+		panel.setBackground(new Color(27, 54, 83));
+		panel.setBorder(new LineBorder(new Color(0, 0, 0)));
+		panel.setLayout(new BorderLayout(0, 0));
 		
-		JLabel lblUnicafeclient = new JLabel("UniCafeClient");
-		lblUnicafeclient.setForeground(Color.WHITE);
-		lblUnicafeclient.setFont(new Font("Tahoma", Font.BOLD, 18));
 		
-		JLabel lblNewLabel = new JLabel("UNILAB -  Universidade da Integra\u00E7\u00E3o Internacional da Lusofonia Afro-Brasileira");
-		lblNewLabel.setForeground(Color.WHITE);
-		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 16));
-		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(
-			gl_panel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(627)
-							.addComponent(lblNewLabel))
-						.addGroup(gl_panel.createSequentialGroup()
-							.addGap(894)
-							.addComponent(lblUnicafeclient)))
-					.addContainerGap(626, Short.MAX_VALUE))
+		JLabel lblImgFormLogin = new JLabel();
+		lblImgFormLogin.setIcon(new javax.swing.ImageIcon(new javax.swing.ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "fundoFormLogin.png")).getImage()));
+		lblImgFormLogin.setHorizontalAlignment(SwingConstants.CENTER); 
+		//panel.add(lblImgFormLogin, BorderLayout.CENTER);
+		
+		JLabel lblLogoUnicafe = new JLabel();
+		lblLogoUnicafe.setIcon(new javax.swing.ImageIcon(new javax.swing.ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "logoUnicafe.png")).getImage()));
+		lblLogoUnicafe.setHorizontalAlignment(SwingConstants.CENTER); 
+		panel.add(lblLogoUnicafe, BorderLayout.WEST);
+		
+		JLabel lblLogoUnilab = new JLabel();
+		lblLogoUnilab.setHorizontalAlignment(SwingConstants.CENTER);
+		lblLogoUnilab.setIcon(new javax.swing.ImageIcon(new javax.swing.ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "logoUnilabVertical.png")).getImage()));
+		panel.add(lblLogoUnilab, BorderLayout.EAST);
+		
+		JLabel lblLogoLabti = new JLabel();
+		lblLogoLabti.setHorizontalAlignment(SwingConstants.CENTER);
+		lblLogoLabti.setIcon(new javax.swing.ImageIcon(new javax.swing.ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "logoLabti.png")).getImage()));
+		panel.add(lblLogoLabti, BorderLayout.NORTH);
+
+		JPanelImageNormal panelImgFormLogin = new JPanelImageNormal();
+		panelImgFormLogin.setPathImage(UtilFrames.BASE_PATH_IMAGES + "fundoFormLogin.png");
+
+		JPanel panelFormLogin = new JPanel();
+		panelFormLogin.setBackground(new Color(27, 54, 83));
+		
+		panel.add(panelFormLogin, BorderLayout.CENTER);
+		GroupLayout gl_panelFormLogin = new GroupLayout(panelFormLogin);
+		gl_panelFormLogin.setHorizontalGroup(
+			gl_panelFormLogin.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelFormLogin.createSequentialGroup()
+					.addGap(285)
+					.addComponent(panelImgFormLogin, GroupLayout.PREFERRED_SIZE, 777, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(294, Short.MAX_VALUE))
 		);
-		gl_panel.setVerticalGroup(
-			gl_panel.createParallelGroup(Alignment.TRAILING)
-				.addGroup(gl_panel.createSequentialGroup()
-					.addContainerGap(16, Short.MAX_VALUE)
-					.addComponent(lblUnicafeclient)
-					.addPreferredGap(ComponentPlacement.RELATED)
-					.addComponent(lblNewLabel)
-					.addContainerGap())
+		gl_panelFormLogin.setVerticalGroup(
+			gl_panelFormLogin.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelFormLogin.createSequentialGroup()
+					.addGap(277)
+					.addComponent(panelImgFormLogin, GroupLayout.PREFERRED_SIZE, 329, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(292, Short.MAX_VALUE))
 		);
-		panel.setLayout(gl_panel);
+		gl_panelFormLogin.setHonorsVisibility(false);
 		
-		JPanel panel_1 = new JPanel();
-		panel_1.setBackground(SystemColor.menu);
-		contentPane.add(panel_1, BorderLayout.CENTER);
+		JLabel lblUsurio = new JLabel("Usu\u00E1rio");
+		lblUsurio.setForeground(Color.WHITE);
+		lblUsurio.setFont(new Font("Tahoma", Font.BOLD, 16));
 		
-		JPanel panel_2 = new JPanel();
-		panel_2.setLayout(null);
-		panel_2.setBackground(SystemColor.textHighlight);
+		textFieldUsuario = new JTextField();
+		textFieldUsuario.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		textFieldUsuario.setColumns(10);
 		
-		JLabel label_1 = new JLabel("Login");
-		label_1.setForeground(Color.WHITE);
-		label_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		label_1.setBounds(95, 61, 46, 14);
-		panel_2.add(label_1);
+		JLabel lblSenha = new JLabel("Senha");
+		lblSenha.setForeground(Color.WHITE);
+		lblSenha.setFont(new Font("Tahoma", Font.BOLD, 16));
 		
-		JLabel label_2 = new JLabel("Senha");
-		label_2.setForeground(Color.WHITE);
-		label_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		label_2.setBounds(95, 104, 46, 14);
-		panel_2.add(label_2);
-		
-		textLogin = new JTextField();
-		textLogin.setBounds(168, 60, 168, 20);
-		panel_2.add(textLogin);
-		
-		jpasswordSenha = new JPasswordField();
-		jpasswordSenha.setColumns(10);
-		jpasswordSenha.setBounds(168, 103, 168, 20);
-		panel_2.add(jpasswordSenha);
-		
-		JButton btnLogar = new JButton("Acessar");
-		this.btnLogar = btnLogar;
-		btnLogar.setBounds(168, 145, 89, 23);
-		panel_2.add(btnLogar);
-		GroupLayout gl_panel_1 = new GroupLayout(panel_1);
-		gl_panel_1.setHorizontalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_1.createSequentialGroup()
-					.addGap(725)
-					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 457, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(728, Short.MAX_VALUE))
-		);
-		gl_panel_1.setVerticalGroup(
-			gl_panel_1.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_panel_1.createSequentialGroup()
-					.addGap(241)
-					.addComponent(panel_2, GroupLayout.PREFERRED_SIZE, 237, GroupLayout.PREFERRED_SIZE)
-					.addContainerGap(517, Short.MAX_VALUE))
-		);
-		
-		JLabel label = new JLabel();
-		label.setText("Status: ");
-		label.setForeground(Color.WHITE);
-		label.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		label.setBounds(28, 186, 48, 17);
-		panel_2.add(label);
-		
-		JLabel label_3 = new JLabel();
-		label_3.setText("Mensagem: ");
-		label_3.setForeground(Color.WHITE);
-		label_3.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		label_3.setBounds(28, 209, 75, 17);
-		panel_2.add(label_3);
+
+		// BufferedImage e JButtons
+		BufferedImage bi;
+		try {
+			bi = ImageIO.read(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "botaoEntrar.png"));
+			btnEntrar = new JButton(new ImageIcon(bi));
+			btnEntrar.setBorderPainted(false);
+			btnEntrar.setFocusPainted(false);
+			btnEntrar.setContentAreaFilled(false);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		JLabel labelStatus = new JLabel();
-		this.labelStatus = labelStatus;
 		labelStatus.setText("Sem Conex\u00E3o");
-		labelStatus.setForeground(new Color(204, 0, 51));
-		labelStatus.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		labelStatus.setBounds(87, 186, 360, 17);
-		panel_2.add(labelStatus);
+		labelStatus.setForeground(Color.WHITE);
+		labelStatus.setFont(new Font("Arial", Font.PLAIN, 14));
 		
 		JLabel labelMensagem = new JLabel();
-		this.labelMensagem = labelMensagem;
-		labelMensagem.setText("Errou A Senha");
-		labelMensagem.setForeground(new Color(204, 0, 51));
-		labelMensagem.setFont(new Font("Times New Roman", Font.BOLD, 14));
-		labelMensagem.setBounds(113, 209, 334, 17);
-		panel_2.add(labelMensagem);
-		panel_1.setLayout(gl_panel_1);
+		labelMensagem.setText("Senha incorreta");
+		labelMensagem.setForeground(Color.WHITE);
+		labelMensagem.setFont(new Font("Arial", Font.PLAIN, 14));
 		
-		
-		  addWindowListener(new WindowListener(){  
-			  
-			  @Override  
-	            public void windowActivated(WindowEvent arg0) {  
-	                // TODO Auto-generated method stub  
-	                  
-	            }  
-	  
-	            @Override  
-	            public void windowClosed(WindowEvent arg0) {  
-	                //Não aparece pq mandamos sair do prgrama lá em cima  
-	               // JOptionPane.showMessageDialog(null, "Fechei");  
-	                  
-	            }  
-	  
-	            @Override  
-	            public void windowClosing(WindowEvent arg0) {  
-	                //JOptionPane.showMessageDialog(null, "Vou fechar");  
-	                  
-	            }  
-	  
-	            @Override  
-	            public void windowDeactivated(WindowEvent arg0) {  
-	                // TODO Auto-generated method stub  
-	                  
-	            }  
-	  
-	            @Override  
-	            public void windowDeiconified(WindowEvent arg0) {  
-	                //Você desminimizou");  
-	                  
-	            }  
-	  
-	            @Override  
-	            public void windowIconified(WindowEvent arg0) {  
-	                //Você minimizou  
-	        		setExtendedState(JFrame.MAXIMIZED_BOTH);
-	                  
-	            }  
-	  
-	            @Override  
-	            public void windowOpened(WindowEvent arg0) {  
-	               //abriu o frame  
-	                  
-	            }  
-	              
-	        });    
-	          
-	}
-	private JButton btnLogar;
-	private JLabel labelStatus;
-	private JLabel labelMensagem;
-	public JLabel getLabelStatus() {
-		return labelStatus;
-	}
-	public JLabel getLabelMensagem() {
-		return labelMensagem;
-	}
-	
-	
+		passwordFieldSenha = new JPasswordField();
+		passwordFieldSenha.setFont(new Font("Tahoma", Font.PLAIN, 14));
 
-	public JTextField getTextLogin() {
-		return this.textLogin;
+		GroupLayout gl_panelImgFormLogin = new GroupLayout(panelImgFormLogin);
+		gl_panelImgFormLogin.setHorizontalGroup(
+			gl_panelImgFormLogin.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelImgFormLogin.createSequentialGroup()
+					.addGroup(gl_panelImgFormLogin.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panelImgFormLogin.createSequentialGroup()
+							.addGap(223)
+							.addGroup(gl_panelImgFormLogin.createParallelGroup(Alignment.LEADING, false)
+								.addGroup(gl_panelImgFormLogin.createSequentialGroup()
+									.addComponent(lblSenha, GroupLayout.PREFERRED_SIZE, 62, GroupLayout.PREFERRED_SIZE)
+									.addGroup(gl_panelImgFormLogin.createParallelGroup(Alignment.LEADING)
+										.addGroup(gl_panelImgFormLogin.createSequentialGroup()
+											.addGap(10)
+											.addGroup(gl_panelImgFormLogin.createParallelGroup(Alignment.LEADING)
+												.addComponent(labelMensagem, GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE)
+												.addComponent(btnEntrar, GroupLayout.PREFERRED_SIZE, 232, Short.MAX_VALUE)))
+										.addGroup(gl_panelImgFormLogin.createSequentialGroup()
+											.addPreferredGap(ComponentPlacement.UNRELATED)
+											.addComponent(passwordFieldSenha, GroupLayout.DEFAULT_SIZE, 232, Short.MAX_VALUE))))
+								.addGroup(gl_panelImgFormLogin.createSequentialGroup()
+									.addComponent(lblUsurio)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(textFieldUsuario))))
+						.addGroup(gl_panelImgFormLogin.createSequentialGroup()
+							.addGap(47)
+							.addComponent(labelStatus, GroupLayout.PREFERRED_SIZE, 249, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(250, Short.MAX_VALUE))
+		);
+		gl_panelImgFormLogin.setVerticalGroup(
+			gl_panelImgFormLogin.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_panelImgFormLogin.createSequentialGroup()
+					.addGap(86)
+					.addGroup(gl_panelImgFormLogin.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblUsurio)
+						.addComponent(textFieldUsuario, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(9)
+					.addGroup(gl_panelImgFormLogin.createParallelGroup(Alignment.TRAILING)
+						.addComponent(lblSenha, GroupLayout.PREFERRED_SIZE, 20, GroupLayout.PREFERRED_SIZE)
+						.addComponent(passwordFieldSenha, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(btnEntrar, GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+					.addGap(25)
+					.addComponent(labelMensagem, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+					.addGap(50)
+					.addComponent(labelStatus, GroupLayout.PREFERRED_SIZE, 17, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap(30, Short.MAX_VALUE))
+		);
+		panelImgFormLogin.setLayout(gl_panelImgFormLogin);
+		panelFormLogin.setLayout(gl_panelFormLogin);
 
+		// Dimension
+		Dimension janela = Toolkit.getDefaultToolkit().getScreenSize();
+		setSize(janela.width, janela.height);
 	}
-
-	public JPasswordField getJPasswordSenha() {
-		return this.jpasswordSenha;
-
-	}
-
-	public JButton getBtnLogar() {
-		return btnLogar;
-	}
-
-	
-	
 }

@@ -16,7 +16,7 @@ public class ImportaSQLITE {
 		
 		//pequeno teste
 		JFrame frame = new JFrame();
-		frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setSize(200, 200);
 		frame.setVisible(true);
 		/*
