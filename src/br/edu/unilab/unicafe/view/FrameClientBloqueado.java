@@ -30,9 +30,26 @@ public class FrameClientBloqueado extends JFrame {
 	private static final long serialVersionUID = 1L;
 	
 	private JTextField textFieldUsuario;
+	public JTextField getTextFieldUsuario(){
+		return this.textFieldUsuario;
+	}
 	private JButton btnEntrar;
+	public JButton getBtnEntrar(){
+		return this.btnEntrar;
+	}
 	private JPasswordField passwordFieldSenha;
-
+	public JPasswordField getPasswordFieldSenha(){
+		return this.passwordFieldSenha;
+	}
+	private JLabel labelStatus;
+	private JLabel labelMensagem;
+	public JLabel getLabelMensagem(){
+		
+		return this.labelMensagem;
+	}
+	public JLabel getLabelStatus(){
+		return this.labelStatus;
+	}
 	/**
 	 * Launch the application.
 	 */
@@ -134,12 +151,12 @@ public class FrameClientBloqueado extends JFrame {
 			e.printStackTrace();
 		}
 		
-		JLabel labelStatus = new JLabel();
+		labelStatus = new JLabel();
 		labelStatus.setText("Sem Conex\u00E3o");
 		labelStatus.setForeground(Color.WHITE);
 		labelStatus.setFont(new Font("Arial", Font.PLAIN, 14));
 		
-		JLabel labelMensagem = new JLabel();
+		labelMensagem = new JLabel();
 		labelMensagem.setText("Senha incorreta");
 		labelMensagem.setForeground(Color.WHITE);
 		labelMensagem.setFont(new Font("Arial", Font.PLAIN, 14));

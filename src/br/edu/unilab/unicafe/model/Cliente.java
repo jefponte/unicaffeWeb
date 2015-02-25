@@ -172,7 +172,7 @@ public class Cliente {
 		this.frameDesbloqueado = new FrameClientDesbloqueado();
 		this.frameBloqueado = new FrameClientBloqueado();
 		this.frameBloqueado.setAlwaysOnTop(true);
-		frameBloqueado.getBtnLogar().addActionListener(
+		frameBloqueado.getBtnEntrar().addActionListener(
 				new TentativaDeLogin(frameBloqueado));
 		this.frameBloqueado.getLabelMensagem().setText("");
 		/*
@@ -460,7 +460,7 @@ public class Cliente {
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
 			// ObjectOutputStream saida;
-			if (frame.getTextLogin().getText().equals("senhasecreta")) {
+			if (frame.getTextFieldUsuario().getText().equals("senhasecreta")) {
 				desBloqueandoServicos();
 				
 				System.exit(0);
@@ -473,34 +473,45 @@ public class Cliente {
 					m = MessageDigest.getInstance("MD5");
 					m.update(
 							String.copyValueOf(
-									frame.getJPasswordSenha().getPassword())
+									frame.getPasswordFieldSenha().getPassword())
 									.getBytes(),
 							0,
 							String.copyValueOf(
-									frame.getJPasswordSenha().getPassword())
+									frame.getPasswordFieldSenha().getPassword())
 									.length());
 					senha = new BigInteger(1, m.digest()).toString(16);
 					saida.writeObject("autentica("
-							+ frame.getTextLogin().getText() + "," + senha
+							+ frame.getTextFieldUsuario().getText() + "," + senha
 							+ ")");
 
+
+					frame.getTextFieldUsuario().setText("");
+					frame.getPasswordFieldSenha().setText("");
 				} catch (NoSuchAlgorithmException e) {
 					frame.getLabelMensagem()
 							.setText(
 									frame.getLabelMensagem().getText()
 											+ ". Tentativa falha. Erro de Não achou o algoritimo.");
 					// e.printStackTrace();
+
+					frame.getTextFieldUsuario().setText("");
+					frame.getPasswordFieldSenha().setText("");
 				}
 
+				frame.getTextFieldUsuario().setText("");
+				frame.getPasswordFieldSenha().setText("");
 			} catch (IOException e) {
 				frame.getLabelMensagem()
 						.setText(
 								frame.getLabelMensagem().getText()
 										+ ". Tentativa falha. Erro de Não achou o algoritimo.");
+
+				frame.getTextFieldUsuario().setText("");
+				frame.getPasswordFieldSenha().setText("");
 				// e.printStackTrace();
 			}
-			frame.getTextLogin().setText("");
-			frame.getJPasswordSenha().setText("");
+			frame.getTextFieldUsuario().setText("");
+			frame.getPasswordFieldSenha().setText("");
 
 		}
 
