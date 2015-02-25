@@ -279,7 +279,7 @@ public class Servidor {
 
 			int status = Integer.parseInt(parametros);
 			cliente.getMaquina().setStatus(status);
-			System.out.println("Mudou Status. ");
+
 			if((status == Maquina.STATUS_DISPONIVEL) && (cliente.getAcesso() != null)){
 				cliente.getAcesso().pararDeContar();
 				AcessoDAO acessodao = new AcessoDAO();
@@ -287,7 +287,6 @@ public class Servidor {
 				cliente.getAcesso().setCliente(cliente);
 				acessodao.cadastra(cliente.getAcesso());
 				cliente.setAcesso(null);
-				System.out.println("É pra ter cadastrado um novo acesso. ");
 				try {
 					acessodao.getConexao().close();
 				} catch (SQLException e) {

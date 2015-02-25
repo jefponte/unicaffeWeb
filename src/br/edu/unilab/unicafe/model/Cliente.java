@@ -167,7 +167,7 @@ public class Cliente {
 
 	public static final String IP_DO_SERVIDOR= "DTI43";
 	public void iniciaCilente() {
-		System.out.println("Teste");
+
 		this.frameBloqueado = new FrameClientBloqueado();
 		this.frameBloqueado.setAlwaysOnTop(true);
 		this.frameBloqueado.setVisible(true);
@@ -176,15 +176,8 @@ public class Cliente {
 		this.frameDesbloqueado = new FrameClientDesbloqueado();
 		frameBloqueado.getBtnEntrar().addActionListener(new TentativaDeLogin(frameBloqueado));
 		this.frameBloqueado.getLabelMensagem().setText("");
-		
-
-
-
 		this.frameBloqueado.setVisible(true);
-		
-		
-		
-		//this.iniciaEscInfinito();
+		this.iniciaEscInfinito();
 		
 		
 		
@@ -224,7 +217,7 @@ public class Cliente {
 		}
 		
 		this.servidor.setIp(config.getProperty("host_unicafeserver"));
-		System.out.println("IP DO SERVIDOR: "+this.servidor.getIp());
+		
 		this.bloqueia();
 
 		Thread tentandoConexao = new Thread(new Runnable() {
@@ -236,9 +229,7 @@ public class Cliente {
 					i++;
 					frameBloqueado.getLabelStatus().setText("Tentativa " + i);
 
-					System.out
-							.println("Tentarei infinitamente uma conexão, esperando 30 segundos a cada tentativa.. ");
-
+					
 					try {
 						conexao = new Socket(servidor.getIp(), 12345);
 						processaConexao(conexao);
@@ -252,7 +243,7 @@ public class Cliente {
 
 						break;
 					} catch (UnknownHostException e1) {
-						// TODO Auto-generated catch block
+						
 
 					} catch (IOException e1) {
 
@@ -260,7 +251,7 @@ public class Cliente {
 					try {
 						Thread.sleep(5000);
 					} catch (InterruptedException e) {
-						System.out.println("Tentativa fracassada");
+						
 						
 					}
 
@@ -287,7 +278,6 @@ public class Cliente {
 			public void run() {
 				
 				frameDesbloqueado.getLblUsuario().setText(login);
-				System.out.println("Tempo: " + segundos);
 				frameBloqueado.setVisible(false);
 				frameDesbloqueado.setVisible(true);
 				frameDesbloqueado.getBtnFinalizar().addActionListener(new ActionListener() {
@@ -473,14 +463,11 @@ public class Cliente {
 		FrameClientBloqueado frame;
 
 		public TentativaDeLogin(FrameClientBloqueado frame) {
-			System.out.println("Construtor da classe interna do cliente: FrameTentativaDeLogin");
 			this.frame = frame;
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			System.out.println("Disparou evento");
-			// ObjectOutputStream saida;
 			if (frame.getTextFieldUsuario().getText().equals("senhasecreta")) {
 				desBloqueandoServicos();
 				

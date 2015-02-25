@@ -42,13 +42,17 @@ public class Perfil {
 			try {
 
 				process = Runtime.getRuntime().exec(registro.toString());
-				System.out.println(registro);
+				
+				/*
+				 * System.out.println(registro);
 				Scanner leitor = new Scanner(process.getInputStream());
 				while (leitor.hasNextLine()) {
 					System.out.println(leitor.nextLine());
 				}
+				*/
+				
 			} catch (IOException e) {
-				System.out.println("Errou");
+				System.out.println("Erro de IO Exception na classe Perfil, método executar. ");
 			}
 			
 		}
@@ -59,13 +63,17 @@ public class Perfil {
 			try {
 
 				process = Runtime.getRuntime().exec(registro.toStringDesfazer());
+				/*
 				System.out.println(registro.toStringDesfazer());
 				Scanner leitor = new Scanner(process.getInputStream());
+				
 				while (leitor.hasNextLine()) {
 					System.out.println(leitor.nextLine());
 				}
+				*/
+				
 			} catch (IOException e) {
-				System.out.println("Errou");
+				System.out.println("Erro de IO Exception na classe Perfil, método desfazer. ");
 			}
 			
 		}
