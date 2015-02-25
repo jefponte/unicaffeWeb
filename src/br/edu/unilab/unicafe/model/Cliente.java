@@ -20,6 +20,7 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
 
 import javax.swing.AbstractAction;
+import javax.swing.JFrame;
 
 import br.edu.unilab.unicafe.registro.model.Perfil;
 import br.edu.unilab.unicafe.view.FrameClientBloqueado;
@@ -166,20 +167,36 @@ public class Cliente {
 
 	public static final String IP_DO_SERVIDOR= "DTI43";
 	public void iniciaCilente() {
-		this.bloqueado = true;
-		this.iniciaEscInfinito();
-		this.maquina.preencheComMaquinaLocal();
-		this.frameDesbloqueado = new FrameClientDesbloqueado();
+		System.out.println("Teste");
 		this.frameBloqueado = new FrameClientBloqueado();
 		this.frameBloqueado.setAlwaysOnTop(true);
-		frameBloqueado.getBtnEntrar().addActionListener(
-				new TentativaDeLogin(frameBloqueado));
+		this.frameBloqueado.setVisible(true);
+		this.bloqueado = true;
+		this.maquina.preencheComMaquinaLocal();
+		this.frameDesbloqueado = new FrameClientDesbloqueado();
+		
+		/*
+
+
+		this.frameBloqueado.setVisible(true);
+		
+		
+		
+		//this.iniciaEscInfinito();
+		
+		
+		
+		frameBloqueado.getBtnEntrar().addActionListener(new TentativaDeLogin(frameBloqueado));
 		this.frameBloqueado.getLabelMensagem().setText("");
+		
+		*/
+		
 		/*
 		 * O IP do servidor é definido pelo INI. 
 		 * Caso o valor no INI não seja existente iremos criar um INI com 
 		 * a variável para o IP de valor padrão igual ao nome da máquina do JEFPONTE. 
 		 */
+		/*
 		Properties config = new Properties();
 		String ipDoServidor = IP_DO_SERVIDOR;
 		try {
@@ -252,6 +269,8 @@ public class Cliente {
 			}
 		});
 		tentandoConexao.start();
+		*/
+		
 	}
 
 	/**
@@ -454,11 +473,13 @@ public class Cliente {
 		FrameClientBloqueado frame;
 
 		public TentativaDeLogin(FrameClientBloqueado frame) {
+			System.out.println("Construtor da classe interna do cliente: FrameTentativaDeLogin");
 			this.frame = frame;
 		}
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			System.out.println("Disparou evento");
 			// ObjectOutputStream saida;
 			if (frame.getTextFieldUsuario().getText().equals("senhasecreta")) {
 				desBloqueandoServicos();
