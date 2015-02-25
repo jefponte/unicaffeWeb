@@ -174,8 +174,10 @@ public class Cliente {
 		this.bloqueado = true;
 		this.maquina.preencheComMaquinaLocal();
 		this.frameDesbloqueado = new FrameClientDesbloqueado();
+		frameBloqueado.getBtnEntrar().addActionListener(new TentativaDeLogin(frameBloqueado));
+		this.frameBloqueado.getLabelMensagem().setText("");
 		
-		/*
+
 
 
 		this.frameBloqueado.setVisible(true);
@@ -186,17 +188,15 @@ public class Cliente {
 		
 		
 		
-		frameBloqueado.getBtnEntrar().addActionListener(new TentativaDeLogin(frameBloqueado));
-		this.frameBloqueado.getLabelMensagem().setText("");
 		
-		*/
+
 		
 		/*
 		 * O IP do servidor é definido pelo INI. 
 		 * Caso o valor no INI não seja existente iremos criar um INI com 
 		 * a variável para o IP de valor padrão igual ao nome da máquina do JEFPONTE. 
 		 */
-		/*
+
 		Properties config = new Properties();
 		String ipDoServidor = IP_DO_SERVIDOR;
 		try {
@@ -269,7 +269,7 @@ public class Cliente {
 			}
 		});
 		tentandoConexao.start();
-		*/
+
 		
 	}
 
