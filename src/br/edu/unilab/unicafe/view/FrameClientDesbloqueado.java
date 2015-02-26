@@ -91,7 +91,7 @@ public class FrameClientDesbloqueado extends JFrame {
 		
 		try {
 			bi = ImageIO.read(getClass().getResource(
-					UtilFrames.BASE_PATH_IMAGES + "botaofinalizar.png"));
+					UtilFrames.BASE_PATH_IMAGES + "botaoFinalizar.png"));
 			btnFinalizar = new JButton(new ImageIcon(bi));
 			btnFinalizar.setBorderPainted(false);
 			btnFinalizar.setFocusPainted(false);
