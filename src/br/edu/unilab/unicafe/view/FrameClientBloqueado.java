@@ -152,12 +152,10 @@ public class FrameClientBloqueado extends JFrame {
 		}
 		
 		labelStatus = new JLabel();
-		labelStatus.setText("Sem Conex\u00E3o");
 		labelStatus.setForeground(Color.WHITE);
 		labelStatus.setFont(new Font("Arial", Font.PLAIN, 14));
 		
 		labelMensagem = new JLabel();
-		labelMensagem.setText("Senha incorreta");
 		labelMensagem.setForeground(Color.WHITE);
 		labelMensagem.setFont(new Font("Arial", Font.PLAIN, 14));
 		

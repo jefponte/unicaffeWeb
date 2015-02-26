@@ -177,12 +177,7 @@ public class Cliente {
 		this.frameBloqueado.getLabelMensagem().setText("");
 		this.frameBloqueado.setVisible(true);
 		this.iniciaEscInfinito();
-		
-		
-		
-		
 
-		
 		/*
 		 * O IP do servidor é definido pelo INI. 
 		 * Caso o valor no INI não seja existente iremos criar um INI com 
