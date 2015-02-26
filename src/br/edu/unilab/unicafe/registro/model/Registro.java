@@ -1,6 +1,5 @@
 package br.edu.unilab.unicafe.registro.model;
 
-import java.util.ArrayList;
 
 public class Registro {
 	

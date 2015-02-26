@@ -1,20 +1,15 @@
 package br.edu.unilab.unicafe.dao;
 
-import java.security.Timestamp;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Locale;
 
 import br.edu.unilab.unicafe.model.Acesso;
-import br.edu.unilab.unicafe.model.Cliente;
 import br.edu.unilab.unicafe.model.Maquina;
 import br.edu.unilab.unicafe.model.Usuario;
 

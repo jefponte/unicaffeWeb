@@ -5,6 +5,7 @@
  */
 package br.edu.unilab.unicafe.view;
 
+import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -20,7 +21,6 @@ import javax.swing.event.ListSelectionListener;
 
 import br.edu.unilab.unicafe.model.Maquina;
 import br.edu.unilab.unicafe.model.Usuario;
-import java.awt.Font;
 
 /**
  *

@@ -20,7 +20,6 @@ import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
 
 import javax.swing.AbstractAction;
-import javax.swing.JFrame;
 
 import br.edu.unilab.unicafe.registro.model.Perfil;
 import br.edu.unilab.unicafe.view.FrameClientBloqueado;

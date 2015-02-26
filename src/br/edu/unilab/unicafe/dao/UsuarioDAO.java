@@ -9,8 +9,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.sql.rowset.spi.SyncResolver;
-
 import br.edu.unilab.unicafe.model.Usuario;
 
 public class UsuarioDAO extends DAO {

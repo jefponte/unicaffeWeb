@@ -1,8 +1,5 @@
 package br.edu.unilab.unicafe.dao;
 
-import java.math.BigInteger;
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -10,7 +7,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 
 import br.edu.unilab.unicafe.model.Maquina;
-import br.edu.unilab.unicafe.model.Usuario;
 
 public class MaquinaDAO extends DAO{
 	

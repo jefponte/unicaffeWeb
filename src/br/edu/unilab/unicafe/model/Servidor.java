@@ -12,14 +12,10 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.swing.SwingUtilities;
 
-import org.omg.CORBA.Environment;
-
 import br.edu.unilab.unicafe.dao.AcessoDAO;
-import br.edu.unilab.unicafe.dao.DAO;
 import br.edu.unilab.unicafe.dao.MaquinaDAO;
 import br.edu.unilab.unicafe.dao.UsuarioDAO;
 import br.edu.unilab.unicafe.view.FrameApresentacao;

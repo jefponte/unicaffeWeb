@@ -2,7 +2,6 @@ package br.edu.unilab.unicafe.registro.model;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Perfil {
 	private int id;

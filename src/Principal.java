@@ -1,6 +1,5 @@
 import javax.swing.JFrame;
 
-import br.edu.unilab.unicafe.view.FrameClientBloqueado;
 import br.edu.unilab.unicafe.view.FrameClientDesbloqueado;
 
 
