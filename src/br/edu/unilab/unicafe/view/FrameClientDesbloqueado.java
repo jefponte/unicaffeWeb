@@ -16,9 +16,12 @@ import javax.swing.JFrame;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.LineBorder;
 import javax.swing.JLabel;
+
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 /**
  *
@@ -66,9 +69,13 @@ public class FrameClientDesbloqueado extends JFrame {
 	 * Create the frame.
 	 */
 	private void initComponents() {
+		
+		
+		
 		// setBounds(0, 0, 450, 300);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		
+		
 		// Jpanel personalizado
 		JPanelImageResized panel = new JPanelImageResized();
 		panel.setPathImage(UtilFrames.BASE_PATH_IMAGES + "fundoBarTarefas.jpg");
@@ -88,7 +95,7 @@ public class FrameClientDesbloqueado extends JFrame {
 		// BufferedImage e JButtons
 		BufferedImage bi;
 
-		
+
 		try {
 			bi = ImageIO.read(getClass().getResource(
 					UtilFrames.BASE_PATH_IMAGES + "botaoFinalizar.png"));
@@ -265,5 +272,10 @@ public class FrameClientDesbloqueado extends JFrame {
 								.addContainerGap()));
 
 		panel.setLayout(gl_panel);
+		
+		
+		
+
+		
 	}
 }

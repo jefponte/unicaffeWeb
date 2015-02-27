@@ -171,7 +171,7 @@ public class Servidor {
 				}
 				printd("Verificar tempo acessado. ");
 				AcessoDAO acessoDao = new AcessoDAO(dao.getConexao());
-				int tempo = acessoDao.retornaTempoUsado(usuario);
+				int tempo = acessoDao.retornaTempoUsadoHoje(usuario);
 				
 				printd("Usou: "+tempo);
 				if(tempo <= AcessoDAO.COTA){
@@ -233,8 +233,11 @@ public class Servidor {
 				e.printStackTrace();
 			}
 		}else if(comando.equals("renovaGalera")){
-			AcessoDAO dao = new AcessoDAO();
-			dao.renovaGalera();
+			
+			printd("A renovação agora é feita com a mudança da data do dia. Então esta função foi desabilitada. Desculpa. :/");
+			
+			//AcessoDAO dao = new AcessoDAO();
+			//dao.renovaGalera();
 		
 		}
 		else if (comando.equals("setNome")) {

@@ -164,9 +164,32 @@ public class Cliente {
 
 	}
 
-	public static final String IP_DO_SERVIDOR= "DTI43";
+	public static final String IP_DO_SERVIDOR= "10.11.0.20";
 	public void iniciaCilente() {
 
+		/*
+		 * Regras da versão emergencial. 
+		 * 
+		 * 
+		 * O que é a versão emergencial?
+		 * É uma versão que funcionará sem a estrutura robusta. 
+		 * 
+		 * Por que criar esta versão?
+		 * Estamos aguardando uma posição quanto ao acesso à bancos de dados em servidor virtualizado e acesso ao banco do sig. 
+		 * Isso não depende de nós. Temos que pedir lá no setor em Auroras. 
+		 * 
+		 * Definindo regras: 
+		 * 
+		 * 1 - O acesso será de 3 horas por dia no estado padrão dos laboratórios. 
+		 * 		Como executar a renovação?
+		 * 		A sql que será passada pelo banco irá pesquisar apenas no dia corrente. 
+		 * 
+		 * 
+		 * 2 - Estado Tempo Livre e Identificado.
+		 * 
+		 *  
+		 *  
+		 */
 		this.frameBloqueado = new FrameClientBloqueado();
 		this.frameBloqueado.setAlwaysOnTop(true);
 		this.frameBloqueado.setVisible(true);
@@ -380,7 +403,7 @@ public class Cliente {
 						try {
 							String mensagem = (String) getEntrada()
 									.readObject();
-							System.out.println("Servidor >> " + mensagem);
+							
 							String comando = mensagem.substring(0,
 									mensagem.indexOf('('));
 							String parametros = mensagem.substring(
@@ -394,7 +417,6 @@ public class Cliente {
 								String login = parametros.substring(0,
 										parametros.indexOf(','));
 								String tempo = parametros.substring(parametros.indexOf(',')+2);
-								System.out.println("Tempo foi de : "+tempo);
 								int time = Integer.parseInt(tempo);
 								desbloqueia(time, login);
 							} else if (comando.equals("printc")) {

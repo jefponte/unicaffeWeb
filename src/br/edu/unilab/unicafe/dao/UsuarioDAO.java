@@ -23,6 +23,10 @@ public class UsuarioDAO extends DAO {
 	public UsuarioDAO(Connection conexao){
 		super(conexao);
 	}
+	
+	/*
+	 * 
+	 
 	public  boolean autentica(Usuario usuario){
 		//Primeiro temos que fazer autenticação no banco local. 
 		//Até aí tudo bem. 
@@ -74,6 +78,46 @@ public class UsuarioDAO extends DAO {
 			e.printStackTrace();
 			return false;
 		}
+		return false;
+		
+		
+	}
+	
+	*/
+	
+	
+	/**
+	 * Essa função é uma versão emergencial, não acessa ao postgresql. 
+	 * A que acessa ao postgres está logo acima. 
+	 * 
+	 * @param usuario
+	 * @return
+	 */
+	
+	public  boolean autentica(Usuario usuario){
+		//Primeiro temos que fazer autenticação no banco local. 
+		//Até aí tudo bem. 
+		
+		Connection conexaoSqlite = this.getConexao();
+		
+		
+			
+		
+		try {
+			PreparedStatement ps = conexaoSqlite.prepareStatement("SELECT * FROM usuario WHERE login = ? AND senha = ?");
+			ps.setString(1, usuario.getLogin());
+			ps.setString(2, usuario.getSenha());
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				usuario.setId(rs.getInt("id_usuario"));
+				return true;
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+			return false;
+		}
+		
 		return false;
 		
 		
