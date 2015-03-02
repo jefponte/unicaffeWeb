@@ -21,6 +21,7 @@ import java.util.Properties;
 
 import javax.swing.AbstractAction;
 
+import br.edu.unilab.unicafe.dao.UsuarioDAO;
 import br.edu.unilab.unicafe.registro.model.Perfil;
 import br.edu.unilab.unicafe.view.FrameClientBloqueado;
 import br.edu.unilab.unicafe.view.FrameClientDesbloqueado;
@@ -489,51 +490,20 @@ public class Cliente {
 				
 				System.exit(0);
 			}
-			String senha = "";
+			@SuppressWarnings("deprecation")
+			String senha = UsuarioDAO.getMD5(frame.getPasswordFieldSenha().getText());
+			
 			try {
-
-				MessageDigest m;
-				try {
-					m = MessageDigest.getInstance("MD5");
-					m.update(
-							String.copyValueOf(
-									frame.getPasswordFieldSenha().getPassword())
-									.getBytes(),
-							0,
-							String.copyValueOf(
-									frame.getPasswordFieldSenha().getPassword())
-									.length());
-					senha = new BigInteger(1, m.digest()).toString(16);
-					saida.writeObject("autentica("
-							+ frame.getTextFieldUsuario().getText() + "," + senha
-							+ ")");
-
-
-					frame.getTextFieldUsuario().setText("");
-					frame.getPasswordFieldSenha().setText("");
-				} catch (NoSuchAlgorithmException e) {
-					frame.getLabelMensagem()
-							.setText(
-									frame.getLabelMensagem().getText()
-											+ ". Tentativa falha. Erro de Não achou o algoritimo.");
-					// e.printStackTrace();
-
-					frame.getTextFieldUsuario().setText("");
-					frame.getPasswordFieldSenha().setText("");
-				}
-
-				frame.getTextFieldUsuario().setText("");
-				frame.getPasswordFieldSenha().setText("");
+				saida.writeObject("autentica("+ frame.getTextFieldUsuario().getText() + "," + senha+ ")");
+				
 			} catch (IOException e) {
-				frame.getLabelMensagem()
-						.setText(
-								frame.getLabelMensagem().getText()
-										+ ". Tentativa falha. Erro de Não achou o algoritimo.");
-
+				// TODO Auto-generated catch block
+				e.printStackTrace();
 				frame.getTextFieldUsuario().setText("");
 				frame.getPasswordFieldSenha().setText("");
-				// e.printStackTrace();
+				
 			}
+			
 			frame.getTextFieldUsuario().setText("");
 			frame.getPasswordFieldSenha().setText("");
 

@@ -18,6 +18,7 @@ import javax.swing.SwingUtilities;
 import br.edu.unilab.unicafe.dao.AcessoDAO;
 import br.edu.unilab.unicafe.dao.MaquinaDAO;
 import br.edu.unilab.unicafe.dao.UsuarioDAO;
+import br.edu.unilab.unicafe.log.Log;
 import br.edu.unilab.unicafe.view.FrameApresentacao;
 import br.edu.unilab.unicafe.view.FrameServidor;
 
@@ -137,6 +138,9 @@ public class Servidor {
 		String parametros = mensagem.substring(
 				mensagem.indexOf('(') + 1,
 				mensagem.indexOf(')'));
+		System.out.println("mensagem: "+mensagem);
+		System.out.println("parametros: "+parametros);
+		
 
 		/*
 		printd(cliente.getMaquina().getNome() + ">> "
@@ -147,8 +151,12 @@ public class Servidor {
 		if (comando.equals("autentica")) {
 			String login = parametros.substring(0,
 					parametros.indexOf(','));
+			System.out.println("Login: "+login);
+			
 			String senha = parametros.substring(parametros
 					.indexOf(',') + 1);
+			System.out.println("senha: "+senha);
+			
 			printd(cliente.getMaquina().getNome()
 					+ ">> Tentativa de Autenticação.");
 			printd(cliente.getMaquina().getNome()
@@ -163,6 +171,7 @@ public class Servidor {
 			if (dao.autentica(usuario)) {
 				printd(cliente.getMaquina().getNome()
 						+ ">> Autenticação bem sucedida.");
+				new Log(cliente.getMaquina().getNome()+">> Tentativa de login bem sucedida >> login: "+login+" senha: "+senha);
 				try {
 					cliente.getSaida().flush();
 				} catch (IOException e) {
@@ -200,6 +209,7 @@ public class Servidor {
 						cliente.getSaida()
 						.writeObject(
 								"printc(Que peninha, seu tempo já acabou)");
+						
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -210,6 +220,8 @@ public class Servidor {
 			} else {
 				printd(cliente.getMaquina().getNome()
 						+ ">> Errou login ou senha.");
+				new Log(cliente.getMaquina().getNome()+">> Tentativa de login falha >> login: "+login+" senha: "+senha);
+				
 				try {
 					cliente.getSaida().flush();
 				} catch (IOException e) {
