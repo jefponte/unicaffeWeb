@@ -3,10 +3,7 @@ package br.edu.unilab.unicafe.view;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Toolkit;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
@@ -16,9 +13,15 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.LineBorder;
+import javax.swing.JLabel;
+
+import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 /**
  *
@@ -46,7 +49,12 @@ public class FrameClientDesbloqueado extends JFrame {
 	private JLabel lblUsuario;
 	private JLabel lblImgUsuario;
 	private JLabel lblUnicaf;
-
+	private JLabel lblLogoBarra;
+	
+	public JLabel getLblLogoBarra(){
+		return this.lblLogoBarra;
+	}
+	
 	public JButton getBtnFinalizar() {
 		return btnFinalizar;
 	}
@@ -70,11 +78,14 @@ public class FrameClientDesbloqueado extends JFrame {
 		
 		
 		// setBounds(0, 0, 450, 300);
+
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		
 		// Jpanel personalizado
 		JPanelImageResized panel = new JPanelImageResized();
+		
+		
 		panel.setPathImage(UtilFrames.BASE_PATH_IMAGES + "fundoBarTarefas.jpg");
 		getContentPane().add(panel, BorderLayout.CENTER);
 		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
@@ -88,6 +99,9 @@ public class FrameClientDesbloqueado extends JFrame {
 		Dimension janela = Toolkit.getDefaultToolkit().getScreenSize();
 		setSize(janela.width, janela.height
 				- (janela.height - janela.height * 3 / 100));
+		
+		
+		
 
 		// BufferedImage e JButtons
 		BufferedImage bi;
@@ -115,7 +129,7 @@ public class FrameClientDesbloqueado extends JFrame {
 			btnChat.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					System.out.println("Clicou no botï¿½o Chat");
+					System.out.println("Clicou no botão Chat");
 				}
 			});
 			btnChat.setBorderPainted(false);
@@ -125,7 +139,6 @@ public class FrameClientDesbloqueado extends JFrame {
 			e.printStackTrace();
 		}
 
-		// JLabels
 		JLabel lblLogo = new JLabel("");
 		lblLogo.setIcon(new javax.swing.ImageIcon(new javax.swing.ImageIcon(
 				getClass().getResource(
@@ -159,114 +172,63 @@ public class FrameClientDesbloqueado extends JFrame {
 		lblUnicaf = new JLabel("UniCaf\u00E9");
 		lblUnicaf.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblUnicaf.setForeground(Color.WHITE);
+		
+		lblLogoBarra = new JLabel("");
+		lblLogoBarra.setIcon(new javax.swing.ImageIcon(new javax.swing.ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "iconeBarra.png")).getImage()));
 
 		// GroupLayout
 		GroupLayout gl_panel = new GroupLayout(panel);
-		gl_panel.setHorizontalGroup(gl_panel.createParallelGroup(
-				Alignment.LEADING).addGroup(
-				gl_panel.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(lblLogo)
-						.addGap(2)
-						.addComponent(lblUnicaf)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(lblBeta, GroupLayout.PREFERRED_SIZE, 30,
-								GroupLayout.PREFERRED_SIZE)
-						.addGap(1307)
-						.addComponent(lblImgUsuario,
-								GroupLayout.PREFERRED_SIZE, 35,
-								GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(lblUsuario, GroupLayout.PREFERRED_SIZE,
-								142, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED,
-								GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addComponent(lblImgTime, GroupLayout.PREFERRED_SIZE,
-								35, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(lblTempo, GroupLayout.PREFERRED_SIZE, 83,
-								GroupLayout.PREFERRED_SIZE)
-						.addGap(18)
-						.addComponent(btnChat, GroupLayout.PREFERRED_SIZE, 61,
-								GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(btnFinalizar, GroupLayout.PREFERRED_SIZE,
-								61, GroupLayout.PREFERRED_SIZE).addGap(75)));
-
-		gl_panel.setVerticalGroup(gl_panel
-				.createParallelGroup(Alignment.TRAILING)
-				.addGroup(
-						gl_panel.createSequentialGroup()
-								.addGroup(
-										gl_panel.createParallelGroup(
-												Alignment.LEADING)
-												.addGroup(
-														gl_panel.createSequentialGroup()
-																.addGap(2)
-																.addGroup(
-																		gl_panel.createParallelGroup(
-																				Alignment.LEADING)
-																				.addComponent(
-																						lblLogo,
-																						GroupLayout.DEFAULT_SIZE,
-																						28,
-																						Short.MAX_VALUE)
-																				.addComponent(
-																						lblUnicaf,
-																						GroupLayout.DEFAULT_SIZE,
-																						28,
-																						Short.MAX_VALUE)
-																				.addComponent(
-																						lblBeta,
-																						GroupLayout.PREFERRED_SIZE,
-																						23,
-																						GroupLayout.PREFERRED_SIZE)))
-												.addGroup(
-														gl_panel.createSequentialGroup()
-																.addGap(2)
-																.addComponent(
-																		lblTempo,
-																		GroupLayout.DEFAULT_SIZE,
-																		28,
-																		Short.MAX_VALUE))
-												.addComponent(
-														lblImgTime,
-														GroupLayout.PREFERRED_SIZE,
-														30,
-														GroupLayout.PREFERRED_SIZE)
-												.addComponent(
-														lblImgUsuario,
-														GroupLayout.PREFERRED_SIZE,
-														30,
-														GroupLayout.PREFERRED_SIZE)
-												.addGroup(
-														gl_panel.createSequentialGroup()
-																.addGap(2)
-																.addComponent(
-																		lblUsuario,
-																		GroupLayout.PREFERRED_SIZE,
-																		28,
-																		GroupLayout.PREFERRED_SIZE))
-												.addGroup(
-														gl_panel.createSequentialGroup()
-																.addGap(2)
-																.addGroup(
-																		gl_panel.createParallelGroup(
-																				Alignment.TRAILING,
-																				false)
-																				.addComponent(
-																						btnFinalizar,
-																						Alignment.LEADING,
-																						0,
-																						0,
-																						Short.MAX_VALUE)
-																				.addComponent(
-																						btnChat,
-																						Alignment.LEADING,
-																						GroupLayout.PREFERRED_SIZE,
-																						26,
-																						GroupLayout.PREFERRED_SIZE))))
-								.addContainerGap()));
+		gl_panel.setHorizontalGroup(
+			gl_panel.createParallelGroup(Alignment.LEADING)
+				.addGroup(Alignment.TRAILING, gl_panel.createSequentialGroup()
+					.addComponent(lblLogo)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblUnicaf)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblBeta, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED, 1286, Short.MAX_VALUE)
+					.addComponent(lblImgUsuario, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblUsuario, GroupLayout.PREFERRED_SIZE, 142, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblImgTime, GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(lblTempo, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(btnChat, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.RELATED)
+					.addComponent(btnFinalizar, GroupLayout.PREFERRED_SIZE, 61, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addComponent(lblLogoBarra))
+		);
+		gl_panel.setVerticalGroup(
+			gl_panel.createParallelGroup(Alignment.TRAILING)
+				.addGroup(gl_panel.createSequentialGroup()
+					.addGroup(gl_panel.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(2)
+							.addComponent(lblUnicaf, GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
+							.addPreferredGap(ComponentPlacement.RELATED, 3, Short.MAX_VALUE))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(2)
+							.addComponent(lblLogoBarra))
+						.addComponent(lblLogo, GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+						.addComponent(lblBeta, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(2)
+							.addComponent(lblTempo, GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE))
+						.addComponent(lblImgTime, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblImgUsuario, GroupLayout.PREFERRED_SIZE, 30, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(2)
+							.addComponent(lblUsuario, GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_panel.createSequentialGroup()
+							.addGap(2)
+							.addGroup(gl_panel.createParallelGroup(Alignment.TRAILING, false)
+								.addComponent(btnFinalizar, Alignment.LEADING, 0, 0, Short.MAX_VALUE)
+								.addComponent(btnChat, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 26, GroupLayout.PREFERRED_SIZE))))
+					.addContainerGap())
+		);
 
 		panel.setLayout(gl_panel);
 		

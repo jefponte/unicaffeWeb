@@ -147,9 +147,10 @@ public class Registro {
 		this.subchave = subchave;
 		this.nome = nome;
 		this.valor = valor;
+		this.valorPadrao = valorPadrao;
 		this.tipo = tipo;
 		this.descricao = descricao;
-		this.valorPadrao = valorPadrao;
+
 	}
 	
 	/**
@@ -176,7 +177,7 @@ public class Registro {
 	public String toString() {
 		String comando;
 		
-		comando = "REG add \""+this.subchave+"\" /v \""+this.nome+"\" /t "+tipoToString()+" /d "+valorToString() +" /f";
+		comando = "REG add \""+this.subchave+"\" /v \""+this.nome+"\" /t "+tipoToString()+" /d "+valorToString()+" /f";
 		return comando;
 	}
 	public String toStringDesfazer(){
@@ -184,7 +185,11 @@ public class Registro {
 		comando = "REG add \""+this.subchave+"\" /v \""+this.nome+"\" /t "+tipoToString()+" /d "+valorPadraoToString() +" /f";
 		return comando;
 	}
-	
+	public String toStringDeletar() {
+		String comando;
+		comando = "REG DELETE \""+this.subchave+"\" /v \""+this.nome+"\"  /f";
+		return comando;
+	}
 	public String valorToString(){
 		switch (this.tipo) {
 		case REG_DWORD:
@@ -209,10 +214,10 @@ public class Registro {
 			break;
 
 		case REG_SZ:
-			this.valor = "\""+this.valorPadrao+"\"";
+			this.valorPadrao = "\""+this.valorPadrao+"\"";
 			break;
 		case REG_EXPAND_SZ:
-			this.valor = "\""+this.valorPadrao+"\"";
+			this.valorPadrao = "\""+this.valorPadrao+"\"";
 			break;
 		default:
 			break;
@@ -229,6 +234,10 @@ public class Registro {
 
 		case REG_EXPAND_SZ:
 			strTipo = "REG_EXPAND_SZ";
+			break;
+			
+		case REG_SZ:
+			strTipo = "REG_SZ";
 			break;
 		default:
 			strTipo = "REG_DWORD";

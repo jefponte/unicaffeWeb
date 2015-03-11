@@ -1,14 +1,18 @@
 package br.edu.unilab.unicafe.log;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.Properties;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
 /**
- * Objetivo do log ï¿½ escrever algo em um arquivo e fechar o arquivo. Entï¿½o, nï¿½o
- * vamos complicar. Sï¿½ instancia-se para registrar.
+ * Objetivo do log é escrever algo em um arquivo e fechar o arquivo. Então, não
+ * vamos complicar. Só instancia-se para registrar.
  * 
  * @author dtiusr
  *
@@ -20,6 +24,7 @@ public class Log {
 	
 	public Log(String mensagem) {
 
+		/*
 		Logger logger = Logger.getLogger("MyLog");
 		FileHandler fh;
 
@@ -36,7 +41,7 @@ public class Log {
 
 			// the following statement is used to log any messages
 			logger.log(Level.FINEST, mensagem);
-			// os nï¿½veis sï¿½o:
+			// os níveis são:
 
 		} catch (SecurityException e) {
 			e.printStackTrace();
@@ -44,6 +49,8 @@ public class Log {
 			e.printStackTrace();
 		}
 
+	*/
+		
 	}
 
 }

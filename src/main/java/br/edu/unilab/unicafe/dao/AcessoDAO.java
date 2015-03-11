@@ -9,6 +9,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 
 import br.edu.unilab.unicafe.model.Acesso;
 import br.edu.unilab.unicafe.model.Maquina;
@@ -91,7 +92,7 @@ public class AcessoDAO extends DAO {
 	}
 
 	/**
-	 * Retorna todos os acessos de um usuï¿½rio.
+	 * Retorna todos os acessos de um usuário.
 	 * 
 	 * @param usuario
 	 * @return
@@ -121,11 +122,11 @@ public class AcessoDAO extends DAO {
 	}
 
 	/**
-	 * Retorna todos os acessos de um usuï¿½rio.
+	 * Retorna todos os acessos de um usuário.
 	 * 
 	 * @param usuario
 	 * @param data
-	 *            ï¿½ uma data no formato 2015-02-26 19:33:47
+	 *            é uma data no formato 2015-02-26 19:33:47
 	 * @return
 	 */
 	public ArrayList<Acesso> retornaLista(Usuario usuario, String data, String data2) {
@@ -184,7 +185,7 @@ public class AcessoDAO extends DAO {
 	}
 
 	/**
-	 * Retorna true se a mï¿½quina for cadastrada com sucesso.
+	 * Retorna true se a máquina for cadastrada com sucesso.
 	 * 
 	 * @param maquina
 	 * @return
@@ -220,8 +221,8 @@ public class AcessoDAO extends DAO {
 	}
 
 	/**
-	 * Esse mï¿½todo pega um acesso padrï¿½o do sistema e envia pra tabela do banco
-	 * do felipe. O banco de dados que tï¿½ lï¿½ no PC do felipe.
+	 * Esse método pega um acesso padrão do sistema e envia pra tabela do banco
+	 * do felipe. O banco de dados que tá lá no PC do felipe.
 	 * 
 	 * @param acesso
 	 */
@@ -241,7 +242,7 @@ public class AcessoDAO extends DAO {
 		}
 
 		System.out.println(acesso.getMaquina().getNome());
-		// Se a mï¿½quina nï¿½o existe lï¿½, cadastre-a
+		// Se a máquina não existe lá, cadastre-a
 
 		try {
 			PreparedStatement ps = conexaoPostgres
@@ -276,14 +277,14 @@ public class AcessoDAO extends DAO {
 					return;
 
 				}
-				// chega aqui se nï¿½o existir usuï¿½rio com esse login.
+				// chega aqui se não existir usuário com esse login.
 				// Iremos cadastrar nada.
-				// Sï¿½ usupï¿½rios cadastrados no banco terï¿½o acesso registrado por
+				// Só usupários cadastrados no banco terão acesso registrado por
 				// enquanto.
 				return;
 
 			}
-			// chega aqui se nï¿½o existir maquina.
+			// chega aqui se não existir maquina.
 			PreparedStatement ps4 = conexaoPostgres
 					.prepareStatement("INSERT INTO maquina(nome_maq) VALUES(?)");
 			ps4.setString(1, acesso.getMaquina().getNome());

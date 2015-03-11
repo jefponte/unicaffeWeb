@@ -117,13 +117,13 @@ public class Servidor {
 					while (true) {
 						printd("Aguardando conexoes...");
 						Socket conexao = serverSocket.accept();
-						printd("Nova conexão! "
+						printd("Nova conexÃ£o! "
 								+ conexao.getInetAddress().toString());
 						processaConexao(conexao);
 
 					}
 				} catch (IOException e) {
-					System.out.println("???");
+					//System.out.println("???");
 					e.printStackTrace();
 				}
 			}
@@ -132,14 +132,27 @@ public class Servidor {
 
 	}
 
+	public boolean jaEstaLogado(Usuario usuario){
+		for (Cliente cliente : listaDeClientes) {
+			if(cliente.getAcesso() != null){
+				if(cliente.getAcesso().getUsuario().getLogin().equals(usuario.getLogin())){
+					return true;
+				}
+				
+			}
+			
+		}
+		
+		return false;
+	}
 	public synchronized void processaMensagem(Cliente cliente, String mensagem){
 		String comando = mensagem.substring(0,
 				mensagem.indexOf('('));
 		String parametros = mensagem.substring(
 				mensagem.indexOf('(') + 1,
 				mensagem.indexOf(')'));
-		System.out.println("mensagem: "+mensagem);
-		System.out.println("parametros: "+parametros);
+		//System.out.println("mensagem: "+mensagem);
+		//System.out.println("parametros: "+parametros);
 		
 
 		/*
@@ -151,32 +164,42 @@ public class Servidor {
 		if (comando.equals("autentica")) {
 			String login = parametros.substring(0,
 					parametros.indexOf(','));
-			System.out.println("Login: "+login);
+			//System.out.println("Login: "+login);
 			
-			String senha = parametros.substring(parametros
-					.indexOf(',') + 1);
-			System.out.println("senha: "+senha);
+			String senha = parametros.substring(parametros.indexOf(',') + 1);
+			//System.out.println("senha: "+senha);
 			
 			printd(cliente.getMaquina().getNome()
-					+ ">> Tentativa de Autenticação.");
+					+ ">> Tentativa de AutenticaÃ§Ã£o.");
 			printd(cliente.getMaquina().getNome()
 					+ ">> Login : " + login);
 			printd(cliente.getMaquina().getNome()
 					+ ">> Senha : " + senha);
 			UsuarioDAO dao = new UsuarioDAO();
+			
 			Usuario usuario = new Usuario();
+			
 			usuario.setLogin(login);
 			usuario.setSenha(senha);
 
 			if (dao.autentica(usuario)) {
 				printd(cliente.getMaquina().getNome()
-						+ ">> Autenticação bem sucedida.");
-				new Log(cliente.getMaquina().getNome()+">> Tentativa de login bem sucedida >> login: "+login+" senha: "+senha);
+						+ ">> AutenticÃ£o bem sucedida.");
 				try {
 					cliente.getSaida().flush();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
+				}
+				if(this.jaEstaLogado(usuario)){
+					try {
+						cliente.getSaida()
+						.writeObject(
+								"printc(JÃ¡ estÃ¡ logado!)");
+						return;
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 				}
 				printd("Verificar tempo acessado. ");
 				AcessoDAO acessoDao = new AcessoDAO(dao.getConexao());
@@ -208,7 +231,7 @@ public class Servidor {
 					try {
 						cliente.getSaida()
 						.writeObject(
-								"printc(Que peninha, seu tempo já acabou)");
+								"printc(Que peninha, seu tempo jï¿½ acabou)");
 						
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
@@ -246,7 +269,7 @@ public class Servidor {
 			}
 		}else if(comando.equals("renovaGalera")){
 			
-			printd("A renovação agora é feita com a mudança da data do dia. Então esta função foi desabilitada. Desculpa. :/");
+			printd("RenovaÃ§Ã£o. ");
 			
 			//AcessoDAO dao = new AcessoDAO();
 			//dao.renovaGalera();
@@ -258,14 +281,14 @@ public class Servidor {
 			printd(cliente.getMaquina().getNome()
 					+ ">> Tentou mudar o nome para : " + nome);
 			cliente.getMaquina().setNome(nome);
-			//Precisamos verificar se já existe uma máquina no banco com esse nome. 
-			//Caso não exista iremos adicionar. 
+			//Precisamos verificar se jï¿½ existe uma mï¿½quina no banco com esse nome. 
+			//Caso nï¿½o exista iremos adicionar. 
 			MaquinaDAO maquinaDao = new MaquinaDAO();
 			//Existe diferente de verdadeiro== existe igual a false. 
 			if(!maquinaDao.existe(cliente.getMaquina())){
 				if(maquinaDao.cadastra(cliente.getMaquina())){
 					printd("Maquina nova cadastrada: "+cliente.getMaquina().getNome());
-					printd("Listarei as máquinas: ");
+					printd("Listarei as mÃ¡quinas: ");
 					for(Maquina maquina : maquinaDao.retornaLista()){
 						printd("ID: "+maquina.getId()+" Nome: "+maquina.getNome());
 					}
@@ -283,7 +306,7 @@ public class Servidor {
 
 			cliente.getMaquina().setEnderecoMac(parametros);
 			printd(cliente.getMaquina().getNome()
-					+ ">> Mudou endereço MAC para: "
+					+ ">> Mudou endereÃ§o MAC para: "
 					+ parametros);
 
 		} else if (comando.equals("setStatus")) {
@@ -313,7 +336,7 @@ public class Servidor {
 		} else {
 
 			printd(cliente.getMaquina().getNome() + ">>"
-					+ " Comando não encontrado.");
+					+ " Comando nÃ£o encontrado.");
 		}
 
 	}
@@ -375,7 +398,7 @@ public class Servidor {
 						e.printStackTrace();
 					}
 				}
-				printd(cliente.getMaquina().getNome() + ">> Conexão fechada. ");
+				printd(cliente.getMaquina().getNome() + ">> Conexï¿½o fechada. ");
 
 			}
 		});
@@ -383,17 +406,17 @@ public class Servidor {
 		processando.start();
 
 		// Iremos ouvir String. Processar essa string.
-		// Ouvir direto até a conexão acabar.
+		// Ouvir direto atï¿½ a conexï¿½o acabar.
 		// A fala vai ter que ser impulsionada por algum evento.
-		// Logo não precismos nos procupar com ela agora.
+		// Logo nï¿½o precismos nos procupar com ela agora.
 
 	}
 
 	/**
-	 * Método criado durante o desenvolvimento para facilitar atualização do
-	 * software. Com este método podemos atualizar o sistema em todos os
-	 * clientes. Uma nova opção foi adicionada na tela do servidor, um menu para
-	 * mandar a atualização. Esse menu vai chamar este método.
+	 * MÃ©todo criado durante o desenvolvimento para facilitar atualizaï¿½ï¿½o do
+	 * software. Com este mï¿½todo podemos atualizar o sistema em todos os
+	 * clientes. Uma nova opï¿½ï¿½o foi adicionada na tela do servidor, um menu para
+	 * mandar a atualizaÃ§Ã£o. Esse menu vai chamar este mï¿½todo.
 	 */
 	public void atualizaGalera(OutputStream socketOut) {
 		for (Cliente cliente : listaDeClientes) {
@@ -410,18 +433,18 @@ public class Servidor {
 				// Criando arquivo que sera transferido pelo servidor
 				File file = new File("update_pasta_server\\cliente.jar");
 				 FileInputStream fileIn = new FileInputStream(file);
-				System.out.println("Lendo arquivo...");
+			//	System.out.println("Lendo arquivo...");
 
 				// Criando canal de transferencia
 				//OutputStream socketOut = cliente.getConexao().getOutputStream();
 
-				System.out.println("Enviando Arquivo...");
+			//	System.out.println("Enviando Arquivo...");
 				while ((bytesRead = fileIn.read(cbuffer)) != -1) {
 					socketOut.write(cbuffer, 0, bytesRead);
 					socketOut.flush();
 				}
 
-				System.out.println("Arquivo Enviado!");
+			//	System.out.println("Arquivo Enviado!");
 
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
