@@ -39,7 +39,6 @@ br\edu\unilab\unicafe\main\MainClient.class
 br\edu\unilab\unicafe\dao\MaquinaDAO.class
 br\edu\unilab\unicafe\dao\DAO.class
 br\edu\unilab\unicafe\model\Servidor$3.class
-br\edu\unilab\unicafe\main\TesteJanela.class
 br\edu\unilab\unicafe\view\FrameApresentacao$1.class
 br\edu\unilab\unicafe\model\Servidor.class
 br\edu\unilab\unicafe\registro\model\Registro.class
