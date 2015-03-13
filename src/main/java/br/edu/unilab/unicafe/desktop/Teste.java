@@ -7,7 +7,7 @@ public class Teste {
 	
 	public static void main(String[] args) {
 		String caminho = "\\\\DTI43\\arquivos";
-		String usuario = "gio";
+		String usuario = "jefponte";
 		Desktop d = new Desktop(caminho, usuario);
 		d.alterarRegistro();
 //		d.desfazer();

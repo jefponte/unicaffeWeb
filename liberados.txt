@@ -82,3 +82,4 @@
 "firefox.exe", "firefox.exe"
 "taskkill.exe","teste"
 "reg.exe", "teste"
+"taskmgr.exe", "teste"

@@ -3,7 +3,6 @@ br\edu\unilab\unicafe\main\MainServidor.class
 br\edu\unilab\unicafe\log\Log.class
 br\edu\unilab\unicafe\registro\model\OutroTeste.class
 br\edu\unilab\unicafe\dao\AcessoDAO.class
-br\edu\unilab\unicafe\view\CopyOfFrameClientDesbloqueado$1.class
 br\edu\unilab\unicafe\model\Cliente$1.class
 br\edu\unilab\unicafe\model\Servidor$5.class
 br\edu\unilab\unicafe\view\FrameClientBloqueado.class
@@ -30,7 +29,6 @@ br\edu\unilab\unicafe\model\Cliente$5.class
 br\edu\unilab\unicafe\view\FrameAdmin$4.class
 br\edu\unilab\unicafe\desktop\Teste.class
 br\edu\unilab\unicafe\view\FrameClientConfig$1.class
-br\edu\unilab\unicafe\view\CopyOfFrameClientDesbloqueado.class
 br\edu\unilab\unicafe\model\Cliente$10.class
 br\edu\unilab\unicafe\registro\model\TesteRegistro.class
 br\edu\unilab\unicafe\view\FrameServidor$1.class

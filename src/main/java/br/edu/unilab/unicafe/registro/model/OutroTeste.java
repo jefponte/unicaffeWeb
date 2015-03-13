@@ -12,7 +12,7 @@ public class OutroTeste {
 		Scanner leitor;
 		
 		try {
-			
+			System.out.println(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer","NoDrives", Registro.REG_DWORD, "0x00000c", "0", "N�o pode abrir o disco C:"));
 			
 			process = Runtime.getRuntime().exec(" tasklist /v /FO csv");
 			leitor = new Scanner(process.getInputStream());

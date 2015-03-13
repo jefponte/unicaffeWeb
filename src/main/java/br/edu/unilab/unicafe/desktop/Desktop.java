@@ -9,7 +9,7 @@ import br.edu.unilab.unicafe.registro.model.Registro;
 public class Desktop {
 	
 	/**
-	 * Nome da pasta que conterá o caminho da área de trabalho.
+	 * Nome da pasta que conterï¿½ o caminho da ï¿½rea de trabalho.
 	 * Esse caminho pode ser local ou remoto.  
 	 */
 	private String caminho;
@@ -23,17 +23,19 @@ public class Desktop {
 		listaString.add(caminho+"\\public\\Music");
 		listaString.add(caminho+"\\public\\Pictures");
 		listaString.add(caminho+"\\public\\Videos");
+		listaString.add(caminho+"\\public\\Downloads");
 		listaString.add(caminho+"\\"+nomeDeUsuario+"\\"+"Desktop");
 		listaString.add(caminho+"\\"+nomeDeUsuario+"\\"+"Music");
 		listaString.add(caminho+"\\"+nomeDeUsuario+"\\"+"Documents");
 		listaString.add(caminho+"\\"+nomeDeUsuario+"\\"+"Pictures");
 		listaString.add(caminho+"\\"+nomeDeUsuario+"\\"+"Videos");
+		listaString.add(caminho+"\\"+nomeDeUsuario+"\\"+"Downloads");
 		for(String pasta: listaString){
-			File diretorio = new File(pasta); // ajfilho é uma pasta!  
+			File diretorio = new File(pasta); // ajfilho ï¿½ uma pasta!  
 			if (!diretorio.exists()) {  
-			   diretorio.mkdirs(); //mkdir() cria somente um diretório, mkdirs() cria diretórios e subdiretórios.  
+			   diretorio.mkdirs(); //mkdir() cria somente um diretï¿½rio, mkdirs() cria diretï¿½rios e subdiretï¿½rios.  
 			} else {  
-			   System.out.println("Diretório "+pasta+" já existente");
+			   System.out.println("DiretÃ³rio "+pasta+" jï¿½ existente");
 			}  
 		}
 		
@@ -55,24 +57,26 @@ public class Desktop {
 		ArrayList<Registro> listaPersonalizada  = new ArrayList<Registro>();
 		perfilDesktop.setListaDeRegistros(listaPersonalizada);
 		
-		listaPersonalizada.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "Common Desktop", Registro.REG_SZ, caminho+"\\public\\Desktop", "%PUBLIC%\\Desktop","Muda a pasta da área de trabalho pública. "));
-		listaPersonalizada.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "Common Documents", Registro.REG_SZ, caminho+"\\public\\Documents", "%PUBLIC%\\Documents","Muda a pasta da área de trabalho pública. "));
-		listaPersonalizada.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "CommonMusic", Registro.REG_SZ, caminho+"\\public\\Music", "%PUBLIC%\\Music","Muda a pasta da área de trabalho pública. "));
-		listaPersonalizada.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "CommonPictures", Registro.REG_SZ, caminho+"\\public\\Pictures", "%PUBLIC%\\Pictures","Muda a pasta da área de trabalho pública. "));
-		listaPersonalizada.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "CommonVideo", Registro.REG_SZ, caminho+"\\public\\Videos", "%PUBLIC%\\Videos","Muda a pasta da área de trabalho pública. "));
-
-		listaPersonalizada.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "Desktop", Registro.REG_EXPAND_SZ, caminho+"\\"+nomeDeUsuario+"\\"+"Desktop", "%USERPROFILE%\\Desktop","Muda a pasta da área de trabalho do usuário corrente. "));
-		listaPersonalizada.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "My Music", Registro.REG_EXPAND_SZ, caminho+"\\"+nomeDeUsuario+"\\"+"Music", "%USERPROFILE%\\Music","Muda a pasta da área de trabalho do usuário corrente. "));
-		listaPersonalizada.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "Personal", Registro.REG_EXPAND_SZ, caminho+"\\"+nomeDeUsuario+"\\"+"Documents", "%USERPROFILE%\\Documents","Muda a pasta da área de trabalho do usuário corrente. "));
-		listaPersonalizada.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "My Pictures", Registro.REG_EXPAND_SZ, caminho+"\\"+nomeDeUsuario+"\\"+"Pictures", "%USERPROFILE%\\Pictures","Muda a pasta da área de trabalho do usuário corrente. "));
-		listaPersonalizada.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "My Video", Registro.REG_EXPAND_SZ, caminho+"\\"+nomeDeUsuario+"\\"+"Videos", "%USERPROFILE%\\Videos","Muda a pasta da área de trabalho do usuário corrente. "));
+		listaPersonalizada.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "Common Desktop", Registro.REG_SZ, caminho+"\\public\\Desktop", "%PUBLIC%\\Desktop","Muda a pasta da ï¿½rea de trabalho pï¿½blica. "));
+		listaPersonalizada.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "Common Documents", Registro.REG_SZ, caminho+"\\public\\Documents", "%PUBLIC%\\Documents","Muda a pasta da ï¿½rea de trabalho pï¿½blica. "));
+		listaPersonalizada.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "CommonMusic", Registro.REG_SZ, caminho+"\\public\\Music", "%PUBLIC%\\Music","Muda a pasta da ï¿½rea de trabalho pï¿½blica. "));
+		listaPersonalizada.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "CommonPictures", Registro.REG_SZ, caminho+"\\public\\Pictures", "%PUBLIC%\\Pictures","Muda a pasta da ï¿½rea de trabalho pï¿½blica. "));
+		listaPersonalizada.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "CommonVideo", Registro.REG_SZ, caminho+"\\public\\Videos", "%PUBLIC%\\Videos","Muda a pasta da ï¿½rea de trabalho pï¿½blica. "));
+		listaPersonalizada.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "{374DE290-123F-4565-9164-39C4925E467B}", Registro.REG_SZ, caminho+"\\public\\Downloads", "%PUBLIC%\\Downloads","Muda a pasta da ï¿½rea de trabalho pï¿½blica. "));
+		
+		listaPersonalizada.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "Desktop", Registro.REG_EXPAND_SZ, caminho+"\\"+nomeDeUsuario+"\\"+"Desktop", "%USERPROFILE%\\Desktop","Muda a pasta da ï¿½rea de trabalho do usuï¿½rio corrente. "));
+		listaPersonalizada.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "My Music", Registro.REG_EXPAND_SZ, caminho+"\\"+nomeDeUsuario+"\\"+"Music", "%USERPROFILE%\\Music","Muda a pasta da ï¿½rea de trabalho do usuï¿½rio corrente. "));
+		listaPersonalizada.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "Personal", Registro.REG_EXPAND_SZ, caminho+"\\"+nomeDeUsuario+"\\"+"Documents", "%USERPROFILE%\\Documents","Muda a pasta da ï¿½rea de trabalho do usuï¿½rio corrente. "));
+		listaPersonalizada.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "My Pictures", Registro.REG_EXPAND_SZ, caminho+"\\"+nomeDeUsuario+"\\"+"Pictures", "%USERPROFILE%\\Pictures","Muda a pasta da ï¿½rea de trabalho do usuï¿½rio corrente. "));
+		listaPersonalizada.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "My Video", Registro.REG_EXPAND_SZ, caminho+"\\"+nomeDeUsuario+"\\"+"Videos", "%USERPROFILE%\\Videos","Muda a pasta da ï¿½rea de trabalho do usuï¿½rio corrente. "));
+		listaPersonalizada.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "{374DE290-123F-4565-9164-39C4925E467B}", Registro.REG_EXPAND_SZ, caminho+"\\"+nomeDeUsuario+"\\"+"Downloads", "%USERPROFILE%\\Downloads","Muda a pasta da ï¿½rea de trabalho do usuï¿½rio corrente. "));
 		
 	}
 	
 	/**
 	 * Antes temos que ver se existe a pasta que queremos. 
-	 * Caso não exista iremos criar os arquivos. 
-	 * Se existir nós definimos o registro. 
+	 * Caso nï¿½o exista iremos criar os arquivos. 
+	 * Se existir nï¿½s definimos o registro. 
 	 */
 	public void alterarRegistro(){
 		verificaECria();

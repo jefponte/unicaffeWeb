@@ -77,7 +77,7 @@ public class FrameServidor extends javax.swing.JFrame {
 				jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING,
 				javax.swing.GroupLayout.DEFAULT_SIZE, 391, Short.MAX_VALUE));
 
-		jMenu1.setText("Servi�o");
+		jMenu1.setText("Serviço");
 
 		jMenuItem1.setText("Iniciar");
 		jMenu1.add(jMenuItem1);
