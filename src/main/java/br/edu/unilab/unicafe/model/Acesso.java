@@ -1,48 +1,36 @@
 package br.edu.unilab.unicafe.model;
 
 public class Acesso {
+	
+	
 	private int id;
-	private Usuario usuario;
-	private Thread contando;
-
-	public static final int STATUS_RODANDO = 0;
-	public static final int STATUS_ENCERRADO = 1;
-	
-	/**
-	 * Tempo que o usuário usou desse acesso. 
-	 */
 	private int tempoUsado;
-	/**
-	 * Hora que o acesso se iniciou. 
-	 */
 	private long horaInicial;
-	private Maquina maquina;
-	private Cliente cliente;
+	private Usuario usuario;
+	private int tempoDisponibilizado;
+	private int status;
 	
-	public Cliente getCliente() {
-		return cliente;
-	}
-	public void setCliente(Cliente cliente) {
-		this.cliente = cliente;
-	}
-	/**
-	 * Esse é o tempo que foi oferecido no início do acesso. 
-	 */
+	public static final int STATUS_EM_UTILIZACAO = 0;
+	public static final int STATUS_DISPONIVEL = 1;
+
+	
 	public Acesso() {
+		this.status = STATUS_DISPONIVEL;
+		this.usuario = new Usuario();
+		this.usuario.setLogin("NÃ£o identificado");
 		this.setTempoUsado(0);
 	}
 	public void contar(){
-		this.contando = new Thread(new Runnable() {
-			
+		this.status = STATUS_EM_UTILIZACAO;
+		Thread contando = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				while(statusDaConexao == STATUS_RODANDO){
+				while(status == STATUS_EM_UTILIZACAO){
 					try {
 						Thread.sleep(1000);
 						tempoUsado++;
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						//e.printStackTrace();
+						
 					}
 				}
 			}
@@ -50,12 +38,10 @@ public class Acesso {
 		contando.start();
 	}
 	public void pararDeContar(){
-		this.statusDaConexao = STATUS_ENCERRADO;
+		this.status = STATUS_DISPONIVEL;
 		
 	}
 	
-	private int tempoDisponibilizado;
-	private int statusDaConexao;
 	public int getId() {
 		return id;
 	}
@@ -86,23 +72,17 @@ public class Acesso {
 	public void setTempoDisponibilizado(int tempoDisponibilizado) {
 		this.tempoDisponibilizado = tempoDisponibilizado;
 	}
-	public int getStatusDaConexao() {
-		return statusDaConexao;
+	public int getStatus() {
+		return status;
 	}
-	public void setStatusDaConexao(int statusDaConexao) {
-		this.statusDaConexao = statusDaConexao;
-	}
-	public Maquina getMaquina() {
-		return maquina;
-	}
-	public void setMaquina(Maquina maquina) {
-		this.maquina = maquina;
+	public void setStatus(int statusDaConexao) {
+		this.status = statusDaConexao;
 	}
 	
 	
 	@Override
 	public String toString() {
-		String acesso = "usuario: "+this.usuario.getId()+", Maquina  - "+this.maquina.getId()+", hora Acesso Long: "+this.horaInicial+", Tempo Usado: "+this.tempoUsado+", "+this.tempoDisponibilizado+"BLZ\n";
+		String acesso = "usuario: "+this.usuario.getId()+", hora Acesso Long: "+this.horaInicial+", Tempo Usado: "+this.tempoUsado+", "+this.tempoDisponibilizado+"BLZ\n";
 		return acesso;
 	}
 

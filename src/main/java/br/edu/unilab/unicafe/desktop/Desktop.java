@@ -30,13 +30,14 @@ public class Desktop {
 		listaString.add(caminho+"\\"+nomeDeUsuario+"\\"+"Pictures");
 		listaString.add(caminho+"\\"+nomeDeUsuario+"\\"+"Videos");
 		listaString.add(caminho+"\\"+nomeDeUsuario+"\\"+"Downloads");
+		listaString.add(caminho+"\\"+nomeDeUsuario+"\\"+"local");
+
+		listaString.add(caminho+"\\"+nomeDeUsuario+"\\"+"Favorites");
 		for(String pasta: listaString){
-			File diretorio = new File(pasta); // ajfilho � uma pasta!  
-			if (!diretorio.exists()) {  
-			   diretorio.mkdirs(); //mkdir() cria somente um diret�rio, mkdirs() cria diret�rios e subdiret�rios.  
-			} else {  
-			   System.out.println("Diretório "+pasta+" j� existente");
-			}  
+			File diretorio = new File(pasta); 
+			if (!diretorio.exists()) 
+				diretorio.mkdirs();   
+			
 		}
 		
 		
@@ -71,6 +72,11 @@ public class Desktop {
 		listaPersonalizada.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "My Video", Registro.REG_EXPAND_SZ, caminho+"\\"+nomeDeUsuario+"\\"+"Videos", "%USERPROFILE%\\Videos","Muda a pasta da �rea de trabalho do usu�rio corrente. "));
 		listaPersonalizada.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "{374DE290-123F-4565-9164-39C4925E467B}", Registro.REG_EXPAND_SZ, caminho+"\\"+nomeDeUsuario+"\\"+"Downloads", "%USERPROFILE%\\Downloads","Muda a pasta da �rea de trabalho do usu�rio corrente. "));
 		
+		
+		
+		listaPersonalizada.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "Favorites", Registro.REG_EXPAND_SZ, caminho+"\\"+nomeDeUsuario+"\\"+"Favorites", "%USERPROFILE%\\Favorites","Muda a pasta da �rea de trabalho do usu�rio corrente. "));
+		listaPersonalizada.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "Local AppData", Registro.REG_EXPAND_SZ, caminho+"\\"+nomeDeUsuario+"\\"+"local", "%USERPROFILE%\\AppData\\Local","Muda a pasta da �rea de trabalho do usu�rio corrente. "));
+
 	}
 	
 	/**
@@ -80,17 +86,13 @@ public class Desktop {
 	 */
 	public void alterarRegistro(){
 		verificaECria();
-		for(Registro R : this.perfilDesktop.getListaDeRegistros()){
-			System.out.println(R);
-		}
+		
 		perfilDesktop.executar();
 		
 	}
 	private Perfil perfilDesktop;
 	public void desfazer(){
-		for(Registro R : this.perfilDesktop.getListaDeRegistros()){
-			System.out.println(R.toStringDesfazer());
-		}
+		
 		perfilDesktop.desfazer();
 		
 	}

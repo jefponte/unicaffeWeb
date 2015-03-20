@@ -1,6 +1,7 @@
 package br.edu.unilab.unicafe.main;
 
 import br.edu.unilab.unicafe.model.Servidor;
+import com.google.gson.Gson;
 
 /**
  * 

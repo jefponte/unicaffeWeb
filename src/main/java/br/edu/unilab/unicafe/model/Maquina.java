@@ -7,18 +7,26 @@ import java.net.UnknownHostException;
 
 public class Maquina {
 	private int id;
-	
-	private Usuario usuarioLogado;
-	
 	private String nome;
 	private String ip;
 	private String enderecoMac;
 	private int status;
+	private Acesso acesso;
+	
+	
+	
+	public Acesso getAcesso(){
+		return this.acesso;
+	}
+	public void setAcesso(Acesso acesso){
+		this.acesso = acesso;
+	}
+
 
 	public Maquina(){
-		this.usuarioLogado = new Usuario();
-		this.usuarioLogado.setNome("Usuario Nao Informado");
-		this.usuarioLogado.setLogin("NaoInformado");
+		this.acesso = new Acesso();
+		this.setNome("Não Listado");
+		this.getAcesso().setStatus(Acesso.STATUS_DISPONIVEL);
 	}
 	public void preencheComMaquinaLocal() 
 	{
@@ -99,7 +107,7 @@ public class Maquina {
 			strStatus = "Ocupada";
 			break;
 		case STATUS_DISPONIVEL:
-			strStatus = "Dispon�vel";
+			strStatus = "Disponível";
 			break;
 		default:
 			break;
@@ -107,13 +115,7 @@ public class Maquina {
 		return strStatus;
 	}
 
-	public Usuario getUsuarioLogado() {
-		return usuarioLogado;
-	}
 
-	public void setUsuarioLogado(Usuario usuarioLogado) {
-		this.usuarioLogado = usuarioLogado;
-	}
 	public int getId() {
 		return id;
 	}

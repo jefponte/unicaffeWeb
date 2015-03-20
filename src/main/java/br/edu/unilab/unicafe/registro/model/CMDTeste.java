@@ -13,7 +13,7 @@ public class CMDTeste {
 		try {
 			
 			
-			process = Runtime.getRuntime().exec("wmic process  get ProcessID, Name, ExecutablePath /FORMAT:CSV");
+			process = Runtime.getRuntime().exec("wmic process  get ProcessID, Name, ExecutablePath, CSName , Status");
 			leitor = new Scanner(process.getInputStream());
 			while(leitor.hasNext()){
 				System.out.println(leitor.nextLine());

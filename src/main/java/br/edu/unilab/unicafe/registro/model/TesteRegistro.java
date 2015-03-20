@@ -8,15 +8,15 @@ public class TesteRegistro {
 	public static void main(String[] args) {
 
 		Perfil perfil = new Perfil();
-		perfil.setListaDeRegistros(Perfil.listaParaBloqueio());
+		perfil.setListaDeRegistros(Perfil.listaParaTeste());
 //		perfil.executar();
-//		perfil.desfazer();
+		perfil.desfazer();
 		//perfil.deletar();
 		for(Registro r : perfil.getListaDeRegistros()){
 			System.out.println(r);
 		}
 	
-		/*
+
 
 		try {
 			Runtime.getRuntime().exec(" taskkill /f /im explorer.exe");
@@ -29,7 +29,6 @@ public class TesteRegistro {
 		}
 		
 
-*/
 
 
 	}

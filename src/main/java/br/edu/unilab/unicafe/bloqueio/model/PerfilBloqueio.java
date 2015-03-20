@@ -185,8 +185,19 @@ public class PerfilBloqueio {
 			this.listaDeProcessosAceitos.add(new Processo("WUDFHost.exe", "C:\\Windows\\System32\\WUDFHost.exe", "944"));
 			this.listaDeProcessosAceitos.add(new Processo("dllhost.exe", "C:\\Windows\\system32\\DllHost.exe", "944"));
 			this.listaDeProcessosAceitos.add(new Processo("UniCafeClient.exe", "C:\\Program Files (x86)\\UniCafe\\UniCafeCLient.exe", "944"));
-			
+			this.listaDeProcessosAceitos.add(new Processo("sppsvc.exe", "C:\\Windows\\system32\\sppsvc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("eclipse.exe", "C:\\arquivos\\jefponte\\Documents\\eclipse\\eclipse.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("AAM Updates Notifier.exe", "C:\\Program Files (x86)\\Common Files\\Adobe\\OOBE\\PDApp\\UWA\\AAM Updates Notifier.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("java.exe", "C:\\ProgramData\\Oracle\\Java\\javapath\\java.exe", "944"));
 			this.listaDeProcessosAceitos.add(new Processo("explorer.exe", "", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("Connect.Service.ContentService.exe", "C:\\Program Files (x86)\\Autodesk\\Content Service\\Connect.Service.ContentService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WMIC.exe", "C:\\Windows\\SysWOW64\\Wbem\\wmic.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("rundll32.exe", "C:\\Windows\\System32\\rundll32.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("rundll32.exe", "C:\\Windows\\System32\\RunDll32.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wmpnetwk.exe", "C:\\Program Files\\Windows Media Player\\wmpnetwk.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("explorer.exe", "C:\\Windows\\SysWOW64\\explorer.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("javaw.exe", "C:\\Program Files\\Java\\jre7\\bin\\javaw.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("taskkill.exe", "C:\\Windows\\SysWOW64\\taskkill.exe", "944"));
 			while (linhaArquivo.ready()) {
 				String linha = linhaArquivo.readLine();
 				String[] vDados = linha.split("[,]");
@@ -280,31 +291,20 @@ public class PerfilBloqueio {
 
 					//System.out.println(processoAtivo.getImagem()
 					//		+ " N�o existe na lista. Deletaaar.");
-					process = Runtime.getRuntime().exec(
-							" taskkill /PID \"" + processoAtivo.getProcessId()+"\" /F");
+					//JOptionPane.showMessageDialog(null, "Meu Amor, não pode executar "+ processoAtivo.getImagem()+" - "+processoAtivo.getExecutablePath());
+					//System.out.println("Meu Amor, não pode executar "+ processoAtivo.getImagem()+" - "+processoAtivo.getExecutablePath());
 					
-					/*
-					Thread janelinha = new Thread(new Runnable() {
-						
-						@Override
-						public void run() {
-							JOptionPane.showMessageDialog(
-									null,
-									);
-						}
-					});
+					process = Runtime.getRuntime().exec(" taskkill /PID \"" + processoAtivo.getProcessId()+"\" /F");
 					
-					janelinha.start();
-					*/
-				//	System.out.println(proc);
-					System.out.println("Meu Amor, não pode executar "+ processoAtivo.getImagem()+" - "+processoAtivo.getExecutablePath());
 					leitor = new Scanner(process.getInputStream());
 
+					/*
 					while (leitor.hasNext()) {
 						System.out.println(leitor.nextLine());
 					}
+					*/
 
-				} catch (IOException e) {
+				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}

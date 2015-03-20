@@ -9,6 +9,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import br.edu.unilab.unicafe.model.Acesso;
@@ -17,7 +18,7 @@ import br.edu.unilab.unicafe.model.Usuario;
 
 public class AcessoDAO extends DAO {
 
-	public static final int COTA = 10800;
+	public static final int COTA = 3600;
 
 	public AcessoDAO() {
 		super();
@@ -73,7 +74,7 @@ public class AcessoDAO extends DAO {
 					e.printStackTrace();
 				}
 
-				acesso.setMaquina(maquina);
+				
 				Usuario usuario = new Usuario();
 				usuario.setId(resultSet.getInt("id_usuario"));
 				usuario.setLogin(resultSet.getString("login"));
@@ -92,7 +93,7 @@ public class AcessoDAO extends DAO {
 	}
 
 	/**
-	 * Retorna todos os acessos de um usuário.
+	 * Retorna todos os acessos de um usuï¿½rio.
 	 * 
 	 * @param usuario
 	 * @return
@@ -122,11 +123,11 @@ public class AcessoDAO extends DAO {
 	}
 
 	/**
-	 * Retorna todos os acessos de um usuário.
+	 * Retorna todos os acessos de um usuï¿½rio.
 	 * 
 	 * @param usuario
 	 * @param data
-	 *            é uma data no formato 2015-02-26 19:33:47
+	 *            ï¿½ uma data no formato 2015-02-26 19:33:47
 	 * @return
 	 */
 	public ArrayList<Acesso> retornaLista(Usuario usuario, String data, String data2) {
@@ -163,8 +164,23 @@ public class AcessoDAO extends DAO {
 
 		DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date date = new java.util.Date();
+		
+		GregorianCalendar calendar = new GregorianCalendar(); 
+		int hora = calendar.get(Calendar.HOUR_OF_DAY);
+		
 		String dataInicioDoDia = dateFormat.format(date)+" 01:01:01";
 		String dataFinalDoDia = dateFormat.format(date)+" 23:59:59";
+		
+		if(hora < 12){
+			dataInicioDoDia = dateFormat.format(date)+" 01:01:01";
+			dataFinalDoDia = dateFormat.format(date)+" 11:59:59";
+		}else if((hora >= 12) && (hora < 18)){
+			dataInicioDoDia = dateFormat.format(date)+" 12:00:00";
+			dataFinalDoDia = dateFormat.format(date)+" 17:59:59";
+		}else if(hora >= 18){
+			dataInicioDoDia = dateFormat.format(date)+" 18:00:00";
+			dataFinalDoDia = dateFormat.format(date)+" 23:59:59";
+		}
 		
 		int tempo = 0;
 		for (Acesso acesso : this.retornaLista(usuario, dataInicioDoDia, dataFinalDoDia)) {
@@ -185,13 +201,14 @@ public class AcessoDAO extends DAO {
 	}
 
 	/**
-	 * Retorna true se a máquina for cadastrada com sucesso.
+	 * Retorna true se a mï¿½quina for cadastrada com sucesso.
 	 * 
 	 * @param maquina
 	 * @return
 	 */
 
-	public boolean cadastra(Acesso acesso) {
+	public boolean cadastra(Maquina maquina) {
+		Acesso acesso = maquina.getAcesso();
 		try {
 
 			PreparedStatement ps2 = this
@@ -205,10 +222,10 @@ public class AcessoDAO extends DAO {
 					"yyyy-MM-dd HH:mm:ss");
 			String strData = formatarDate.format(data);
 			ps2.setString(3, strData);
-			ps2.setInt(4, acesso.getMaquina().getId());
+			System.out.println(maquina.toString());
+			ps2.setInt(4, maquina.getId());
 			ps2.setInt(5, acesso.getTempoDisponibilizado());
-			ps2.setString(6, acesso.getCliente().getConexao().getInetAddress()
-					.toString().substring(1));
+			ps2.setString(6, maquina.getIp());
 			ps2.executeUpdate();
 
 			return true;
@@ -220,100 +237,5 @@ public class AcessoDAO extends DAO {
 		}
 	}
 
-	/**
-	 * Esse método pega um acesso padrão do sistema e envia pra tabela do banco
-	 * do felipe. O banco de dados que tá lá no PC do felipe.
-	 * 
-	 * @param acesso
-	 */
-	public void cadastraTabelaFelipe(Acesso acesso) {
-
-		Connection conexaoPostgres;
-		Connection conexaoSqlite;
-		if (this.getTipoDeConexao() == TIPO_POSTGRESQL) {
-			conexaoSqlite = new DAO(TIPO_SQLITE).getConexao();
-			conexaoPostgres = this.getConexao();
-		} else if (this.getTipoDeConexao() == TIPO_SQLITE) {
-			conexaoPostgres = new DAO(TIPO_POSTGRESQL).getConexao();
-			conexaoSqlite = this.getConexao();
-		} else {
-			conexaoPostgres = new DAO(TIPO_POSTGRESQL).getConexao();
-			conexaoSqlite = new DAO(TIPO_SQLITE).getConexao();
-		}
-
-		System.out.println(acesso.getMaquina().getNome());
-		// Se a máquina não existe lá, cadastre-a
-
-		try {
-			PreparedStatement ps = conexaoPostgres
-					.prepareStatement("SELECT * FROM maquina WHERE nome_maq = ? LIMIT 1");
-			ps.setString(1, acesso.getMaquina().getNome());
-			ResultSet resultSet = ps.executeQuery();
-			while (resultSet.next()) {
-				acesso.getMaquina().setId(resultSet.getInt("id_maquina"));
-				PreparedStatement ps2 = conexaoPostgres
-						.prepareStatement("SELECT * FROM usuario WHERE login = ? LIMIT 1");
-				ps2.setString(1, acesso.getUsuario().getLogin());
-
-				ResultSet resultSet2 = ps2.executeQuery();
-				while (resultSet2.next()) {
-					acesso.getUsuario().setId(resultSet2.getInt("id_usuario"));
-
-					PreparedStatement ps3 = conexaoPostgres
-							.prepareStatement("INSERT INTO historico_acesso(id_usuario, id_maquina, data_inicio_uso, data_termino_uso, ipv4) VALUES(?, ?, ?, ?, ?)");
-					ps3.setInt(1, acesso.getUsuario().getId());
-					ps3.setInt(2, acesso.getMaquina().getId());
-					ps3.setTimestamp(3,
-							new java.sql.Timestamp(acesso.getHoraInicial()));
-					ps3.setTimestamp(
-							4,
-							new java.sql.Timestamp(
-									(acesso.getHoraInicial() + acesso
-											.getTempoUsado())));
-					ps3.setString(5, acesso.getMaquina().getIp());
-
-					ps3.executeUpdate();
-					System.out.println("Cadastrou acesso. ");
-					return;
-
-				}
-				// chega aqui se não existir usuário com esse login.
-				// Iremos cadastrar nada.
-				// Só usupários cadastrados no banco terão acesso registrado por
-				// enquanto.
-				return;
-
-			}
-			// chega aqui se não existir maquina.
-			PreparedStatement ps4 = conexaoPostgres
-					.prepareStatement("INSERT INTO maquina(nome_maq) VALUES(?)");
-			ps4.setString(1, acesso.getMaquina().getNome());
-			ps4.executeUpdate();
-			System.out.println("Cadastrou maquina. ");
-			cadastraTabelaFelipe(acesso);
-
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
-
-	public void renovaGalera() {
-
-		PreparedStatement ps2;
-		try {
-			for (Acesso acesso : retornaLista()) {
-				cadastraTabelaFelipe(acesso);
-			}
-			ps2 = this.getConexao().prepareStatement("DELETE FROM acesso");
-			ps2.executeUpdate();
-			System.out.println("Galera foi renovada. ");
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-	}
 
 }

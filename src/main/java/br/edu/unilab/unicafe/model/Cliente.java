@@ -49,9 +49,7 @@ public class Cliente {
 	private FrameClientBloqueado frameBloqueado;
 	private FrameClientDesbloqueado frameDesbloqueado;
 	private Thread escInfinito;
-
-	private Acesso acesso;
-
+	
 	public ObjectOutputStream getSaida() {
 		return this.saida;
 	}
@@ -63,7 +61,6 @@ public class Cliente {
 	public Cliente() {
 		this.maquina = new Maquina();
 		this.servidor = new Servidor();
-		this.setAcesso(null);
 
 	}
 
@@ -281,11 +278,11 @@ public class Cliente {
 	}
 
 	public static final String IP_DO_SERVIDOR = "10.11.0.20";
-
+	private String 	ipDoServidor;
 	public void iniciaCilente() {
 
-		
-		
+		this.frameDesbloqueado = new FrameClientDesbloqueado();
+		this.frameBloqueado = new FrameClientBloqueado();
 		
 		escondeBarra();
 		
@@ -333,12 +330,12 @@ public class Cliente {
 		 * 
 		 * 2 - Estado Tempo Livre e Identificado.
 		 */
-		this.frameBloqueado = new FrameClientBloqueado();
+
 		this.frameBloqueado.setAlwaysOnTop(true);
 		this.frameBloqueado.setVisible(true);
 		this.bloqueado = true;
 		this.maquina.preencheComMaquinaLocal();
-		this.frameDesbloqueado = new FrameClientDesbloqueado();
+
 		// Adicionar evento de mostrar.
 
 		frameDesbloqueado.addMouseListener(new MouseAdapter() {
@@ -363,7 +360,7 @@ public class Cliente {
 		        if(e.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {  
 		           
 		        	
-		        	if (frameBloqueado.getTextFieldUsuario().getText().equals("senhasecreta")) {
+		        	if (frameBloqueado.getTextFieldUsuario().getText().equals("senhasecreta") && frameBloqueado.getPasswordFieldSenha().getText().equals("123456")) {
 
 						desBloqueandoServicos();
 
@@ -432,7 +429,7 @@ public class Cliente {
 		 */
 
 		Properties config = new Properties();
-		String ipDoServidor = IP_DO_SERVIDOR;
+		ipDoServidor = IP_DO_SERVIDOR;
 		try {
 			FileInputStream fileInputStream = new FileInputStream("config.ini");
 			config.load(fileInputStream);
@@ -510,8 +507,9 @@ public class Cliente {
 
 	public void desbloqueia(final int segundos, final String login) {
 		
-		String caminho = "\\\\DTI43\\arquivos";
+		String caminho = "\\\\"+this.ipDoServidor+"\\arquivos";
 		Desktop d = new Desktop(caminho, login);
+		
 		d.alterarRegistro();
 //		d.desfazer();
 		
@@ -533,6 +531,7 @@ public class Cliente {
 			@Override
 			public void run() {
 
+			
 				frameDesbloqueado.getLblUsuario().setText(login);
 				frameBloqueado.setVisible(false);
 				frameDesbloqueado.setVisible(true);
@@ -579,6 +578,8 @@ public class Cliente {
 						e.printStackTrace();
 					}
 				}
+			
+				
 				bloqueia();
 
 			}
@@ -591,7 +592,12 @@ public class Cliente {
 	 * 
 	 */
 	public void bloqueia() {
-
+		frameBloqueado.getTextFieldUsuario().setText("");
+		frameBloqueado.getPasswordFieldSenha().setText("");
+    	
+		String caminho = "\\\\"+this.ipDoServidor+"\\arquivos";
+		Desktop d = new Desktop(caminho, "jefponte");
+		d.desfazer();
 		try {
 			if (this.saida != null)
 				this.saida.writeObject("setStatus(" + maquina.STATUS_DISPONIVEL
@@ -743,13 +749,6 @@ public class Cliente {
 		this.entrada = entrada;
 	}
 
-	public Acesso getAcesso() {
-		return acesso;
-	}
-
-	public void setAcesso(Acesso acesso) {
-		this.acesso = acesso;
-	}
 
 	class TentativaDeLogin extends AbstractAction {
 
@@ -762,7 +761,7 @@ public class Cliente {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			if (frame.getTextFieldUsuario().getText().equals("senhasecreta")) {
+			if (frameBloqueado.getTextFieldUsuario().getText().equals("senhasecreta") && frameBloqueado.getPasswordFieldSenha().getText().equals("123456")) {
 
 				desBloqueandoServicos();
 

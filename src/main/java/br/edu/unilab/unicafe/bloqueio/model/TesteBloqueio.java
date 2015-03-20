@@ -15,8 +15,17 @@ public class TesteBloqueio {
 		pb.buscaAceitos();
 		//ProcessoDAO dao = new ProcessoDAO();
 		//dao.cadastraLista(pb.getListaDeAceitos());
-		pb.buscaAtivos();
-		pb.comparaEMata();	
+		while(true){
+			try {
+				pb.buscaAtivos();
+				pb.comparaEMata();	
+				Thread.sleep(5000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
 		/*
 		for(Processo p : pb.getProcessosAtivos()){
 			System.out.println(p);

@@ -4,13 +4,9 @@
  * and open the template in the editor.
  */
 package br.edu.unilab.unicafe.view;
-
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import javax.swing.JTextArea;
 
-import br.edu.unilab.unicafe.model.Servidor;
+
 
 /**
  *
@@ -42,14 +38,7 @@ public class FrameServidor extends javax.swing.JFrame {
 		jMenuItem3 = new javax.swing.JMenuItem();	
 		jMenu2 = new javax.swing.JMenu();
 		jMenuItem4 = new javax.swing.JMenuItem();
-		jMenuItem4.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				Servidor s = new Servidor();	
-				s.frameApresentacao = new FrameApresentacao();
-				s.frameApresentacao.setLocationRelativeTo(null);
-				s.frameApresentacao.setVisible(true);
-			}
-		});
+		
 
 		jMenuItem5 = new javax.swing.JMenuItem();
 		jMenuItem5.setText("Renova Tempo");
