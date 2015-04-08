@@ -118,7 +118,29 @@
 							<goal>single</goal>
 						</goals>
 					</execution>
+					<execution>
+						<id>build-admin</id>
+						<configuration>
+							<appendAssemblyId>false</appendAssemblyId>
+							<archive>
+								<manifest>
+									<mainClass>br.edu.unilab.unicafe.main.MainAdmin</mainClass>
+									<addClasspath>true</addClasspath>
+								</manifest>
+								<addMavenDescriptor>false</addMavenDescriptor>
+							</archive>
+							<descriptorRefs>
+								<descriptorRef>jar-with-dependencies</descriptorRef>
+							</descriptorRefs>
+							<finalName>${project.artifactId}-admin</finalName>
+						</configuration>
+						<phase>package</phase>
+						<goals>
+							<goal>single</goal>
+						</goals>
+					</execution>
 				</executions>
+				
 			</plugin>
 		</plugins>
 	</build>

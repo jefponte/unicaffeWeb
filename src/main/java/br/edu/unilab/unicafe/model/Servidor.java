@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 import javax.swing.SwingUtilities;
 
+import com.google.gson.Gson;
+
 import br.edu.unilab.unicafe.dao.AcessoDAO;
 import br.edu.unilab.unicafe.dao.MaquinaDAO;
 import br.edu.unilab.unicafe.dao.UsuarioDAO;
@@ -164,6 +166,8 @@ public class Servidor {
 		return false;
 	}
 	public synchronized void processaMensagem(Cliente cliente, String mensagem) {
+		//System.out.println(mensagem);
+		
 		String comando = mensagem.substring(0, mensagem.indexOf('('));
 		String parametros = mensagem.substring((mensagem.indexOf('(') + 1),mensagem.indexOf(')'));
 		printd(mensagem);
@@ -268,6 +272,7 @@ public class Servidor {
 					} catch (SQLException e) {
 						e.printStackTrace();
 					}
+					
 				}
 				
 				
@@ -275,8 +280,16 @@ public class Servidor {
 			
 			printd(cliente.getMaquina().getNome() + ">> Mudou o Status para "+ Maquina.statusString(status));
 		} else {
-			printd(cliente.getMaquina().getNome() + ">>"+ " Comando não encontrado."+mensagem);
+			printd(cliente.getMaquina().getNome() + ">>"+ " Comando não encontrado. "+mensagem);
 		}
+		/*
+		for(Cliente c : this.listaDeClientes){
+			Gson geson = new Gson();
+			String json = geson.toJson(c.getMaquina());
+			printd(json);
+		}
+		*/
+		
 
 	}
 

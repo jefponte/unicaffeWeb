@@ -73,6 +73,11 @@ public class FrameClientDesbloqueado extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
+	private JPanelImageResized panel;
+	public JPanelImageResized getPanel(){
+		return this.panel;
+	}
 	private void initComponents() {
 		
 		
@@ -83,7 +88,8 @@ public class FrameClientDesbloqueado extends JFrame {
 		
 		
 		// Jpanel personalizado
-		JPanelImageResized panel = new JPanelImageResized();
+		panel = new JPanelImageResized();
+		
 		
 		
 		panel.setPathImage(UtilFrames.BASE_PATH_IMAGES + "fundoBarTarefas.jpg");
@@ -129,7 +135,7 @@ public class FrameClientDesbloqueado extends JFrame {
 			btnChat.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseClicked(MouseEvent e) {
-					System.out.println("Clicou no botão Chat");
+					System.out.println("Clicou no botï¿½o Chat");
 				}
 			});
 			btnChat.setBorderPainted(false);

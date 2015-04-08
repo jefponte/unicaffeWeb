@@ -13,7 +13,7 @@ public class Maquina {
 	private int status;
 	private Acesso acesso;
 	
-	
+	//kantu tempu ki bu misti.
 	
 	public Acesso getAcesso(){
 		return this.acesso;
@@ -93,6 +93,7 @@ public class Maquina {
 	public static final int STATUS_DISPONIVEL = 0;
 	public static final int STATUS_OCUPADA = 1;
 	public static final int STATUS_DESCONECTADA = 2;
+	public static final int STATUS_ADMIN = 3;
 
 
 	public static String statusString(int status){
@@ -108,6 +109,9 @@ public class Maquina {
 			break;
 		case STATUS_DISPONIVEL:
 			strStatus = "Disponível";
+			break;
+		case STATUS_ADMIN:
+			strStatus = "Administrador";
 			break;
 		default:
 			break;

@@ -10,6 +10,8 @@ import java.util.Scanner;
 
 import javax.swing.JOptionPane;
 
+import br.edu.unilab.unicafe.bloqueio.util.Log;
+
 public class PerfilBloqueio {
 	private ArrayList<Processo> listaDeProcessosAceitos;
 
@@ -273,17 +275,28 @@ public class PerfilBloqueio {
 		boolean existeNaLista = false;
 		for (Processo processoAtivo : this.processosAtivos) {
 			existeNaLista = false;
+			if(processoAtivo.getExecutablePath().length() > 5){
+				if(processoAtivo.getExecutablePath().substring(0, 5).equals("C:\\Pr")){
+					
+					//System.out.println("Foi");
+					//System.out.println(processoAtivo.getExecutablePath().substring(0, 4));
+					existeNaLista = true;
+					continue;
+				}
+			}
 			for (Processo processoAceito : this.listaDeProcessosAceitos) {
+	
 				if (processoAtivo.equals(processoAceito)) {
 					existeNaLista = true;
-					//System.out.println(processoAtivo
-					//		+ " Existe na lista. Beleza. ");
 					break;
 
 				}
+				
 
 			}
 			if (!existeNaLista) {
+				
+				
 				Process process;
 				Scanner leitor;
 
@@ -293,8 +306,11 @@ public class PerfilBloqueio {
 					//		+ " N�o existe na lista. Deletaaar.");
 					//JOptionPane.showMessageDialog(null, "Meu Amor, não pode executar "+ processoAtivo.getImagem()+" - "+processoAtivo.getExecutablePath());
 					//System.out.println("Meu Amor, não pode executar "+ processoAtivo.getImagem()+" - "+processoAtivo.getExecutablePath());
-					
+					new Log("Matei Um processo \n"+processoAtivo.getExecutablePath()+","+processoAtivo.getImagem());
 					process = Runtime.getRuntime().exec(" taskkill /PID \"" + processoAtivo.getProcessId()+"\" /F");
+					if(processoAtivo.getExecutablePath().length() > 5){
+						System.out.println(processoAtivo.getExecutablePath().substring(0, 4));	
+					}      
 					
 					leitor = new Scanner(process.getInputStream());
 

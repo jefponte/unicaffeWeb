@@ -12,7 +12,7 @@ import java.awt.image.BufferedImage;
 
 public class UtilFrames {
 	
-	protected static final String BASE_PATH_IMAGES = "/images/";
+	public static final String BASE_PATH_IMAGES = "/images/";
 	
 	/**
 	 * 

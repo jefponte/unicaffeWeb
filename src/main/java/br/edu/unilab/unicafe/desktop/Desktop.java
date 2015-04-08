@@ -33,6 +33,9 @@ public class Desktop {
 		listaString.add(caminho+"\\"+nomeDeUsuario+"\\"+"local");
 
 		listaString.add(caminho+"\\"+nomeDeUsuario+"\\"+"Favorites");
+		File superDiretorio = new File(caminho); 
+		if (!superDiretorio.exists()) 
+			superDiretorio.mkdirs();   
 		for(String pasta: listaString){
 			File diretorio = new File(pasta); 
 			if (!diretorio.exists()) 

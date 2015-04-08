@@ -1,1 +1,11 @@
 C:\Program Files (x86)\Google\Chrome\Application\chrome.exe,chrome.exe,3564
+C:\Program Files\Oracle\VirtualBox\VirtualBox.exe, VirtualBox.exe,4284
+C:\Program Files\Oracle\VirtualBox\VirtualBox.exe,VirtualBox.exe,6768
+C:\Program Files\Oracle\VirtualBox\VirtualBox.exe,VirtualBox.exe,12345
+C:\Windows\System32\StikyNot.exe,StikyNot.exe,123
+C:\Program Files (x86)\Windows Live\Family Safety\fsui.exe,fsui.exe,123
+c:\wamp\bin\php\php5.5.12\php-win.exe,php-win.exe,123
+C:\Program Files (x86)\Inno Setup 5\Compil32.exe,Compil32.exe,123
+C:\Program Files (x86)\LibreOffice 4\program\sdraw.exe,sdraw.exe,123
+C:\Program Files (x86)\Skype\Phone\Skype.exe,Skype.exe,123
+C:\Windows\System32\StikyNot.exe,StikyNot.exe,123

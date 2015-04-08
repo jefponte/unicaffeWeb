@@ -11,9 +11,7 @@ import br.edu.unilab.unicafe.model.Usuario;
 public class TesteJason {
 
 	public static void main(String[] args) {
-		GregorianCalendar calendar = new GregorianCalendar(); 
-		int hora = calendar.get(Calendar.HOUR_OF_DAY);  
-		System.out.println(hora);
+		System.out.println("Teste".lastIndexOf('e'));
 	}
 
 }

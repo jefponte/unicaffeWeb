@@ -31,6 +31,7 @@ import br.edu.unilab.unicafe.desktop.Desktop;
 import br.edu.unilab.unicafe.registro.model.Perfil;
 import br.edu.unilab.unicafe.view.FrameClientBloqueado;
 import br.edu.unilab.unicafe.view.FrameClientDesbloqueado;
+import br.edu.unilab.unicafe.view.UtilFrames;
 
 /**
  * 
@@ -41,15 +42,15 @@ import br.edu.unilab.unicafe.view.FrameClientDesbloqueado;
 public class Cliente {
 
 	public boolean bloqueado;
-	private Maquina maquina;
+	protected Maquina maquina;
 	private Socket conexao;
 	private Servidor servidor;
 	private ObjectOutputStream saida;
 	private ObjectInputStream entrada;
-	private FrameClientBloqueado frameBloqueado;
+	protected FrameClientBloqueado frameBloqueado;
 	private FrameClientDesbloqueado frameDesbloqueado;
 	private Thread escInfinito;
-	
+
 	public ObjectOutputStream getSaida() {
 		return this.saida;
 	}
@@ -143,12 +144,6 @@ public class Cliente {
 				Perfil perfilBloqueio = new Perfil();
 				perfilBloqueio.setListaDeRegistros(Perfil.listaParaBloqueio());
 				perfilBloqueio.executar();
-				/*
-				 * try {
-				 * Runtime.getRuntime().exec(" taskkill /f /im explorer.exe"); }
-				 * catch (IOException e) { // TODO Auto-generated catch block
-				 * e.printStackTrace(); }
-				 */
 
 			}
 		});
@@ -166,10 +161,7 @@ public class Cliente {
 			ocultada = false;
 			// A� a gente faz a contagem pra mostrar.
 			// Nova trede e estar essa trede.
-			
-			
-			
-			
+
 			Thread mostrando = new Thread(new Runnable() {
 
 				@Override
@@ -187,8 +179,10 @@ public class Cliente {
 						}
 
 					}
-					
-					frameDesbloqueado.setBounds(0, 0, frameDesbloqueado.getWidth(), frameDesbloqueado.getHeight());
+
+					frameDesbloqueado.setBounds(0, 0,
+							frameDesbloqueado.getWidth(),
+							frameDesbloqueado.getHeight());
 					frameDesbloqueado.getLblLogoBarra().setVisible(false);
 
 				}
@@ -228,8 +222,8 @@ public class Cliente {
 						} else {
 							if (!ocultada) {
 								ocultada = true;
-								
-								//frameDesbloqueado.
+
+								// frameDesbloqueado.
 
 								// Ocultaremos aqui.
 								Thread ocultando = new Thread(new Runnable() {
@@ -239,7 +233,7 @@ public class Cliente {
 										for (int i = 0; i > (35 - (frameDesbloqueado
 												.getWidth())); i--) {
 											try {
-												if(!ocultada){
+												if (!ocultada) {
 													break;
 												}
 												Thread.sleep(1);
@@ -253,11 +247,12 @@ public class Cliente {
 											}
 
 										}
-										
-										frameDesbloqueado.getLblLogoBarra().setVisible(true);
+
+										frameDesbloqueado.getLblLogoBarra()
+												.setVisible(true);
 
 									}
-									
+
 								});
 								ocultando.start();
 
@@ -278,16 +273,15 @@ public class Cliente {
 	}
 
 	public static final String IP_DO_SERVIDOR = "10.11.0.20";
-	private String 	ipDoServidor;
+	protected String ipDoServidor;
+
 	public void iniciaCilente() {
 
 		this.frameDesbloqueado = new FrameClientDesbloqueado();
 		this.frameBloqueado = new FrameClientBloqueado();
-		
+
 		escondeBarra();
-		
-		
-		
+
 		Thread t = new Thread(new Runnable() {
 
 			@Override
@@ -338,13 +332,28 @@ public class Cliente {
 
 		// Adicionar evento de mostrar.
 
+		adicionaEventos();
+
+		this.frameBloqueado.getLabelMensagem().setText("");
+		this.frameBloqueado.setVisible(true);
+		this.iniciaEscInfinito();
+
+		this.atualizaIP();
+		this.bloqueia();
+
+		this.conexaoComServidor();
+
+	}
+
+	public void adicionaEventos() {
+
 		frameDesbloqueado.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
 				contagemParaOcultar = 0;
 			}
 		});
-		
+
 		this.frameDesbloqueado.addMouseListener(new MouseAdapter() {
 
 			@Override
@@ -353,14 +362,17 @@ public class Cliente {
 			}
 		});
 
-		frameBloqueado.getBtnEntrar().addActionListener(new TentativaDeLogin(frameBloqueado));
+		frameBloqueado.getBtnEntrar().addActionListener(
+				new TentativaDeLogin(frameBloqueado));
 		frameBloqueado.getPasswordFieldSenha().addKeyListener(new KeyAdapter() {
-  
-		    public void keyPressed(java.awt.event.KeyEvent e) {  
-		        if(e.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {  
-		           
-		        	
-		        	if (frameBloqueado.getTextFieldUsuario().getText().equals("senhasecreta") && frameBloqueado.getPasswordFieldSenha().getText().equals("123456")) {
+
+			public void keyPressed(java.awt.event.KeyEvent e) {
+				if (e.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+
+					if (frameBloqueado.getTextFieldUsuario().getText()
+							.equals("senhasecreta")
+							&& frameBloqueado.getPasswordFieldSenha().getText()
+									.equals("123456")) {
 
 						desBloqueandoServicos();
 
@@ -392,13 +404,14 @@ public class Cliente {
 
 					}
 					@SuppressWarnings("deprecation")
-					String senha = UsuarioDAO.getMD5(frameBloqueado.getPasswordFieldSenha()
-							.getText());
+					String senha = UsuarioDAO.getMD5(frameBloqueado
+							.getPasswordFieldSenha().getText());
 
 					try {
-						saida.writeObject("autentica("
-								+ frameBloqueado.getTextFieldUsuario().getText() + "," + senha
-								+ ")");
+						getSaida().writeObject(
+								"autentica("
+										+ frameBloqueado.getTextFieldUsuario()
+												.getText() + "," + senha + ")");
 
 					} catch (IOException e2) {
 						// TODO Auto-generated catch block
@@ -410,56 +423,15 @@ public class Cliente {
 
 					frameBloqueado.getTextFieldUsuario().setText("");
 					frameBloqueado.getPasswordFieldSenha().setText("");
-		        	
-		        	
-		        }  
-		                      
-		    };  
-		});  
-		  
-		
-		this.frameBloqueado.getLabelMensagem().setText("");
-		this.frameBloqueado.setVisible(true);
-		this.iniciaEscInfinito();
 
-		/*
-		 * O IP do servidor � definido pelo INI. Caso o valor no INI n�o seja
-		 * existente iremos criar um INI com a vari�vel para o IP de valor
-		 * padr�o igual ao nome da m�quina do JEFPONTE.
-		 */
+				}
 
-		Properties config = new Properties();
-		ipDoServidor = IP_DO_SERVIDOR;
-		try {
-			FileInputStream fileInputStream = new FileInputStream("config.ini");
-			config.load(fileInputStream);
-			ipDoServidor = config.getProperty("host_unicafeserver");
-			fileInputStream.close();
-		} catch (FileNotFoundException e2) {
-			// Se o arquivo n�o existir agente cria e adiciona valor.
+			};
+		});
 
-			try {
+	}
 
-				FileOutputStream fileOutputStream = new FileOutputStream(
-						"config.ini");
-				config.setProperty("host_unicafeserver", IP_DO_SERVIDOR);
-				config.store(fileOutputStream,
-						"Arquivo de Configura��o do uniCafeClient");
-				fileOutputStream.flush();
-				fileOutputStream.close();
-			} catch (FileNotFoundException e) {
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-		} catch (IOException e) {
-
-		}
-
-		this.servidor.setIp(config.getProperty("host_unicafeserver"));
-
-		this.bloqueia();
-
+	public void conexaoComServidor() {
 		Thread tentandoConexao = new Thread(new Runnable() {
 
 			@Override
@@ -497,7 +469,6 @@ public class Cliente {
 			}
 		});
 		tentandoConexao.start();
-
 	}
 
 	/**
@@ -505,44 +476,92 @@ public class Cliente {
 	 */
 	private boolean continuaESC = true;
 
+	private String servidorDeArquivos;
+	public void atualizaIP() {
+
+		/*
+		 * O IP do servidor � definido pelo INI. Caso o valor no INI n�o seja
+		 * existente iremos criar um INI com a vari�vel para o IP de valor
+		 * padr�o igual ao nome da m�quina do JEFPONTE.
+		 */
+
+		Properties config = new Properties();
+		ipDoServidor = IP_DO_SERVIDOR;
+		servidorDeArquivos = IP_DO_SERVIDOR;
+		try {
+			FileInputStream fileInputStream = new FileInputStream("config.ini");
+			config.load(fileInputStream);
+			ipDoServidor = config.getProperty("host_unicafeserver");
+			ipDoServidor = config.getProperty("host_servidorDeArquivos");
+			fileInputStream.close();
+		} catch (FileNotFoundException e2) {
+			// Se o arquivo n�o existir agente cria e adiciona valor.
+
+			try {
+
+				FileOutputStream fileOutputStream = new FileOutputStream(
+						"config.ini");
+				config.setProperty("host_unicafeserver", IP_DO_SERVIDOR);
+				config.store(fileOutputStream,
+						"Arquivo de Configuração do uniCafeClient");
+				fileOutputStream.flush();
+				fileOutputStream.close();
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} catch (IOException e) {
+
+		}
+
+		this.servidor.setIp(config.getProperty("host_unicafeserver"));
+
+	}
+
+	
 	public void desbloqueia(final int segundos, final String login) {
+
 		
-		String caminho = "\\\\"+this.ipDoServidor+"\\arquivos";
+		String caminho = "C:\\arquivos";
+		
 		Desktop d = new Desktop(caminho, login);
-		
+
 		d.alterarRegistro();
-//		d.desfazer();
-		
 
 		try {
 			Runtime.getRuntime().exec(" taskkill /f /im explorer.exe");
-			Thread.sleep(1000);
+			Thread.sleep(500);
 			Runtime.getRuntime().exec("explorer.exe");
 
 		} catch (InterruptedException | IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+
+		this.getMaquina().getAcesso().getUsuario().setLogin(login);
+		this.getMaquina().getAcesso().setTempoDisponibilizado(segundos);
+		maquina.getAcesso().setTempoUsado(0);
+		//this.getMaquina().getAcesso().contar();
+		
+		
+		//qualquer coisa
+		
+		
 		mostraBarra();
+		
 		continuaESC = false;
 		bloqueado = false;
+		
 		Thread sessao = new Thread(new Runnable() {
 
 			@Override
 			public void run() {
 
-			
 				frameDesbloqueado.getLblUsuario().setText(login);
 				frameBloqueado.setVisible(false);
 				frameDesbloqueado.setVisible(true);
-
-				/*
-				 * addMouseListener(new MouseAdapter() {
-				 * 
-				 * @Override public void mouseEntered(MouseEvent arg0) {
-				 * System.out.println("T� entedaro! :D"); } });
-				 */
-
 				frameDesbloqueado.getBtnFinalizar().addActionListener(
 						new ActionListener() {
 
@@ -553,11 +572,13 @@ public class Cliente {
 							}
 						});
 
-				for (int i = segundos; ((i >= 0) && (!bloqueado)); i--) {
+
+				while(maquina.getAcesso().getTempoUsado() <= maquina.getAcesso().getTempoDisponibilizado() && (!bloqueado)) {
 					try {
 						Thread.sleep(1000);
 
-						int tempo = i;
+						int tempo = (maquina.getAcesso().getTempoDisponibilizado() - maquina.getAcesso().getTempoUsado());
+						
 						int hora = 0;
 						int minuto = 0;
 						while (tempo >= 60) {
@@ -573,13 +594,16 @@ public class Cliente {
 								String.format("%02d", hora) + ":"
 										+ String.format("%02d", minuto) + ":"
 										+ String.format("%02d", tempo));
+						
+						
+						maquina.getAcesso().setTempoUsado(maquina.getAcesso().getTempoUsado()+1);
+						
 					} catch (InterruptedException e) {
 
 						e.printStackTrace();
 					}
 				}
-			
-				
+
 				bloqueia();
 
 			}
@@ -587,15 +611,13 @@ public class Cliente {
 		sessao.start();
 
 	}
+	
 
-	/**
-	 * 
-	 */
 	public void bloqueia() {
 		frameBloqueado.getTextFieldUsuario().setText("");
 		frameBloqueado.getPasswordFieldSenha().setText("");
-    	
-		String caminho = "\\\\"+this.ipDoServidor+"\\arquivos";
+
+		String caminho = "\\\\" + this.servidorDeArquivos + "\\arquivos";
 		Desktop d = new Desktop(caminho, "jefponte");
 		d.desfazer();
 		try {
@@ -653,6 +675,54 @@ public class Cliente {
 		bloqueando.start();
 	}
 
+	/**
+	 * 
+	 * Mensagem enviada pelo servidor.
+	 * 
+	 * @param mensagem
+	 */
+	public void processaMensagem(String mensagem) {
+		String	comando = mensagem.substring(0, mensagem.indexOf('('));
+		final String parametros = mensagem.substring(mensagem.indexOf('(') + 1, mensagem.indexOf(')'));
+		if (comando.equals("bloqueia")) {
+			bloqueia();
+		} else if (comando.equals("desbloqueia")) {
+			String login = parametros.substring(0, parametros.indexOf(','));
+			String tempo = parametros.substring(parametros.indexOf(',') + 2);
+			int time = Integer.parseInt(tempo);
+			desbloqueia(time, login);
+			
+			
+		}else if(comando.equals("bonus")){
+			
+			
+			
+			
+		} else if (comando.equals("printc")) {
+
+			Thread t = new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					frameBloqueado.getLabelMensagem().setText("" + parametros);
+					try {
+						Thread.sleep(10000);
+					} catch (InterruptedException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					frameBloqueado.getLabelMensagem().setText("");
+
+				}
+			});
+			t.start();
+
+		} else {
+
+		}
+
+	}
+
 	public void processaConexao(final Socket conexao) {
 
 		Thread processando = new Thread(new Runnable() {
@@ -669,71 +739,24 @@ public class Cliente {
 					entrada = new ObjectInputStream(conexao.getInputStream());
 					while (true) {
 						try {
-							String mensagem = (String) getEntrada()
-									.readObject();
-
-							String comando = mensagem.substring(0,
-									mensagem.indexOf('('));
-							final String parametros = mensagem.substring(
-									mensagem.indexOf('(') + 1,
-									mensagem.indexOf(')'));
-
-							if (comando.equals("bloqueia")) {
-								bloqueia();
-							} else if (comando.equals("desbloqueia")) {
-
-								String login = parametros.substring(0,
-										parametros.indexOf(','));
-								String tempo = parametros.substring(parametros
-										.indexOf(',') + 2);
-								int time = Integer.parseInt(tempo);
-								desbloqueia(time, login);
-							} else if (comando.equals("printc")) {
-
-								Thread t = new Thread(new Runnable() {
-
-									@Override
-									public void run() {
-										frameBloqueado.getLabelMensagem()
-												.setText("" + parametros);
-										try {
-											Thread.sleep(10000);
-										} catch (InterruptedException e) {
-											// TODO Auto-generated catch block
-											e.printStackTrace();
-										}
-										frameBloqueado.getLabelMensagem()
-												.setText("");
-
-									}
-								});
-								t.start();
-
-							} else {
-
-							}
-
+							processaMensagem((String) entrada.readObject());
 						} catch (ClassNotFoundException e) {
-							frameBloqueado.setVisible(true);
-							frameBloqueado.getLabelStatus().setForeground(
-									Color.red);
-							frameBloqueado.getLabelStatus().setText(
-									"Erro no servidor.");
-							e.printStackTrace();
-							break;
-						} catch (IOException e) {
-							frameBloqueado.setVisible(true);
-							frameBloqueado.getLabelStatus().setForeground(
-									Color.red);
-							frameBloqueado.getLabelStatus().setText(
-									"Erro no servidor.");
-							e.printStackTrace();
-							break;
+							 frameBloqueado.setVisible(true);
+	                            frameBloqueado.getLabelStatus().setForeground(
+	                                    Color.red);
+	                            frameBloqueado.getLabelStatus().setText(
+	                                    "Erro no servidor.");
+	                            e.printStackTrace();
+	                            break;
 						}
 					}
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+					frameBloqueado.setVisible(true);
+                    frameBloqueado.getLabelStatus().setForeground(
+                            Color.red);
+                    frameBloqueado.getLabelStatus().setText(
+                            "Erro no servidor.");
+                    e.printStackTrace();
 				}
 
 			}
@@ -749,7 +772,6 @@ public class Cliente {
 		this.entrada = entrada;
 	}
 
-
 	class TentativaDeLogin extends AbstractAction {
 
 		private static final long serialVersionUID = 1L;
@@ -761,7 +783,10 @@ public class Cliente {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
-			if (frameBloqueado.getTextFieldUsuario().getText().equals("senhasecreta") && frameBloqueado.getPasswordFieldSenha().getText().equals("123456")) {
+			if (frameBloqueado.getTextFieldUsuario().getText()
+					.equals("senhasecreta")
+					&& frameBloqueado.getPasswordFieldSenha().getText()
+							.equals("123456")) {
 
 				desBloqueandoServicos();
 
