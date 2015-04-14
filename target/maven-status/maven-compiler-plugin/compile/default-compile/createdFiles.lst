@@ -7,6 +7,7 @@ br\edu\unilab\unicafe\registro\model\CMDTeste.class
 br\edu\unilab\unicafe\model\Cliente$1.class
 br\edu\unilab\unicafe\model\Administrador$1.class
 br\edu\unilab\unicafe\model\Administrador$4.class
+br\edu\unilab\unicafe\model\Servidor$5.class
 br\edu\unilab\unicafe\view\FrameClientBloqueado.class
 br\edu\unilab\unicafe\model\Servidor$2.class
 br\edu\unilab\unicafe\view\JPanelImageNormal.class

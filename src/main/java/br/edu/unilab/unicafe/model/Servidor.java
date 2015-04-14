@@ -1,5 +1,9 @@
 package br.edu.unilab.unicafe.model;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -85,6 +89,54 @@ public class Servidor {
 
 		}
 
+		Thread anotandoJson = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				while(true){
+					try {
+						Thread.sleep(3000);
+						anotaJson();
+					} catch (InterruptedException e) {
+						
+						e.printStackTrace();
+					}
+					
+				}
+				
+			}
+		});
+		anotandoJson.start();
+		
+	}
+	public void anotaJson(){
+		
+		String json = "";
+		int h = 0;
+		for(Cliente c : this.listaDeClientes){
+			Gson geson = new Gson();
+			if(h == 0){
+				json = json+geson.toJson(c.getMaquina());
+				h++;
+				
+			}else{
+				json = json+"\n"+geson.toJson(c.getMaquina());
+			}
+			
+			
+			//printd(json);
+		}
+		FileWriter writeFile = null;
+		try {
+			writeFile = new FileWriter("C:/unicafe/web/json/saida.json"); 
+			writeFile.write(json);
+			writeFile.close();
+		}
+		catch (IOException e) {
+
+			e.printStackTrace();
+		}
+		
 	}
 
 	public void esperaConexoes() {
@@ -255,41 +307,73 @@ public class Servidor {
 		} else if (comando.equals("setStatus")) {
 			int status = Integer.parseInt(parametros);
 			cliente.getMaquina().setStatus(status);
-			if (status == Maquina.STATUS_DISPONIVEL){
-				
-				if(cliente.getMaquina().getAcesso().getStatus() == Acesso.STATUS_EM_UTILIZACAO){
-					cliente.getMaquina().getAcesso().pararDeContar();
+			switch(status){
+				case Maquina.STATUS_DISPONIVEL:
+					if(cliente.getMaquina().getAcesso().getStatus() == Acesso.STATUS_EM_UTILIZACAO){
+						cliente.getMaquina().getAcesso().pararDeContar();
+						cliente.getMaquina().setStatus(status);
+						AcessoDAO acessodao = new AcessoDAO();
+						if(acessodao.cadastra(cliente.getMaquina())){
+							System.out.println("Sucesso no cadastro de acesso");
+						}else{
+							System.out.println("Fracaço no cadastro de acesso");
+						}
+						
+						try {
+							acessodao.getConexao().close();
+						} catch (SQLException e) {
+							e.printStackTrace();
+						}
+						
+					}
+					break;
+				case Maquina.STATUS_DESCONECTADA:
+					listaDeClientes.remove(cliente);
+					break;
+				case Maquina.STATUS_UPDATE:
+					printd("Vamos Atualizar esse cara.");
 					cliente.getMaquina().setStatus(status);
-					AcessoDAO acessodao = new AcessoDAO();
-					if(acessodao.cadastra(cliente.getMaquina())){
-						System.out.println("Sucesso no cadastro de acesso");
-					}else{
-						System.out.println("Fracaço no cadastro de acesso");
-					}
+					//Aqui a gente envia.
+					 byte[] cbuffer = new byte[1024];
+					 int bytesRead;
+					 FileInputStream fileIn = null;
+
+					 File file = new File("c:\\copia.txt");
+				try {
+					fileIn = new FileInputStream(file);
+					cliente.getSaida().flush();
 					
-					try {
-						acessodao.getConexao().close();
-					} catch (SQLException e) {
-						e.printStackTrace();
+					while ((bytesRead = fileIn.read(cbuffer)) != -1) {
+						cliente.getSaida().write(cbuffer, 0, bytesRead);
+						cliente.getSaida().flush();
 					}
-					
+					fileIn.close();
+					listaDeClientes.remove(cliente);
+					cliente.getConexao().close();
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
+
 				
 				
-			} 
+					break;
+				default: 
+					cliente.getMaquina().setStatus(status);
+					break;
+			}
+			
+			
+			
 			
 			printd(cliente.getMaquina().getNome() + ">> Mudou o Status para "+ Maquina.statusString(status));
 		} else {
 			printd(cliente.getMaquina().getNome() + ">>"+ " Comando não encontrado. "+mensagem);
 		}
-		/*
-		for(Cliente c : this.listaDeClientes){
-			Gson geson = new Gson();
-			String json = geson.toJson(c.getMaquina());
-			printd(json);
-		}
-		*/
-		
+
 
 	}
 

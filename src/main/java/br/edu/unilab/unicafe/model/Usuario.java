@@ -13,6 +13,8 @@ public class Usuario {
 	private String login;
 	private String senha;
 
+
+	
 	public int getId() {
 		return id;
 	}
@@ -95,7 +97,11 @@ public class Usuario {
 	}
 
 	public Usuario() {
-
+		id = 0;
+		nome = "";
+		email = "";
+		login = "";
+		senha = "";
 	}
 
 	@Override

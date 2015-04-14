@@ -8,8 +8,8 @@ public class TesteRegistro {
 	public static void main(String[] args) {
 
 		Perfil perfil = new Perfil();
-		perfil.setListaDeRegistros(Perfil.listaParaTeste());
-//		perfil.executar();
+		perfil.setListaDeRegistros(Perfil.listaParaBloqueio());
+	//	perfil.executar();
 		perfil.desfazer();
 		//perfil.deletar();
 		for(Registro r : perfil.getListaDeRegistros()){

@@ -94,7 +94,7 @@ public class Maquina {
 	public static final int STATUS_OCUPADA = 1;
 	public static final int STATUS_DESCONECTADA = 2;
 	public static final int STATUS_ADMIN = 3;
-
+	public static final int STATUS_UPDATE = 4;
 
 	public static String statusString(int status){
 		String strStatus = "";
@@ -112,6 +112,9 @@ public class Maquina {
 			break;
 		case STATUS_ADMIN:
 			strStatus = "Administrador";
+			break;
+		case STATUS_UPDATE:
+			strStatus = "Atualizando";
 			break;
 		default:
 			break;

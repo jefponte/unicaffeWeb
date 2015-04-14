@@ -9,6 +9,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -387,6 +388,7 @@ public class Cliente {
 									// System.out.println("Fechando Explorer. ");
 									Runtime.getRuntime().exec(
 											" taskkill /f /im explorer.exe");
+									
 									Thread.sleep(1000);
 									// System.out.println("Abrindo Explorer. ");
 									Runtime.getRuntime().exec("explorer.exe");
@@ -488,11 +490,12 @@ public class Cliente {
 		Properties config = new Properties();
 		ipDoServidor = IP_DO_SERVIDOR;
 		servidorDeArquivos = IP_DO_SERVIDOR;
+		
 		try {
 			FileInputStream fileInputStream = new FileInputStream("config.ini");
 			config.load(fileInputStream);
 			ipDoServidor = config.getProperty("host_unicafeserver");
-			ipDoServidor = config.getProperty("host_servidorDeArquivos");
+			servidorDeArquivos = config.getProperty("host_arquivos");
 			fileInputStream.close();
 		} catch (FileNotFoundException e2) {
 			// Se o arquivo n�o existir agente cria e adiciona valor.
@@ -523,14 +526,29 @@ public class Cliente {
 	public void desbloqueia(final int segundos, final String login) {
 
 		
-		String caminho = "C:\\arquivos";
+		String caminho = "\\\\"+this.servidorDeArquivos+"\\arquivos";
+		
+		
+		File diretorio = new File(caminho); 
+		if (!diretorio.exists()) 
+			diretorio.mkdirs();   
+		if (!diretorio.exists()){
+			System.out.println("Servidor de arquivos Não acessível");
+			this.frameBloqueado.getLabelStatus().setText("Servidor de Arquivos Desligado");
+			return;
+		}
 		
 		Desktop d = new Desktop(caminho, login);
+		
 
 		d.alterarRegistro();
 
 		try {
 			Runtime.getRuntime().exec(" taskkill /f /im explorer.exe");
+			Runtime.getRuntime().exec(" taskkill /f /im chrome.exe");
+			Runtime.getRuntime().exec(" taskkill /f /im firefox.exe");
+			Runtime.getRuntime().exec(" taskkill /f /im iexplore.exe");
+			
 			Thread.sleep(500);
 			Runtime.getRuntime().exec("explorer.exe");
 
@@ -783,6 +801,7 @@ public class Cliente {
 
 		@Override
 		public void actionPerformed(ActionEvent arg0) {
+			
 			if (frameBloqueado.getTextFieldUsuario().getText()
 					.equals("senhasecreta")
 					&& frameBloqueado.getPasswordFieldSenha().getText()
@@ -817,6 +836,14 @@ public class Cliente {
 				return;
 
 			}
+			if (frameBloqueado.getTextFieldUsuario().getText()
+					.equals("visitante")
+					&& frameBloqueado.getPasswordFieldSenha().getText()
+							.equals("123456")) {
+				desbloqueia(3600, "visitante");
+				return;
+			}
+			
 			@SuppressWarnings("deprecation")
 			String senha = UsuarioDAO.getMD5(frame.getPasswordFieldSenha()
 					.getText());

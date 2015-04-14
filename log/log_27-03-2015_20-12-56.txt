@@ -1,0 +1,2 @@
+Matei Um processo 
+C:\Program Files (x86)\SqliteBrowser3\bin\sqlitebrowser.exe,sqlitebrowser.exe

@@ -276,7 +276,7 @@ public class PerfilBloqueio {
 		for (Processo processoAtivo : this.processosAtivos) {
 			existeNaLista = false;
 			if(processoAtivo.getExecutablePath().length() > 5){
-				if(processoAtivo.getExecutablePath().substring(0, 5).equals("C:\\Pr")){
+				if(processoAtivo.getExecutablePath().substring(0, 5).equals("C:\\Pr") || processoAtivo.getExecutablePath().substring(0, 5).equals("C:\\Wi")){
 					
 					//System.out.println("Foi");
 					//System.out.println(processoAtivo.getExecutablePath().substring(0, 4));
@@ -309,7 +309,7 @@ public class PerfilBloqueio {
 					new Log("Matei Um processo \n"+processoAtivo.getExecutablePath()+","+processoAtivo.getImagem());
 					process = Runtime.getRuntime().exec(" taskkill /PID \"" + processoAtivo.getProcessId()+"\" /F");
 					if(processoAtivo.getExecutablePath().length() > 5){
-						System.out.println(processoAtivo.getExecutablePath().substring(0, 4));	
+						System.out.println(processoAtivo.getExecutablePath().substring(0, 5));	
 					}      
 					
 					leitor = new Scanner(process.getInputStream());

@@ -23,19 +23,17 @@ public class Desktop {
 		listaString.add(caminho+"\\public\\Music");
 		listaString.add(caminho+"\\public\\Pictures");
 		listaString.add(caminho+"\\public\\Videos");
-		listaString.add(caminho+"\\public\\Downloads");
+		listaString.add(caminho+"\\public\\Documents\\Downloads");
 		listaString.add(caminho+"\\"+nomeDeUsuario+"\\"+"Desktop");
 		listaString.add(caminho+"\\"+nomeDeUsuario+"\\"+"Music");
-		listaString.add(caminho+"\\"+nomeDeUsuario+"\\"+"Documents");
+		listaString.add(caminho+"\\"+nomeDeUsuario+"\\Documents");
 		listaString.add(caminho+"\\"+nomeDeUsuario+"\\"+"Pictures");
 		listaString.add(caminho+"\\"+nomeDeUsuario+"\\"+"Videos");
 		listaString.add(caminho+"\\"+nomeDeUsuario+"\\"+"Downloads");
 		listaString.add(caminho+"\\"+nomeDeUsuario+"\\"+"local");
 
 		listaString.add(caminho+"\\"+nomeDeUsuario+"\\"+"Favorites");
-		File superDiretorio = new File(caminho); 
-		if (!superDiretorio.exists()) 
-			superDiretorio.mkdirs();   
+		
 		for(String pasta: listaString){
 			File diretorio = new File(pasta); 
 			if (!diretorio.exists()) 
