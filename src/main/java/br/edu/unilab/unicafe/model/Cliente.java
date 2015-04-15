@@ -22,6 +22,7 @@ import java.net.UnknownHostException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Properties;
+import java.util.Scanner;
 
 import javax.swing.AbstractAction;
 import javax.swing.JFrame;
@@ -735,6 +736,52 @@ public class Cliente {
 			});
 			t.start();
 
+		} else if (comando.equals("atualizar")) {
+			Process process;
+			Scanner leitor;
+			try {
+				process = Runtime
+						.getRuntime().exec(" java -jar \"C:\\Program Files (x86)\\UniCafe\\update.exe\"");
+				leitor = new Scanner(process.getInputStream());
+				while (leitor.hasNext()) {
+					String linha = leitor.nextLine();
+				}
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			desBloqueandoServicos();
+
+			
+			Thread t = new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+
+					try {
+						JFrame frameLocal = frameBloqueado;
+						frameLocal.setVisible(false);
+						// System.out.println("Fechando Explorer. ");
+						Runtime.getRuntime().exec(
+								" taskkill /f /im explorer.exe");
+						
+						Thread.sleep(1000);
+						// System.out.println("Abrindo Explorer. ");
+						Runtime.getRuntime().exec("explorer.exe");
+						System.exit(0);
+
+					} catch (InterruptedException | IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				}
+			});
+			t.start();
+			return;
+			
 		} else {
 
 		}

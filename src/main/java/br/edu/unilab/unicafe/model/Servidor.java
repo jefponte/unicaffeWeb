@@ -1,12 +1,18 @@
 package br.edu.unilab.unicafe.model;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
@@ -76,10 +82,16 @@ public class Servidor {
 		iniciando.start();
 	}
 	public void iniciaServico() {
-
+		
+		
+		
 		frameServidor = new FrameServidor();
 		frameServidor.setVisible(true);
-
+		frameServidor.getItemUpdate().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				atualizaTodos();
+			}
+		});
 		try {
 
 			this.serverSocket = new ServerSocket(12345, 100);
@@ -109,6 +121,19 @@ public class Servidor {
 		anotandoJson.start();
 		
 	}
+	public void atualizaTodos(){
+		for(Cliente cliente : listaDeClientes){
+			
+			try {
+				cliente.getSaida().writeObject("atualizar()");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	}
+	
 	public void anotaJson(){
 		
 		String json = "";
@@ -218,7 +243,7 @@ public class Servidor {
 		return false;
 	}
 	public synchronized void processaMensagem(Cliente cliente, String mensagem) {
-		//System.out.println(mensagem);
+
 		
 		String comando = mensagem.substring(0, mensagem.indexOf('('));
 		String parametros = mensagem.substring((mensagem.indexOf('(') + 1),mensagem.indexOf(')'));
@@ -333,30 +358,33 @@ public class Servidor {
 				case Maquina.STATUS_UPDATE:
 					printd("Vamos Atualizar esse cara.");
 					cliente.getMaquina().setStatus(status);
-					//Aqui a gente envia.
-					 byte[] cbuffer = new byte[1024];
-					 int bytesRead;
-					 FileInputStream fileIn = null;
-
-					 File file = new File("c:\\copia.txt");
-				try {
-					fileIn = new FileInputStream(file);
-					cliente.getSaida().flush();
 					
-					while ((bytesRead = fileIn.read(cbuffer)) != -1) {
-						cliente.getSaida().write(cbuffer, 0, bytesRead);
-						cliente.getSaida().flush();
+					
+					
+					 
+				try {
+					
+					File f = new File("C:\\UniCafe\\UniCafeClient.exe");
+					FileInputStream in = new FileInputStream(f);
+					OutputStream out = cliente.getConexao().getOutputStream(); 
+					OutputStreamWriter osw = new OutputStreamWriter(out);
+					BufferedWriter writer = new BufferedWriter(osw);
+					writer.flush();
+					int tamanho = 4096;
+					byte[] buffer = new byte[tamanho]; 
+					int lidos = -1;
+					while ((lidos = in.read(buffer, 0, tamanho)) != -1) { 
+						 out.write(buffer, 0, lidos); 
+						 printd("buffo: "+buffer+" tamanho"+tamanho+" lidos:"+lidos);
 					}
-					fileIn.close();
-					listaDeClientes.remove(cliente);
+					printd("Aweeee");
 					cliente.getConexao().close();
-				} catch (FileNotFoundException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				
+					 
 
 				
 				

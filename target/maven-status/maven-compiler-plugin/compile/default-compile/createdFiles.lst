@@ -16,12 +16,14 @@ br\edu\unilab\unicafe\bloqueio\util\Log.class
 br\edu\unilab\unicafe\view\UtilFrames.class
 br\edu\unilab\unicafe\model\Cliente$14.class
 br\edu\unilab\unicafe\model\Cliente$4.class
+br\edu\unilab\unicafe\update\FrameUpdate.class
 br\edu\unilab\unicafe\model\Cliente$13.class
 br\edu\unilab\unicafe\model\Cliente.class
 br\edu\unilab\unicafe\model\Cliente$7.class
 br\edu\unilab\unicafe\model\Cliente$12.class
 br\edu\unilab\unicafe\view\FrameClientDesbloqueado$1.class
 br\edu\unilab\unicafe\view\FrameClientConfig.class
+br\edu\unilab\unicafe\update\Update.class
 br\edu\unilab\unicafe\model\Cliente$6.class
 br\edu\unilab\unicafe\model\Cliente$2.class
 br\edu\unilab\unicafe\desktop\Desktop.class
@@ -53,6 +55,7 @@ br\edu\unilab\unicafe\model\Cliente$8.class
 br\edu\unilab\unicafe\view\FrameServidor.class
 br\edu\unilab\unicafe\view\JPanelImageResized.class
 br\edu\unilab\unicafe\model\Cliente$11$1.class
+br\edu\unilab\unicafe\main\MainUpdate.class
 br\edu\unilab\unicafe\view\FrameClientDesbloqueado.class
 br\edu\unilab\unicafe\model\Cliente$TentativaDeLogin$1.class
 br\edu\unilab\unicafe\model\Usuario.class

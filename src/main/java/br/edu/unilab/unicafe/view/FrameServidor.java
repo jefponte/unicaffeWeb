@@ -5,6 +5,8 @@
  */
 package br.edu.unilab.unicafe.view;
 import javax.swing.JTextArea;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 
@@ -41,7 +43,8 @@ public class FrameServidor extends javax.swing.JFrame {
 		
 
 		jMenuItem5 = new javax.swing.JMenuItem();
-		jMenuItem5.setText("Renova Tempo");
+		
+		jMenuItem5.setText("Update");
 		
 		
 		setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -122,7 +125,7 @@ public class FrameServidor extends javax.swing.JFrame {
 		return this.jMenuItem5;
 	}
 	
-	public javax.swing.JMenuItem getItemRenovaTempo(){
+	public javax.swing.JMenuItem getItemUpdate(){
 		return this.jMenuItem5;
 	}
 	private javax.swing.JPanel jPanel1;

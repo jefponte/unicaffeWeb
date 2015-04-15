@@ -119,12 +119,12 @@
 						</goals>
 					</execution>
 					<execution>
-						<id>build-admin</id>
+						<id>build-update</id>
 						<configuration>
 							<appendAssemblyId>false</appendAssemblyId>
 							<archive>
 								<manifest>
-									<mainClass>br.edu.unilab.unicafe.main.MainAdmin</mainClass>
+									<mainClass>br.edu.unilab.unicafe.main.MainUpdate</mainClass>
 									<addClasspath>true</addClasspath>
 								</manifest>
 								<addMavenDescriptor>false</addMavenDescriptor>
@@ -132,7 +132,7 @@
 							<descriptorRefs>
 								<descriptorRef>jar-with-dependencies</descriptorRef>
 							</descriptorRefs>
-							<finalName>${project.artifactId}-admin</finalName>
+							<finalName>${project.artifactId}-update</finalName>
 						</configuration>
 						<phase>package</phase>
 						<goals>
