@@ -26,6 +26,7 @@ import br.edu.unilab.unicafe.dao.AcessoDAO;
 import br.edu.unilab.unicafe.dao.MaquinaDAO;
 import br.edu.unilab.unicafe.dao.UsuarioDAO;
 import br.edu.unilab.unicafe.view.FrameApresentacao;
+import br.edu.unilab.unicafe.view.FrameAviso;
 import br.edu.unilab.unicafe.view.FrameServidor;
 
 /**
@@ -41,6 +42,8 @@ public class Servidor {
 	private ArrayList<Cliente> listaDeClientes;
 	private FrameApresentacao frameApresentacao;
 	private FrameServidor frameServidor;
+
+	
 
 	public Servidor() {
 
@@ -84,7 +87,7 @@ public class Servidor {
 	public void iniciaServico() {
 		
 		
-		
+	
 		frameServidor = new FrameServidor();
 		frameServidor.setVisible(true);
 		frameServidor.getItemUpdate().addActionListener(new ActionListener() {

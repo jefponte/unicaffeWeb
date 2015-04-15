@@ -31,6 +31,7 @@ import br.edu.unilab.unicafe.bloqueio.model.PerfilBloqueio;
 import br.edu.unilab.unicafe.dao.UsuarioDAO;
 import br.edu.unilab.unicafe.desktop.Desktop;
 import br.edu.unilab.unicafe.registro.model.Perfil;
+import br.edu.unilab.unicafe.view.FrameAviso;
 import br.edu.unilab.unicafe.view.FrameClientBloqueado;
 import br.edu.unilab.unicafe.view.FrameClientDesbloqueado;
 import br.edu.unilab.unicafe.view.UtilFrames;
@@ -52,7 +53,12 @@ public class Cliente {
 	protected FrameClientBloqueado frameBloqueado;
 	private FrameClientDesbloqueado frameDesbloqueado;
 	private Thread escInfinito;
-
+	/**
+	 * Essa frame possui duas JLabels a serem alteradas. 
+	 * Por padrão vem com informação de que o tempo está acabando. 
+	 */
+	private FrameAviso frameAviso;
+	
 	public ObjectOutputStream getSaida() {
 		return this.saida;
 	}
@@ -279,6 +285,7 @@ public class Cliente {
 
 	public void iniciaCilente() {
 
+		this.frameAviso = new FrameAviso();
 		this.frameDesbloqueado = new FrameClientDesbloqueado();
 		this.frameBloqueado = new FrameClientBloqueado();
 
@@ -527,7 +534,7 @@ public class Cliente {
 	public void desbloqueia(final int segundos, final String login) {
 
 		
-		String caminho = "\\\\"+this.servidorDeArquivos+"\\arquivos";
+		String caminho = "\\\\"+this.getMaquina().getNome()+"\\arquivos";
 		
 		
 		File diretorio = new File(caminho); 
@@ -597,6 +604,11 @@ public class Cliente {
 						Thread.sleep(1000);
 
 						int tempo = (maquina.getAcesso().getTempoDisponibilizado() - maquina.getAcesso().getTempoUsado());
+						if(tempo == 300 || tempo == 120 || tempo == 20){
+							mostraBarra();
+							frameAviso.setVisible(true);
+						}
+							
 						
 						int hora = 0;
 						int minuto = 0;
@@ -737,6 +749,8 @@ public class Cliente {
 			t.start();
 
 		} else if (comando.equals("atualizar")) {
+			frameBloqueado.setVisible(false);
+			frameDesbloqueado.setVisible(false);
 			Process process;
 			Scanner leitor;
 			try {
