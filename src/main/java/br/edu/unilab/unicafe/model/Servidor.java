@@ -240,9 +240,17 @@ public class Servidor {
 
 	}
 	public boolean jaEstaLogado(Usuario usuario) {
-		for (Cliente cliente : listaDeClientes) 
-			if ((cliente.getMaquina().getAcesso().getStatus() == Acesso.STATUS_EM_UTILIZACAO) && (cliente.getMaquina().getAcesso().getUsuario().getLogin().equals(usuario.getLogin()))) 
+		for (Cliente cliente : listaDeClientes) {
+			if ((cliente.getMaquina().getAcesso().getStatus() == Acesso.STATUS_EM_UTILIZACAO) && (cliente.getMaquina().getAcesso().getUsuario().getLogin().equals(usuario.getLogin()))){ 
+				try {
+					cliente.getSaida().writeObject("bloqueia()");
+					return false;
+				} catch (IOException e) {
+					//Não consegui bloquear. 
 					return true;
+				}
+			}
+		}
 		return false;
 	}
 	public synchronized void processaMensagem(Cliente cliente, String mensagem) {

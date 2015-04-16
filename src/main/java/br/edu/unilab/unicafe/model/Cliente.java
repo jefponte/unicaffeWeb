@@ -18,6 +18,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.math.BigInteger;
 import java.net.Socket;
+import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
@@ -825,8 +826,11 @@ public class Cliente {
 	                                    Color.red);
 	                            frameBloqueado.getLabelStatus().setText(
 	                                    "Erro no servidor.");
-	                            e.printStackTrace();
+	                            conexaoComServidor();
 	                            break;
+						}catch (SocketException se) {
+						    conexaoComServidor();
+                            break;
 						}
 					}
 				} catch (IOException e) {
@@ -834,8 +838,8 @@ public class Cliente {
                     frameBloqueado.getLabelStatus().setForeground(
                             Color.red);
                     frameBloqueado.getLabelStatus().setText(
-                            "Erro no servidor.");
-                    e.printStackTrace();
+                            "Fim de conexão");
+                    conexaoComServidor();
 				}
 
 			}
