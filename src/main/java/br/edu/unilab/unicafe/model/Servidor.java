@@ -90,6 +90,12 @@ public class Servidor {
 	
 		frameServidor = new FrameServidor();
 		frameServidor.setVisible(true);
+		
+		frameServidor.getMenuDesligar().addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				desligarTodos();
+			}
+		});
 		frameServidor.getItemUpdate().addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				atualizaTodos();
@@ -135,6 +141,19 @@ public class Servidor {
 			}
 			
 		}
+	}
+	public void desligarTodos(){
+		for(Cliente cliente : listaDeClientes){
+			
+			try {
+				cliente.getSaida().writeObject("desligar()");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
 	}
 	
 	public void anotaJson(){

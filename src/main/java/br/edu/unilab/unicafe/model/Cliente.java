@@ -730,7 +730,25 @@ public class Cliente {
 			
 			
 			
-		} else if (comando.equals("printc")) {
+		}
+		else if (comando.equals("desliga")) {
+			
+			Process process;
+			Scanner leitor;
+			try {
+				process = Runtime.getRuntime().exec(" shutdown -h");
+				leitor = new Scanner(process.getInputStream());
+				while (leitor.hasNext()) {
+					String linha = leitor.nextLine();
+				}
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}else if (comando.equals("printc")) {
 
 			Thread t = new Thread(new Runnable() {
 

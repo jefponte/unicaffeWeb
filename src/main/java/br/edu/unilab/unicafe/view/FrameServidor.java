@@ -4,7 +4,9 @@
  * and open the template in the editor.
  */
 package br.edu.unilab.unicafe.view;
+import javax.swing.JMenuItem;
 import javax.swing.JTextArea;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -40,6 +42,8 @@ public class FrameServidor extends javax.swing.JFrame {
 		jMenuItem3 = new javax.swing.JMenuItem();	
 		jMenu2 = new javax.swing.JMenu();
 		jMenuItem4 = new javax.swing.JMenuItem();
+		
+
 		
 
 		jMenuItem5 = new javax.swing.JMenuItem();
@@ -84,7 +88,7 @@ public class FrameServidor extends javax.swing.JFrame {
 
 		jMenu2.setText("Ajuda");
 
-		jMenuItem4.setText("Sobre");
+		jMenuItem4.setText("Desligar Todos");
 		jMenu2.add(jMenuItem4);
 
 		jMenu2.add(jMenuItem5);
@@ -120,6 +124,9 @@ public class FrameServidor extends javax.swing.JFrame {
 	private javax.swing.JMenuItem jMenuItem2;
 	private javax.swing.JMenuItem jMenuItem3;
 	private javax.swing.JMenuItem jMenuItem4;
+	public JMenuItem getMenuDesligar(){
+		return this.jMenuItem4;
+	}
 	private javax.swing.JMenuItem jMenuItem5;
 	public javax.swing.JMenuItem getBotaoRenovar(){
 		return this.jMenuItem5;
