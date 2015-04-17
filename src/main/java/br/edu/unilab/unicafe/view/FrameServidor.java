@@ -7,8 +7,6 @@ package br.edu.unilab.unicafe.view;
 import javax.swing.JMenuItem;
 import javax.swing.JTextArea;
 
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 
 

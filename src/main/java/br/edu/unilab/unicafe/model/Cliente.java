@@ -465,9 +465,11 @@ public class Cliente {
 
 						break;
 					} catch (UnknownHostException e1) {
+						
 
 					} catch (IOException e1) {
 
+						
 					}
 					try {
 						Thread.sleep(5000);
@@ -731,10 +733,12 @@ public class Cliente {
 			
 			
 		}
-		else if (comando.equals("desliga")) {
+		else if (comando.equals("desligar")) {
 			
 			Process process;
 			Scanner leitor;
+			frameDesbloqueado.setVisible(false);
+			frameBloqueado.setVisible(false);
 			try {
 				process = Runtime.getRuntime().exec(" shutdown -h");
 				leitor = new Scanner(process.getInputStream());
@@ -926,7 +930,13 @@ public class Cliente {
 				desbloqueia(3600, "visitante");
 				return;
 			}
-			
+			if (frameBloqueado.getTextFieldUsuario().getText()
+					.equals("aula")
+					&& frameBloqueado.getPasswordFieldSenha().getText()
+							.equals("123456")) {
+				desbloqueia(8400, "visitante");
+				return;
+			}
 			@SuppressWarnings("deprecation")
 			String senha = UsuarioDAO.getMD5(frame.getPasswordFieldSenha()
 					.getText());
