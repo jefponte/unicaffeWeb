@@ -76,7 +76,7 @@ public class Desktop {
 		
 		
 		listaPersonalizada.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "Favorites", Registro.REG_EXPAND_SZ, caminho+"\\"+nomeDeUsuario+"\\"+"Favorites", "%USERPROFILE%\\Favorites","Muda a pasta da �rea de trabalho do usu�rio corrente. "));
-		listaPersonalizada.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "Local AppData", Registro.REG_EXPAND_SZ, caminho+"\\"+nomeDeUsuario+"\\"+"local", "%USERPROFILE%\\AppData\\Local","Muda a pasta da �rea de trabalho do usu�rio corrente. "));
+		//listaPersonalizada.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "Local AppData", Registro.REG_EXPAND_SZ, caminho+"\\"+nomeDeUsuario+"\\"+"local", "%USERPROFILE%\\AppData\\Local","Muda a pasta da Area de trabalho do usuario corrente. "));
 
 	}
 	

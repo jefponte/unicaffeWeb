@@ -1,2 +1,0 @@
-Matei Um processo 
-C:\Windows\system32\taskmgr.exe,taskmgr.exe

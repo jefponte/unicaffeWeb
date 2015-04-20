@@ -288,7 +288,7 @@ public class Cliente {
 
 		this.frameAviso = new FrameAviso();
 		this.frameDesbloqueado = new FrameClientDesbloqueado();
-		this.frameBloqueado = new FrameClientBloqueado();
+		
 
 		escondeBarra();
 
@@ -335,24 +335,23 @@ public class Cliente {
 		 * 2 - Estado Tempo Livre e Identificado.
 		 */
 
-		this.frameBloqueado.setAlwaysOnTop(true);
-		this.frameBloqueado.setVisible(true);
+		
 		this.bloqueado = true;
 		this.maquina.preencheComMaquinaLocal();
 
 		// Adicionar evento de mostrar.
 
-		adicionaEventos();
-
-		this.frameBloqueado.getLabelMensagem().setText("");
-		this.frameBloqueado.setVisible(true);
+		
 		this.iniciaEscInfinito();
 
 		this.atualizaIP();
-		this.bloqueia();
+		
 
 		this.conexaoComServidor();
 
+		adicionaEventos();
+		this.bloqueia();
+		
 	}
 
 	public void adicionaEventos() {
@@ -740,7 +739,7 @@ public class Cliente {
 			frameDesbloqueado.setVisible(false);
 			frameBloqueado.setVisible(false);
 			try {
-				process = Runtime.getRuntime().exec(" shutdown -h");
+				process = Runtime.getRuntime().exec(" shutdown /s");
 				leitor = new Scanner(process.getInputStream());
 				while (leitor.hasNext()) {
 					String linha = leitor.nextLine();
@@ -959,5 +958,10 @@ public class Cliente {
 
 		}
 
+	}
+
+	public void setFrameClienteBloqueado(FrameClientBloqueado bloqueado2) {
+		this.frameBloqueado = bloqueado2;
+		
 	}
 }
