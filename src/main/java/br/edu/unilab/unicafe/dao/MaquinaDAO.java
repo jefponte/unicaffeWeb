@@ -30,7 +30,7 @@ public class MaquinaDAO extends DAO{
 			while(resultSet.next()){
 				Maquina maquina = new Maquina();
 
-				maquina.setNome(resultSet.getString("nome_maq"));
+				maquina.setNome(resultSet.getString("nome"));
 				maquina.setId(resultSet.getInt("id_maquina"));
 				lista.add(maquina);
 			}
@@ -56,14 +56,14 @@ public class MaquinaDAO extends DAO{
 	}
 
 	/**
-	 * Retorna True se a máquina existir. Verifica a partir do atributo nome da máquina. 
+	 * Retorna True se a mï¿½quina existir. Verifica a partir do atributo nome da mï¿½quina. 
 	 * 
 	 * @param maquina
 	 * @return
 	 */
 	public boolean existe(Maquina maquina){
 		try {
-			PreparedStatement ps = this.getConexao().prepareStatement("SELECT * FROM maquina WHERE nome_maq = ?");
+			PreparedStatement ps = this.getConexao().prepareStatement("SELECT * FROM maquina WHERE nome = ?");
 			ps.setString(1, maquina.getNome());
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
@@ -78,23 +78,23 @@ public class MaquinaDAO extends DAO{
 		
 	}
 	/**
-	 * Retorna true se a máquina for cadastrada com sucesso. 
+	 * Retorna true se a mï¿½quina for cadastrada com sucesso. 
 	 * @param maquina
 	 * @return
 	 */
 
 	public boolean cadastra(Maquina maquina){
 		try {
-			PreparedStatement ps = this.getConexao().prepareStatement("SELECT * FROM maquina WHERE nome_maq = ?");
+			PreparedStatement ps = this.getConexao().prepareStatement("SELECT * FROM maquina WHERE nome = ?");
 			ps.setString(1, maquina.getNome());
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
 				return false;
-			PreparedStatement ps2 = this.getConexao().prepareStatement("INSERT into maquina(nome_maq) VALUES(?)");			
+			PreparedStatement ps2 = this.getConexao().prepareStatement("INSERT into maquina(nome) VALUES(?)");			
 			ps2.setString(1, maquina.getNome());
 			ps2.executeUpdate();
 			
-			PreparedStatement ps3 = this.getConexao().prepareStatement("SELECT * FROM maquina WHERE nome_maq = ?");
+			PreparedStatement ps3 = this.getConexao().prepareStatement("SELECT * FROM maquina WHERE nome = ?");
 			ps3.setString(1, ""+maquina.getNome());
 			ResultSet rs2 = ps3.executeQuery();
 			while(rs2.next()){

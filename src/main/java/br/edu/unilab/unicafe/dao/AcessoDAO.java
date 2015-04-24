@@ -5,6 +5,8 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -47,7 +49,7 @@ public class AcessoDAO extends DAO {
 			ps = this
 					.getConexao()
 					.prepareStatement(
-							"SELECT acesso.ip, usuario.login,  acesso.id_maquina, acesso.id_usuario, maquina.nome_maq, acesso.hora_acesso, acesso.tempo_usado, acesso.tempo_oferecido FROM acesso INNER JOIN usuario ON acesso.id_usuario = usuario.id_usuario INNER JOIN maquina ON acesso.id_maquina = maquina.id_maquina;");
+							"SELECT acesso.ip, usuario.login,  acesso.id_maquina, acesso.id_usuario, maquina.nome, acesso.hora_acesso, acesso.tempo_usado, acesso.tempo_oferecido FROM acesso INNER JOIN usuario ON acesso.id_usuario = usuario.id_usuario INNER JOIN maquina ON acesso.id_maquina = maquina.id_maquina;");
 			// ps.setInt(1, usuario.getId());
 			ResultSet resultSet = ps.executeQuery();
 			while (resultSet.next()) {
@@ -58,7 +60,7 @@ public class AcessoDAO extends DAO {
 				Maquina maquina = new Maquina();
 				maquina.setId(resultSet.getInt("id_maquina"));
 				maquina.setIp(resultSet.getString("ip"));
-				maquina.setNome(resultSet.getString("nome_maq"));
+				maquina.setNome(resultSet.getString("nome"));
 
 				String input = resultSet.getString("hora_acesso");
 
@@ -138,8 +140,15 @@ public class AcessoDAO extends DAO {
 		PreparedStatement ps;
 		try {
 			ps = this.getConexao().prepareStatement(
-					"SELECT * FROM acesso WHERE id_usuario = ? AND hora_acesso BETWEEN \""+data+"\" AND \""+data2+"\"");
+					"SELECT * FROM acesso WHERE id_usuario = ? AND hora_acesso BETWEEN ? AND ?");
 			
+			SimpleDateFormat formatarDate = new SimpleDateFormat(
+					"yyyy-MM-dd HH:mm:ss");
+			java.util.Date date1 = formatarDate.parse(data);
+			java.util.Date date2 = formatarDate.parse(data2);
+//			System.out.println(resultSet.getString("hora_acesso"));
+			ps.setTimestamp(2, new Timestamp(date1.getTime()));
+			ps.setTimestamp(3, new Timestamp(date2.getTime()));
 			ps.setInt(1, usuario.getId());
 			ResultSet resultSet = ps.executeQuery();
 			while (resultSet.next()) {
@@ -147,7 +156,7 @@ public class AcessoDAO extends DAO {
 				acesso.setTempoUsado(resultSet.getInt("tempo_usado"));
 				lista.add(acesso);
 			}
-		} catch (SQLException e) {
+		} catch (SQLException | ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -219,11 +228,16 @@ public class AcessoDAO extends DAO {
 			ps2.setInt(2, acesso.getTempoUsado());
 			
 			//Isso aqui é um erro. Essa data deve ser definida antes. No momento da criação do acesso. '','
-			Date data = new Date(System.currentTimeMillis());
-			SimpleDateFormat formatarDate = new SimpleDateFormat(
-					"yyyy-MM-dd HH:mm:ss");
-			String strData = formatarDate.format(data);
-			ps2.setString(3, strData);
+			long dataDeEntrada = System.currentTimeMillis()-(acesso.getTempoUsado()*1000);
+			System.out.println("Tempo Atual: "+System.currentTimeMillis());
+			System.out.println("Segundos usados: "+acesso.getTempoUsado());
+			System.out.println("Subtraindo, tEmos"+dataDeEntrada);
+			
+			System.out.println("Atual: "+new Timestamp(System.currentTimeMillis()));
+			
+			System.out.println("Subtraido: "+new Timestamp(dataDeEntrada));
+			
+			ps2.setTimestamp(3, new Timestamp(dataDeEntrada));
 			System.out.println(maquina.toString());
 			ps2.setInt(4, maquina.getId());
 			ps2.setInt(5, acesso.getTempoDisponibilizado());

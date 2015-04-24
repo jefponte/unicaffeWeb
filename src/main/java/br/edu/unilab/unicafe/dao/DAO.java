@@ -60,7 +60,7 @@ public class DAO {
 				this.conexao = DriverManager.getConnection(JDBC_BANCO_SQLITE);
 				break;
 			default:
-				Class.forName(DRIVER_SQLITE);
+				Class.forName(DRIVER_POSTGRES);
 				this.conexao = DriverManager.getConnection(JDBC_BANCO_SQLITE);
 				System.out.println("PAssei por aqui.");
 				break;
@@ -74,7 +74,7 @@ public class DAO {
 	}
 
 	public DAO() {
-		this.tipoDeConexao = TIPO_SQLITE;
+		this.tipoDeConexao = TIPO_POSTGRESQL;
 		try {
 			switch (this.tipoDeConexao) {
 			case TIPO_POSTGRESQL:
