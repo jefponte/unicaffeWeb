@@ -17,7 +17,7 @@ public class DAO {
 
 	private static final String USUARIO_POSTGRES = "postgres";
 	private static final String SENHA_POSTGRES = "cti@unilab2012";
-	private static final String IP_POSTGRES = "25.124.248.94:5432";
+	private static final String IP_POSTGRES = "localhost:5432";
 	private static final String BANCO_POSTGRES = "unicafe";
 	private static final String DRIVER_POSTGRES = "org.postgresql.Driver";
 	private static final String JDBC_BANCO_POSTGRES = "jdbc:postgresql:";

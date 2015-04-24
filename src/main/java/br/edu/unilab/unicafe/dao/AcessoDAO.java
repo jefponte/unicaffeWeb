@@ -217,6 +217,8 @@ public class AcessoDAO extends DAO {
 							"INSERT into acesso(id_usuario, tempo_usado, hora_acesso, id_maquina, tempo_oferecido, ip) VALUES(?, ?, ?, ?, ?, ?)");
 			ps2.setInt(1, acesso.getUsuario().getId());
 			ps2.setInt(2, acesso.getTempoUsado());
+			
+			//Isso aqui é um erro. Essa data deve ser definida antes. No momento da criação do acesso. '','
 			Date data = new Date(System.currentTimeMillis());
 			SimpleDateFormat formatarDate = new SimpleDateFormat(
 					"yyyy-MM-dd HH:mm:ss");

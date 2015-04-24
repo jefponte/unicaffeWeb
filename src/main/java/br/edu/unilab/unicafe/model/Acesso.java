@@ -10,7 +10,7 @@ public class Acesso {
 	private int tempoDisponibilizado;
 	private int status;
 	private int idMaquina;
-	
+	private String ip;
 	public static final int STATUS_EM_UTILIZACAO = 0;
 	public static final int STATUS_DISPONIVEL = 1;
 
@@ -91,6 +91,12 @@ public class Acesso {
 	}
 	public void setIdMaquina(int idMaquina) {
 		this.idMaquina = idMaquina;
+	}
+	public String getIp() {
+		return ip;
+	}
+	public void setIp(String ip) {
+		this.ip = ip;
 	}
 
 	

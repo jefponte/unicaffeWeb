@@ -119,12 +119,12 @@
 						</goals>
 					</execution>
 					<execution>
-						<id>build-update</id>
+						<id>build-backup</id>
 						<configuration>
 							<appendAssemblyId>false</appendAssemblyId>
 							<archive>
 								<manifest>
-									<mainClass>br.edu.unilab.unicafe.main.MainUpdate</mainClass>
+									<mainClass>br.edu.unilab.unicafe.main.MainDataBackup</mainClass>
 									<addClasspath>true</addClasspath>
 								</manifest>
 								<addMavenDescriptor>false</addMavenDescriptor>
@@ -132,7 +132,7 @@
 							<descriptorRefs>
 								<descriptorRef>jar-with-dependencies</descriptorRef>
 							</descriptorRefs>
-							<finalName>${project.artifactId}-update</finalName>
+							<finalName>${project.artifactId}-backup</finalName>
 						</configuration>
 						<phase>package</phase>
 						<goals>
