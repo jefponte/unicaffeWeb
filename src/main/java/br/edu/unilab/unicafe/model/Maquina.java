@@ -8,10 +8,11 @@ import java.net.UnknownHostException;
 public class Maquina {
 	private int id;
 	private String nome;
-	private String ip;
+	private String ip;//Isso aqui é pra ser comentado. Não deve ter IP no objeto Maquina. 
 	private String enderecoMac;
 	private int status;
 	private Acesso acesso;
+	private Laboratorio laboratorio;
 	
 	//kantu tempu ki bu misti.
 	
@@ -24,6 +25,8 @@ public class Maquina {
 
 
 	public Maquina(){
+		this.laboratorio = new Laboratorio();
+		this.laboratorio.setId(1);
 		this.acesso = new Acesso();
 		this.setNome("Não Listado");
 		this.getAcesso().setStatus(Acesso.STATUS_DISPONIVEL);
@@ -128,6 +131,12 @@ public class Maquina {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public Laboratorio getLaboratorio() {
+		return laboratorio;
+	}
+	public void setLaboratorio(Laboratorio laboratorio) {
+		this.laboratorio = laboratorio;
 	}
 
 }

@@ -9,6 +9,7 @@ public class Acesso {
 	private Usuario usuario;
 	private int tempoDisponibilizado;
 	private int status;
+	private int idMaquina;
 	
 	public static final int STATUS_EM_UTILIZACAO = 0;
 	public static final int STATUS_DISPONIVEL = 1;
@@ -84,6 +85,12 @@ public class Acesso {
 	public String toString() {
 		String acesso = "usuario: "+this.usuario.getId()+", hora Acesso Long: "+this.horaInicial+", Tempo Usado: "+this.tempoUsado+", "+this.tempoDisponibilizado+"BLZ\n";
 		return acesso;
+	}
+	public int getIdMaquina() {
+		return idMaquina;
+	}
+	public void setIdMaquina(int idMaquina) {
+		this.idMaquina = idMaquina;
 	}
 
 	

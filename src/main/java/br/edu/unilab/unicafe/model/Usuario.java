@@ -12,6 +12,8 @@ public class Usuario {
 	private String email;
 	private String login;
 	private String senha;
+	private int nivelAcesso;
+	private String cpf;
 
 
 	
@@ -56,8 +58,7 @@ public class Usuario {
 		this.senha = senha;
 	}
 
-	private int nivelAcesso;
-	private String cpf;
+
 
 	public Usuario(String nome, String email, String login, String senha, int nivelAcesso, String cpf) {
 
