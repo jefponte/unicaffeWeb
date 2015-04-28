@@ -12,3 +12,4 @@ C:\Windows\System32\StikyNot.exe,StikyNot.exe,123
 C:\Bitnami\wappstack-5.4.39-0\manager-windows.exe,manager-windows.exe,1234
 C:\Bitnami\WAPPST~1.39-\POSTGR~1\bin\pg_ctl.exe,pg_ctl.exe,123
 C:\Bitnami\WAPPST~1.39-\POSTGR~1\bin\postgres.exe,postgres.exe,123
+,postgres.exe,123
