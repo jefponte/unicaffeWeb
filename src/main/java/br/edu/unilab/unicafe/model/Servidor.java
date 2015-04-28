@@ -107,7 +107,7 @@ public class Servidor {
 			esperaConexoes();
 		} catch (IOException e) {
 			printd("Não consegui criar o serviço na porta 12345.");
-
+			
 		}
 
 		Thread anotandoJson = new Thread(new Runnable() {
@@ -116,7 +116,7 @@ public class Servidor {
 			public void run() {
 				while(true){
 					try {
-						Thread.sleep(3000);
+						Thread.sleep(500);
 						anotaJson();
 					} catch (InterruptedException e) {
 						
@@ -197,6 +197,7 @@ public class Servidor {
 					try {
 						conexao = serverSocket.accept();
 						printd("Nova conexão! "	+ conexao.getInetAddress().toString());
+						
 						processaConexao(conexao);
 					} catch (IOException e) {
 						printd("Tentativa de conexão frustrada! ");
@@ -214,6 +215,7 @@ public class Servidor {
 	 * @param conexao
 	 */
 	public void processaConexao(final Socket conexao) {
+		
 		Thread processando = new Thread(new Runnable() {
 
 			@Override
@@ -221,27 +223,45 @@ public class Servidor {
 				Cliente cliente = new Cliente();
 				cliente.setConexao(conexao);
 				cliente.getMaquina().setIp(cliente.getConexao().getInetAddress().toString().substring(1));
-				listaDeClientes.add(cliente);
-				
+				printd("Jefponte");
 				try {
 					cliente.setEntrada(new ObjectInputStream(conexao.getInputStream()));
 					cliente.setSaida(new ObjectOutputStream(conexao.getOutputStream()));
-					while (!conexao.isClosed()) {
-						try{
-							String mensagem = (String) cliente.getEntrada().readObject();
+					
+					String mensagem = (String) cliente.getEntrada().readObject();
+					
+					printd(mensagem);
+					
+					String comando = mensagem.substring(0, mensagem.indexOf('('));
+					String parametros = mensagem.substring((mensagem.indexOf('(') + 1),mensagem.indexOf(')'));
+					int status = Integer.parseInt(parametros);
+					if(comando.equals("setStatus") && status == Maquina.STATUS_DISPONIVEL){
+						cliente.getMaquina().setStatus(status);
+						listaDeClientes.add(cliente);
+						while (!conexao.isClosed()) {
+							
+							mensagem = (String) cliente.getEntrada().readObject();
 							processaMensagem(cliente, mensagem);
-						} catch (ClassNotFoundException e) {
-							printd("Cliente enviou algo estranho.");
 						}
+						listaDeClientes.remove(cliente);
+					}else if(comando.equals("setStatus") && status == Maquina.STATUS_ADMIN){
+						mensagem = (String) cliente.getEntrada().readObject();
+						printd("Comando do admin");
 					}
+					
+					
 				} catch (IOException e) {
 					printd("Não foi possível capturar saída e entrada dessa conexão. Tente fazer outra conexão.");
+					
+				}catch (ClassNotFoundException e) {
+					printd("Cliente enviou algo estranho.");
 				}
 
 				if (cliente.getMaquina().getAcesso().getStatus() ==  Acesso.STATUS_EM_UTILIZACAO) {
 					cliente.getMaquina().getAcesso().pararDeContar();
 					AcessoDAO acessodao = new AcessoDAO();
 					acessodao.cadastra(cliente.getMaquina());
+					
 					try {
 						acessodao.getConexao().close();
 					} catch (SQLException e) {
@@ -250,7 +270,7 @@ public class Servidor {
 				}
 
 				printd(cliente.getMaquina().getNome() + ">> Conexão fechada. ");
-				listaDeClientes.remove(cliente);
+				
 
 			}
 		});
@@ -262,6 +282,9 @@ public class Servidor {
 		for (Cliente cliente : listaDeClientes) {
 			if ((cliente.getMaquina().getAcesso().getStatus() == Acesso.STATUS_EM_UTILIZACAO) && (cliente.getMaquina().getAcesso().getUsuario().getLogin().equals(usuario.getLogin()))){ 
 				try {
+					cliente.getMaquina().getAcesso().pararDeContar();
+					AcessoDAO dao = new AcessoDAO();
+					dao.cadastra(cliente.getMaquina());
 					cliente.getSaida().writeObject("bloqueia()");
 					return false;
 				} catch (IOException e) {
@@ -272,7 +295,7 @@ public class Servidor {
 		}
 		return false;
 	}
-	public synchronized void processaMensagem(Cliente cliente, String mensagem) {
+	public synchronized void processaMensagem(final Cliente cliente, String mensagem) {
 
 		
 		String comando = mensagem.substring(0, mensagem.indexOf('('));
@@ -304,13 +327,14 @@ public class Servidor {
 					printd("Pode acessar durante "+ ((AcessoDAO.COTA) - (tempo)) + " segundos");
 					try {
 						cliente.getSaida().writeObject("desbloqueia(" + login + ", "+ ((AcessoDAO.COTA) - (tempo)) + ")");
-						
 						cliente.getMaquina().getAcesso().setUsuario(usuario);
 						cliente.getMaquina().getAcesso().setTempoDisponibilizado(((AcessoDAO.COTA) - (tempo)));
 						cliente.getMaquina().getAcesso().setTempoUsado(0);
 						cliente.getMaquina().setIp(cliente.getConexao().getInetAddress().toString().substring(1));
 						cliente.getMaquina().getAcesso().contar();
 						cliente.getMaquina().getAcesso().setHoraInicial(System.currentTimeMillis());
+						
+						
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -341,6 +365,23 @@ public class Servidor {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			
+		}else if (comando.equals("meDaBonus")) {
+			printd("Quer bonus? Vou pensar...");
+			int disponiveis = 0;
+			for(Cliente umCliente : listaDeClientes){
+				if(umCliente.getMaquina().getStatus() == Maquina.STATUS_DISPONIVEL){
+					disponiveis++;
+				}		
+			}
+			if(disponiveis >= 7)
+				try {
+					cliente.getSaida().writeObject("bonus()");
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		
 		} else if (comando.equals("setNome")) {
 
 			String nome = parametros;
@@ -368,11 +409,8 @@ public class Servidor {
 						cliente.getMaquina().getAcesso().pararDeContar();
 						cliente.getMaquina().setStatus(status);
 						AcessoDAO acessodao = new AcessoDAO();
-						if(acessodao.cadastra(cliente.getMaquina())){
-							System.out.println("Sucesso no cadastro de acesso");
-						}else{
-							System.out.println("Fracaço no cadastro de acesso");
-						}
+						
+						acessodao.cadastra(cliente.getMaquina());
 						
 						try {
 							acessodao.getConexao().close();

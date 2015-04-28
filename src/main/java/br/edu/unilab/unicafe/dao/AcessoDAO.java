@@ -228,16 +228,16 @@ public class AcessoDAO extends DAO {
 			ps2.setInt(2, acesso.getTempoUsado());
 			
 			//Isso aqui é um erro. Essa data deve ser definida antes. No momento da criação do acesso. '','
-			long dataDeEntrada = System.currentTimeMillis()-(acesso.getTempoUsado()*1000);
-			System.out.println("Tempo Atual: "+System.currentTimeMillis());
-			System.out.println("Segundos usados: "+acesso.getTempoUsado());
-			System.out.println("Subtraindo, tEmos"+dataDeEntrada);
+//			long dataDeEntrada = System.currentTimeMillis()-(acesso.getTempoUsado()*1000);
+//			System.out.println("Tempo Atual: "+System.currentTimeMillis());
+//			System.out.println("Segundos usados: "+acesso.getTempoUsado());
+//			System.out.println("Subtraindo, tEmos"+dataDeEntrada);
+//			
+//			System.out.println("Atual: "+new Timestamp(System.currentTimeMillis()));
+//			
+//			System.out.println("Subtraido: "+new Timestamp(dataDeEntrada));
 			
-			System.out.println("Atual: "+new Timestamp(System.currentTimeMillis()));
-			
-			System.out.println("Subtraido: "+new Timestamp(dataDeEntrada));
-			
-			ps2.setTimestamp(3, new Timestamp(dataDeEntrada));
+			ps2.setTimestamp(3, new Timestamp(acesso.getHoraInicial()));
 			System.out.println(maquina.toString());
 			ps2.setInt(4, maquina.getId());
 			ps2.setInt(5, acesso.getTempoDisponibilizado());
