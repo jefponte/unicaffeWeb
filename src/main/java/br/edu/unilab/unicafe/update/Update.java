@@ -59,8 +59,7 @@ public class Update {
 			
 			
 			
-			saida.writeObject("setNome(update)");
-			saida.flush();
+			
 			saida.writeObject("setStatus(4)");
 			saida.flush();
 			ObjectInputStream entrada = new ObjectInputStream(conexao.getInputStream());
