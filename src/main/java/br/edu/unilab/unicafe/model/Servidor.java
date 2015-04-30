@@ -2,6 +2,7 @@ package br.edu.unilab.unicafe.model;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -9,10 +10,13 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
+import java.io.PrintStream;
+import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
@@ -109,54 +113,21 @@ public class Servidor {
 			printd("Não consegui criar o serviço na porta 12345.");
 			
 		}
-
-		Thread anotandoJson = new Thread(new Runnable() {
-			
-			@Override
-			public void run() {
-				while(true){
-					try {
-						Thread.sleep(500);
-						anotaJson();
-					} catch (InterruptedException e) {
-						
-						e.printStackTrace();
-					}
-					
-				}
-				
-			}
-		});
-		anotandoJson.start();
 		
 	}
 	public void atualizaTodos(){
 		for(Cliente cliente : listaDeClientes){
-			
-			try {
-				cliente.getSaida().writeObject("atualizar()");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
+			new PrintStream(cliente.getSaida()).println("atualizar()");
 		}
 	}
 	public void desligarTodos(){
 		for(Cliente cliente : listaDeClientes){
-			
-			try {
-				cliente.getSaida().writeObject("desligar()");
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
+			new PrintStream(cliente.getSaida()).println("desligar()");
 		}
 		
 	}
 	
-	public void anotaJson(){
+	public String anotaJson(){
 		
 		String json = "";
 		int h = 0;
@@ -169,20 +140,9 @@ public class Servidor {
 			}else{
 				json = json+"\n"+geson.toJson(c.getMaquina());
 			}
-			
-			
 			//printd(json);
 		}
-		FileWriter writeFile = null;
-		try {
-			writeFile = new FileWriter("C:/unicafe/web/json/saida.json"); 
-			writeFile.write(json);
-			writeFile.close();
-		}
-		catch (IOException e) {
-
-			e.printStackTrace();
-		}
+		return json;
 		
 	}
 
@@ -197,7 +157,6 @@ public class Servidor {
 					try {
 						conexao = serverSocket.accept();
 						printd("Nova conexão! "	+ conexao.getInetAddress().toString());
-						
 						processaConexao(conexao);
 					} catch (IOException e) {
 						printd("Tentativa de conexão frustrada! ");
@@ -222,14 +181,16 @@ public class Servidor {
 			public void run() {
 				Cliente cliente = new Cliente();
 				cliente.setConexao(conexao);
-				cliente.getMaquina().setIp(cliente.getConexao().getInetAddress().toString().substring(1));
-				printd("Jefponte");
 				try {
-					cliente.setEntrada(new ObjectInputStream(conexao.getInputStream()));
-					cliente.setSaida(new ObjectOutputStream(conexao.getOutputStream()));
-					
-					String mensagem = (String) cliente.getEntrada().readObject();
-					
+
+					cliente.setSaida(conexao.getOutputStream());
+					cliente.setEntrada(conexao.getInputStream());
+
+					cliente.getMaquina().setIp(cliente.getConexao().getInetAddress().toString().substring(1));
+					PrintStream ps = new PrintStream(cliente.getSaida());
+					BufferedReader in = new BufferedReader(new InputStreamReader(cliente.getEntrada()));
+
+					String mensagem = in.readLine();
 					printd(mensagem);
 					
 					String comando = mensagem.substring(0, mensagem.indexOf('('));
@@ -240,21 +201,29 @@ public class Servidor {
 						listaDeClientes.add(cliente);
 						while (!conexao.isClosed()) {
 							
-							mensagem = (String) cliente.getEntrada().readObject();
+							mensagem = in.readLine();
 							processaMensagem(cliente, mensagem);
 						}
 						listaDeClientes.remove(cliente);
 					}else if(comando.equals("setStatus") && status == Maquina.STATUS_ADMIN){
-						mensagem = (String) cliente.getEntrada().readObject();
-						printd("Comando do admin");
+						printd("Primeira Mensagem: "+mensagem);
+						mensagem = in.readLine();
+						processaMensagemAdmin(cliente, mensagem);
+						cliente.getConexao().close();
+						return;
+					}else{
+						printd("Comando recusado.");
+						printd(mensagem);
+						printd("Uma conexao recusada. ");
+						ps.println("Eu sou o Servidor, meu chapa!");
+						conexao.close();
+						return;
 					}
 					
 					
 				} catch (IOException e) {
 					printd("Não foi possível capturar saída e entrada dessa conexão. Tente fazer outra conexão.");
 					
-				}catch (ClassNotFoundException e) {
-					printd("Cliente enviou algo estranho.");
 				}
 
 				if (cliente.getMaquina().getAcesso().getStatus() ==  Acesso.STATUS_EM_UTILIZACAO) {
@@ -270,7 +239,7 @@ public class Servidor {
 				}
 
 				printd(cliente.getMaquina().getNome() + ">> Conexão fechada. ");
-				
+
 
 			}
 		});
@@ -281,20 +250,24 @@ public class Servidor {
 	public boolean jaEstaLogado(Usuario usuario) {
 		for (Cliente cliente : listaDeClientes) {
 			if ((cliente.getMaquina().getAcesso().getStatus() == Acesso.STATUS_EM_UTILIZACAO) && (cliente.getMaquina().getAcesso().getUsuario().getLogin().equals(usuario.getLogin()))){ 
-				try {
-					cliente.getMaquina().getAcesso().pararDeContar();
-					AcessoDAO dao = new AcessoDAO();
-					dao.cadastra(cliente.getMaquina());
-					cliente.getSaida().writeObject("bloqueia()");
-					return false;
-				} catch (IOException e) {
-					//Não consegui bloquear. 
-					return true;
-				}
+				cliente.getMaquina().getAcesso().pararDeContar();
+				AcessoDAO dao = new AcessoDAO();
+				dao.cadastra(cliente.getMaquina());
+				new PrintStream(cliente.getSaida()).println("bloqueia()");
+				return false;
 			}
 		}
 		return false;
 	}
+	public synchronized void processaMensagemAdmin(final Cliente cliente, String mensagem) {
+	
+		printd("Mensagem Processada para administrador>>"+mensagem);
+		new PrintStream(cliente.getSaida()).println(anotaJson());
+		
+		
+	
+	}
+	
 	public synchronized void processaMensagem(final Cliente cliente, String mensagem) {
 
 		
@@ -312,36 +285,25 @@ public class Servidor {
 			if (dao.autentica(usuario)) {
 				printd(cliente.getMaquina().getNome()+ ">> Autenticão bem sucedida.");
 				if (this.jaEstaLogado(usuario)) {
-					try {
-						cliente.getSaida().flush();
-						cliente.getSaida().writeObject("printc(Já está logado!)");
-						return;
-					} catch (IOException e) {
-						
-					}
+					new PrintStream(cliente.getSaida()).println("printc(Já está logado!)");
+					return;
 				}
 				AcessoDAO acessoDao = new AcessoDAO(dao.getConexao());
 				int tempo = acessoDao.retornaTempoUsadoHoje(usuario);
 				printd("Usou: " + tempo);
 				if (tempo <= AcessoDAO.COTA) {
 					printd("Pode acessar durante "+ ((AcessoDAO.COTA) - (tempo)) + " segundos");
-					try {
-						cliente.getSaida().writeObject("desbloqueia(" + login + ", "+ ((AcessoDAO.COTA) - (tempo)) + ")");
-						cliente.getMaquina().getAcesso().setUsuario(usuario);
-						cliente.getMaquina().getAcesso().setTempoDisponibilizado(((AcessoDAO.COTA) - (tempo)));
-						cliente.getMaquina().getAcesso().setTempoUsado(0);
-						cliente.getMaquina().setIp(cliente.getConexao().getInetAddress().toString().substring(1));
-						cliente.getMaquina().getAcesso().contar();
-						cliente.getMaquina().getAcesso().setHoraInicial(System.currentTimeMillis());
-						
-						
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+					new PrintStream(cliente.getSaida()).println("desbloqueia(" + login + ", "+ ((AcessoDAO.COTA) - (tempo)) + ")");
+					cliente.getMaquina().getAcesso().setUsuario(usuario);
+					cliente.getMaquina().getAcesso().setTempoDisponibilizado(((AcessoDAO.COTA) - (tempo)));
+					cliente.getMaquina().getAcesso().setTempoUsado(0);
+					cliente.getMaquina().setIp(cliente.getConexao().getInetAddress().toString().substring(1));
+					cliente.getMaquina().getAcesso().contar();
+					cliente.getMaquina().getAcesso().setHoraInicial(System.currentTimeMillis());
 				} else {
 					try {
 						cliente.getSaida().flush();
-						cliente.getSaida().writeObject("printc(Seu tempo acabou)");
+						new PrintStream(cliente.getSaida()).println("printc(Seu tempo acabou)");
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -352,7 +314,7 @@ public class Servidor {
 				printd(cliente.getMaquina().getNome()+ ">> Errou login ou senha.");
 				try {
 					cliente.getSaida().flush();
-					cliente.getSaida().writeObject("printc(Login e senha não conferem)");
+					new PrintStream(cliente.getSaida()).println("printc(Login e senha não conferem)");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -375,12 +337,7 @@ public class Servidor {
 				}		
 			}
 			if(disponiveis >= 7)
-				try {
-					cliente.getSaida().writeObject("bonus()");
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
+				new PrintStream(cliente.getSaida()).println("bonus()");
 		
 		} else if (comando.equals("setNome")) {
 
