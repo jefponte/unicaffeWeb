@@ -121,7 +121,7 @@ public class Cliente {
 					getControle().getFrameBloqueado().getLabelStatus().setText("Tentativa " + i);
 
 					try {
-						conexao = new Socket(ipDoServidor, 12345);
+						conexao = new Socket(ipDoServidor, 12346);
 						processaConexao(conexao);
 						controle.getFrameBloqueado().getLabelStatus().setText("Conexão Feita!");
 						controle.getFrameBloqueado().getLabelStatus().setForeground(Color.GREEN);

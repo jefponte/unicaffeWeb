@@ -28,7 +28,6 @@ br\edu\unilab\unicafe\registro\model\TesteRegistro.class
 br\edu\unilab\unicafe\main\MainDataBackup.class
 br\edu\unilab\unicafe\update\FrameReiniciando.class
 br\edu\unilab\unicafe\view\FrameAdmin.class
-br\edu\unilab\unicafe\model\Servidor$7.class
 br\edu\unilab\unicafe\main\MainClient.class
 br\edu\unilab\unicafe\dao\MaquinaDAO.class
 br\edu\unilab\unicafe\dao\DAO.class

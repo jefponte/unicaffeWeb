@@ -334,7 +334,6 @@ public class ClienteControl {
 		
 				try {
 					
-					Runtime.getRuntime().exec(" taskkill /f /im chrome.exe");
 					Runtime.getRuntime().exec(" taskkill /f /im firefox.exe");
 					Runtime.getRuntime().exec(" taskkill /f /im iexplore.exe");
 					Runtime.getRuntime().exec(" taskkill /f /im explorer.exe");

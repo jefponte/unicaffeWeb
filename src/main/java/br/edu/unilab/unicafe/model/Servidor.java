@@ -63,7 +63,18 @@ public class Servidor {
 
 			@Override
 			public void run() {
-				frameServidor.getDisplay().append("\n" + mensagem);
+				String valor;
+				if(frameServidor.getDisplay().getText().length() > 2000){
+					valor = frameServidor.getDisplay().getText().substring(frameServidor.getDisplay().getText().length() - 2000, frameServidor.getDisplay().getText().length());
+					System.out.println(valor);
+					frameServidor.getDisplay().setText(valor+"\n" + mensagem);
+				}else{
+
+					frameServidor.getDisplay().append("\n" + mensagem);
+					
+				}
+				
+					
 
 			}
 		});
@@ -107,7 +118,7 @@ public class Servidor {
 		});
 		try {
 
-			this.serverSocket = new ServerSocket(12345, 100);
+			this.serverSocket = new ServerSocket(12346, 100);
 			esperaConexoes();
 		} catch (IOException e) {
 			printd("Não consegui criar o serviço na porta 12345.");
@@ -151,12 +162,13 @@ public class Servidor {
 
 			@Override
 			public void run() {
+				printd("Servidor iniciado...");
 				while (true) {
-					printd("Aguardando conexoes...");
+					
 					Socket conexao;
 					try {
 						conexao = serverSocket.accept();
-						printd("Nova conexão! "	+ conexao.getInetAddress().toString());
+						//printd("Nova conexão! "	+ conexao.getInetAddress().toString());
 						processaConexao(conexao);
 					} catch (IOException e) {
 						printd("Tentativa de conexão frustrada! ");
@@ -191,26 +203,54 @@ public class Servidor {
 					BufferedReader in = new BufferedReader(new InputStreamReader(cliente.getEntrada()));
 
 					String mensagem = in.readLine();
-					printd(mensagem);
+					//printd(mensagem);
 					
 					String comando = mensagem.substring(0, mensagem.indexOf('('));
 					String parametros = mensagem.substring((mensagem.indexOf('(') + 1),mensagem.indexOf(')'));
 					int status = Integer.parseInt(parametros);
 					if(comando.equals("setStatus") && status == Maquina.STATUS_DISPONIVEL){
 						cliente.getMaquina().setStatus(status);
+						
 						listaDeClientes.add(cliente);
 						while (!conexao.isClosed()) {
 							
 							mensagem = in.readLine();
 							processaMensagem(cliente, mensagem);
 						}
-						listaDeClientes.remove(cliente);
+						
 					}else if(comando.equals("setStatus") && status == Maquina.STATUS_ADMIN){
-						printd("Primeira Mensagem: "+mensagem);
+						
 						mensagem = in.readLine();
 						processaMensagemAdmin(cliente, mensagem);
 						cliente.getConexao().close();
 						return;
+					}else if(comando.equals("setStatus") && status == Maquina.STATUS_UPDATE){
+						
+						
+						printd("Vamos Atualizar esse cara.");
+						cliente.getMaquina().setStatus(status);
+						try {
+							File f = new File("C:\\UniCafe\\UniCafeClient.exe");
+							FileInputStream in1 = new FileInputStream(f);
+							OutputStream out = cliente.getConexao().getOutputStream(); 
+							OutputStreamWriter osw = new OutputStreamWriter(out);
+							BufferedWriter writer = new BufferedWriter(osw);
+							writer.flush();
+							int tamanho = 4096;
+							byte[] buffer = new byte[tamanho]; 
+							int lidos = -1;
+							while ((lidos = in1.read(buffer, 0, tamanho)) != -1) { 
+								 out.write(buffer, 0, lidos); 
+								 printd("buffo: "+buffer+" tamanho"+tamanho+" lidos:"+lidos);
+							}
+							printd("Aweeee");
+							cliente.getConexao().close();
+						} catch (IOException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+						
+					
 					}else{
 						printd("Comando recusado.");
 						printd(mensagem);
@@ -222,7 +262,20 @@ public class Servidor {
 					
 					
 				} catch (IOException e) {
-					printd("Não foi possível capturar saída e entrada dessa conexão. Tente fazer outra conexão.");
+					if (cliente.getMaquina().getAcesso().getStatus() ==  Acesso.STATUS_EM_UTILIZACAO) {
+						cliente.getMaquina().getAcesso().pararDeContar();
+						AcessoDAO acessodao = new AcessoDAO();
+						acessodao.cadastra(cliente.getMaquina());
+						
+						try {
+							acessodao.getConexao().close();
+						} catch (SQLException e1) {
+							printd("Erro de SQLEXception.");
+						}
+					}
+					listaDeClientes.remove(cliente);
+					printd("Uma maquina desconectou.");
+					
 					
 				}
 
@@ -232,14 +285,16 @@ public class Servidor {
 					acessodao.cadastra(cliente.getMaquina());
 					
 					try {
+						
 						acessodao.getConexao().close();
+						
 					} catch (SQLException e) {
 						printd("Erro de SQLEXception.");
 					}
 				}
 
 				printd(cliente.getMaquina().getNome() + ">> Conexão fechada. ");
-
+				
 
 			}
 		});
@@ -261,11 +316,8 @@ public class Servidor {
 	}
 	public synchronized void processaMensagemAdmin(final Cliente cliente, String mensagem) {
 	
-		printd("Mensagem Processada para administrador>>"+mensagem);
 		new PrintStream(cliente.getSaida()).println(anotaJson());
 		
-		
-	
 	}
 	
 	public synchronized void processaMensagem(final Cliente cliente, String mensagem) {
@@ -336,8 +388,10 @@ public class Servidor {
 					disponiveis++;
 				}		
 			}
-			if(disponiveis >= 7)
+			if(disponiveis >= 7){
 				new PrintStream(cliente.getSaida()).println("bonus()");
+				printd("Bonus oferecido para >>"+cliente.getMaquina().getNome());
+			}
 		
 		} else if (comando.equals("setNome")) {
 
@@ -364,12 +418,14 @@ public class Servidor {
 				case Maquina.STATUS_DISPONIVEL:
 					if(cliente.getMaquina().getAcesso().getStatus() == Acesso.STATUS_EM_UTILIZACAO){
 						cliente.getMaquina().getAcesso().pararDeContar();
+						cliente.getMaquina().getAcesso().getUsuario().setLogin("livre");
 						cliente.getMaquina().setStatus(status);
 						AcessoDAO acessodao = new AcessoDAO();
 						
 						acessodao.cadastra(cliente.getMaquina());
 						
 						try {
+							
 							acessodao.getConexao().close();
 						} catch (SQLException e) {
 							e.printStackTrace();
