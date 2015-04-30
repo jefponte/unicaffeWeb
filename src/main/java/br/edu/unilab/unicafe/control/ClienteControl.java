@@ -9,6 +9,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.IOException;
+import java.io.PrintStream;
 
 import javax.swing.AbstractAction;
 import javax.swing.JFrame;
@@ -470,19 +471,9 @@ public class ClienteControl {
 					String senha = UsuarioDAO.getMD5(frameBloqueado
 							.getPasswordFieldSenha().getText());
 
-					try {
-						cliente.getSaida().writeObject(
-								"autentica("
-										+ frameBloqueado.getTextFieldUsuario()
-												.getText() + "," + senha + ")");
-
-					} catch (IOException e2) {
-						// TODO Auto-generated catch block
-						e2.printStackTrace();
-						frameBloqueado.getTextFieldUsuario().setText("");
-						frameBloqueado.getPasswordFieldSenha().setText("");
-
-					}
+					new PrintStream(cliente.getSaida()).println("autentica("
+									+ frameBloqueado.getTextFieldUsuario()
+											.getText() + "," + senha + ")");
 
 					frameBloqueado.getTextFieldUsuario().setText("");
 					frameBloqueado.getPasswordFieldSenha().setText("");
@@ -564,18 +555,9 @@ public class ClienteControl {
 			String senha = UsuarioDAO.getMD5(frame.getPasswordFieldSenha()
 					.getText());
 
-			try {
-				cliente.getSaida().writeObject("autentica("
-						+ frame.getTextFieldUsuario().getText() + "," + senha
-						+ ")");
-
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-				frame.getTextFieldUsuario().setText("");
-				frame.getPasswordFieldSenha().setText("");
-
-			}
+			new PrintStream(cliente.getSaida()).println("autentica("
+					+ frame.getTextFieldUsuario().getText() + "," + senha
+					+ ")");
 
 			frame.getTextFieldUsuario().setText("");
 			frame.getPasswordFieldSenha().setText("");

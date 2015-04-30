@@ -3,17 +3,21 @@ package br.edu.unilab.unicafe.model;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.net.Socket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Properties;
 import java.util.Scanner;
+
 import br.edu.unilab.unicafe.control.ClienteControl;
 import br.edu.unilab.unicafe.desktop.Desktop;
 
@@ -21,8 +25,8 @@ public class Cliente {
 	private Socket conexao;
 	private Maquina maquina;
 	private ClienteControl controle;
-	private ObjectOutputStream saida;
-	private ObjectInputStream entrada;
+	private OutputStream saida;
+	private InputStream entrada;
 	
 	public Cliente(){
 		this.maquina = new Maquina();
@@ -47,17 +51,17 @@ public class Cliente {
 	public void setControle(ClienteControl controle) {
 		this.controle = controle;
 	}
-	public ObjectOutputStream getSaida() {
+	public OutputStream getSaida() {
 		return saida;
 	}
-	public void setSaida(ObjectOutputStream saida) {
+	public void setSaida(OutputStream saida) {
 		this.saida = saida;
 	}
-	public ObjectInputStream getEntrada() {
+	public InputStream getEntrada() {
 		return entrada;
 	}
-	public void setEntrada(ObjectInputStream entrada) {
-		this.entrada = entrada;
+	public void setEntrada(InputStream inputStream) {
+		this.entrada = inputStream;
 	}
 	
 	
@@ -93,8 +97,7 @@ public class Cliente {
 
 			try {
 
-				FileOutputStream fileOutputStream = new FileOutputStream(
-						"config.ini");
+				FileOutputStream fileOutputStream = new FileOutputStream("config.ini");
 				
 				config.setProperty("host_unicafeserver", ipDoServidor);
 				config.store(fileOutputStream,
@@ -148,22 +151,24 @@ public class Cliente {
 			public void run() {
 				try {
 					maquina.setStatus(Maquina.STATUS_DISPONIVEL);
-					setSaida(new ObjectOutputStream(conexao.getOutputStream()));
-					getSaida().writeObject("setStatus(" + maquina.getStatus() + ")");
-					getSaida().writeObject("setNome(" + maquina.getNome() + ")");
-					getSaida().writeObject("setMac(" + maquina.getEnderecoMac()+ ")");
-					setEntrada(new ObjectInputStream(conexao.getInputStream()));
+					
+					setSaida(conexao.getOutputStream());
+					setEntrada(conexao.getInputStream());
+					
+					PrintStream printStream = new PrintStream(saida);
+					BufferedReader buffereReader = new BufferedReader(new InputStreamReader(entrada));
+					
+					
+					printStream.println("setStatus(" + maquina.getStatus() + ")");
+					printStream.println("setNome(" + maquina.getNome() + ")");
+					printStream.println("setMac(" + maquina.getEnderecoMac()+ ")");
+					
 					while (true) {
 						try {
-							String mensagem = (String) getEntrada().readObject();
+							String mensagem = buffereReader.readLine();
 							System.out.println(mensagem);
 							processaMensagem(mensagem);
-						} catch (ClassNotFoundException e) {
-							controle.bloqueia();
-							controle.getFrameBloqueado().getLabelStatus().setText("Erro de ClassNotFoundException");
-							conexaoComServidor();
-							break;
-						}catch (SocketException se) {
+						} catch (SocketException se) {
 							controle.bloqueia();
 							controle.getFrameBloqueado().getLabelStatus().setText("Erro de ClassNotFoundException");
 							conexaoComServidor();							
@@ -271,23 +276,16 @@ public class Cliente {
 		Desktop d = new Desktop(caminho, "jefponte");
 		d.desfazer();
 
-		try {
-			if(getSaida() != null)
-				getSaida().writeObject("setStatus("+Maquina.STATUS_DISPONIVEL+")");
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(getSaida() != null){
+			new PrintStream(getSaida()).println("setStatus("+Maquina.STATUS_DISPONIVEL+")");
 		}
 		
 		this.controle.bloqueia();
 		
 	}
 	public void desbloqueia(final int segundos, final String login) {
-		try {
-			if(getSaida() != null)
-				getSaida().writeObject("setStatus("+Maquina.STATUS_OCUPADA+")");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+		if(getSaida() != null)
+			new PrintStream(getSaida()).println("setStatus("+Maquina.STATUS_OCUPADA+")");
 		String caminho = "\\\\"+this.getMaquina().getNome()+"\\arquivos";
 		Desktop d = new Desktop(caminho, login);
 		d.alterarRegistro();
@@ -317,12 +315,7 @@ public class Cliente {
 							getControle().mostraBarra();
 							getControle().getFrameAviso().setVisible(true);
 							if(getSaida() != null){
-								try {
-									getSaida().writeObject("meDaBonus()");
-								} catch (IOException e1) {
-									// TODO Auto-generated catch block
-									e1.printStackTrace();
-								}
+								new PrintStream(getSaida()).println("meDaBonus()");
 								
 							}
 						}
