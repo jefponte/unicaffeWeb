@@ -38,6 +38,7 @@ public class DAO {
 	public static final int TIPO_SQLITE = 0;
 	public static final int TIPO_MYSQL = 1;
 	public static final int TIPO_POSTGRESQL = 2;
+	public static final int TIPO_POSTGRESQL2 = 3;
 	private int tipoDeConexao;
 
 	public int getTipoDeConexao(){
@@ -50,6 +51,10 @@ public class DAO {
 			case TIPO_POSTGRESQL:
 				Class.forName(DRIVER_POSTGRES);
 				this.conexao = DriverManager.getConnection(JDBC_BANCO_POSTGRES+ "//" + IP_POSTGRES + "/" + BANCO_POSTGRES,USUARIO_POSTGRES, SENHA_POSTGRES);
+				break;
+			case TIPO_POSTGRESQL2:
+				Class.forName(DRIVER_POSTGRES);
+				this.conexao = DriverManager.getConnection(JDBC_BANCO_POSTGRES+ "//" + "10.5.3.194" + "/" + BANCO_POSTGRES,USUARIO_POSTGRES, SENHA_POSTGRES);
 				break;
 			case TIPO_MYSQL:
 				Class.forName(DRIVER_MYSQL);

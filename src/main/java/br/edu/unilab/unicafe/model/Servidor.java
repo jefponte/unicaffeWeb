@@ -44,84 +44,27 @@ public class Servidor {
 	private String ip;
 	private ServerSocket serverSocket;
 	private ArrayList<Cliente> listaDeClientes;
-	private FrameApresentacao frameApresentacao;
-	private FrameServidor frameServidor;
 
 	
 
 	public Servidor() {
-
-
 		this.listaDeClientes = new ArrayList<Cliente>();
 		this.ip = "localhost";
 
 	}
 
-	public void printd(final String mensagem) {
-
-		SwingUtilities.invokeLater(new Runnable() {
-
-			@Override
-			public void run() {
-				String valor;
-				if(frameServidor.getDisplay().getText().length() > 2000){
-					valor = frameServidor.getDisplay().getText().substring(frameServidor.getDisplay().getText().length() - 2000, frameServidor.getDisplay().getText().length());
-					System.out.println(valor);
-					frameServidor.getDisplay().setText(valor+"\n" + mensagem);
-				}else{
-
-					frameServidor.getDisplay().append("\n" + mensagem);
-					
-				}
-				
-					
-
-			}
-		});
-
-	}
+	
 	public void iniciaSplash() {
-		Thread iniciando = new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				frameApresentacao = new FrameApresentacao();
-				frameApresentacao.setLocationRelativeTo(null);
-				frameApresentacao.setVisible(true);
-				try {
-					Thread.sleep(3000);
-					frameApresentacao.setVisible(false);
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-				iniciaServico();
-			}
-		});
-		iniciando.start();
+		iniciaServico();
+		
 	}
 	public void iniciaServico() {
-		
-		
-	
-		frameServidor = new FrameServidor();
-		frameServidor.setVisible(true);
-		
-		frameServidor.getMenuDesligar().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				desligarTodos();
-			}
-		});
-		frameServidor.getItemUpdate().addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				atualizaTodos();
-			}
-		});
 		try {
 
-			this.serverSocket = new ServerSocket(12346, 100);
+			this.serverSocket = new ServerSocket(27289, 100);
 			esperaConexoes();
 		} catch (IOException e) {
-			printd("Não consegui criar o serviço na porta 12345.");
+			System.out.println("Não consegui criar o serviço na porta 27289.");
 			
 		}
 		
@@ -149,7 +92,7 @@ public class Servidor {
 				h++;
 				
 			}else{
-				json = json+"\n"+geson.toJson(c.getMaquina());
+				json = json+"|"+geson.toJson(c.getMaquina());
 			}
 			//printd(json);
 		}
@@ -162,7 +105,7 @@ public class Servidor {
 
 			@Override
 			public void run() {
-				printd("Servidor iniciado...");
+				System.out.println("Servidor iniciado...");
 				while (true) {
 					
 					Socket conexao;
@@ -171,7 +114,7 @@ public class Servidor {
 						//printd("Nova conexão! "	+ conexao.getInetAddress().toString());
 						processaConexao(conexao);
 					} catch (IOException e) {
-						printd("Tentativa de conexão frustrada! ");
+						System.out.println("Tentativa de conexão frustrada! ");
 					}
 
 				}
@@ -203,62 +146,92 @@ public class Servidor {
 					BufferedReader in = new BufferedReader(new InputStreamReader(cliente.getEntrada()));
 
 					String mensagem = in.readLine();
-					//printd(mensagem);
-					
-					String comando = mensagem.substring(0, mensagem.indexOf('('));
-					String parametros = mensagem.substring((mensagem.indexOf('(') + 1),mensagem.indexOf(')'));
-					int status = Integer.parseInt(parametros);
-					if(comando.equals("setStatus") && status == Maquina.STATUS_DISPONIVEL){
-						cliente.getMaquina().setStatus(status);
-						
-						listaDeClientes.add(cliente);
-						while (!conexao.isClosed()) {
-							
-							mensagem = in.readLine();
-							processaMensagem(cliente, mensagem);
-						}
-						
-					}else if(comando.equals("setStatus") && status == Maquina.STATUS_ADMIN){
-						
-						mensagem = in.readLine();
-						processaMensagemAdmin(cliente, mensagem);
-						cliente.getConexao().close();
-						return;
-					}else if(comando.equals("setStatus") && status == Maquina.STATUS_UPDATE){
-						
-						
-						printd("Vamos Atualizar esse cara.");
-						cliente.getMaquina().setStatus(status);
-						try {
-							File f = new File("C:\\UniCafe\\UniCafeClient.exe");
-							FileInputStream in1 = new FileInputStream(f);
-							OutputStream out = cliente.getConexao().getOutputStream(); 
-							OutputStreamWriter osw = new OutputStreamWriter(out);
-							BufferedWriter writer = new BufferedWriter(osw);
-							writer.flush();
-							int tamanho = 4096;
-							byte[] buffer = new byte[tamanho]; 
-							int lidos = -1;
-							while ((lidos = in1.read(buffer, 0, tamanho)) != -1) { 
-								 out.write(buffer, 0, lidos); 
-								 printd("buffo: "+buffer+" tamanho"+tamanho+" lidos:"+lidos);
-							}
-							printd("Aweeee");
-							cliente.getConexao().close();
-						} catch (IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						
-					
-					}else{
-						printd("Comando recusado.");
-						printd(mensagem);
-						printd("Uma conexao recusada. ");
+					System.out.println("Primeira Mensagem: "+mensagem);
+					if(mensagem == null){
+						System.out.println("Comando recusado.");
+						System.out.println(mensagem);
+						System.out.println("Uma conexao recusada. ");
 						ps.println("Eu sou o Servidor, meu chapa!");
 						conexao.close();
 						return;
 					}
+						
+					
+
+					if(mensagem.indexOf("GET / HTTP/1.1") != -1){
+						ps.println("<html>"
+								+ "<header><style>"
+								+ "body{background-color:#FF9999;}"
+								+ ""
+								+ ""
+								+ "</style></header>"
+								+ ""
+								+ "<h1>Servidor Funcionando!</h1>"
+								+ ""
+								+ ""
+								+ ""
+								+ "</html>");
+						cliente.getConexao().close();
+						
+					}else if (mensagem.indexOf('(') != -1 && mensagem.indexOf(')') != -1) {
+						String comando = mensagem.substring(0, mensagem.indexOf('('));
+						String parametros = mensagem.substring((mensagem.indexOf('(') + 1),mensagem.indexOf(')'));
+						int status = Integer.parseInt(parametros);
+						if(comando.equals("setStatus") && status == Maquina.STATUS_DISPONIVEL){
+							cliente.getMaquina().setStatus(status);
+							
+							listaDeClientes.add(cliente);
+							while (!conexao.isClosed()) {
+								
+								mensagem = in.readLine();
+								processaMensagem(cliente, mensagem);
+							}
+							
+						}else if(comando.equals("setStatus") && status == Maquina.STATUS_ADMIN){
+							
+							mensagem = in.readLine();
+							processaMensagemAdmin(cliente, mensagem);
+							cliente.getConexao().close();
+							return;
+						}else if(comando.equals("setStatus") && status == Maquina.STATUS_UPDATE){
+							
+							
+							System.out.println("Vamos Atualizar esse cara.");
+							cliente.getMaquina().setStatus(status);
+							try {
+								File f = new File("C:\\UniCafe\\UniCafeClient.exe");
+								FileInputStream in1 = new FileInputStream(f);
+								OutputStream out = cliente.getConexao().getOutputStream(); 
+								OutputStreamWriter osw = new OutputStreamWriter(out);
+								BufferedWriter writer = new BufferedWriter(osw);
+								writer.flush();
+								int tamanho = 4096;
+								byte[] buffer = new byte[tamanho]; 
+								int lidos = -1;
+								while ((lidos = in1.read(buffer, 0, tamanho)) != -1) { 
+									 out.write(buffer, 0, lidos); 
+									 System.out.println("buffo: "+buffer+" tamanho"+tamanho+" lidos:"+lidos);
+								}
+								System.out.println("Aweeee");
+								cliente.getConexao().close();
+							} catch (IOException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+							}
+							
+						
+						}else{
+							System.out.println("Comando recusado.");
+							System.out.println(mensagem);
+							System.out.println("Uma conexao recusada. ");
+							ps.println("Eu sou o Servidor, meu chapa!");
+							conexao.close();
+							return;
+						}
+						
+					}
+					
+					
 					
 					
 				} catch (IOException e) {
@@ -270,11 +243,11 @@ public class Servidor {
 						try {
 							acessodao.getConexao().close();
 						} catch (SQLException e1) {
-							printd("Erro de SQLEXception.");
+							System.out.println("Erro de SQLEXception.");
 						}
 					}
 					listaDeClientes.remove(cliente);
-					printd("Uma maquina desconectou.");
+					System.out.println("Uma maquina desconectou.");
 					
 					
 				}
@@ -289,11 +262,11 @@ public class Servidor {
 						acessodao.getConexao().close();
 						
 					} catch (SQLException e) {
-						printd("Erro de SQLEXception.");
+						System.out.println("Erro de SQLEXception.");
 					}
 				}
 
-				printd(cliente.getMaquina().getNome() + ">> Conexão fechada. ");
+				System.out.println(cliente.getMaquina().getNome() + ">> Conexão fechada. ");
 				
 
 			}
@@ -315,8 +288,26 @@ public class Servidor {
 		return false;
 	}
 	public synchronized void processaMensagemAdmin(final Cliente cliente, String mensagem) {
-	
-		new PrintStream(cliente.getSaida()).println(anotaJson());
+		System.out.println("Segunda mensagem: "+mensagem);
+		String comando = mensagem.substring(0, mensagem.indexOf('('));
+		String parametros = mensagem.substring((mensagem.indexOf('(') + 1),mensagem.indexOf(')'));
+		if(comando.equals("getMaquinas")){
+			String json = anotaJson();
+			new PrintStream(cliente.getSaida()).println(json);	
+			System.out.println("Resposta: "+json);
+		}else if(comando.equals("desliga")){
+			System.out.println("VOu desligar, calma.");
+			new PrintStream(cliente.getSaida()).println("deu certo\n");
+		}else if (comando.equals("teste")) {
+			new PrintStream(cliente.getSaida()).println("deu certo\n");
+			System.out.println("Deu certo");
+			
+		}else{
+			new PrintStream(cliente.getSaida()).println("Deu certo");	
+			System.out.println(anotaJson());
+			System.out.println("Deu certo");
+			
+		}
 		
 	}
 	
@@ -325,7 +316,7 @@ public class Servidor {
 		
 		String comando = mensagem.substring(0, mensagem.indexOf('('));
 		String parametros = mensagem.substring((mensagem.indexOf('(') + 1),mensagem.indexOf(')'));
-		printd(mensagem);
+		System.out.println(mensagem);
 		if (comando.equals("autentica")) {
 			String login = parametros.substring(0, parametros.indexOf(','));
 			String senha = parametros.substring(parametros.indexOf(',') + 1);
@@ -335,16 +326,16 @@ public class Servidor {
 			usuario.setLogin(login);
 			usuario.setSenha(senha);
 			if (dao.autentica(usuario)) {
-				printd(cliente.getMaquina().getNome()+ ">> Autenticão bem sucedida.");
+				System.out.println(cliente.getMaquina().getNome()+ ">> Autenticão bem sucedida.");
 				if (this.jaEstaLogado(usuario)) {
 					new PrintStream(cliente.getSaida()).println("printc(Já está logado!)");
 					return;
 				}
 				AcessoDAO acessoDao = new AcessoDAO(dao.getConexao());
 				int tempo = acessoDao.retornaTempoUsadoHoje(usuario);
-				printd("Usou: " + tempo);
+				System.out.println("Usou: " + tempo);
 				if (tempo <= AcessoDAO.COTA) {
-					printd("Pode acessar durante "+ ((AcessoDAO.COTA) - (tempo)) + " segundos");
+					System.out.println("Pode acessar durante "+ ((AcessoDAO.COTA) - (tempo)) + " segundos");
 					new PrintStream(cliente.getSaida()).println("desbloqueia(" + login + ", "+ ((AcessoDAO.COTA) - (tempo)) + ")");
 					cliente.getMaquina().getAcesso().setUsuario(usuario);
 					cliente.getMaquina().getAcesso().setTempoDisponibilizado(((AcessoDAO.COTA) - (tempo)));
@@ -363,7 +354,7 @@ public class Servidor {
 				}
 
 			} else {
-				printd(cliente.getMaquina().getNome()+ ">> Errou login ou senha.");
+				System.out.println(cliente.getMaquina().getNome()+ ">> Errou login ou senha.");
 				try {
 					cliente.getSaida().flush();
 					new PrintStream(cliente.getSaida()).println("printc(Login e senha não conferem)");
@@ -381,7 +372,7 @@ public class Servidor {
 			}
 			
 		}else if (comando.equals("meDaBonus")) {
-			printd("Quer bonus? Vou pensar...");
+			System.out.println("Quer bonus? Vou pensar...");
 			int disponiveis = 0;
 			for(Cliente umCliente : listaDeClientes){
 				if(umCliente.getMaquina().getStatus() == Maquina.STATUS_DISPONIVEL){
@@ -390,7 +381,7 @@ public class Servidor {
 			}
 			if(disponiveis >= 7){
 				new PrintStream(cliente.getSaida()).println("bonus()");
-				printd("Bonus oferecido para >>"+cliente.getMaquina().getNome());
+				System.out.println("Bonus oferecido para >>"+cliente.getMaquina().getNome());
 			}
 		
 		} else if (comando.equals("setNome")) {
@@ -399,7 +390,7 @@ public class Servidor {
 			cliente.getMaquina().setNome(nome);
 			MaquinaDAO maquinaDao = new MaquinaDAO();
 			if (!maquinaDao.existe(cliente.getMaquina())) {
-				maquinaDao.cadastra(cliente.getMaquina());
+			//	maquinaDao.cadastra(cliente.getMaquina());
 
 			}
 			try {
@@ -437,7 +428,7 @@ public class Servidor {
 					listaDeClientes.remove(cliente);
 					break;
 				case Maquina.STATUS_UPDATE:
-					printd("Vamos Atualizar esse cara.");
+					System.out.println("Vamos Atualizar esse cara.");
 					cliente.getMaquina().setStatus(status);
 					
 					
@@ -456,9 +447,9 @@ public class Servidor {
 					int lidos = -1;
 					while ((lidos = in.read(buffer, 0, tamanho)) != -1) { 
 						 out.write(buffer, 0, lidos); 
-						 printd("buffo: "+buffer+" tamanho"+tamanho+" lidos:"+lidos);
+						 System.out.println("buffo: "+buffer+" tamanho"+tamanho+" lidos:"+lidos);
 					}
-					printd("Aweeee");
+					System.out.println("Aweeee");
 					cliente.getConexao().close();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -478,9 +469,9 @@ public class Servidor {
 			
 			
 			
-			printd(cliente.getMaquina().getNome() + ">> Mudou o Status para "+ Maquina.statusString(status));
+			System.out.println(cliente.getMaquina().getNome() + ">> Mudou o Status para "+ Maquina.statusString(status));
 		} else {
-			printd(cliente.getMaquina().getNome() + ">>"+ " Comando não encontrado. "+mensagem);
+			System.out.println(cliente.getMaquina().getNome() + ">>"+ " Comando não encontrado. "+mensagem);
 		}
 
 
@@ -510,12 +501,5 @@ public class Servidor {
 		this.listaDeClientes = listaDeClientes;
 	}
 
-	public FrameServidor getFrameServidor() {
-		return frameServidor;
-	}
-
-	public void setFrameServidor(FrameServidor frameServidor) {
-		this.frameServidor = frameServidor;
-	}
 
 }

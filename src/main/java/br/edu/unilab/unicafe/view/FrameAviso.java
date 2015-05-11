@@ -59,5 +59,10 @@ public class FrameAviso extends JFrame {
 		aviso2.setBounds(128, 135, 197, 40);
 		setLocationRelativeTo(null);  
 		panel.add(aviso2);
+		
+		JLabel lblAnkamaWuKwaze = new JLabel("Ankama wu kwaze níkuhela");
+		lblAnkamaWuKwaze.setFont(new Font("Times New Roman", Font.BOLD, 18));
+		lblAnkamaWuKwaze.setBounds(105, 184, 244, 40);
+		panel.add(lblAnkamaWuKwaze);
 	}
 }

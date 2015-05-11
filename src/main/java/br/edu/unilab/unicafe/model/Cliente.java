@@ -180,6 +180,11 @@ public class Cliente {
 					controle.getFrameBloqueado().getLabelStatus().setText("Erro de ClassNotFoundException");
                     conexaoComServidor();
 				}
+				catch(NullPointerException e2){
+					controle.bloqueia();
+					controle.getFrameBloqueado().getLabelStatus().setText("Erro de ClassNotFoundException");
+                    conexaoComServidor();
+				}
 
 			}
 		});
@@ -286,7 +291,10 @@ public class Cliente {
 	public void desbloqueia(final int segundos, final String login) {
 		if(getSaida() != null)
 			new PrintStream(getSaida()).println("setStatus("+Maquina.STATUS_OCUPADA+")");
-		String caminho = "\\\\"+this.getMaquina().getNome()+"\\arquivos";
+		
+		//String caminho = "\\\\"+this.getMaquina().getNome()+"\\arquivos";
+		String caminho = "C:\\arquivosunicafe";
+		
 		Desktop d = new Desktop(caminho, login);
 		d.alterarRegistro();
 		getControle().desbloqueia(segundos, login);

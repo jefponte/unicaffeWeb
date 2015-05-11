@@ -28,11 +28,11 @@ public class MainDataBackup {
 		ArrayList<Acesso> listaDeAcessos = new ArrayList<Acesso>();
 		
 		DAO daoPostgres = new DAO(DAO.TIPO_POSTGRESQL);
-		DAO daoSqlite = new DAO(DAO.TIPO_SQLITE);
+		DAO daoPostgres2 = new DAO(DAO.TIPO_POSTGRESQL2);
 		PreparedStatement ps;
 
 		try {
-			ps = daoSqlite.getConexao().prepareStatement(
+			ps = daoPostgres.getConexao().prepareStatement(
 					"SELECT * FROM usuario");
 			ResultSet resultSet = ps.executeQuery();
 			while (resultSet.next()) {
@@ -49,57 +49,30 @@ public class MainDataBackup {
 
 			// Agora vou pegar a lista de máquinas.
 
-			ps = daoSqlite.getConexao().prepareStatement(
+			ps = daoPostgres.getConexao().prepareStatement(
 					"SELECT * FROM maquina");
 			resultSet = ps.executeQuery();
 			while (resultSet.next()) {
 				Maquina maquina = new Maquina();
 				maquina.setId(resultSet.getInt("id_maquina"));
-				maquina.setNome(resultSet.getString("nome_maq"));
+				maquina.setNome(resultSet.getString("nome"));
 				maquina.setEnderecoMac(resultSet.getString("mac"));
 				listaDeMaquinas.add(maquina);
 			}
 
-			ps = daoSqlite.getConexao()
-					.prepareStatement("SELECT * FROM acesso");
-			resultSet = ps.executeQuery();
-			while (resultSet.next()) {
-				Acesso acesso = new Acesso();
-				acesso.setId(resultSet.getInt("id_acesso"));
-				acesso.getUsuario().setId(resultSet.getInt("id_usuario"));
-				acesso.setIdMaquina(resultSet.getInt("id_maquina"));
-				SimpleDateFormat formatarDate = new SimpleDateFormat(
-						"yyyy-MM-dd HH:mm:ss");
-				Date data = formatarDate.parse(resultSet.getString("hora_acesso"));
-//				System.out.println(resultSet.getString("hora_acesso"));
-				long horaInicial= data.getTime();
-				//COrreção de um erro, pois estavamos cadastrando hora inicial de acordo com a hora do termino do acesso. 
-				acesso.setHoraInicial(horaInicial - resultSet.getInt("tempo_usado")*1000);
-				acesso.setTempoUsado(resultSet.getInt("tempo_usado"));
-
-				acesso.setTempoDisponibilizado(resultSet.getInt("tempo_oferecido"));
-				acesso.setIp(resultSet.getString("ip"));
-
-				listaDeAcessos.add(acesso);
-
-				
-			}
-
-			
-			
 			//Criar tabelas no banco. 
-			PreparedStatement psCriarLaboratorio = daoPostgres.getConexao().prepareStatement("CREATE TABLE laboratorio(  id_laboratorio serial NOT NULL,  nome character varying(500),  CONSTRAINT laboratorio_pkey PRIMARY KEY (id_laboratorio))WITH (  OIDS=FALSE);");			
-			psCriarLaboratorio.executeUpdate();
+		//	PreparedStatement psCriarLaboratorio = daoPostgres2.getConexao().prepareStatement("CREATE TABLE laboratorio(  id_laboratorio serial NOT NULL,  nome character varying(500),  CONSTRAINT laboratorio_pkey PRIMARY KEY (id_laboratorio))WITH (  OIDS=FALSE);");			
+		//	psCriarLaboratorio.executeUpdate();
 			
-			PreparedStatement psCriarMaquina = daoPostgres.getConexao().prepareStatement("CREATE TABLE maquina(  id_maquina serial NOT NULL,  nome character varying(500),  mac character varying(500),  id_laboratorio integer,  CONSTRAINT maquina_pkey PRIMARY KEY (id_maquina),  CONSTRAINT maquina_id_laboratorio_fkey FOREIGN KEY (id_laboratorio)      REFERENCES laboratorio (id_laboratorio) MATCH SIMPLE      ON UPDATE NO ACTION ON DELETE NO ACTION)WITH (  OIDS=FALSE);");			
-			psCriarMaquina.executeUpdate();
+//			PreparedStatement psCriarMaquina = daoPostgres.getConexao().prepareStatement("CREATE TABLE maquina(  id_maquina serial NOT NULL,  nome character varying(500),  mac character varying(500),  id_laboratorio integer,  CONSTRAINT maquina_pkey PRIMARY KEY (id_maquina),  CONSTRAINT maquina_id_laboratorio_fkey FOREIGN KEY (id_laboratorio)      REFERENCES laboratorio (id_laboratorio) MATCH SIMPLE      ON UPDATE NO ACTION ON DELETE NO ACTION)WITH (  OIDS=FALSE);");			
+//			psCriarMaquina.executeUpdate();
 
-			PreparedStatement psCriarUsuario = daoPostgres.getConexao().prepareStatement("CREATE TABLE usuario(  id_usuario serial NOT NULL,  nome character varying(500),  email character varying(500),  login character varying(500),  senha character varying(500),  nivel_acesso integer,  cpf character varying(500),  CONSTRAINT usuario_pkey PRIMARY KEY (id_usuario))WITH (  OIDS=FALSE);");			
-			psCriarUsuario.executeUpdate();
+//			PreparedStatement psCriarUsuario = daoPostgres.getConexao().prepareStatement("CREATE TABLE usuario(  id_usuario serial NOT NULL,  nome character varying(500),  email character varying(500),  login character varying(500),  senha character varying(500),  nivel_acesso integer,  cpf character varying(500),  CONSTRAINT usuario_pkey PRIMARY KEY (id_usuario))WITH (  OIDS=FALSE);");			
+//			psCriarUsuario.executeUpdate();
 			
 			
-			PreparedStatement psCriarAcesso = daoPostgres.getConexao().prepareStatement("CREATE TABLE acesso(  id_acesso serial NOT NULL,  id_usuario integer,  id_maquina integer,  hora_acesso timestamp without time zone,  tempo_usado integer,  tempo_oferecido integer,  ip character varying(500),  CONSTRAINT acesso_pkey PRIMARY KEY (id_acesso),  CONSTRAINT acesso_id_maquina_fkey FOREIGN KEY (id_maquina)      REFERENCES maquina (id_maquina) MATCH SIMPLE      ON UPDATE NO ACTION ON DELETE NO ACTION)WITH (  OIDS=FALSE);");			
-			psCriarAcesso.executeUpdate();
+//			PreparedStatement psCriarAcesso = daoPostgres.getConexao().prepareStatement("CREATE TABLE acesso(  id_acesso serial NOT NULL,  id_usuario integer,  id_maquina integer,  hora_acesso timestamp without time zone,  tempo_usado integer,  tempo_oferecido integer,  ip character varying(500),  CONSTRAINT acesso_pkey PRIMARY KEY (id_acesso),  CONSTRAINT acesso_id_maquina_fkey FOREIGN KEY (id_maquina)      REFERENCES maquina (id_maquina) MATCH SIMPLE      ON UPDATE NO ACTION ON DELETE NO ACTION)WITH (  OIDS=FALSE);");			
+//			psCriarAcesso.executeUpdate();
 			
 			
 			
@@ -107,7 +80,7 @@ public class MainDataBackup {
 			
 			//Cadastra laboratorio de liberdade. 
 			
-			PreparedStatement psInserir = daoPostgres.getConexao().prepareStatement("INSERT into laboratorio(id_laboratorio, nome) VALUES(?, ?)");			
+			PreparedStatement psInserir = daoPostgres2.getConexao().prepareStatement("INSERT into laboratorio(id_laboratorio, nome) VALUES(?, ?)");			
 			psInserir.setInt(1, 1);
 			psInserir.setString(2, "LABTI01");
 			psInserir.executeUpdate();
@@ -116,7 +89,7 @@ public class MainDataBackup {
 			//Cadastra maquinas nesse laboratorio. 
 			
 			for(Maquina maquina: listaDeMaquinas){
-				PreparedStatement psMaquinas = daoPostgres.getConexao().prepareStatement("INSERT into maquina(id_maquina, nome, mac, id_laboratorio) VALUES(?, ?, ?, ?)");
+				PreparedStatement psMaquinas = daoPostgres2.getConexao().prepareStatement("INSERT into maquina(id_maquina, nome, mac, id_laboratorio) VALUES(?, ?, ?, ?)");
 				psMaquinas.setInt(1, maquina.getId());
 				psMaquinas.setString(2, maquina.getNome());
 				psMaquinas.setString(3, maquina.getEnderecoMac());
@@ -132,7 +105,7 @@ public class MainDataBackup {
 			//cadastra usuarios 
 			
 			for(Usuario u : listaDeUsuarios){
-				PreparedStatement psUsuarios = daoPostgres.getConexao().prepareStatement("INSERT into usuario(id_usuario, nome, email, login, senha, nivel_acesso, cpf) VALUES(?, ?, ?, ?, ?, ?, ?)");
+				PreparedStatement psUsuarios = daoPostgres2.getConexao().prepareStatement("INSERT into usuario(id_usuario, nome, email, login, senha, nivel_acesso, cpf) VALUES(?, ?, ?, ?, ?, ?, ?)");
 				psUsuarios.setInt(1, u.getId());
 				psUsuarios.setString(2, u.getNome());
 				psUsuarios.setString(3, u.getEmail());
@@ -141,29 +114,27 @@ public class MainDataBackup {
 				psUsuarios.setInt(6, 1);
 				psUsuarios.setString(7, u.getCpf());
 				psUsuarios.executeUpdate();
+				System.out.println(u.getNome());
 			}
 			
 			//cadastra os acessos
 			
-			
-			
-			for(Acesso acesso : listaDeAcessos){
-				PreparedStatement psAcessos = daoPostgres.getConexao().prepareStatement("INSERT into acesso(id_acesso, id_usuario, id_maquina, hora_acesso, tempo_usado, tempo_oferecido, ip) VALUES(?, ?, ?, ?, ?, ?, ?)");
-				psAcessos.setInt(1, acesso.getId());
-				psAcessos.setInt(2, acesso.getUsuario().getId());
-				psAcessos.setInt(3, acesso.getIdMaquina());
-				psAcessos.setTimestamp(4, new Timestamp(acesso.getHoraInicial()));
-				psAcessos.setInt(5, acesso.getTempoUsado());
-				psAcessos.setInt(6, acesso.getTempoDisponibilizado());
-				psAcessos.setString(7, acesso.getIp());
-				psAcessos.executeUpdate();
-			}
-			
+//			
+//			
+//			for(Acesso acesso : listaDeAcessos){
+//				PreparedStatement psAcessos = daoPostgres.getConexao().prepareStatement("INSERT into acesso(id_acesso, id_usuario, id_maquina, hora_acesso, tempo_usado, tempo_oferecido, ip) VALUES(?, ?, ?, ?, ?, ?, ?)");
+//				psAcessos.setInt(1, acesso.getId());
+//				psAcessos.setInt(2, acesso.getUsuario().getId());
+//				psAcessos.setInt(3, acesso.getIdMaquina());
+//				psAcessos.setTimestamp(4, new Timestamp(acesso.getHoraInicial()));
+//				psAcessos.setInt(5, acesso.getTempoUsado());
+//				psAcessos.setInt(6, acesso.getTempoDisponibilizado());
+//				psAcessos.setString(7, acesso.getIp());
+//				psAcessos.executeUpdate();
+//			}
+//			
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
