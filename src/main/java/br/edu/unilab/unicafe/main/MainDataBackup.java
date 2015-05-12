@@ -119,20 +119,20 @@ public class MainDataBackup {
 			
 			//cadastra os acessos
 			
-//			
-//			
-//			for(Acesso acesso : listaDeAcessos){
-//				PreparedStatement psAcessos = daoPostgres.getConexao().prepareStatement("INSERT into acesso(id_acesso, id_usuario, id_maquina, hora_acesso, tempo_usado, tempo_oferecido, ip) VALUES(?, ?, ?, ?, ?, ?, ?)");
-//				psAcessos.setInt(1, acesso.getId());
-//				psAcessos.setInt(2, acesso.getUsuario().getId());
-//				psAcessos.setInt(3, acesso.getIdMaquina());
-//				psAcessos.setTimestamp(4, new Timestamp(acesso.getHoraInicial()));
-//				psAcessos.setInt(5, acesso.getTempoUsado());
-//				psAcessos.setInt(6, acesso.getTempoDisponibilizado());
-//				psAcessos.setString(7, acesso.getIp());
-//				psAcessos.executeUpdate();
-//			}
-//			
+			
+			
+			for(Acesso acesso : listaDeAcessos){
+				PreparedStatement psAcessos = daoPostgres.getConexao().prepareStatement("INSERT into acesso(id_acesso, id_usuario, id_maquina, hora_acesso, tempo_usado, tempo_oferecido, ip) VALUES(?, ?, ?, ?, ?, ?, ?)");
+				psAcessos.setInt(1, acesso.getId());
+				psAcessos.setInt(2, acesso.getUsuario().getId());
+				psAcessos.setInt(3, acesso.getIdMaquina());
+				psAcessos.setTimestamp(4, new Timestamp(acesso.getHoraInicial()));
+				psAcessos.setInt(5, acesso.getTempoUsado());
+				psAcessos.setInt(6, acesso.getTempoDisponibilizado());
+				psAcessos.setString(7, acesso.getIp());
+				psAcessos.executeUpdate();
+			}
+			
 
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
