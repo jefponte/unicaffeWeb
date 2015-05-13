@@ -17,7 +17,6 @@ import javax.swing.JFrame;
 import br.edu.unilab.unicafe.bloqueio.model.PerfilBloqueio;
 import br.edu.unilab.unicafe.dao.UsuarioDAO;
 import br.edu.unilab.unicafe.model.Cliente;
-import br.edu.unilab.unicafe.model.Maquina;
 import br.edu.unilab.unicafe.registro.model.Perfil;
 import br.edu.unilab.unicafe.view.FrameAviso;
 import br.edu.unilab.unicafe.view.FrameClientBloqueado;

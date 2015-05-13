@@ -45,7 +45,7 @@ public class Maquina {
 			for (int i = 0; i < mac.length; i++) {
 				macAddress += (String.format("%02X-", mac[i]));
 			}
-			//this.enderecoMac = macAddress.substring(0, macAddress.length() - 1);
+			this.enderecoMac = macAddress.substring(0, macAddress.length() - 1);
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (SocketException e) {
