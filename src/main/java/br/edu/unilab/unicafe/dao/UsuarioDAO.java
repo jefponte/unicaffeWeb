@@ -25,87 +25,20 @@ public class UsuarioDAO extends DAO {
 		super(conexao);
 	}
 	
-	/*
-	 * 
-	 
-	public  boolean autentica(Usuario usuario){
-		//Primeiro temos que fazer autenticação no banco local. 
-		//Até aí tudo bem. 
-		Connection conexaoPostgres;
-		Connection conexaoSqlite;
-		if(this.getTipoDeConexao() == TIPO_POSTGRESQL){
-			conexaoSqlite= new DAO(TIPO_SQLITE).getConexao();
-			conexaoPostgres = this.getConexao();
-		}else if(this.getTipoDeConexao() == TIPO_SQLITE){
-			conexaoPostgres= new DAO(TIPO_POSTGRESQL).getConexao();
-			conexaoSqlite= this.getConexao();
-		}else{
-			conexaoPostgres= new DAO(TIPO_POSTGRESQL).getConexao();
-			conexaoSqlite=  new DAO(TIPO_SQLITE).getConexao();
-		}
-		
-			
-		
-		try {
-			PreparedStatement ps = conexaoSqlite.prepareStatement("SELECT * FROM usuario WHERE login = ? AND senha = ?");
-			ps.setString(1, usuario.getLogin());
-			ps.setString(2, usuario.getSenha());
-			ResultSet rs = ps.executeQuery();
-			while(rs.next()){
-				usuario.setId(rs.getInt("id_usuario"));
-				return true;
-			}
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
-			return false;
-		}
-		
-		
-		try {
-			PreparedStatement ps2 = conexaoPostgres.prepareStatement("SELECT * FROM usuario WHERE login = ? AND senha = ?");
-			ps2.setString(1, usuario.getLogin());
-			ps2.setString(2, usuario.getSenha());
-			ResultSet rs2 = ps2.executeQuery();
-			while(rs2.next()){
-				PreparedStatement ps3 = conexaoSqlite.prepareStatement("INSERT INTO usuario(login, senha) VALUES(?, ?)");
-				ps3.setString(1, rs2.getString("login"));
-				ps3.setString(2, rs2.getString("senha"));
-				ps3.executeUpdate();
-				return autentica(usuario);
-			}
-		} catch (SQLException e) {
-			
-			e.printStackTrace();
-			return false;
-		}
-		return false;
-		
-		
-	}
-	
-	*/
 	
 	
 	/**
-	 * Essa função é uma versão emergencial, não acessa ao postgresql. 
-	 * A que acessa ao postgres está logo acima. 
+	 * Essa funï¿½ï¿½o ï¿½ uma versï¿½o emergencial, nï¿½o acessa ao postgresql. 
+	 * A que acessa ao postgres estï¿½ logo acima. 
 	 * 
 	 * @param usuario
 	 * @return
 	 */
 	
 	public  boolean autentica(Usuario usuario){
-		//Primeiro temos que fazer autenticação no banco local. 
-		//Até aí tudo bem. 
-		
-		Connection conexaoSqlite = this.getConexao();
-		
-		
-			
 		
 		try {
-			PreparedStatement ps = conexaoSqlite.prepareStatement("SELECT * FROM usuario WHERE login = ? AND senha = ?");
+			PreparedStatement ps = this.getConexao().prepareStatement("SELECT * FROM usuarios_unicafe WHERE login = ? AND senha = ?");
 			ps.setString(1, usuario.getLogin());
 			ps.setString(2, usuario.getSenha());
 			ResultSet rs = ps.executeQuery();
@@ -151,8 +84,8 @@ public class UsuarioDAO extends DAO {
 	/**
 	 * Ele vai retornar verdadeiro caso o cadastro tenha dado certo e falso se o cadastro tiver dado errado. 
 	 * O cadastro pode dar errado pelos seguintes motivos: 
-	 * 1. O login não pode ser nenhum já cadastrado no banco. 
-	 * 2. O email também não pode se repetir. 
+	 * 1. O login nï¿½o pode ser nenhum jï¿½ cadastrado no banco. 
+	 * 2. O email tambï¿½m nï¿½o pode se repetir. 
 	 * 3. Pode ter dado um erro de SQLException. 
 	 * @param usuario
 	 * @return
@@ -216,8 +149,8 @@ public class UsuarioDAO extends DAO {
 	
 	
 	/**
-	 * Esse método vai determinar como será a cota. 
-	 * Antes de criar regras mais dinâmicas iremos deixar
+	 * Esse mï¿½todo vai determinar como serï¿½ a cota. 
+	 * Antes de criar regras mais dinï¿½micas iremos deixar
 	 * @param usuario
 	 * @return
 	 */

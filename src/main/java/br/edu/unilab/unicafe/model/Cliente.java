@@ -1,6 +1,6 @@
 package br.edu.unilab.unicafe.model;
 
-import java.awt.Color;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedReader;
@@ -13,7 +13,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.PrintStream;
 import java.net.Socket;
-import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.Properties;
 import java.util.Scanner;
@@ -81,9 +80,9 @@ public class Cliente {
 	
 	public void conexaoComServidor() {
 		/*
-		 * O IP do servidor � definido pelo INI. Caso o valor no INI n�o seja
-		 * existente iremos criar um INI com a vari�vel para o IP de valor
-		 * padr�o igual ao nome da m�quina do JEFPONTE.
+		 * O IP do servidor é definido pelo INI. Caso o valor no INI n�o seja
+		 * existente iremos criar um INI com a variável para o IP de valor
+		 * padrão igual ao nome da máquina do JEFPONTE.
 		 */
 
 		Properties config = new Properties();
@@ -118,18 +117,19 @@ public class Cliente {
 				int i = 0;
 				while (true) {
 					i++;
-					getControle().getFrameBloqueado().getLabelStatus().setText("Tentativa " + i);
+					getControle().getFrameTelaBloqueio().getLabelStatus().setText("Desconectado. Tentando conectar: " + i);
 
 					try {
 						conexao = new Socket(ipDoServidor, 27289);
 						processaConexao(conexao);
-						controle.getFrameBloqueado().getLabelStatus().setText("Conexão Feita!");
-						controle.getFrameBloqueado().getLabelStatus().setForeground(Color.GREEN);
+						controle.getFrameTelaBloqueio().setStatusConexao(true);
 						break;
 					} catch (UnknownHostException e1) {
-						getControle().getFrameBloqueado().getLabelStatus().setText("Servidor não encontrado " + i);
+						getControle().getFrameTelaBloqueio().setStatusConexao(false);
+						getControle().getFrameTelaBloqueio().getLabelStatus().setText("Servidor não encontrado. Tentando conexão " + i);
 					} catch (IOException e1) {
-						getControle().getFrameBloqueado().getLabelStatus().setText("Erro de IO " + i);
+						getControle().getFrameTelaBloqueio().setStatusConexao(false);
+						getControle().getFrameTelaBloqueio().getLabelStatus().setText("Erro de IO " + i);
 					}
 					try {
 						Thread.sleep(5000);
@@ -138,6 +138,7 @@ public class Cliente {
 					}
 
 				}
+				
 
 			}
 		});
@@ -164,25 +165,20 @@ public class Cliente {
 					printStream.println("setMac(" + maquina.getEnderecoMac()+ ")");
 					
 					while (true) {
-						try {
-							String mensagem = buffereReader.readLine();
-							System.out.println(mensagem);
-							processaMensagem(mensagem);
-						} catch (SocketException se) {
-							controle.bloqueia();
-							controle.getFrameBloqueado().getLabelStatus().setText("Erro de ClassNotFoundException");
-							conexaoComServidor();							
-							break;
-						}
+						
+						String mensagem = buffereReader.readLine();
+						System.out.println(mensagem);
+						processaMensagem(mensagem);
+						
 					}
 				} catch (IOException e) {
 					controle.bloqueia();
-					controle.getFrameBloqueado().getLabelStatus().setText("Erro de ClassNotFoundException");
+					controle.getFrameTelaBloqueio().getLabelStatus().setText("Erro de ClassNotFoundException");
                     conexaoComServidor();
 				}
 				catch(NullPointerException e2){
 					controle.bloqueia();
-					controle.getFrameBloqueado().getLabelStatus().setText("Erro de ClassNotFoundException");
+					controle.getFrameTelaBloqueio().getLabelStatus().setText("Erro de ClassNotFoundException");
                     conexaoComServidor();
 				}
 
@@ -212,7 +208,7 @@ public class Cliente {
 			System.out.println("To ganhando bonus");
 			int bonus = 600;
 			getMaquina().getAcesso().setTempoDisponibilizado(getMaquina().getAcesso().getTempoDisponibilizado()+bonus);
-			controle.mostraBarra();
+			//controle.mostraBarra();
 						
 		}
 		else if (comando.equals("desligar")) {
@@ -223,12 +219,11 @@ public class Cliente {
 			try {
 				process = Runtime.getRuntime().exec(" shutdown /s");
 				leitor = new Scanner(process.getInputStream());
-				while (leitor.hasNext()) {
-					String linha = leitor.nextLine();
-				}
-				
+				getControle().getFrameTelaBloqueio().setVisible(true);
+//				while (leitor.hasNext()) {
+//					String linha = leitor.nextLine();
+//				}
 			} catch (IOException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
@@ -239,22 +234,22 @@ public class Cliente {
 
 				@Override
 				public void run() {
-					controle.getFrameBloqueado().getLabelMensagem().setText("" + parametros);
+					controle.getFrameTelaBloqueio().getLabelMensagem().setText("" + parametros);
 					try {
 						Thread.sleep(10000);
 					} catch (InterruptedException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					controle.getFrameBloqueado().getLabelMensagem().setText("");
+					controle.getFrameTelaBloqueio().getLabelMensagem().setText("");
 
 				}
 			});
 			t.start();
 
 		} else if (comando.equals("atualizar")) {
-			controle.getFrameBloqueado().setVisible(false);
-			controle.getFrameDesbloqueado().setVisible(false);
+			controle.getFrameTelaBloqueio().setVisible(false);
+			controle.getFrameTelaAcesso().setVisible(false);
 			Process process;
 			Scanner leitor;
 			try {
@@ -291,10 +286,7 @@ public class Cliente {
 	public void desbloqueia(final int segundos, final String login) {
 		if(getSaida() != null)
 			new PrintStream(getSaida()).println("setStatus("+Maquina.STATUS_OCUPADA+")");
-		
-		//String caminho = "\\\\"+this.getMaquina().getNome()+"\\arquivos";
 		String caminho = "C:\\arquivosunicafe";
-		
 		Desktop d = new Desktop(caminho, login);
 		d.alterarRegistro();
 		getControle().desbloqueia(segundos, login);
@@ -302,11 +294,11 @@ public class Cliente {
 		getMaquina().getAcesso().setTempoDisponibilizado(segundos);
 		getMaquina().getAcesso().setTempoUsado(0);
 		controle.setBloqueado(false);
-		getControle().mostraBarra();
+		//getControle().mostraBarra();
 		Thread sessao = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				controle.getFrameDesbloqueado().getBtnFinalizar().addActionListener(
+				controle.getFrameTelaAcesso().getBtnFinalizar().addActionListener(
 						new ActionListener() {
 							@Override
 							public void actionPerformed(ActionEvent e) {
@@ -320,7 +312,7 @@ public class Cliente {
 						int tempo = (maquina.getAcesso().getTempoDisponibilizado() - maquina.getAcesso().getTempoUsado());
 						
 						if(tempo == 300 || tempo == 120 || tempo == 20){
-							getControle().mostraBarra();
+							//getControle().mostraBarra();
 							getControle().getFrameAviso().setVisible(true);
 							if(getSaida() != null){
 								new PrintStream(getSaida()).println("meDaBonus()");
@@ -337,7 +329,7 @@ public class Cliente {
 							minuto -= 60;
 							hora++;
 						}
-						getControle().getFrameDesbloqueado().getLblTempo().setText(
+						getControle().getFrameTelaAcesso().getLabelTempo().setText(
 								String.format("%02d", hora) + ":"
 										+ String.format("%02d", minuto) + ":"
 										+ String.format("%02d", tempo));

@@ -2,15 +2,12 @@ package br.edu.unilab.unicafe.bloqueio.model;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
-import javax.swing.JOptionPane;
 
-import br.edu.unilab.unicafe.bloqueio.util.Log;
 
 public class PerfilBloqueio {
 	private ArrayList<Processo> listaDeProcessosAceitos;
@@ -306,7 +303,7 @@ public class PerfilBloqueio {
 					//		+ " N�o existe na lista. Deletaaar.");
 					//JOptionPane.showMessageDialog(null, "Meu Amor, não pode executar "+ processoAtivo.getImagem()+" - "+processoAtivo.getExecutablePath());
 					//System.out.println("Meu Amor, não pode executar "+ processoAtivo.getImagem()+" - "+processoAtivo.getExecutablePath());
-					new Log("Matei Um processo \n"+processoAtivo.getExecutablePath()+","+processoAtivo.getImagem());
+					//new Log("Matei Um processo \n"+processoAtivo.getExecutablePath()+","+processoAtivo.getImagem());
 					process = Runtime.getRuntime().exec(" taskkill /PID \"" + processoAtivo.getProcessId()+"\" /F");
 					if(processoAtivo.getExecutablePath().length() > 5){
 						System.out.println(processoAtivo.getExecutablePath().substring(0, 5));	

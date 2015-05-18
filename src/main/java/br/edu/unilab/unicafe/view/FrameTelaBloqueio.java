@@ -38,15 +38,8 @@ public class FrameTelaBloqueio extends JFrame {
 	private JLabel labelMensagem;
 	private JButton btnCancelar;
 	private JButton btnEntrar;
-	
 	private JLabel lblUsuarioSig;
-	public JLabel getLblUsuarioSig(){
-		return this.lblUsuarioSig;
-	}
 	private JLabel lblSenhaSig;
-	public JLabel getLblSenhaSIG(){
-		return this.lblSenhaSig;
-	}
 	private JPanel panelStatus;
 	private JLabel labelStatus;
 	private JPanel panelStatusIcone;
@@ -83,7 +76,7 @@ public class FrameTelaBloqueio extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+		setAlwaysOnTop(true);
 		
 		JPanel panelForm2 = new JPanel();
 		panelForm2.setBackground(Color.WHITE);
@@ -108,6 +101,7 @@ public class FrameTelaBloqueio extends JFrame {
 		
 		
 		JButton button = new JButton("");
+		
 		
 		
 		
@@ -154,7 +148,7 @@ public class FrameTelaBloqueio extends JFrame {
 		btnEntrar.setCursor(new Cursor(Cursor.HAND_CURSOR));
 		
 		
-		labelMensagem = new JLabel("Usuário e senha não coorespondem.", JLabel.CENTER);
+		labelMensagem = new JLabel("", JLabel.CENTER);
 		labelMensagem.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		labelMensagem.setBounds(33, 238, 256, 37);
 		panelForm2.add(labelMensagem);
@@ -329,12 +323,20 @@ public class FrameTelaBloqueio extends JFrame {
 		this.labelNomeLaboratorio.setText(nomeLaboratorio);
 	}
 	
+	public void resetCampos(){
+
+		this.passwordFieldSenha.setText("");
+		this.textFieldLogin.setText("");
+		getLblUsuarioSig().setText("Usuário SIG");
+		getLblSenhaSIG().setText("Senha SIG");
+		
+	}
 	
 	
 	public JTextField getTextFieldLogin(){
 		return this.textFieldLogin;
 	}
-	public JTextField getTextFieldSenha(){
+	public JTextField getPasswordFieldSenha(){
 		return this.passwordFieldSenha;
 	}
 	public JLabel getLabelMensagem(){
@@ -345,5 +347,16 @@ public class FrameTelaBloqueio extends JFrame {
 	}
 	public JButton getBtnEntrar(){
 		return this.btnEntrar;
+	}
+	
+	public JLabel getLblUsuarioSig(){
+		return this.lblUsuarioSig;
+	}
+	public JLabel getLblSenhaSIG(){
+		return this.lblSenhaSig;
+	}
+	
+	public JLabel getLabelStatus(){
+		return this.labelStatus;
 	}
 }

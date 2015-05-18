@@ -13,7 +13,9 @@ import javax.swing.ImageIcon;
 
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.JButton;
+
 import java.awt.Font;
 
 public class FrameTelaAcesso extends JFrame {
@@ -29,6 +31,7 @@ public class FrameTelaAcesso extends JFrame {
 				try {
 					FrameTelaAcesso frame = new FrameTelaAcesso();
 					frame.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -39,6 +42,19 @@ public class FrameTelaAcesso extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	private JButton btnFinalizar;
+	public JButton getBtnFinalizar(){
+		return this.btnFinalizar;
+	}
+	private JLabel labelLogin;
+	public JLabel getLabelLogin(){
+		return this.labelLogin;
+	}
+	private JLabel labelTempo;
+	public JLabel getLabelTempo(){
+		return this.labelTempo;
+	}
+	
 	public FrameTelaAcesso() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setUndecorated(true);
@@ -67,12 +83,15 @@ public class FrameTelaAcesso extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon("C:\\Users\\dtiusr\\Pictures\\java\\unicafe-logo-pp-b.png"));
+		
+		
+		label.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "unicafe-logo-pp-b.png")));
 		label.setBounds(10, 5, 213, 35);
 		contentPane.add(label);
 		
-		JButton btnFinalizar = new JButton("Finalizar");
-		btnFinalizar.setIcon(new ImageIcon("C:\\Users\\dtiusr\\Music\\icones\\sair.png"));
+		btnFinalizar = new JButton("Finalizar");
+		
+		btnFinalizar.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "icones\\sair.png")));
 		btnFinalizar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnFinalizar.setForeground(new Color(255, 255, 255));
 		btnFinalizar.addMouseListener(new MouseAdapter() {
@@ -93,7 +112,8 @@ public class FrameTelaAcesso extends JFrame {
 		
 		
 		JButton btnChat = new JButton("Chat");
-		btnChat.setIcon(new ImageIcon("C:\\Users\\dtiusr\\Music\\icones\\chat.png"));
+		
+		btnChat.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "icones\\chat.png")));
 		btnChat.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnChat.setForeground(new Color(255, 255, 255));
 		btnChat.addMouseListener(new MouseAdapter() {
@@ -120,11 +140,11 @@ public class FrameTelaAcesso extends JFrame {
 		contentPane.add(panelLab);
 		panelLab.setLayout(null);
 		
-		JLabel lblLabti = new JLabel("giovanildos",  JLabel.CENTER);
-		lblLabti.setForeground(new Color(0, 158, 216));
-		lblLabti.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblLabti.setBounds(0, 0, 120, 35);
-		panelLab.add(lblLabti);
+		labelLogin = new JLabel("giovanildos",  JLabel.CENTER);
+		labelLogin.setForeground(new Color(0, 158, 216));
+		labelLogin.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		labelLogin.setBounds(0, 0, 120, 35);
+		panelLab.add(labelLogin);
 		
 		JPanel panelLabIcone = new JPanel();
 		panelLabIcone.setBounds((getWidth() - 385), 5, 35, 35);
@@ -132,7 +152,8 @@ public class FrameTelaAcesso extends JFrame {
 		panelLabIcone.setLayout(null);
 		
 		JLabel labelLabIcone = new JLabel("", JLabel.CENTER);
-		labelLabIcone.setIcon(new ImageIcon("C:\\Users\\dtiusr\\Music\\icones\\user2.png"));
+		
+		labelLabIcone.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "icones\\user2.png")));
 		labelLabIcone.setBounds(0, 0, 35, 35);
 		panelLabIcone.add(labelLabIcone);
 		
@@ -148,11 +169,11 @@ public class FrameTelaAcesso extends JFrame {
 		contentPane.add(panelPC);
 		panelPC.setLayout(null);
 		
-		JLabel lblPC = new JLabel("00:50:23",  JLabel.CENTER);
-		lblPC.setForeground(new Color(0, 158, 216));
-		lblPC.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		lblPC.setBounds(0, 0, 120, 35);
-		panelPC.add(lblPC);
+		labelTempo = new JLabel("00:50:23",  JLabel.CENTER);
+		labelTempo.setForeground(new Color(0, 158, 216));
+		labelTempo.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		labelTempo.setBounds(0, 0, 120, 35);
+		panelPC.add(labelTempo);
 		
 		JPanel panelPCIcone = new JPanel();
 		panelPCIcone.setBounds((getWidth() - 550), 5, 35, 35);
@@ -160,7 +181,7 @@ public class FrameTelaAcesso extends JFrame {
 		panelPCIcone.setLayout(null);
 		
 		JLabel labelPCIcone = new JLabel("", JLabel.CENTER);
-		labelPCIcone.setIcon(new ImageIcon("C:\\Users\\dtiusr\\Music\\icones\\relogio.png"));
+		labelPCIcone.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "icones\\relogio.png")));
 		labelPCIcone.setBounds(0, 0, 35, 35);
 		panelPCIcone.add(labelPCIcone);
 		

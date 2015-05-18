@@ -21,6 +21,8 @@ import br.edu.unilab.unicafe.registro.model.Perfil;
 import br.edu.unilab.unicafe.view.FrameAviso;
 import br.edu.unilab.unicafe.view.FrameClientBloqueado;
 import br.edu.unilab.unicafe.view.FrameClientDesbloqueado;
+import br.edu.unilab.unicafe.view.FrameTelaAcesso;
+import br.edu.unilab.unicafe.view.FrameTelaBloqueio;
 
 /**
  * Iremos utilizar essa classe para trabalhar o controle. Ou seja, iremos pegar
@@ -32,8 +34,8 @@ import br.edu.unilab.unicafe.view.FrameClientDesbloqueado;
  */
 public class ClienteControl {
 
-	private FrameClientBloqueado frameBloqueado;
-	private FrameClientDesbloqueado frameDesbloqueado;
+	private FrameTelaBloqueio frameTelaBloqueio;
+	private FrameTelaAcesso frameTelaAcesso;
 	private FrameAviso frameAviso;
 	private Thread escInfinito;
 	private boolean bloqueado;
@@ -49,26 +51,26 @@ public class ClienteControl {
 
 	public ClienteControl() {
 		setFrameAviso(new FrameAviso());
-		setFrameBloqueado(new FrameClientBloqueado());
-		setFrameDesbloqueado(new FrameClientDesbloqueado());
-		getFrameBloqueado().setVisible(true);
-		escondeBarra();
+		setFrameTelaBloqueio(new FrameTelaBloqueio());
+		setFrameTelaAcesso(new FrameTelaAcesso());
+		getFrameTelaBloqueio().setVisible(true);
+		//escondeBarra();
 	}
 
-	public FrameClientBloqueado getFrameBloqueado() {
-		return frameBloqueado;
+	public FrameTelaBloqueio getFrameTelaBloqueio() {
+		return frameTelaBloqueio;
 	}
 
-	public void setFrameBloqueado(FrameClientBloqueado frameBloqueado) {
-		this.frameBloqueado = frameBloqueado;
+	public void setFrameTelaBloqueio(FrameTelaBloqueio frameTelaBloqueio) {
+		this.frameTelaBloqueio = frameTelaBloqueio;
 	}
 
-	public FrameClientDesbloqueado getFrameDesbloqueado() {
-		return frameDesbloqueado;
+	public FrameTelaAcesso getFrameTelaAcesso() {
+		return frameTelaAcesso;
 	}
 
-	public void setFrameDesbloqueado(FrameClientDesbloqueado frameDesbloqueado) {
-		this.frameDesbloqueado = frameDesbloqueado;
+	public void setFrameTelaAcesso(FrameTelaAcesso frameTelaAcesso) {
+		this.frameTelaAcesso = frameTelaAcesso;
 	}
 
 	public FrameAviso getFrameAviso() {
@@ -168,119 +170,119 @@ public class ClienteControl {
 	}
 	
 	
-
-
-	public void mostraBarra() {
-		// valor em segundos.
-				contagemParaOcultar = 5;
-				if (ocultada) {
-					ocultada = false;
-					// A� a gente faz a contagem pra mostrar.
-					// Nova trede e estar essa trede.
-
-					Thread mostrando = new Thread(new Runnable() {
-
-						@Override
-						public void run() {
-
-							for (int i = (10 - (frameDesbloqueado.getWidth())); i < 0; i = i + 30) {
-								try {
-									Thread.sleep(1);
-									frameDesbloqueado.setBounds(i, 0,
-											frameDesbloqueado.getWidth(),
-											frameDesbloqueado.getHeight());
-								} catch (InterruptedException e) {
-									// TODO Auto-generated catch block
-									e.printStackTrace();
-								}
-
-							}
-
-							frameDesbloqueado.setBounds(0, 0,
-									frameDesbloqueado.getWidth(),
-									frameDesbloqueado.getHeight());
-							frameDesbloqueado.getLblLogoBarra().setVisible(false);
-
-						}
-					});
-
-					mostrando.start();
-
-				}
-
-	}
-	
-	/**
-	 * Esse método vai criar uma Thread que vai ser executada infinitamente. Ela
-	 * vai observar de segundo em segundo o tempo para ocultação. Se o tempo
-	 * chegar a ser zero ela vai esconder a barra e colocar o ocultada como
-	 * true.
-	 * 
-	 */
-	public void escondeBarra() {
-
-		Thread escondeQuandoTempoTiverEmZero = new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				while (true) {
-					try {
-						Thread.sleep(1000);
-						if (contagemParaOcultar > 0) {
-							contagemParaOcultar--;
-
-						} else {
-							if (!ocultada) {
-								ocultada = true;
-
-								// frameDesbloqueado.
-
-								// Ocultaremos aqui.
-								Thread ocultando = new Thread(new Runnable() {
-
-									@Override
-									public void run() {
-										for (int i = 0; i > (35 - (frameDesbloqueado
-												.getWidth())); i--) {
-											try {
-												if (!ocultada) {
-													break;
-												}
-												Thread.sleep(1);
-												frameDesbloqueado.setBounds(i,
-														0, frameDesbloqueado
-																.getWidth(),
-														frameDesbloqueado
-																.getHeight());
-											} catch (InterruptedException e) {
-
-											}
-
-										}
-
-										frameDesbloqueado.getLblLogoBarra()
-												.setVisible(true);
-
-									}
-
-								});
-								ocultando.start();
-
-							}
-
-						}
-
-					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-
-				}
-			}
-		});
-		escondeQuandoTempoTiverEmZero.start();
-
-	}
+//
+//
+//	public void mostraBarra() {
+//		// valor em segundos.
+//				contagemParaOcultar = 5;
+//				if (ocultada) {
+//					ocultada = false;
+//					// A� a gente faz a contagem pra mostrar.
+//					// Nova trede e estar essa trede.
+//
+//					Thread mostrando = new Thread(new Runnable() {
+//
+//						@Override
+//						public void run() {
+//
+//							for (int i = (10 - (frameDesbloqueado.getWidth())); i < 0; i = i + 30) {
+//								try {
+//									Thread.sleep(1);
+//									frameDesbloqueado.setBounds(i, 0,
+//											frameDesbloqueado.getWidth(),
+//											frameDesbloqueado.getHeight());
+//								} catch (InterruptedException e) {
+//									// TODO Auto-generated catch block
+//									e.printStackTrace();
+//								}
+//
+//							}
+//
+//							frameDesbloqueado.setBounds(0, 0,
+//									frameDesbloqueado.getWidth(),
+//									frameDesbloqueado.getHeight());
+//							frameDesbloqueado.getLblLogoBarra().setVisible(false);
+//
+//						}
+//					});
+//
+//					mostrando.start();
+//
+//				}
+//
+//	}
+//	
+//	/**
+//	 * Esse método vai criar uma Thread que vai ser executada infinitamente. Ela
+//	 * vai observar de segundo em segundo o tempo para ocultação. Se o tempo
+//	 * chegar a ser zero ela vai esconder a barra e colocar o ocultada como
+//	 * true.
+//	 * 
+//	 */
+//	public void escondeBarra() {
+//
+//		Thread escondeQuandoTempoTiverEmZero = new Thread(new Runnable() {
+//
+//			@Override
+//			public void run() {
+//				while (true) {
+//					try {
+//						Thread.sleep(1000);
+//						if (contagemParaOcultar > 0) {
+//							contagemParaOcultar--;
+//
+//						} else {
+//							if (!ocultada) {
+//								ocultada = true;
+//
+//								// frameDesbloqueado.
+//
+//								// Ocultaremos aqui.
+//								Thread ocultando = new Thread(new Runnable() {
+//
+//									@Override
+//									public void run() {
+//										for (int i = 0; i > (35 - (frameDesbloqueado
+//												.getWidth())); i--) {
+//											try {
+//												if (!ocultada) {
+//													break;
+//												}
+//												Thread.sleep(1);
+//												frameDesbloqueado.setBounds(i,
+//														0, frameDesbloqueado
+//																.getWidth(),
+//														frameDesbloqueado
+//																.getHeight());
+//											} catch (InterruptedException e) {
+//
+//											}
+//
+//										}
+//
+//										frameDesbloqueado.getLblLogoBarra()
+//												.setVisible(true);
+//
+//									}
+//
+//								});
+//								ocultando.start();
+//
+//							}
+//
+//						}
+//
+//					} catch (InterruptedException e) {
+//						// TODO Auto-generated catch block
+//						e.printStackTrace();
+//					}
+//
+//				}
+//			}
+//		});
+//		escondeQuandoTempoTiverEmZero.start();
+//
+//	}
 
 	public boolean isBloqueandoAplicacoes() {
 		return bloqueandoAplicacoes;
@@ -373,9 +375,8 @@ public class ClienteControl {
 
 			@Override
 			public void run() {
-				getFrameBloqueado().setVisible(true);
-				frameBloqueado.getTextFieldUsuario().setText("");
-				frameBloqueado.getPasswordFieldSenha().setText("");
+				getFrameTelaBloqueio().setVisible(true);
+				getFrameTelaBloqueio().resetCampos();
 
 			}
 		});
@@ -392,48 +393,48 @@ public class ClienteControl {
 			@Override
 			public void run() {
 				
-				getFrameDesbloqueado().getLblUsuario().setText(login);
-				getFrameDesbloqueado().getLblTempo().setText("calculando");;
+				getFrameTelaAcesso().getLabelLogin().setText(login);
+				getFrameTelaAcesso().getLabelTempo().setText("calculando");;
 				getFrameAviso().setVisible(false);
-				getFrameBloqueado().setVisible(false);
+				getFrameTelaBloqueio().setVisible(false);
 				setBloqueado(false);
-				getFrameDesbloqueado().setVisible(true);
+				getFrameTelaAcesso().setVisible(true);
 				
 			}
 		});
-		mostraBarra();
+		//mostraBarra();
 		restartNoExplorer();
 
 	}
 	
 	public void adicionarEventos(final Cliente cliente){
 		  
-		frameDesbloqueado.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mousePressed(MouseEvent e) {
-				contagemParaOcultar = 0;
-			}
-		});
+//		frameDesbloqueado.addMouseListener(new MouseAdapter() {
+//			@Override
+//			public void mousePressed(MouseEvent e) {
+//				contagemParaOcultar = 0;
+//			}
+//		});
 
-		this.frameDesbloqueado.addMouseListener(new MouseAdapter() {
-
-			@Override
-			public void mouseEntered(MouseEvent arg0) {
-				mostraBarra();
-			}
-		});
+//		this.frameDesbloqueado.addMouseListener(new MouseAdapter() {
+//
+//			@Override
+//			public void mouseEntered(MouseEvent arg0) {
+//				mostraBarra();
+//			}
+//		});
 
 		
-		frameBloqueado.getBtnEntrar().addActionListener(
-				new TentativaDeLogin(frameBloqueado, cliente));
-		frameBloqueado.getPasswordFieldSenha().addKeyListener(new KeyAdapter() {
+		getFrameTelaBloqueio().getBtnEntrar().addActionListener(
+				new TentativaDeLogin(this.getFrameTelaBloqueio(), cliente));
+		frameTelaBloqueio.getPasswordFieldSenha().addKeyListener(new KeyAdapter() {
 
 			public void keyPressed(java.awt.event.KeyEvent e) {
 				if (e.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
 
-					if (frameBloqueado.getTextFieldUsuario().getText()
+					if (frameTelaBloqueio.getTextFieldLogin().getText()
 							.equals("senhasecreta")
-							&& frameBloqueado.getPasswordFieldSenha().getText()
+							&& frameTelaBloqueio.getPasswordFieldSenha().getText()
 									.equals("123456")) {
 
 						desBloqueandoServicos();
@@ -443,8 +444,7 @@ public class ClienteControl {
 							public void run() {
 
 								try {
-									JFrame frameLocal = frameBloqueado;
-									frameLocal.setVisible(false);
+									getFrameTelaBloqueio().setVisible(false);
 									// System.out.println("Fechando Explorer. ");
 									Runtime.getRuntime().exec(
 											" taskkill /f /im explorer.exe");
@@ -466,15 +466,14 @@ public class ClienteControl {
 
 					}
 					@SuppressWarnings("deprecation")
-					String senha = UsuarioDAO.getMD5(frameBloqueado
+					String senha = UsuarioDAO.getMD5(getFrameTelaBloqueio()
 							.getPasswordFieldSenha().getText());
 
 					new PrintStream(cliente.getSaida()).println("autentica("
-									+ frameBloqueado.getTextFieldUsuario()
+									+ getFrameTelaBloqueio().getTextFieldLogin()
 											.getText() + "," + senha + ")");
 
-					frameBloqueado.getTextFieldUsuario().setText("");
-					frameBloqueado.getPasswordFieldSenha().setText("");
+					getFrameTelaBloqueio().resetCampos();
 
 				}
 
@@ -490,20 +489,20 @@ public class ClienteControl {
 
 		
 		private static final long serialVersionUID = 1L;
-		FrameClientBloqueado frame;
+		FrameTelaBloqueio frame;
 		private Cliente cliente;
 
-		public TentativaDeLogin(FrameClientBloqueado frame, Cliente cliente) {
+		public TentativaDeLogin(FrameTelaBloqueio frame, Cliente cliente) {
 			this.cliente = cliente;
 			this.frame = frame;
 		}
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-			if (frameBloqueado.getTextFieldUsuario().getText()
+			if (frame.getTextFieldLogin().getText()
 					.equals("senhasecreta")
-					&& frameBloqueado.getPasswordFieldSenha().getText()
-							.equals("123456")) {
+					&& frame.getPasswordFieldSenha().getText()
+							.equals("123456@12")) {
 
 				desBloqueandoServicos();
 
@@ -513,8 +512,7 @@ public class ClienteControl {
 					public void run() {
 
 						try {
-							JFrame frameLocal = frame;
-							frameLocal.setVisible(false);
+							getFrameTelaBloqueio().setVisible(false);
 							// System.out.println("Fechando Explorer. ");
 							Runtime.getRuntime().exec(
 									" taskkill /f /im explorer.exe");
@@ -534,16 +532,16 @@ public class ClienteControl {
 				return;
 
 			}
-			if (frameBloqueado.getTextFieldUsuario().getText()
+			if (frame.getTextFieldLogin().getText()
 					.equals("visitante")
-					&& frameBloqueado.getPasswordFieldSenha().getText()
+					&& frame.getPasswordFieldSenha().getText()
 							.equals("123456")) {
 				cliente.desbloqueia(3600, "visitante");
 				return;
 			}
-			if (frameBloqueado.getTextFieldUsuario().getText()
+			if (frame.getTextFieldLogin().getText()
 					.equals("aula")
-					&& frameBloqueado.getPasswordFieldSenha().getText()
+					&& frame.getPasswordFieldSenha().getText()
 							.equals("123456")) {
 				cliente.desbloqueia(18000, "aula");
 				return;
@@ -554,11 +552,10 @@ public class ClienteControl {
 					.getText());
 
 			new PrintStream(cliente.getSaida()).println("autentica("
-					+ frame.getTextFieldUsuario().getText() + "," + senha
+					+ frame.getTextFieldLogin().getText() + "," + senha
 					+ ")");
 
-			frame.getTextFieldUsuario().setText("");
-			frame.getPasswordFieldSenha().setText("");
+			frame.resetCampos();
 
 		}
 			
