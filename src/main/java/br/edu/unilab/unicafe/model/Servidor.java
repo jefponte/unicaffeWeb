@@ -1,37 +1,25 @@
 package br.edu.unilab.unicafe.model;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintStream;
-import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-import javax.swing.SwingUtilities;
-
 import com.google.gson.Gson;
 
 import br.edu.unilab.unicafe.dao.AcessoDAO;
+import br.edu.unilab.unicafe.dao.DAO;
 import br.edu.unilab.unicafe.dao.MaquinaDAO;
 import br.edu.unilab.unicafe.dao.UsuarioDAO;
-import br.edu.unilab.unicafe.view.FrameApresentacao;
-import br.edu.unilab.unicafe.view.FrameAviso;
-import br.edu.unilab.unicafe.view.FrameServidor;
 
 /**
  * 
@@ -45,26 +33,29 @@ public class Servidor {
 	private ServerSocket serverSocket;
 	private ArrayList<Cliente> listaDeClientes;
 
-	
+
 
 	public Servidor() {
+
+		
 		this.listaDeClientes = new ArrayList<Cliente>();
 		this.ip = "localhost";
 
 	}
 
 	
-	public void iniciaSplash() {
-		iniciaServico();
-		
-	}
+
 	public void iniciaServico() {
+	
+		
+		int porta = 27289;
 		try {
 
-			this.serverSocket = new ServerSocket(27289, 100);
+
+			this.serverSocket = new ServerSocket(porta, 100);
 			esperaConexoes();
 		} catch (IOException e) {
-			System.out.println("Não consegui criar o serviço na porta 27289.");
+			System.out.println("Não consegui criar o serviço na porta "+porta+".");
 			
 		}
 		
@@ -321,17 +312,23 @@ public class Servidor {
 			String login = parametros.substring(0, parametros.indexOf(','));
 			String senha = parametros.substring(parametros.indexOf(',') + 1);
 			
-			UsuarioDAO dao = new UsuarioDAO();
+			UsuarioDAO dao = new UsuarioDAO(DAO.TIPO_CONEXAO_AUTENTICACAO);
 			Usuario usuario = new Usuario();
 			usuario.setLogin(login);
 			usuario.setSenha(senha);
 			if (dao.autentica(usuario)) {
+				try {
+					dao.getConexao().close();
+				} catch (SQLException e1) {
+					
+					e1.printStackTrace();
+				}
 				System.out.println(cliente.getMaquina().getNome()+ ">> Autenticão bem sucedida.");
 				if (this.jaEstaLogado(usuario)) {
 					new PrintStream(cliente.getSaida()).println("printc(Já está logado!)");
 					return;
 				}
-				AcessoDAO acessoDao = new AcessoDAO(dao.getConexao());
+				AcessoDAO acessoDao = new AcessoDAO();
 				int tempo = acessoDao.retornaTempoUsadoHoje(usuario);
 				System.out.println("Usou: " + tempo);
 				if (tempo <= AcessoDAO.COTA) {
