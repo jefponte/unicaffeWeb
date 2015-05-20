@@ -12,7 +12,9 @@ import java.sql.SQLException;
 public class DAO {
 	
 	private int tipoDeConexao;
-	
+	public void setTipoDeConexao(int tipoDeConexao){
+		this.tipoDeConexao = tipoDeConexao;
+	}
 	
 	public DAO(int tipoDeConexao) {
 		this.tipoDeConexao = tipoDeConexao;
@@ -35,6 +37,10 @@ public class DAO {
 			case TIPO_POSTGRESQL:
 				Class.forName(DRIVER_POSTGRES);
 				this.conexao = DriverManager.getConnection(JDBC_BANCO_POSTGRES+ "//" + HOST_POSTGRES + "/" + BANCO_POSTGRES,USUARIO_POSTGRES, SENHA_POSTGRES);
+				break;
+			case TIPO_PG_PRODUCAO:
+				Class.forName(DRIVER_POSTGRES);
+				this.conexao = DriverManager.getConnection(JDBC_BANCO_POSTGRES+ "//" + HOST_PG_PRODUCAO + "/" + BANCO_PG_PRODUCAO,USUARIO_PG_PRODUCAO, SENHA_PG_PRODUCAO);
 				break;
 			case TIPO_PG_SIGAA:
 				Class.forName(DRIVER_POSTGRES);
@@ -85,17 +91,22 @@ public class DAO {
 	public static final String USUARIO_PG_SIGAA = "unicafe";
 	public  static final String USUARIO_PG_TESTE = "unicafe";
 	public  static final String SENHA_PG_SIGAA = "unicafe";
-	public  static final String SENHA_PG_SIMULACAO_SIGAA = "unicafe@unilab";
-	public static final String USUARIO_PG_SIMULACAO_SIGAA = "unicafe";
+	public  static final String SENHA_PG_SIMULACAO_SIGAA = "unicafe@sigaa";
+	public static final String USUARIO_PG_SIMULACAO_SIGAA = "unicafe_sigaa";
+	public static final String USUARIO_PG_PRODUCAO = "unicafe";
 	public  static final String HOST_POSTGRES = "localhost:5432";
+	public  static final String HOST_PG_PRODUCAO = "localhost:5432";
 	public  static final String HOST_PG_SIGAA = "200.17.41.200";
 	public  static final String HOST_PG_TESTE = "10.5.1.8";
-	public  static final String HOST_PG_SIMULACAO_SIGAA = "10.5.1.8";
+	public  static final String HOST_PG_SIMULACAO_SIGAA = "10.5.1.8:5432";
 	
 	public  static final String BANCO_PG_SIGAA = "sistemas_comum";
 	public  static final String BANCO_PG_TESTE = "unicafe";
 	public  static final String BANCO_PG_SIMULACAO_SIGAA = "sistemas_comum";
+	public  static final String BANCO_PG_PRODUCAO = "unicafe";
+	
 	public  static final String SENHA_POSTGRES = "cti@unilab2012";
+	public  static final String SENHA_PG_PRODUCAO = "unicafe";
 	public  static final String SENHA_PG_TESTE= "unicafe@unilab";
 
 	public  static final String BANCO_POSTGRES = "unicafe";
@@ -121,8 +132,11 @@ public class DAO {
 	public static final int TIPO_PG_SIGAA = 4;
 	public static final int TIPO_PG_TESTE = 5;
 	public static final int TIPO_PG_SIMULACAO_SIGAA = 6;
-	public static final int TIPO_CONEXAO_DEFAULT = TIPO_SQLITE;
-	public static final int TIPO_CONEXAO_AUTENTICACAO = TIPO_CONEXAO_DEFAULT;
+	
+	public static final int TIPO_PG_PRODUCAO = 7;
+	
+	public static final int TIPO_CONEXAO_DEFAULT = TIPO_PG_TESTE;
+	public static final int TIPO_CONEXAO_AUTENTICACAO = TIPO_PG_SIMULACAO_SIGAA;
 	
 	
 

@@ -30,7 +30,7 @@ public class MaquinaDAO extends DAO{
 			while(resultSet.next()){
 				Maquina maquina = new Maquina();
 
-				maquina.setNome(resultSet.getString("nome"));
+				maquina.setNome(resultSet.getString("nome_pc"));
 				maquina.setId(resultSet.getInt("id_maquina"));
 				lista.add(maquina);
 			}
@@ -63,8 +63,10 @@ public class MaquinaDAO extends DAO{
 	 */
 	public boolean existe(Maquina maquina){
 		try {
-			PreparedStatement ps = this.getConexao().prepareStatement("SELECT * FROM maquina WHERE nome = ?");
+			PreparedStatement ps = this.getConexao().prepareStatement("SELECT * FROM maquina WHERE nome_pc = ?");
 			ps.setString(1, maquina.getNome());
+			
+			
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
 				maquina.setId(rs.getInt("id_maquina"));
@@ -85,16 +87,19 @@ public class MaquinaDAO extends DAO{
 
 	public boolean cadastra(Maquina maquina){
 		try {
-			PreparedStatement ps = this.getConexao().prepareStatement("SELECT * FROM maquina WHERE nome = ?");
+			PreparedStatement ps = this.getConexao().prepareStatement("SELECT * FROM maquina WHERE nome_pc = ?");
 			ps.setString(1, maquina.getNome());
 			ResultSet rs = ps.executeQuery();
 			while(rs.next())
 				return false;
-			PreparedStatement ps2 = this.getConexao().prepareStatement("INSERT into maquina(nome) VALUES(?)");			
+			PreparedStatement ps2 = this.getConexao().prepareStatement("INSERT into maquina(nome_pc, mac, service_tag, modelo) VALUES(?, ?, ?, ?)");			
 			ps2.setString(1, maquina.getNome());
+			ps2.setString(2, "Não Informado");
+			ps2.setString(3, "Não Informado");
+			ps2.setString(4, "Não Informado");
 			ps2.executeUpdate();
 			
-			PreparedStatement ps3 = this.getConexao().prepareStatement("SELECT * FROM maquina WHERE nome = ?");
+			PreparedStatement ps3 = this.getConexao().prepareStatement("SELECT * FROM maquina WHERE nome_pc = ?");
 			ps3.setString(1, ""+maquina.getNome());
 			ResultSet rs2 = ps3.executeQuery();
 			while(rs2.next()){

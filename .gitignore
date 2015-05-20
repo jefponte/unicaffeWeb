@@ -1,0 +1,7 @@
+/target
+*.exe
+*.classpath
+/log
+/.settings
+*.project
+*.log

@@ -11,7 +11,13 @@ import javax.swing.ImageIcon;
 
 public class FrameDescanso extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
+
+	
 
 
 	/**
@@ -33,5 +39,6 @@ public class FrameDescanso extends JFrame {
 		label.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "logo-protetor.png")));
 		label.setBounds((getWidth()/2-250), (getHeight()/2-106), 500, 112);
 		contentPane.add(label);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	}
 }

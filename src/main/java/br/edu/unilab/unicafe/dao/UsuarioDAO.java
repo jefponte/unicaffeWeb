@@ -1,9 +1,7 @@
 package br.edu.unilab.unicafe.dao;
 
 import java.io.UnsupportedEncodingException;
-import java.math.BigInteger;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -44,6 +42,8 @@ public class UsuarioDAO extends DAO {
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
 				usuario.setId(rs.getInt("id_usuario"));
+				usuario.setNome(rs.getString("nome"));
+				usuario.setEmail(rs.getString("email"));
 				return true;
 			}
 		} catch (SQLException e) {
@@ -96,9 +96,12 @@ public class UsuarioDAO extends DAO {
 			ps.setString(1, usuario.getLogin());
 			ps.setString(2, usuario.getEmail());
 			ResultSet rs = ps.executeQuery();
-			while(rs.next())
+			while(rs.next()){
+			
+				usuario.setId(rs.getInt("id_usuario"));
 				return false;
-			PreparedStatement ps2 = this.getConexao().prepareStatement("INSERT into usuario(nome, email, login, senha, nivel_acesso, cpf) VALUES(?, ?, ?, ?, 1, ?)");
+			}
+			PreparedStatement ps2 = this.getConexao().prepareStatement("INSERT into usuario(nome, email, login, senha, id_base_externa) VALUES(?, ?, ?, ?, ?)");
 			
 			ps2.setString(1, usuario.getNome());
 			ps2.setString(2, usuario.getEmail());
@@ -106,19 +109,20 @@ public class UsuarioDAO extends DAO {
 			
 			
 			
-			MessageDigest m;
-			try {
-				m = MessageDigest.getInstance("MD5");
-				m.update(usuario.getSenha().getBytes(),0,usuario.getSenha().length());
-				usuario.setSenha(new BigInteger(1,m.digest()).toString(16));
-			} catch (NoSuchAlgorithmException e) {
-				e.printStackTrace();
-				return false;
-			}				
-			ps2.setString(4, usuario.getSenha());
-			ps2.setString(5, usuario.getCpf());
-			ps2.executeUpdate();
+//			MessageDigest m;
+//			try {
+//				m = MessageDigest.getInstance("MD5");
+//				m.update(usuario.getSenha().getBytes(),0,usuario.getSenha().length());
+//				usuario.setSenha(new BigInteger(1,m.digest()).toString(16));
+//			} catch (NoSuchAlgorithmException e) {
+//				e.printStackTrace();
+//				return false;
+//			}				
 			
+			ps2.setString(4, usuario.getSenha());
+			ps2.setInt(5, usuario.getId());
+			ps2.executeUpdate();
+			cadastra(usuario);
 			return true;
 					
 			

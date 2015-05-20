@@ -2,7 +2,6 @@ package br.edu.unilab.unicafe.view;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
@@ -20,28 +19,11 @@ import java.awt.Font;
 
 public class FrameTelaAcesso extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FrameTelaAcesso frame = new FrameTelaAcesso();
-					frame.setVisible(true);
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
 	private JButton btnFinalizar;
 	public JButton getBtnFinalizar(){
 		return this.btnFinalizar;
@@ -58,7 +40,6 @@ public class FrameTelaAcesso extends JFrame {
 	public FrameTelaAcesso() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setUndecorated(true);
-		setAlwaysOnTop(true);
 		Toolkit tk = Toolkit.getDefaultToolkit();  
 	    Dimension d = tk.getScreenSize();  
 		setSize(d.width, 45);
@@ -91,7 +72,7 @@ public class FrameTelaAcesso extends JFrame {
 		
 		btnFinalizar = new JButton("Finalizar");
 		
-		btnFinalizar.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "icones\\sair.png")));
+		btnFinalizar.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "sair.png")));
 		btnFinalizar.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnFinalizar.setForeground(new Color(255, 255, 255));
 		btnFinalizar.addMouseListener(new MouseAdapter() {
@@ -113,7 +94,7 @@ public class FrameTelaAcesso extends JFrame {
 		
 		JButton btnChat = new JButton("Chat");
 		
-		btnChat.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "icones\\chat.png")));
+		btnChat.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "chat.png")));
 		btnChat.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnChat.setForeground(new Color(255, 255, 255));
 		btnChat.addMouseListener(new MouseAdapter() {
@@ -153,7 +134,7 @@ public class FrameTelaAcesso extends JFrame {
 		
 		JLabel labelLabIcone = new JLabel("", JLabel.CENTER);
 		
-		labelLabIcone.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "icones\\user2.png")));
+		labelLabIcone.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "user2.png")));
 		labelLabIcone.setBounds(0, 0, 35, 35);
 		panelLabIcone.add(labelLabIcone);
 		
@@ -181,10 +162,10 @@ public class FrameTelaAcesso extends JFrame {
 		panelPCIcone.setLayout(null);
 		
 		JLabel labelPCIcone = new JLabel("", JLabel.CENTER);
-		labelPCIcone.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "icones\\relogio.png")));
+		labelPCIcone.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "relogio.png")));
 		labelPCIcone.setBounds(0, 0, 35, 35);
 		panelPCIcone.add(labelPCIcone);
-		
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
 		
 		

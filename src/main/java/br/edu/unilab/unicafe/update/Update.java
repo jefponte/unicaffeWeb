@@ -1,12 +1,9 @@
 package br.edu.unilab.unicafe.update;
 
-import java.awt.Frame;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -18,12 +15,17 @@ import java.util.Properties;
 import java.util.Scanner;
 
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 
 public class Update {
 
 	
 	
+	private Socket conexao;
+	private BufferedReader reader;
+	private ObjectInputStream entrada;
+	private FileOutputStream out;
+	private String linha;
+
 	public void iniciaUpdate() {
 		// O objetivo aqui � conectar ao servidor e pedir atualiza��o do
 		// unicafe.
@@ -42,29 +44,26 @@ public class Update {
 		
 		
 
-		FileOutputStream fos = null;
-		InputStream is = null;
-
 		try {
 			Properties config = new Properties();
 			FileInputStream fileInputStream = new FileInputStream("config.ini");
 			config.load(fileInputStream);
 			String ipDoServidor = config.getProperty("host_unicafeserver");
 			fileInputStream.close();
-			Socket conexao = new Socket(ipDoServidor, 12345);
+			conexao = new Socket(ipDoServidor, 12345);
 			ObjectOutputStream saida = new ObjectOutputStream(conexao.getOutputStream());
 			InputStream in = conexao.getInputStream();
 			InputStreamReader isr = new InputStreamReader(in);
-			BufferedReader reader = new BufferedReader(isr);
+			setReader(new BufferedReader(isr));
 			
 			
 			
 			
 			saida.writeObject("setStatus(4)");
 			saida.flush();
-			ObjectInputStream entrada = new ObjectInputStream(conexao.getInputStream());
+			setEntrada(new ObjectInputStream(conexao.getInputStream()));
 			File f1 = new File("C:\\Program Files (x86)\\UniCafe\\UniCafeClient.exe");
-			FileOutputStream out = new FileOutputStream(f1);
+			out = new FileOutputStream(f1);
 			int tamanho = 4096;
 			
 			byte[] buffer = new byte[tamanho];    
@@ -81,7 +80,7 @@ public class Update {
 				process = Runtime.getRuntime().exec(" shutdown -r");
 				leitor = new Scanner(process.getInputStream());
 				while (leitor.hasNext()) {
-					String linha = leitor.nextLine();
+					setLinha(leitor.nextLine());
 				}
 				
 			} catch (IOException e) {
@@ -103,5 +102,29 @@ public class Update {
 
 		
 
+	}
+
+	public String getLinha() {
+		return linha;
+	}
+
+	public void setLinha(String linha) {
+		this.linha = linha;
+	}
+
+	public ObjectInputStream getEntrada() {
+		return entrada;
+	}
+
+	public void setEntrada(ObjectInputStream entrada) {
+		this.entrada = entrada;
+	}
+
+	public BufferedReader getReader() {
+		return reader;
+	}
+
+	public void setReader(BufferedReader reader) {
+		this.reader = reader;
 	}
 }

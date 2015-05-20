@@ -43,11 +43,11 @@ public class Perfil {
 	}
 
 	public void executar() {
-		Process process;
 		for (Registro registro : listaDeRegistros) {
 			try {
 
-				process = Runtime.getRuntime().exec(registro.toString());
+				@SuppressWarnings("unused")
+				Process process = Runtime.getRuntime().exec(registro.toString());
 
 			} catch (IOException e) {
 				
@@ -56,6 +56,7 @@ public class Perfil {
 		}
 	}
 	public void deletar() {
+		@SuppressWarnings("unused")
 		Process process;
 		for (Registro registro : listaDeRegistros) {
 			try {
@@ -69,6 +70,7 @@ public class Perfil {
 		}
 	}
 	public void desfazer() {
+		@SuppressWarnings("unused")
 		Process process;
 		for (Registro registro : listaDeRegistros) {
 			try {
