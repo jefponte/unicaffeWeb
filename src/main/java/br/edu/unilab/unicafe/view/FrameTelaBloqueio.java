@@ -2,7 +2,6 @@ package br.edu.unilab.unicafe.view;
 
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.EventQueue;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
@@ -19,18 +18,18 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import java.awt.Font;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.InputMethodListener;
-import java.awt.event.InputMethodEvent;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 
 public class FrameTelaBloqueio extends JFrame {
 
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JLabel labelNomePC;
 	private JLabel labelNomeLaboratorio;
 	private JTextField textFieldLogin;
@@ -44,22 +43,6 @@ public class FrameTelaBloqueio extends JFrame {
 	private JLabel labelStatus;
 	private JPanel panelStatusIcone;
 	private JLabel labelIconeStatus;
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FrameTelaBloqueio frame = new FrameTelaBloqueio();
-					frame.setVisible(true);
-					frame.setStatusConexao(false);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the frame.
@@ -105,7 +88,7 @@ public class FrameTelaBloqueio extends JFrame {
 		
 		
 		
-		button.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "icones\\user.png")));
+		button.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "user.png")));
 		button.setBackground(new Color(164, 94, 77));
 		button.setBounds(33, 97, 46, 37);
 		panelForm2.add(button);
@@ -114,7 +97,7 @@ public class FrameTelaBloqueio extends JFrame {
 		
 		JButton button2 = new JButton("");
 		
-		button2.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "icones\\key.png")));
+		button2.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "key.png")));
 		button2.setBackground(new Color(164, 94, 77));
 		button2.setBounds(33, 144, 46, 37);
 		panelForm2.add(button2);
@@ -127,7 +110,7 @@ public class FrameTelaBloqueio extends JFrame {
 		btnCancelar.setForeground(new Color(255, 255, 255));
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
-		btnCancelar.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "icones\\close.png")));
+		btnCancelar.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "close.png")));
 		btnCancelar.setBackground(new Color(164, 94, 77));
 		btnCancelar.setBounds(33, 191, 125, 37);
 		panelForm2.add(btnCancelar);
@@ -139,7 +122,7 @@ public class FrameTelaBloqueio extends JFrame {
 		btnEntrar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		btnEntrar.setForeground(new Color(255, 255, 255));
 		
-		btnEntrar.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "icones\\door.png")));
+		btnEntrar.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "door.png")));
 		btnEntrar.setBackground(new Color(248, 158, 50));
 		btnEntrar.setBounds(164, 191, 125, 37);
 		panelForm2.add(btnEntrar);
@@ -204,6 +187,7 @@ public class FrameTelaBloqueio extends JFrame {
 		
 		
 		passwordFieldSenha.addKeyListener(new KeyAdapter() {
+			@SuppressWarnings("deprecation")
 			@Override
 			public void keyTyped(KeyEvent e) {
 				if(!passwordFieldSenha.getText().equals(""))
@@ -245,7 +229,7 @@ public class FrameTelaBloqueio extends JFrame {
 		JLabel labelLabIcone = new JLabel("", JLabel.CENTER);
 		
 		
-		labelLabIcone.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "icones\\lab.png")));
+		labelLabIcone.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "lab.png")));
 		labelLabIcone.setBounds(0, 0, 45, 43);
 		panelLabIcone.add(labelLabIcone);
 		
@@ -269,7 +253,7 @@ public class FrameTelaBloqueio extends JFrame {
 		panelPCIcone.setLayout(null);
 		
 		JLabel labelPCIcone = new JLabel("", JLabel.CENTER);
-		labelPCIcone.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "icones\\pc.png")));
+		labelPCIcone.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "pc.png")));
 		labelPCIcone.setBounds(0, 0, 45, 43);
 		panelPCIcone.add(labelPCIcone);
 		
@@ -296,21 +280,65 @@ public class FrameTelaBloqueio extends JFrame {
 		
 		labelIconeStatus = new JLabel("", JLabel.CENTER);
 		
-		labelIconeStatus.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "icones\\link-quebrado.png")));
+		labelIconeStatus.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "link-quebrado.png")));
 		labelIconeStatus.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		labelIconeStatus.setBounds(0, 0, 45, 43);
 		panelStatusIcone.add(labelIconeStatus);
-		
-		
+		addWindowListener(new WindowListener() {
+
+			@Override
+			public void windowOpened(WindowEvent e) {
+
+			}
+
+			@Override
+			public void windowIconified(WindowEvent e) {
+				setExtendedState(JFrame.MAXIMIZED_BOTH);
+
+			}
+
+			@Override
+			public void windowDeiconified(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowDeactivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowClosing(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowClosed(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+
+			@Override
+			public void windowActivated(WindowEvent e) {
+				// TODO Auto-generated method stub
+
+			}
+		});
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 	}
 	public void setStatusConexao(boolean status){
 		if(status){
 			panelStatus.setBackground(new Color(74, 185, 108));
 			panelStatusIcone.setBackground(new Color(0, 168, 89));
 			labelStatus.setText("Conectado. Aguardando Usuário.");
+			labelIconeStatus.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "link.png")));
 		}else{
 			panelStatus.setBackground(new Color(238, 65, 71));
 			panelStatusIcone.setBackground(new Color(237, 50, 55));
+			labelIconeStatus.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "link-quebrado.png")));
 			labelStatus.setText("Desconectado. Verifique a rede.");
 		}
 	}

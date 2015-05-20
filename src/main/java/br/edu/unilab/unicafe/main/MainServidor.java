@@ -1,5 +1,6 @@
 package br.edu.unilab.unicafe.main;
 
+
 import br.edu.unilab.unicafe.model.Servidor;
 
 /**
@@ -9,13 +10,59 @@ import br.edu.unilab.unicafe.model.Servidor;
  */
 public class MainServidor {
 	public static void main(String[] args) {
+		
+		
+		
+//		
 //
 		Servidor servidor = new Servidor();
 		servidor.iniciaServico();
 
+
 		
 		
+//		
+//		
+//		DAO dao = new DAO(DAO.TIPO_PG_PRODUCAO);
+//
+//		try {
+//			System.out.println("Vamos inserir e listar.");
+//			PreparedStatement ps = dao.getConexao().prepareStatement(""
+//					+"INSERT into campus(nome_campus) VALUES(?);");
+//			ps.setString(1, "AURORAS");
+//			ps.execute();
+//			
+//			
+//			
+//			
+//		} catch (SQLException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//		
 		
+		
+//		
+//		System.out.println("Teste de view do Banco de dados do Cicero");
+//			
+//			DAO dao = new DAO(DAO.TIPO_PG_SIMULACAO_SIGAA);
+//			PreparedStatement ps;
+//			try {
+//				
+//				//SELECT column_name FROM information_schema.columns WHERE table_name ='table_name';
+//				ps = dao.getConexao().prepareStatement("SELECT * FROM usuarios_unicafe");
+//				java.sql.ResultSet resultSet = ps.executeQuery();
+//				while(resultSet.next()){
+//					
+//					System.out.println(resultSet.getString("nome"));
+//				}
+//				
+//			} catch (SQLException e) {
+//				e.printStackTrace();
+//			}
+			
+//			
+//		
 		
 //		
 //		

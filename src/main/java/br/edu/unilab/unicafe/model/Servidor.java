@@ -191,6 +191,7 @@ public class Servidor {
 							cliente.getMaquina().setStatus(status);
 							try {
 								File f = new File("C:\\UniCafe\\UniCafeClient.exe");
+								@SuppressWarnings("resource")
 								FileInputStream in1 = new FileInputStream(f);
 								OutputStream out = cliente.getConexao().getOutputStream(); 
 								OutputStreamWriter osw = new OutputStreamWriter(out);
@@ -279,9 +280,11 @@ public class Servidor {
 		return false;
 	}
 	public synchronized void processaMensagemAdmin(final Cliente cliente, String mensagem) {
+		@SuppressWarnings("unused")
+		String parametros = "";
 		System.out.println("Segunda mensagem: "+mensagem);
 		String comando = mensagem.substring(0, mensagem.indexOf('('));
-		String parametros = mensagem.substring((mensagem.indexOf('(') + 1),mensagem.indexOf(')'));
+		parametros = mensagem.substring((mensagem.indexOf('(') + 1),mensagem.indexOf(')'));
 		if(comando.equals("getMaquinas")){
 			String json = anotaJson();
 			new PrintStream(cliente.getSaida()).println(json);	
@@ -323,6 +326,18 @@ public class Servidor {
 					
 					e1.printStackTrace();
 				}
+				
+				try {
+					dao.getConexao().close();
+					dao.setTipoDeConexao(DAO.TIPO_CONEXAO_DEFAULT);
+					dao.novaConexao();
+				} catch (SQLException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				dao.cadastra(usuario);
+				
 				System.out.println(cliente.getMaquina().getNome()+ ">> Autenticão bem sucedida.");
 				if (this.jaEstaLogado(usuario)) {
 					new PrintStream(cliente.getSaida()).println("printc(Já está logado!)");
@@ -387,7 +402,7 @@ public class Servidor {
 			cliente.getMaquina().setNome(nome);
 			MaquinaDAO maquinaDao = new MaquinaDAO();
 			if (!maquinaDao.existe(cliente.getMaquina())) {
-			//	maquinaDao.cadastra(cliente.getMaquina());
+				maquinaDao.cadastra(cliente.getMaquina());
 
 			}
 			try {
@@ -434,6 +449,7 @@ public class Servidor {
 				try {
 					
 					File f = new File("C:\\UniCafe\\UniCafeClient.exe");
+					@SuppressWarnings("resource")
 					FileInputStream in = new FileInputStream(f);
 					OutputStream out = cliente.getConexao().getOutputStream(); 
 					OutputStreamWriter osw = new OutputStreamWriter(out);

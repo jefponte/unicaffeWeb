@@ -2,7 +2,7 @@ package br.edu.unilab.unicafe.main;
 
 
 
-import br.edu.unilab.unicafe.model.Cliente;
+import br.edu.unilab.unicafe.control.ClienteControl;
 
 /**
  * 
@@ -14,9 +14,10 @@ public class MainClient {
 
 	public static void main(String[] args) {
 		
-		Cliente cliente = new Cliente();
-		cliente.iniciaCliente();
+		
 
+		ClienteControl controle = new ClienteControl();
+		controle.iniciaCliente();
 	
 		
 	}

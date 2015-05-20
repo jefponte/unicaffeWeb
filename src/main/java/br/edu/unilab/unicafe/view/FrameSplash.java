@@ -5,27 +5,17 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.Color;
-import java.awt.EventQueue;
 
 import javax.swing.JLabel;
 
 public class FrameSplash extends JFrame {
+	
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					FrameSplash frame = new FrameSplash();
-					frame.setVisible(true);
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	
+	
 	public FrameSplash() {
-		
+		setAlwaysOnTop(true);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(145, 216, 247));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -39,6 +29,7 @@ public class FrameSplash extends JFrame {
 		contentPane.add(label);
 		setLocationRelativeTo(null);  
 		setUndecorated(true);
+		setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
 	}
 	

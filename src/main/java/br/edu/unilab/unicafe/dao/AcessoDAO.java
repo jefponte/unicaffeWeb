@@ -1,11 +1,9 @@
 package br.edu.unilab.unicafe.dao;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Time;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -223,7 +221,7 @@ public class AcessoDAO extends DAO {
 			PreparedStatement ps2 = this
 					.getConexao()
 					.prepareStatement(
-							"INSERT into acesso(id_usuario, tempo_usado, hora_inicial, id_maquina, tempo_oferecido, ip4) VALUES(?, ?, ?, ?, ?, ?)");
+							"INSERT into acesso(id_usuario, tempo_usado, hora_inicial, id_maquina, tempo_oferecido, ipv4) VALUES(?, ?, ?, ?, ?, ?)");
 			ps2.setInt(1, acesso.getUsuario().getId());
 			ps2.setInt(2, acesso.getTempoUsado());
 			
