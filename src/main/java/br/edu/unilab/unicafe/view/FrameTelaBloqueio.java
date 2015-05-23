@@ -22,6 +22,8 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 public class FrameTelaBloqueio extends JFrame {
 
@@ -31,6 +33,9 @@ public class FrameTelaBloqueio extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JLabel labelNomePC;
+	public JLabel getLabelNomePC(){
+		return this.labelNomePC;
+	}
 	private JLabel labelNomeLaboratorio;
 	private JTextField textFieldLogin;
 	private JPasswordField passwordFieldSenha;
@@ -107,6 +112,16 @@ public class FrameTelaBloqueio extends JFrame {
 		
 
 		btnCancelar = new JButton("Cancelar");
+		btnCancelar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				getTextFieldLogin().setText("");
+				getPasswordFieldSenha().setText("");
+				getTextFieldLogin().requestFocus();
+				getLblUsuarioSig().setText("Usuário SIG");
+				getLblSenhaSIG().setText("Senha SIG");
+				
+			}
+		});
 		btnCancelar.setForeground(new Color(255, 255, 255));
 		btnCancelar.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		
@@ -137,6 +152,7 @@ public class FrameTelaBloqueio extends JFrame {
 		panelForm2.add(labelMensagem);
 		
 		textFieldLogin = new JTextField();
+		
 		textFieldLogin.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyTyped(KeyEvent e) {
@@ -144,6 +160,13 @@ public class FrameTelaBloqueio extends JFrame {
 					getLblUsuarioSig().setText("");
 				else
 					getLblUsuarioSig().setText("Usuário SIG");
+			}
+			@Override
+			public void keyPressed(KeyEvent e) {
+				if (e.getKeyCode() == KeyEvent.VK_ENTER){
+					getPasswordFieldSenha().requestFocus();
+				} 
+					
 			}
 		});
 		
@@ -173,7 +196,7 @@ public class FrameTelaBloqueio extends JFrame {
 		
 		
 		
-		lblUsuarioSig = new JLabel("Usuario SIG");
+		lblUsuarioSig = new JLabel("Usuário SIG");
 		lblUsuarioSig.setForeground(Color.LIGHT_GRAY);
 		lblUsuarioSig.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		lblUsuarioSig.setBounds(84, 101, 100, 29);
@@ -215,7 +238,7 @@ public class FrameTelaBloqueio extends JFrame {
 		panelTopo.add(panelLab);
 		panelLab.setLayout(null);
 		
-		labelNomeLaboratorio = new JLabel("LABTI01",  JLabel.CENTER);
+		labelNomeLaboratorio = new JLabel("Laborat\u00F3rio",  JLabel.CENTER);
 		labelNomeLaboratorio.setForeground(new Color(0, 158, 216));
 		labelNomeLaboratorio.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		labelNomeLaboratorio.setBounds(0, 0, 120, 43);

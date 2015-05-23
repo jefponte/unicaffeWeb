@@ -149,9 +149,6 @@ public class PerfilBloqueio {
 			this.listaDeProcessosAceitos.add(new Processo("soffice.exe", "C:\\Program Files (x86)\\LibreOffice 4\\program\\soffice.exe", "6368"));
 			this.listaDeProcessosAceitos.add(new Processo("soffice.bin", "C:\\Program Files (x86)\\LibreOffice 4\\program\\soffice.bin", "3912"));
 			this.listaDeProcessosAceitos.add(new Processo("chrome.exe", "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe", "3896"));
-			this.listaDeProcessosAceitos.add(new Processo("chrome.exe", "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe", "6224"));
-			this.listaDeProcessosAceitos.add(new Processo("chrome.exe", "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe", "2468"));
-			this.listaDeProcessosAceitos.add(new Processo("chrome.exe", "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe", "7112"));
 			this.listaDeProcessosAceitos.add(new Processo("chrome.exe", "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe", "3564"));
 			this.listaDeProcessosAceitos.add(new Processo("audiodg.exe", "", "6356"));
 			this.listaDeProcessosAceitos.add(new Processo("WINWORD.EXE", "C:\\Program Files (x86)\\Microsoft Office\\Office15\\WINWORD.EXE", "5964"));
@@ -201,6 +198,7 @@ public class PerfilBloqueio {
 				String linha = linhaArquivo.readLine();
 				String[] vDados = linha.split("[,]");
 				try{
+					@SuppressWarnings("unused")
 					Processo p = new Processo(vDados[1], vDados[0], vDados[2]);
 					//System.out.println("this.listaDeProcessosAceitos.add(new Processo(\""+vDados[1]+"\", \""+vDados[0]+"\", \""+vDados[2]+"\"));");
 					this.listaDeProcessosAceitos.add(new Processo(vDados[1], vDados[0], vDados[2]));
@@ -294,8 +292,6 @@ public class PerfilBloqueio {
 			if (!existeNaLista) {
 				
 				
-				Process process;
-				Scanner leitor;
 
 				try {
 
@@ -304,12 +300,11 @@ public class PerfilBloqueio {
 					//JOptionPane.showMessageDialog(null, "Meu Amor, não pode executar "+ processoAtivo.getImagem()+" - "+processoAtivo.getExecutablePath());
 					//System.out.println("Meu Amor, não pode executar "+ processoAtivo.getImagem()+" - "+processoAtivo.getExecutablePath());
 					//new Log("Matei Um processo \n"+processoAtivo.getExecutablePath()+","+processoAtivo.getImagem());
-					process = Runtime.getRuntime().exec(" taskkill /PID \"" + processoAtivo.getProcessId()+"\" /F");
+					Runtime.getRuntime().exec(" taskkill /PID \"" + processoAtivo.getProcessId()+"\" /F");
 					if(processoAtivo.getExecutablePath().length() > 5){
 						System.out.println(processoAtivo.getExecutablePath().substring(0, 5));	
 					}      
 					
-					leitor = new Scanner(process.getInputStream());
 
 					/*
 					while (leitor.hasNext()) {
