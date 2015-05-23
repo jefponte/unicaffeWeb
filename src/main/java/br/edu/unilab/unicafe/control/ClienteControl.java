@@ -9,11 +9,15 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.concurrent.Semaphore;
+
+import javax.swing.JFrame;
 
 import br.edu.unilab.unicafe.bloqueio.model.PerfilBloqueio;
 import br.edu.unilab.unicafe.dao.UsuarioDAO;
@@ -45,18 +49,25 @@ public class ClienteControl {
 	private Thread escInfinito;
 	private boolean bloqueado;
 	private boolean bloqueandoAplicacoes;
+	private Semaphore semaforo;
+	public Semaphore getSemaforo(){
+		return this.semaforo;
+	}
 	/**
 	 * Model
 	 */
 	private Cliente cliente;
 
 	public ClienteControl() {
+		this.semaforo = new Semaphore(1);
 		this.cliente = new Cliente();
 		this.getCliente().getMaquina().preencheComMaquinaLocal();
+		
 		this.setFrameTelaAcesso(new FrameTelaAcesso());
 		this.setFrameSplash(new FrameSplash());
 		this.setFrameAviso(new FrameAviso());
 		this.setFrameTelaBloqueio(new FrameTelaBloqueio());
+		this.getFrameTelaBloqueio().getLabelNomePC().setText(this.getCliente().getMaquina().getNome());
 	}
 
 	public void iniciaCliente() {
@@ -65,6 +76,61 @@ public class ClienteControl {
 		
 		
 
+	}
+	public void tentarLogar(){
+		//Saida de emergência
+		if (getFrameTelaBloqueio().getTextFieldLogin().getText()
+				.equals("emergencia")
+				&& getFrameTelaBloqueio().getPasswordFieldSenha().getText()
+						.equals("emergencia@123A")) {
+
+			desBloqueandoServicos();
+
+			Thread t = new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+
+					try {
+						getFrameTelaBloqueio().setVisible(false);
+						// System.out.println("Fechando Explorer. ");
+						Runtime.getRuntime().exec(
+								" taskkill /f /im explorer.exe");
+						Thread.sleep(1000);
+						// System.out.println("Abrindo Explorer. ");
+						Runtime.getRuntime().exec("explorer.exe");
+						System.exit(0);
+
+					} catch (InterruptedException | IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+
+				}
+			});
+			t.start();
+			return;
+
+		}
+		
+		if (getFrameTelaBloqueio().getTextFieldLogin().getText()
+				.equals("aula")
+				&& getFrameTelaBloqueio().getPasswordFieldSenha().getText()
+						.equals("aula@123A")) {
+			desbloqueia(18000, "aula");
+			return;
+		}
+		
+		String senha = UsuarioDAO.getMD5(getFrameTelaBloqueio().getPasswordFieldSenha()
+				.getText());
+
+		new PrintStream(cliente.getSaida()).println("autentica("
+				+ getFrameTelaBloqueio().getTextFieldLogin().getText() + "," + senha
+				+ ")");
+
+		getFrameTelaBloqueio().resetCampos();
+
+	
 	}
 	public void iniciaSplash(){
 		Thread iniciandoSplash = new Thread(new Runnable() {
@@ -85,67 +151,20 @@ public class ClienteControl {
 								bloqueia();
 							}
 						});
+				getFrameTelaBloqueio().getPasswordFieldSenha().addKeyListener(new KeyAdapter() {
+					public void keyPressed(java.awt.event.KeyEvent e) {
+						if (e.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+							tentarLogar();
+						}
+					}
+					
+				});
 				
+						
+						
 				getFrameTelaBloqueio().getBtnEntrar().addActionListener(new ActionListener() {
 					public void actionPerformed(ActionEvent e) {
-						//Saida de emergência
-						if (getFrameTelaBloqueio().getTextFieldLogin().getText()
-								.equals("emergencia")
-								&& getFrameTelaBloqueio().getPasswordFieldSenha().getText()
-										.equals("emergencia@123A")) {
-
-							desBloqueandoServicos();
-
-							Thread t = new Thread(new Runnable() {
-
-								@Override
-								public void run() {
-
-									try {
-										getFrameTelaBloqueio().setVisible(false);
-										// System.out.println("Fechando Explorer. ");
-										Runtime.getRuntime().exec(
-												" taskkill /f /im explorer.exe");
-										Thread.sleep(1000);
-										// System.out.println("Abrindo Explorer. ");
-										Runtime.getRuntime().exec("explorer.exe");
-										System.exit(0);
-
-									} catch (InterruptedException | IOException e) {
-										// TODO Auto-generated catch block
-										e.printStackTrace();
-									}
-
-								}
-							});
-							t.start();
-							return;
-
-						}
-						if (getFrameTelaBloqueio().getTextFieldLogin().getText()
-								.equals("visitante")
-								&& getFrameTelaBloqueio().getPasswordFieldSenha().getText()
-										.equals("123456")) {
-							desbloqueia(120, "visitante");
-							return;
-						}
-						if (getFrameTelaBloqueio().getTextFieldLogin().getText()
-								.equals("aula")
-								&& getFrameTelaBloqueio().getPasswordFieldSenha().getText()
-										.equals("aula@123A")) {
-							desbloqueia(18000, "aula");
-							return;
-						}
-						
-						String senha = UsuarioDAO.getMD5(getFrameTelaBloqueio().getPasswordFieldSenha()
-								.getText());
-
-						new PrintStream(cliente.getSaida()).println("autentica("
-								+ getFrameTelaBloqueio().getTextFieldLogin().getText() + "," + senha
-								+ ")");
-
-						getFrameTelaBloqueio().resetCampos();
-
+						tentarLogar();
 					}
 				});
 				
@@ -165,6 +184,7 @@ public class ClienteControl {
 	
 	public void bloqueia(){
 		getCliente().getMaquina().getAcesso().getUsuario().setLogin("livre");
+		getCliente().getMaquina().getAcesso().pararDeContar();
 		String caminho = "\\\\DTI43\\arquivos";
 		Desktop d = new Desktop(caminho, "jefponte");
 		d.desfazer();
@@ -259,7 +279,7 @@ public class ClienteControl {
 	
 	
 	public void iniciaEscInfinito() {
-
+		
 		this.escInfinito = new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -298,13 +318,29 @@ public class ClienteControl {
 			@Override
 			public void run() {
 			
-				
+				int j = 0;
 				for(int i = 0; true; i++)
 				{
+					
+					
+					try {
+						Thread.sleep(5000);
+					} catch (InterruptedException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 				
 					try {
 						try {
-							Socket socket = new Socket("200.129.19.40", 27289);
+							j++;
+							if(j > 10){
+								j = 0;
+							}
+							Socket socket;
+							if(j <= 5)
+								socket = new Socket("200.129.19.40", 27289);
+							else
+								socket = new Socket("10.5.1.8", 27289);
 							getCliente().setConexao(socket);
 							getCliente().setEntrada(socket.getInputStream());
 							getCliente().setSaida(socket.getOutputStream());
@@ -326,11 +362,12 @@ public class ClienteControl {
 							System.out.println("Erro de IO Exception. Deve ter desligado o Servidor.");
 							getFrameTelaBloqueio().getLabelStatus().setText("Erro no Servidor. Tentativa: "+i);
 						}
-						Thread.sleep(5000);
+						Thread.sleep(100);
 					} catch (InterruptedException e) {
 						System.out.println("Não consegui esperar 5 segundos. Esse erro não dá muito problema. ");
 						getFrameTelaBloqueio().getLabelStatus().setText("Thread Não dormiu. Tentativa: "+i);
 					}
+					
 				}
 			}
 		});
@@ -339,8 +376,6 @@ public class ClienteControl {
 
 	
 	public void processaCliente() {
-
-		
 		Thread processando = new Thread(new Runnable() {
 
 			@Override
@@ -353,9 +388,11 @@ public class ClienteControl {
 					
 					printStream.println("setStatus(" + getCliente().getMaquina().getStatus() + ")");
 					printStream.println("setNome(" + getCliente().getMaquina().getNome() + ")");
+					printStream.println("setNome(" + getCliente().getMaquina().getNome() + ")");
+					printStream.println("setNome(" + getCliente().getMaquina().getNome() + ")");
 					printStream.println("setMac(" + getCliente().getMaquina().getEnderecoMac()+ ")");
 					
-					while (true) {
+					while (getCliente().getConexao().isConnected()) {
 						
 						String mensagem;
 						try {
@@ -364,13 +401,24 @@ public class ClienteControl {
 							processaMensagem(mensagem);
 						} catch (IOException e) {
 							e.printStackTrace();
-							tentaConexoes();
+							bloqueia();
 							getFrameTelaBloqueio().setStatusConexao(false);
 							break;
 							
 							
+						}catch (NullPointerException ne) {
+							ne.printStackTrace();
+							bloqueia();
+							getFrameTelaBloqueio().setStatusConexao(false);
+							break;
+							
 						}
 					}
+					getFrameTelaBloqueio().setStatusConexao(false);
+					bloqueia();
+					tentaConexoes();
+					return;
+					
 				} 
 		});
 		processando.start();
@@ -381,23 +429,41 @@ public class ClienteControl {
 	 * 
 	 * @param mensagem
 	 */
-	public void processaMensagem(String mensagem) {
+	public synchronized void processaMensagem(String mensagem) {
+		if(mensagem.indexOf('(') == -1 || mensagem.indexOf(')') == -1){
+			return;
+		} 
+		
 		String	comando = mensagem.substring(0, mensagem.indexOf('('));
 		final String parametros = mensagem.substring(mensagem.indexOf('(') + 1, mensagem.indexOf(')'));
 		if (comando.equals("bloqueia")) {
 			bloqueia();
+			return;
 		} else if (comando.equals("desbloqueia")) {
 			String login = parametros.substring(0, parametros.indexOf(','));
 			String tempo = parametros.substring(parametros.indexOf(',') + 2);
 			int time = Integer.parseInt(tempo);
 			desbloqueia(time, login);
-			
+			return;
 		}else if(comando.equals("bonus")){
 			System.out.println("To ganhando bonus");
 			int bonus = 600;
-			getCliente().getMaquina().getAcesso().setTempoDisponibilizado(getCliente().getMaquina().getAcesso().getTempoDisponibilizado()+bonus);
+			try {
+				getSemaforo().acquire();
+
+				//Região crítica. 
+				System.out.println("Entrei na zona critica, ganhando tempo");
+				getCliente().getMaquina().getAcesso().setTempoDisponibilizado(getCliente().getMaquina().getAcesso().getTempoDisponibilizado()+bonus);
+				
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			finally{
+				semaforo.release();
+				System.out.println("Saindo da zona critica, ganhando tempo");
+			}
 			//controle.mostraBarra();
-						
+			return;
 		}
 		else if (comando.equals("desligar")) {
 			
@@ -406,12 +472,12 @@ public class ClienteControl {
 				Runtime.getRuntime().exec(" shutdown /s");
 				getFrameTelaBloqueio().setVisible(true);
 				System.exit(0);
-				
+				return;
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			
-			
+			return;
 		}else if (comando.equals("printc")) {
 
 			Thread t = new Thread(new Runnable() {
@@ -430,20 +496,12 @@ public class ClienteControl {
 				}
 			});
 			t.start();
-
+			return;
 		} else if (comando.equals("atualizar")) {
-			getFrameTelaBloqueio().setVisible(false);
-			getFrameTelaAcesso().setVisible(false);
-			try {
-				Runtime.getRuntime().exec(" java -jar \"C:\\Program Files (x86)\\UniCafe\\update.exe\"");
-				
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}			
-			desBloqueandoServicos();			
+			return;
 		} else {
-
+			
+			return;
 		}
 
 	}
@@ -473,7 +531,8 @@ public class ClienteControl {
 				
 	}
 	public void desbloqueia(final int segundos, final String login) {
-		
+		File diretorio = new File("C:\\arquivos"); 
+		diretorio.mkdirs();
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
@@ -491,7 +550,16 @@ public class ClienteControl {
 
 		if(getCliente().getSaida() != null)
 			new PrintStream(getCliente().getSaida()).println("setStatus("+Maquina.STATUS_OCUPADA+")");
-		String caminho = "C:\\arquivosunicafe";
+		
+		
+		 try {
+			Runtime.getRuntime().exec("net share arquivos=C:\\arquivos /GRANT:dtiusr,FULL");
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		String caminho = "\\\\"+this.getCliente().getMaquina().getNome()+"\\arquivos";
 		Desktop d = new Desktop(caminho, login);
 		d.alterarRegistro();
 		getCliente().getMaquina().getAcesso().getUsuario().setLogin(login);
@@ -501,46 +569,76 @@ public class ClienteControl {
 		Thread sessao = new Thread(new Runnable() {
 			@Override
 			public void run() {
-				getFrameTelaAcesso().getBtnFinalizar().addActionListener(
-						new ActionListener() {
-							@Override
-							public void actionPerformed(ActionEvent e) {
-
-								bloqueia();
-							}
-						});
-				while(getCliente().getMaquina().getAcesso().getTempoUsado() <= getCliente().getMaquina().getAcesso().getTempoDisponibilizado() && (!isBloqueado())) {
+				
+				while(true) {
+					boolean saiDolaco = false;
 					try {
-						Thread.sleep(1000);
-						int tempo = (getCliente().getMaquina().getAcesso().getTempoDisponibilizado() - getCliente().getMaquina().getAcesso().getTempoUsado());
 						
-						if(tempo == 300 || tempo == 120 || tempo == 20){
-							//getControle().mostraBarra();
-							getFrameAviso().setVisible(true);
-							if(getCliente().getSaida() != null){
-								new PrintStream(getCliente().getSaida()).println("meDaBonus()");								
-							}
-						}
-						int hora = 0;
-						int minuto = 0;
-						while (tempo >= 60) {
-							tempo -= 60;
-							minuto++;
-						}
-						while (minuto >= 60) {
-							minuto -= 60;
-							hora++;
-						}
-						getFrameTelaAcesso().getLabelTempo().setText(
-								String.format("%02d", hora) + ":"
-										+ String.format("%02d", minuto) + ":"
-										+ String.format("%02d", tempo));
-						getCliente().getMaquina().getAcesso().setTempoUsado(getCliente().getMaquina().getAcesso().getTempoUsado()+1);
-						
+						//Região crítica. 
+//						System.out.println("Entrando na zona critica, verificar se deve terminar o acesso. ");
+						getSemaforo().acquire();
+						if(!(getCliente().getMaquina().getAcesso().getTempoUsado() <= getCliente().getMaquina().getAcesso().getTempoDisponibilizado() && (!isBloqueado())))
+							saiDolaco = true;
 					} catch (InterruptedException e) {
-
 						e.printStackTrace();
 					}
+					finally{
+//						System.out.println("Saindo da zona critica, verificar se deve terminar o acesso. ");
+						semaforo.release();
+					}
+					if(saiDolaco == true)
+						break;
+					try {
+						Thread.sleep(1000);
+						int tempo = 600;
+						try {
+							//Região crítica. 
+//							System.out.println("Entrando na zona critica, Incrementando tempo usado.  ");
+							getSemaforo().acquire();
+							tempo = (getCliente().getMaquina().getAcesso().getTempoDisponibilizado() - getCliente().getMaquina().getAcesso().getTempoUsado());
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+						finally{
+							semaforo.release();
+//							System.out.println("Saindo da zona critica, Incrementei tempo usado. . ");
+						}
+						
+							
+						if(tempo == 300 || tempo == 120 || tempo == 20){
+								//getControle().mostraBarra();
+								getFrameAviso().setVisible(true);
+								getFrameTelaAcesso().setState(JFrame.NORMAL);
+								getFrameAviso().setState(JFrame.NORMAL);
+								if(getCliente().getSaida() != null){
+									new PrintStream(getCliente().getSaida()).println("meDaBonus()");								
+								}
+							}
+							int hora = 0;
+							int minuto = 0;
+							while (tempo >= 60) {
+								tempo -= 60;
+								minuto++;
+							}
+							while (minuto >= 60) {
+								minuto -= 60;
+								hora++;
+							}
+							getFrameTelaAcesso().getLabelTempo().setText(
+									String.format("%02d", hora) + ":"
+											+ String.format("%02d", minuto) + ":"
+											+ String.format("%02d", tempo));
+							getCliente().getMaquina().getAcesso().setTempoUsado(getCliente().getMaquina().getAcesso().getTempoUsado()+1);
+							
+						} catch (InterruptedException e) {
+							e.printStackTrace();
+						}
+					
+						
+						
+						
+					
+					
 				}
 				getFrameAviso().setVisible(false);
 				bloqueia();

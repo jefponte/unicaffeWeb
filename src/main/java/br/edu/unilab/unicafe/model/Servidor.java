@@ -55,7 +55,7 @@ public class Servidor {
 			this.serverSocket = new ServerSocket(porta, 100);
 			esperaConexoes();
 		} catch (IOException e) {
-			System.out.println("Não consegui criar o serviço na porta "+porta+".");
+			System.out.println("Não consegui utilizar a porta: "+porta+".");
 			
 		}
 		
@@ -174,7 +174,9 @@ public class Servidor {
 							listaDeClientes.add(cliente);
 							while (!conexao.isClosed()) {
 								
+								//Aqui trocaremos printStrema por ObjectInputStream. 
 								mensagem = in.readLine();
+								
 								processaMensagem(cliente, mensagem);
 							}
 							
@@ -314,11 +316,45 @@ public class Servidor {
 		if (comando.equals("autentica")) {
 			String login = parametros.substring(0, parametros.indexOf(','));
 			String senha = parametros.substring(parametros.indexOf(',') + 1);
-			
-			UsuarioDAO dao = new UsuarioDAO(DAO.TIPO_CONEXAO_AUTENTICACAO);
 			Usuario usuario = new Usuario();
 			usuario.setLogin(login);
 			usuario.setSenha(senha);
+			if(login.equals("visitante") && senha.equals(UsuarioDAO.getMD5("123456"))){
+				//Contar clientes e contar visitantes. 
+				int numeroDeClientes = 0;
+				int numeroDeVisitantes = 0;
+				int numeroDeMaquinasLivres = 0;
+				for(Cliente oDaVez : listaDeClientes){
+					if(oDaVez.getMaquina().getAcesso().getUsuario().getLogin().equals("visitante"))
+						numeroDeVisitantes++;
+					numeroDeClientes++;
+					if(oDaVez.getMaquina().getAcesso().getStatus() == Acesso.STATUS_DISPONIVEL)
+						numeroDeMaquinasLivres++;
+				}
+
+				//Verificar se existem 20 por centod e maquinas conectadas livres.
+				System.out.println("Clientes: "+ numeroDeClientes+" 20% ="+ (numeroDeClientes*20/100)+", 30% "+(numeroDeClientes*30/100));
+				System.out.println("Maquinas livres: "+numeroDeMaquinasLivres);
+				System.out.println("Visitantes: "+numeroDeVisitantes);
+				if(numeroDeMaquinasLivres < numeroDeClientes*20/100){
+					System.out.println("Laboratório Lotado");
+					new PrintStream(cliente.getSaida()).println("printc(Laborat�rio Lotado!)");
+					return;
+				}
+				if(numeroDeVisitantes >= numeroDeClientes*30/100){
+					System.out.println("Muitos Visitantes Conectados. ");
+					new PrintStream(cliente.getSaida()).println("printc(Muitos visitantes conectados!)");
+					return;
+				}
+				cliente.getMaquina().getAcesso().setUsuario(usuario);
+				cliente.getMaquina().getAcesso().setStatus(Acesso.STATUS_EM_UTILIZACAO);
+				cliente.getMaquina().setStatus(Maquina.STATUS_OCUPADA);
+				new PrintStream(cliente.getSaida()).println("desbloqueia(" + login + ", "+120+ ")");
+				return;
+			}
+			
+			UsuarioDAO dao = new UsuarioDAO(DAO.TIPO_CONEXAO_AUTENTICACAO);
+			
 			if (dao.autentica(usuario)) {
 				try {
 					dao.getConexao().close();
@@ -338,9 +374,9 @@ public class Servidor {
 				
 				dao.cadastra(usuario);
 				
-				System.out.println(cliente.getMaquina().getNome()+ ">> Autenticão bem sucedida.");
+				System.out.println(cliente.getMaquina().getNome()+ ">> Autentic�o bem sucedida.");
 				if (this.jaEstaLogado(usuario)) {
-					new PrintStream(cliente.getSaida()).println("printc(Já está logado!)");
+					new PrintStream(cliente.getSaida()).println("printc(j� est� logado!)");
 					return;
 				}
 				AcessoDAO acessoDao = new AcessoDAO();
@@ -369,7 +405,7 @@ public class Servidor {
 				System.out.println(cliente.getMaquina().getNome()+ ">> Errou login ou senha.");
 				try {
 					cliente.getSaida().flush();
-					new PrintStream(cliente.getSaida()).println("printc(Login e senha não conferem)");
+					new PrintStream(cliente.getSaida()).println("printc(Login e senha n�o conferem)");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -399,7 +435,12 @@ public class Servidor {
 		} else if (comando.equals("setNome")) {
 
 			String nome = parametros;
+			//Antes de setar o nome temos que excluir outras que possuem o mesmo nome. 
+			//Além de excluir de nossa lista iremos fechar a conexão. 
+			
+			
 			cliente.getMaquina().setNome(nome);
+			
 			MaquinaDAO maquinaDao = new MaquinaDAO();
 			if (!maquinaDao.existe(cliente.getMaquina())) {
 				maquinaDao.cadastra(cliente.getMaquina());
@@ -423,6 +464,7 @@ public class Servidor {
 						cliente.getMaquina().getAcesso().pararDeContar();
 						cliente.getMaquina().getAcesso().getUsuario().setLogin("livre");
 						cliente.getMaquina().setStatus(status);
+						cliente.getMaquina().getAcesso().setStatus(Acesso.STATUS_DISPONIVEL);
 						AcessoDAO acessodao = new AcessoDAO();
 						
 						acessodao.cadastra(cliente.getMaquina());
@@ -435,6 +477,10 @@ public class Servidor {
 						}
 						
 					}
+					break;
+				case Maquina.STATUS_OCUPADA:
+					cliente.getMaquina().setStatus(status);
+					cliente.getMaquina().getAcesso().setStatus(Acesso.STATUS_EM_UTILIZACAO);
 					break;
 				case Maquina.STATUS_DESCONECTADA:
 					listaDeClientes.remove(cliente);
@@ -484,7 +530,7 @@ public class Servidor {
 			
 			System.out.println(cliente.getMaquina().getNome() + ">> Mudou o Status para "+ Maquina.statusString(status));
 		} else {
-			System.out.println(cliente.getMaquina().getNome() + ">>"+ " Comando não encontrado. "+mensagem);
+			System.out.println(cliente.getMaquina().getNome() + ">>"+ " Comando n�o encontrado. "+mensagem);
 		}
 
 
