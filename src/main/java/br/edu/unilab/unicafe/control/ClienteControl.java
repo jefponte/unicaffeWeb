@@ -15,6 +15,7 @@ import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.util.Scanner;
 import java.util.concurrent.Semaphore;
 
 import javax.swing.JFrame;
@@ -102,7 +103,6 @@ public class ClienteControl {
 						System.exit(0);
 
 					} catch (InterruptedException | IOException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
@@ -114,9 +114,9 @@ public class ClienteControl {
 		}
 		
 		if (getFrameTelaBloqueio().getTextFieldLogin().getText()
-				.equals("aula")
+				.equals("aula@emergencia")
 				&& getFrameTelaBloqueio().getPasswordFieldSenha().getText()
-						.equals("aula@123A")) {
+						.equals("aula@emergencia")) {
 			desbloqueia(18000, "aula");
 			return;
 		}
@@ -212,7 +212,6 @@ public class ClienteControl {
 	 * como administrador.
 	 */
 	public void bloqueiaServicos() {
-
 		Thread bloqueandoServicos = new Thread(new Runnable() {
 
 			@Override
@@ -252,7 +251,6 @@ public class ClienteControl {
 					try {
 						Thread.sleep(2000);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
@@ -261,8 +259,6 @@ public class ClienteControl {
 		t.start();
 	}
 	public void desBloqueandoServicos() {
-
-		
 		Thread desBloqueandoServicos = new Thread(new Runnable() {
 
 			@Override
@@ -288,7 +284,6 @@ public class ClienteControl {
 				try {
 					Thread.sleep(300);
 				} catch (InterruptedException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 				setBloqueado(true);
@@ -301,7 +296,6 @@ public class ClienteControl {
 						robo.keyPress(KeyEvent.VK_ESCAPE);
 
 					} catch (AWTException | InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 
@@ -326,7 +320,6 @@ public class ClienteControl {
 					try {
 						Thread.sleep(5000);
 					} catch (InterruptedException e1) {
-						// TODO Auto-generated catch block
 						e1.printStackTrace();
 					}
 				
@@ -338,7 +331,7 @@ public class ClienteControl {
 							}
 							Socket socket;
 							if(j <= 5)
-								socket = new Socket("200.129.19.40", 27289);
+								socket = new Socket("10.5.1.8", 27289);
 							else
 								socket = new Socket("10.5.1.8", 27289);
 							getCliente().setConexao(socket);
@@ -429,6 +422,7 @@ public class ClienteControl {
 	 * 
 	 * @param mensagem
 	 */
+	@SuppressWarnings("resource")
 	public synchronized void processaMensagem(String mensagem) {
 		if(mensagem.indexOf('(') == -1 || mensagem.indexOf(')') == -1){
 			return;
@@ -462,9 +456,28 @@ public class ClienteControl {
 				semaforo.release();
 				System.out.println("Saindo da zona critica, ganhando tempo");
 			}
-			//controle.mostraBarra();
 			return;
 		}
+		else if (comando.equals("exec")) {
+			 Process process;
+		     Scanner leitor;
+		     String retorno = "";
+		     
+		        try {
+		            process = Runtime.getRuntime().exec(parametros);
+		            leitor = new Scanner(process.getInputStream());
+		            while(leitor.hasNext()){
+		                retorno += leitor.nextLine();
+		            }
+		            Thread.sleep(5000);
+		        	new PrintStream(getCliente().getSaida()).println("retorno("+retorno+")");
+		    		
+		        } catch (IOException | InterruptedException e) {
+		            // TODO Auto-generated catch block
+		            e.printStackTrace();
+		        }
+			return;
+		}	
 		else if (comando.equals("desligar")) {
 			
 			bloqueia();
@@ -488,7 +501,6 @@ public class ClienteControl {
 					try {
 						Thread.sleep(10000);
 					} catch (InterruptedException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					getFrameTelaBloqueio().getLabelMensagem().setText("");
@@ -498,8 +510,30 @@ public class ClienteControl {
 			t.start();
 			return;
 		} else if (comando.equals("atualizar")) {
+			 desBloqueandoServicos();
+			 getFrameTelaBloqueio().setVisible(false);
+			 
+			 Process process;
+	         Scanner leitor;
+	         try {
+	         	process = Runtime.getRuntime().exec(" java -jar \"C:\\Program Files (x86)\\UniCafe\\unicafe-update.jar\"");
+	         	leitor = new Scanner(process.getInputStream());
+	            while (leitor.hasNext()) {
+	            	String linha = leitor.nextLine();
+	            }
+	            System.exit(0);
+
+	            
+	         } catch (IOException e) {
+	                // TODO Auto-generated catch block
+	                e.printStackTrace();
+	            
+	         }
+	         
+			
 			return;
 		} else {
+			
 			
 			return;
 		}
@@ -520,7 +554,6 @@ public class ClienteControl {
 					Thread.sleep(1000);
 					Runtime.getRuntime().exec("explorer.exe");
 				} catch (IOException | InterruptedException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
@@ -555,7 +588,6 @@ public class ClienteControl {
 		 try {
 			Runtime.getRuntime().exec("net share arquivos=C:\\arquivos /GRANT:dtiusr,FULL");
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -575,7 +607,6 @@ public class ClienteControl {
 					try {
 						
 						//Região crítica. 
-//						System.out.println("Entrando na zona critica, verificar se deve terminar o acesso. ");
 						getSemaforo().acquire();
 						if(!(getCliente().getMaquina().getAcesso().getTempoUsado() <= getCliente().getMaquina().getAcesso().getTempoDisponibilizado() && (!isBloqueado())))
 							saiDolaco = true;
@@ -583,7 +614,6 @@ public class ClienteControl {
 						e.printStackTrace();
 					}
 					finally{
-//						System.out.println("Saindo da zona critica, verificar se deve terminar o acesso. ");
 						semaforo.release();
 					}
 					if(saiDolaco == true)
@@ -593,7 +623,6 @@ public class ClienteControl {
 						int tempo = 600;
 						try {
 							//Região crítica. 
-//							System.out.println("Entrando na zona critica, Incrementando tempo usado.  ");
 							getSemaforo().acquire();
 							tempo = (getCliente().getMaquina().getAcesso().getTempoDisponibilizado() - getCliente().getMaquina().getAcesso().getTempoUsado());
 						} catch (InterruptedException e) {
@@ -601,7 +630,6 @@ public class ClienteControl {
 						}
 						finally{
 							semaforo.release();
-//							System.out.println("Saindo da zona critica, Incrementei tempo usado. . ");
 						}
 						
 							

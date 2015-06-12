@@ -98,6 +98,27 @@
                         </goals>
                     </execution>
                     <execution>
+                        <id>build-update</id>
+                        <configuration>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <archive>
+                                <manifest>
+                                    <mainClass>br.edu.unilab.unicafe.main.MainUpdate</mainClass>
+                                    <addClasspath>true</addClasspath>
+                                </manifest>
+                                <addMavenDescriptor>false</addMavenDescriptor>
+                            </archive>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                            <finalName>${project.artifactId}-update</finalName>
+                        </configuration>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                    <execution>
                         <id>build-servidor</id>
                         <configuration>
                             <appendAssemblyId>false</appendAssemblyId>
@@ -119,12 +140,12 @@
                         </goals>
                     </execution>
                     <execution>
-                        <id>build-update</id>
+                        <id>build-admin</id>
                         <configuration>
                             <appendAssemblyId>false</appendAssemblyId>
                             <archive>
                                 <manifest>
-                                    <mainClass>br.edu.unilab.unicafe.main.MainUpdate</mainClass>
+                                    <mainClass>br.edu.unilab.unicafe.main.MainAdmin</mainClass>
                                     <addClasspath>true</addClasspath>
                                 </manifest>
                                 <addMavenDescriptor>false</addMavenDescriptor>
@@ -132,7 +153,7 @@
                             <descriptorRefs>
                                 <descriptorRef>jar-with-dependencies</descriptorRef>
                             </descriptorRefs>
-                            <finalName>${project.artifactId}-update</finalName>
+                            <finalName>${project.artifactId}-admin</finalName>
                         </configuration>
                         <phase>package</phase>
                         <goals>
@@ -140,7 +161,6 @@
                         </goals>
                     </execution>
                 </executions>
-
             </plugin>
         </plugins>
     </build>
