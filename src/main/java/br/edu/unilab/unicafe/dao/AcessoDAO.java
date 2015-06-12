@@ -47,7 +47,7 @@ public class AcessoDAO extends DAO {
 			ps = this
 					.getConexao()
 					.prepareStatement(
-							"SELECT acesso.ipv4, usuario.login,  acesso.id_maquina, acesso.id_usuario, maquina.nome_pc, acesso.hora_inicial, acesso.tempo_usado, acesso.tempo_oferecido FROM acesso INNER JOIN usuario ON acesso.id_usuario = usuario.id_usuario INNER JOIN maquina ON acesso.id_maquina = maquina.id_maquina;");
+							"SELECT acesso.ip, usuario.login,  acesso.id_maquina, acesso.id_usuario, maquina.nome_pc, acesso.hora_inicial, acesso.tempo_usado, acesso.tempo_oferecido FROM acesso INNER JOIN usuario ON acesso.id_usuario = usuario.id_usuario INNER JOIN maquina ON acesso.id_maquina = maquina.id_maquina;");
 			// ps.setInt(1, usuario.getId());
 			ResultSet resultSet = ps.executeQuery();
 			while (resultSet.next()) {
@@ -57,7 +57,7 @@ public class AcessoDAO extends DAO {
 						.getInt("tempo_oferecido"));
 				Maquina maquina = new Maquina();
 				maquina.setId(resultSet.getInt("id_maquina"));
-				maquina.setIp(resultSet.getString("ipv4"));
+				maquina.setIp(resultSet.getString("ip"));
 				maquina.setNome(resultSet.getString("nome_pc"));
 
 				String input = resultSet.getString("hora_inicial");
@@ -221,7 +221,7 @@ public class AcessoDAO extends DAO {
 			PreparedStatement ps2 = this
 					.getConexao()
 					.prepareStatement(
-							"INSERT into acesso(id_usuario, tempo_usado, hora_inicial, id_maquina, tempo_oferecido, ipv4) VALUES(?, ?, ?, ?, ?, ?)");
+							"INSERT into acesso(id_usuario, tempo_usado, hora_inicial, id_maquina, tempo_oferecido, ip) VALUES(?, ?, ?, ?, ?, ?)");
 			ps2.setInt(1, acesso.getUsuario().getId());
 			ps2.setInt(2, acesso.getTempoUsado());
 			
