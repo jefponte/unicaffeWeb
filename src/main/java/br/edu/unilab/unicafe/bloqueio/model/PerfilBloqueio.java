@@ -137,7 +137,6 @@ public class PerfilBloqueio {
 			this.listaDeProcessosAceitos.add(new Processo("chrome.exe", "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe", "5868"));
 			this.listaDeProcessosAceitos.add(new Processo("chrome.exe", "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe", "5280"));
 			this.listaDeProcessosAceitos.add(new Processo("chrome.exe", "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe", "6712"));
-			this.listaDeProcessosAceitos.add(new Processo("cmd.exe", "C:\\Windows\\system32\\cmd.exe", "6928"));
 			this.listaDeProcessosAceitos.add(new Processo("conhost.exe", "C:\\Windows\\system32\\conhost.exe", "6360"));
 			this.listaDeProcessosAceitos.add(new Processo("notepad.exe", "C:\\Windows\\system32\\notepad.exe", "5396"));
 			this.listaDeProcessosAceitos.add(new Processo("wampmanager.exe", "C:\\wamp\\wampmanager.exe", "6908"));
@@ -302,7 +301,9 @@ public class PerfilBloqueio {
 					//new Log("Matei Um processo \n"+processoAtivo.getExecutablePath()+","+processoAtivo.getImagem());
 					Runtime.getRuntime().exec(" taskkill /PID \"" + processoAtivo.getProcessId()+"\" /F");
 					if(processoAtivo.getExecutablePath().length() > 5){
-						System.out.println(processoAtivo.getExecutablePath().substring(0, 5));	
+						
+						System.out.println("Processo Bloqueado: "+processoAtivo.getExecutablePath()+","+processoAtivo.getImagem()+",123");	
+						
 					}      
 					
 

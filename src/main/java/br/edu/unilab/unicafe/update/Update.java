@@ -45,12 +45,12 @@ public class Update {
 		
 
 		try {
-			Properties config = new Properties();
-			FileInputStream fileInputStream = new FileInputStream("config.ini");
-			config.load(fileInputStream);
-			String ipDoServidor = config.getProperty("host_unicafeserver");
-			fileInputStream.close();
-			conexao = new Socket(ipDoServidor, 12345);
+//			Properties config = new Properties();
+//			FileInputStream fileInputStream = new FileInputStream("config.ini");
+//			config.load(fileInputStream);
+//			String ipDoServidor = config.getProperty("host_unicafeserver");
+//			fileInputStream.close();
+			conexao = new Socket("200.129.19.40", 27289);
 			ObjectOutputStream saida = new ObjectOutputStream(conexao.getOutputStream());
 			InputStream in = conexao.getInputStream();
 			InputStreamReader isr = new InputStreamReader(in);

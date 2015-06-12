@@ -101,11 +101,7 @@ public class FrameTelaAcesso extends JFrame {
 			}
 		});
 		
-		//Esse botão deveria ser para o chat. 
-		//A barra não se esconde. Logo precisamos de um botão para minimizar. 
-		//Já que não temos o chat implementado. Iremos utiliá-lo para minimizar a janela. 
-		//Assim o fato de não termos o esconde barra, iremos utilizar a ausencia da funcionalidade do chat 
-		//para que esse botão funcione minimizando a janela. 
+		
 		//btnChat.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "chat.png")));
 		btnChat.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		btnChat.setForeground(new Color(255, 255, 255));

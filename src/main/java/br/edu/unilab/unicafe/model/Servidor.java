@@ -269,6 +269,12 @@ public class Servidor {
 		processando.start();
 
 	}
+	public String getAjuda(){
+		String ajuda = "getMaquinas() - Mostra lista de máquinas em JSON\n";
+		ajuda += "desligaTudo() - Desliga todas as máquinas conectadas ao servidor\n";
+		ajuda += "exec(strNomeMaquina, strComando) - Executa um comando no CMD\n";
+		return ajuda;
+	}
 	public boolean jaEstaLogado(Usuario usuario) {
 		for (Cliente cliente : listaDeClientes) {
 			if ((cliente.getMaquina().getAcesso().getStatus() == Acesso.STATUS_EM_UTILIZACAO) && (cliente.getMaquina().getAcesso().getUsuario().getLogin().equals(usuario.getLogin()))){ 
@@ -282,33 +288,111 @@ public class Servidor {
 		return false;
 	}
 	public synchronized void processaMensagemAdmin(final Cliente cliente, String mensagem) {
-		@SuppressWarnings("unused")
+
+		System.out.println(cliente.getConexao().getInetAddress()+">> Mensagem admin: "+mensagem);
+		if(mensagem == null)
+			return;
+		
+		if(!cliente.getConexao().getInetAddress().toString().equals("/127.0.0.1"))
+		{
+			new PrintStream(cliente.getSaida()).println(cliente.getConexao().getInetAddress().toString()+">> "+"Conexao Recusada");	
+			System.out.println(cliente.getConexao().getInetAddress()+">> Comando recusado, IP estranho tentando dar uma de administrador. ");
+			return;
+		}
+		
+		//Primeiro verificamos a possibilidade de uma mensagem sem parametros. 
+		
+		if(mensagem.equals("ajuda")){
+			new PrintStream(cliente.getSaida()).println(getAjuda());
+			return;
+			
+		}else if (mensagem.equals("SELECT * FROM maquina") || mensagem.equals("select * from maquina") ) {
+			String json = anotaJson();
+			new PrintStream(cliente.getSaida()).println(json);	
+			System.out.println("Resposta: "+json);
+			return;
+		}
+		
+		//Depois uma mensagem com parametros. 
+		
+		if(mensagem.indexOf('(') == -1 || mensagem.indexOf(')') == -1){
+			new PrintStream(cliente.getSaida()).println("Mensagem não encontrada. Digite ajuda para obter ajuda. ");	
+			return;
+		} 
+		
+		
 		String parametros = "";
 		System.out.println("Segunda mensagem: "+mensagem);
 		String comando = mensagem.substring(0, mensagem.indexOf('('));
 		parametros = mensagem.substring((mensagem.indexOf('(') + 1),mensagem.indexOf(')'));
+		
 		if(comando.equals("getMaquinas")){
 			String json = anotaJson();
 			new PrintStream(cliente.getSaida()).println(json);	
 			System.out.println("Resposta: "+json);
-		}else if(comando.equals("desliga")){
-			System.out.println("VOu desligar, calma.");
-			new PrintStream(cliente.getSaida()).println("deu certo\n");
-		}else if (comando.equals("teste")) {
-			new PrintStream(cliente.getSaida()).println("deu certo\n");
-			System.out.println("Deu certo");
+		}else if(comando.equals("desligaTudo")){
+			System.out.println("Vou desligar, calma.");
+			for(Cliente daVez : listaDeClientes){
+				new PrintStream(daVez.getSaida()).println("desligar()");
+			}
+		}else if (comando.equals("desliga")) {
 			
-		}else{
-			new PrintStream(cliente.getSaida()).println("Deu certo");	
-			System.out.println(anotaJson());
-			System.out.println("Deu certo");
+			System.out.println("Desligando "+parametros);
+			for(Cliente desligado : listaDeClientes){
+				if(desligado.getMaquina().getNome().equals(parametros)){
+					new PrintStream(desligado.getSaida()).println("desligar()");
+					new PrintStream(cliente.getSaida()).println("Desliguei o "+desligado.getMaquina().getNome());
+				}
+				
+			}
+			
+			
+		}
+		
+		else if(comando.equals("exec")){
+			String nomeDaMaquina = parametros.substring(0, parametros.indexOf(','));
+			String strCmd = parametros.substring(parametros.indexOf(',') + 1);
+			for(Cliente desligado : listaDeClientes){
+				if(desligado.getMaquina().getNome().equals(nomeDaMaquina)){
+					new PrintStream(desligado.getSaida()).println("exec("+strCmd+")");
+					new PrintStream(cliente.getSaida()).println("Comando executado no cliente. ");
+					break;
+				}
+				
+			}
+			return;
+			
+			
+		}
+		
+		else if(comando.equals("atualiza")){
+
+			for(Cliente desligado : listaDeClientes){
+				if(desligado.getMaquina().getNome().equals(parametros)){
+					new PrintStream(desligado.getSaida()).println("atualizar()");
+					new PrintStream(cliente.getSaida()).println("Aguarde....");
+					break;
+				}
+				
+			}
+			return;
+			
+			
+		}
+		else{
+			new PrintStream(cliente.getSaida()).println("Mensagem não encontrada. Digite ajuda para obter ajuda. ");	
+
 			
 		}
 		
 	}
 	
 	public synchronized void processaMensagem(final Cliente cliente, String mensagem) {
-
+		if(mensagem.indexOf('(') == -1 || mensagem.indexOf(')') == -1){
+			return;
+		} 
+		
+		
 		
 		String comando = mensagem.substring(0, mensagem.indexOf('('));
 		String parametros = mensagem.substring((mensagem.indexOf('(') + 1),mensagem.indexOf(')'));
@@ -333,16 +417,11 @@ public class Servidor {
 				}
 
 				//Verificar se existem 20 por centod e maquinas conectadas livres.
-				System.out.println("Clientes: "+ numeroDeClientes+" 20% ="+ (numeroDeClientes*20/100)+", 30% "+(numeroDeClientes*30/100));
-				System.out.println("Maquinas livres: "+numeroDeMaquinasLivres);
-				System.out.println("Visitantes: "+numeroDeVisitantes);
 				if(numeroDeMaquinasLivres < numeroDeClientes*20/100){
-					System.out.println("Laboratório Lotado");
-					new PrintStream(cliente.getSaida()).println("printc(Laborat�rio Lotado!)");
+					new PrintStream(cliente.getSaida()).println("printc(Laboratório Lotado!)");
 					return;
 				}
 				if(numeroDeVisitantes >= numeroDeClientes*30/100){
-					System.out.println("Muitos Visitantes Conectados. ");
 					new PrintStream(cliente.getSaida()).println("printc(Muitos visitantes conectados!)");
 					return;
 				}
@@ -352,7 +431,13 @@ public class Servidor {
 				new PrintStream(cliente.getSaida()).println("desbloqueia(" + login + ", "+120+ ")");
 				return;
 			}
-			
+			if(login.equals("aula") && senha.equals(UsuarioDAO.getMD5("789456123"))){
+				cliente.getMaquina().getAcesso().setUsuario(usuario);
+				cliente.getMaquina().getAcesso().setStatus(Acesso.STATUS_EM_UTILIZACAO);
+				cliente.getMaquina().setStatus(Maquina.STATUS_OCUPADA);
+				new PrintStream(cliente.getSaida()).println("desbloqueia(" + login + ", "+1800+ ")");
+				return;
+			}
 			UsuarioDAO dao = new UsuarioDAO(DAO.TIPO_CONEXAO_AUTENTICACAO);
 			
 			if (dao.autentica(usuario)) {
@@ -374,16 +459,16 @@ public class Servidor {
 				
 				dao.cadastra(usuario);
 				
-				System.out.println(cliente.getMaquina().getNome()+ ">> Autentic�o bem sucedida.");
+				System.out.println(cliente.getMaquina().getNome()+ ">> Autenticão bem sucedida.");
 				if (this.jaEstaLogado(usuario)) {
-					new PrintStream(cliente.getSaida()).println("printc(j� est� logado!)");
+					new PrintStream(cliente.getSaida()).println("printc(já está logado!)");
 					return;
 				}
 				AcessoDAO acessoDao = new AcessoDAO();
 				int tempo = acessoDao.retornaTempoUsadoHoje(usuario);
-				System.out.println("Usou: " + tempo);
+//				System.out.println("Usou: " + tempo);
 				if (tempo <= AcessoDAO.COTA) {
-					System.out.println("Pode acessar durante "+ ((AcessoDAO.COTA) - (tempo)) + " segundos");
+//					System.out.println("Pode acessar durante "+ ((AcessoDAO.COTA) - (tempo)) + " segundos");
 					new PrintStream(cliente.getSaida()).println("desbloqueia(" + login + ", "+ ((AcessoDAO.COTA) - (tempo)) + ")");
 					cliente.getMaquina().getAcesso().setUsuario(usuario);
 					cliente.getMaquina().getAcesso().setTempoDisponibilizado(((AcessoDAO.COTA) - (tempo)));
@@ -402,10 +487,10 @@ public class Servidor {
 				}
 
 			} else {
-				System.out.println(cliente.getMaquina().getNome()+ ">> Errou login ou senha.");
+//				System.out.println(cliente.getMaquina().getNome()+ ">> Errou login ou senha.");
 				try {
 					cliente.getSaida().flush();
-					new PrintStream(cliente.getSaida()).println("printc(Login e senha n�o conferem)");
+					new PrintStream(cliente.getSaida()).println("printc(Login e senha não conferem)");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -415,12 +500,10 @@ public class Servidor {
 			try {
 				dao.getConexao().close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 		}else if (comando.equals("meDaBonus")) {
-			System.out.println("Quer bonus? Vou pensar...");
 			int disponiveis = 0;
 			for(Cliente umCliente : listaDeClientes){
 				if(umCliente.getMaquina().getStatus() == Maquina.STATUS_DISPONIVEL){
@@ -429,7 +512,7 @@ public class Servidor {
 			}
 			if(disponiveis >= 7){
 				new PrintStream(cliente.getSaida()).println("bonus()");
-				System.out.println("Bonus oferecido para >>"+cliente.getMaquina().getNome());
+
 			}
 		
 		} else if (comando.equals("setNome")) {
@@ -443,7 +526,8 @@ public class Servidor {
 			
 			MaquinaDAO maquinaDao = new MaquinaDAO();
 			if (!maquinaDao.existe(cliente.getMaquina())) {
-				maquinaDao.cadastra(cliente.getMaquina());
+				
+				//maquinaDao.cadastra(cliente.getMaquina());
 
 			}
 			try {
@@ -494,7 +578,7 @@ public class Servidor {
 					 
 				try {
 					
-					File f = new File("C:\\UniCafe\\UniCafeClient.exe");
+					File f = new File("UniCafeClient.exe");
 					@SuppressWarnings("resource")
 					FileInputStream in = new FileInputStream(f);
 					OutputStream out = cliente.getConexao().getOutputStream(); 
@@ -506,9 +590,7 @@ public class Servidor {
 					int lidos = -1;
 					while ((lidos = in.read(buffer, 0, tamanho)) != -1) { 
 						 out.write(buffer, 0, lidos); 
-						 System.out.println("buffo: "+buffer+" tamanho"+tamanho+" lidos:"+lidos);
 					}
-					System.out.println("Aweeee");
 					cliente.getConexao().close();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
@@ -530,7 +612,7 @@ public class Servidor {
 			
 			System.out.println(cliente.getMaquina().getNome() + ">> Mudou o Status para "+ Maquina.statusString(status));
 		} else {
-			System.out.println(cliente.getMaquina().getNome() + ">>"+ " Comando n�o encontrado. "+mensagem);
+			System.out.println(cliente.getMaquina().getNome() + ">>"+ " Comando não encontrado. "+mensagem);
 		}
 
 

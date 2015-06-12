@@ -47,7 +47,7 @@ public class AcessoDAO extends DAO {
 			ps = this
 					.getConexao()
 					.prepareStatement(
-							"SELECT acesso.ip4, usuario.login,  acesso.id_maquina, acesso.id_usuario, maquina.nome, acesso.hora_inicial, acesso.tempo_usado, acesso.tempo_oferecido FROM acesso INNER JOIN usuario ON acesso.id_usuario = usuario.id_usuario INNER JOIN maquina ON acesso.id_maquina = maquina.id_maquina;");
+							"SELECT acesso.ipv4, usuario.login,  acesso.id_maquina, acesso.id_usuario, maquina.nome_pc, acesso.hora_inicial, acesso.tempo_usado, acesso.tempo_oferecido FROM acesso INNER JOIN usuario ON acesso.id_usuario = usuario.id_usuario INNER JOIN maquina ON acesso.id_maquina = maquina.id_maquina;");
 			// ps.setInt(1, usuario.getId());
 			ResultSet resultSet = ps.executeQuery();
 			while (resultSet.next()) {
@@ -57,8 +57,8 @@ public class AcessoDAO extends DAO {
 						.getInt("tempo_oferecido"));
 				Maquina maquina = new Maquina();
 				maquina.setId(resultSet.getInt("id_maquina"));
-				maquina.setIp(resultSet.getString("ip4"));
-				maquina.setNome(resultSet.getString("nome"));
+				maquina.setIp(resultSet.getString("ipv4"));
+				maquina.setNome(resultSet.getString("nome_pc"));
 
 				String input = resultSet.getString("hora_inicial");
 
