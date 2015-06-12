@@ -7,7 +7,6 @@ class Maquina{
 	private $nome;
 	private $ip;
 	private $enderecoMac;
-	private $status;
 	private $acesso;
 	
 	public function Maquina(){
@@ -42,13 +41,7 @@ class Maquina{
 	public function getEnderecoMac(){
 		return $this->enderecoMac;
 	}
-	public function setStatus($status){
-		$this->status = $status;
-	}
 	
-	public function getStatus(){
-		return $this->status;
-	}
 	public function setAcesso(Acesso $acesso){
 		$this->acesso = $acesso;
 	}

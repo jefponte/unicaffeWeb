@@ -31,7 +31,7 @@ class MaquinaDAO extends DAO{
 			$maquina->setNome($objeto['nome']);
 			$maquina->setIp($objeto['ip']);
 			$maquina->setEnderecoMac($objeto['enderecoMac']);
-			$maquina->setStatus($objeto['status']);
+			//$maquina->setStatus($objeto['status']);
 			$maquina->getAcesso()->setId($objeto['acesso']['id']);
 			$maquina->getAcesso()->setTempoUsado($objeto['acesso']['tempoUsado']);
 			$maquina->getAcesso()->setHoraInicial($objeto['acesso']['horaInicial']);
