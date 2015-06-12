@@ -527,7 +527,7 @@ public class Servidor {
 			MaquinaDAO maquinaDao = new MaquinaDAO();
 			if (!maquinaDao.existe(cliente.getMaquina())) {
 				
-				//maquinaDao.cadastra(cliente.getMaquina());
+				maquinaDao.cadastra(cliente.getMaquina());
 
 			}
 			try {
