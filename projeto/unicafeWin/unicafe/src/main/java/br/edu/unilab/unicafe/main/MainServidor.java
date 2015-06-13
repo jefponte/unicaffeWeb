@@ -17,38 +17,38 @@ public class MainServidor {
 
 		//
 //		// //
-//		 Servidor servidor = new Servidor();
-//		 servidor.iniciaServico();
+		 Servidor servidor = new Servidor();
+		 servidor.iniciaServico();
 		//
 
 		//
 		
-		DAO dao = new DAO(DAO.TIPO_PG_SIGAA);
-		
-		//
-		try {
-			System.out.println("Vamos inserir e listar.");
-
-			// SELECT column_name FROM information_schema.columns WHERE
-			// table_name ='table_name';
-			PreparedStatement ps = dao.getConexao().prepareStatement("SELECT * FROM usuarios_unicafe WHERE nome like '%PITER%'");
-			java.sql.ResultSet resultSet = ps.executeQuery();
-			while (resultSet.next()) {
-				
-				String email = resultSet.getString("email");
-				String login = resultSet.getString("login");
-				String nome = resultSet.getString("nome");
-				String senha = resultSet.getString("senha");
-				System.out.println(nome);
-				System.out.println(email);
-				System.out.println(senha);
-				System.out.println(login);
-				
-			}
-
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
+//		DAO dao = new DAO(DAO.TIPO_PG_SIGAA);
+//		
+//		//
+//		try {
+//			System.out.println("Vamos inserir e listar.");
+//
+//			// SELECT column_name FROM information_schema.columns WHERE
+//			// table_name ='table_name';
+//			PreparedStatement ps = dao.getConexao().prepareStatement("SELECT * FROM usuarios_unicafe WHERE nome like '%PITER%'");
+//			java.sql.ResultSet resultSet = ps.executeQuery();
+//			while (resultSet.next()) {
+//				
+//				String email = resultSet.getString("email");
+//				String login = resultSet.getString("login");
+//				String nome = resultSet.getString("nome");
+//				String senha = resultSet.getString("senha");
+//				System.out.println(nome);
+//				System.out.println(email);
+//				System.out.println(senha);
+//				System.out.println(login);
+//				
+//			}
+//
+//		} catch (SQLException e) {
+//			e.printStackTrace();
+//		}
 
 		//
 
