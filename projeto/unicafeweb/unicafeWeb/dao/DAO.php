@@ -3,7 +3,12 @@
 
 class DAO{
 	protected $conexao;
-	public function DAO(Conexao $conexao = null){
+	/**
+	 * @param mixed $conexao
+	 * 
+	 */
+	public function DAO($conexao = null){
+		
 		if($conexao != null){
 			$this->conexao = $conexao;
 		}else
@@ -13,7 +18,8 @@ class DAO{
 			//$this->conexao = new PDO ( 'mysql:host=localhost;port=3306;dbname=jefponte_jefponte', 'jefponte_root', 'cocacola@12' );
 			//$this->conexao = new Conexao(Conexao::$TIPO_POSTGRES, "localhost", "5432", "postgres", "99557722", "unicafe_definitivo");			
 			//$this->conexao = new PDO("pgsql:host=localhost dbname=unicafe_definitivo user=postgres password=99557722");
-                        $this->conexao = new PDO("pgsql:host=10.5.1.8 dbname=unicafe user=unicafe password=unicafe@unilab");
+            //$this->conexao = new UniCafe();
+			$this->conexao = new PDO("pgsql:host=localhost dbname=unicafe user=unicafe password=unicafe@unilab");
 
                         
 		}		
@@ -24,9 +30,9 @@ class DAO{
 	public function getConexao(){
 		return $this->conexao;
 	}	
-        public function fechaConexao(){
+    public function fechaConexao(){
             $this->conexao = null;
-        }
+    }
 }
 
 
