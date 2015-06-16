@@ -4,7 +4,6 @@ class MaquinaDAO extends DAO{
 	
 	public function retornaMaquinas(){
 		$sql = "SELECT * FROM maquina";
-		echo $sql;
 		$stmt = $this->getConexao()->query($sql);
 		$listaDeMaquinas = array();
 		foreach($stmt as $elemento){
