@@ -10,7 +10,9 @@ class Maquina{
 	private $acesso;
 	
 	public function Maquina(){
+		
 		$this->acesso = new Acesso();
+		
 	}
 	
 	public function setId($id){

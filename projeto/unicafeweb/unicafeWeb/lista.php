@@ -11,8 +11,15 @@ include_once 'modelo/Laboratorio.php';
 
 $dao = new MaquinaDAO(null, DAO::TIPO_UNICAFE);
 $lista = $dao->retornaMaquinas();
+$i = 0;
 foreach ($lista as $maquina){
-	echo $maquina->getNome().'<br>';
+	$i++;
+	echo $maquina->getId().' | '.$maquina->getNome().'| '.$maquina->getEnderecoMac().'<br>';
 }
+if($i == 0){
+	echo "Lista vazia";
+}
+
+
 
 ?>
