@@ -306,10 +306,27 @@ public class Servidor {
 			new PrintStream(cliente.getSaida()).println(getAjuda());
 			return;
 			
-		}else if (mensagem.equals("SELECT * FROM maquina") || mensagem.equals("select * from maquina") ) {
-			String json = anotaJson();
-			new PrintStream(cliente.getSaida()).println(json);	
-			System.out.println("Resposta: "+json);
+		}
+		
+		
+		//Vamos ver se veio um select. 
+		if(mensagem.toLowerCase().indexOf("select") >= 0 || mensagem.toLowerCase().indexOf("insert") >= 0 || mensagem.toLowerCase().indexOf("update") >= 0){
+			System.out.println("Veio um SQL");
+			String json = "";
+			
+			int h = 0;
+			
+			for(Cliente daVez:listaDeClientes){
+				
+				if(h == 0){
+					json = "|"+daVez.getMaquina().toJson("*");
+					h++;
+					
+				}else{
+					json = json+"|"+daVez.getMaquina().toJson("*");
+				}
+			}
+			new PrintStream(cliente.getSaida()).println(json);
 			return;
 		}
 		
@@ -435,7 +452,7 @@ public class Servidor {
 				cliente.getMaquina().getAcesso().setUsuario(usuario);
 				cliente.getMaquina().getAcesso().setStatus(Acesso.STATUS_EM_UTILIZACAO);
 				cliente.getMaquina().setStatus(Maquina.STATUS_OCUPADA);
-				new PrintStream(cliente.getSaida()).println("desbloqueia(" + login + ", "+1800+ ")");
+				new PrintStream(cliente.getSaida()).println("desbloqueia(" + login + ", "+18000+ ")");
 				return;
 			}
 			UsuarioDAO dao = new UsuarioDAO(DAO.TIPO_CONEXAO_AUTENTICACAO);

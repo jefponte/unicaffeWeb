@@ -72,15 +72,23 @@ class UniCafe {
 		//Eu tenho que fazer ele reunir uma matriz com linhas de vetores para entrarem no Statement. 
 		//Isso vai vir do JSON convertido. :) 
 		$listaJSON = $this->dialoga($statement);
+		
 		//Essa lista aí eu espero que seja um JSON. 
 		//Tenho que pegar ela e separar e matriz. 
 
 		$arrJson = explode('|', $listaJSON);
 		$lista = array();
+		if(count($arrJson) <= 1)
+			return array();
+		$i = 0;
 		foreach($arrJson as $json){
+			if($i == 0){
+				$i++;
+				continue;
+			}
 			$objeto = json_decode($json, true);
-		
 			foreach ($objeto as $chave => $valor){
+				
 				if(is_array($valor)){
 					foreach($valor as $chave2 => $valor2){
 						$chave3 = $chave."_".$chave2;
@@ -102,11 +110,12 @@ class UniCafe {
 			$lista[] = $objeto;
 		}
 		$stmt = new UniCafeStatement();
-		if(is_array($lista)){
+		if($i != 0){
 			$stmt->setArray($lista);
+			
 			return $stmt;
 		}else{
-			return false;
+			return array();
 		}
 		
 		
