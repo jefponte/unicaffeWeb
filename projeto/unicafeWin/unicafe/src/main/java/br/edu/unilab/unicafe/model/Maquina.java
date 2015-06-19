@@ -138,11 +138,4 @@ public class Maquina {
 	public void setLaboratorio(Laboratorio laboratorio) {
 		this.laboratorio = laboratorio;
 	}
-
-	public String toJson(String colunas){
-		String json = "";
-		if(colunas.equals("*"))
-			json = "{\"id_maquina\":"+this.id+",\"nome_pc\":\""+this.nome+"\",\"mac\":\""+this.enderecoMac+"\"}";
-		return json;
-	}
 }

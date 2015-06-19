@@ -9,15 +9,10 @@ include_once 'modelo/Usuario.class.php';
 include_once 'modelo/Laboratorio.php';
 
 
-$dao = new MaquinaDAO(null, DAO::TIPO_UNICAFE);
-$lista = $dao->retornaMaquinas();
-$i = 0;
-foreach ($lista as $maquina){
-	$i++;
-	echo $maquina->getId().' | '.$maquina->getNome().'| '.$maquina->getEnderecoMac().'<br>';
-}
-if($i == 0){
-	echo "Lista vazia";
+$dao = new DAO(null, DAO::TIPO_UNICAFE);
+$stmt = $dao->getConexao()->query("SELECT * FROM acesso");
+foreach ($stmt as $elemento){
+	echo $elemento['id_acesso'].' -  '.$elemento['hora_inicial'].' - '.$elemento['tempo_usado'].'<br>';
 }
 
 

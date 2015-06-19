@@ -69,6 +69,7 @@ class UniCafe {
 	 * @return UniCafeStatement UniCafe::query retorna um objeto UniCafeStatement, ou falto se der erro.
 	 */
 	public function query($statement) {
+
 		//Eu tenho que fazer ele reunir uma matriz com linhas de vetores para entrarem no Statement. 
 		//Isso vai vir do JSON convertido. :) 
 		$listaJSON = $this->dialoga($statement);
@@ -78,35 +79,18 @@ class UniCafe {
 
 		$arrJson = explode('|', $listaJSON);
 		$lista = array();
-		if(count($arrJson) <= 1)
+		if(count($arrJson) <= 1){
 			return array();
+		}
 		$i = 0;
 		foreach($arrJson as $json){
+			
 			if($i == 0){
 				$i++;
 				continue;
 			}
 			$objeto = json_decode($json, true);
-			foreach ($objeto as $chave => $valor){
-				
-				if(is_array($valor)){
-					foreach($valor as $chave2 => $valor2){
-						$chave3 = $chave."_".$chave2;
-						$valor3 = $valor2;
-						unset($objeto[$chave]);
-						$objeto[$chave3] = $valor3;
-						if(is_array($valor3)){
-							foreach($valor3 as $chave4 => $valor4){
-								$chave5 = $chave3.'_'.$chave4;
-								$valor5 = $valor4;
-								$objeto[$chave5] = $valor5;
-								unset($objeto[$chave3]);
-							}
-						}
-							
-					}
-				}
-			}
+			//echo $json;
 			$lista[] = $objeto;
 		}
 		$stmt = new UniCafeStatement();
