@@ -317,13 +317,15 @@ public class Servidor {
 			int h = 0;
 			
 			for(Cliente daVez:listaDeClientes){
-				
+				String dados = json = "|{\"id_maquina\":"+daVez.getMaquina().getId()+",\"nome_pc\":\""+daVez.getMaquina().getNome()+"\",\"mac\":\""+daVez.getMaquina().getEnderecoMac()+"\",\"id_acesso\":"+daVez.getMaquina().getAcesso().getId()+",\"hora_inicial\":"+daVez.getMaquina().getAcesso().getHoraInicial()+",\"tempo_oferecido\":"+daVez.getMaquina().getAcesso().getTempoDisponibilizado()+",\"tempo_usado\":"+daVez.getMaquina().getAcesso().getTempoUsado()+",\"ip\":\""+daVez.getMaquina().getAcesso().getIp()+"\",\"id_usuario\":"+daVez.getMaquina().getAcesso().getUsuario().getId()+"}";
 				if(h == 0){
-					json = "|"+daVez.getMaquina().toJson("*");
+					
+					json = dados;
 					h++;
 					
 				}else{
-					json = json+"|"+daVez.getMaquina().toJson("*");
+					
+					json = json+dados;
 				}
 			}
 			new PrintStream(cliente.getSaida()).println(json);
