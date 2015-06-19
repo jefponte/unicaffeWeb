@@ -1,5 +1,6 @@
 <?php
 class Acesso{
+	
 	private $id;
 	private $tempoUsado;
 	private $horaInicial;
@@ -9,9 +10,7 @@ class Acesso{
 	
 	
 	public function Acesso(){
-		
 		$this->usuario = new Usuario();
-		
 	}
 	
 	public function setId($id){

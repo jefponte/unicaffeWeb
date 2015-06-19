@@ -11,7 +11,8 @@ include_once 'modelo/Laboratorio.php';
 
 $dao = new DAO(null, DAO::TIPO_UNICAFE);
 $stmt = $dao->getConexao()->query("SELECT * FROM acesso");
-foreach ($stmt as $elemento){
+foreach ($stmt as $elemento)
+{
 	echo $elemento['id_acesso'].' -  '.$elemento['hora_inicial'].' - '.$elemento['tempo_usado'].'<br>';
 }
 
