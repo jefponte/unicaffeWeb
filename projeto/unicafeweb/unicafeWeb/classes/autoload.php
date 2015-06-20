@@ -11,6 +11,8 @@ function __autoload($class){
 		include_once 'classes/controle/'.$class.'.php';
 	if(file_exists('classes/dao/'.$class.'.php'))
 		include_once 'classes/dao/'.$class.'.php';
+	if(file_exists('classes/util/'.$class.'.php'))
+		include_once 'classes/util/'.$class.'.php';
 }
 
 
