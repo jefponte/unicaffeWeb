@@ -12,7 +12,6 @@ class Acesso{
 	public function Acesso(){
 		$this->usuario = new Usuario();
 	}
-	
 	public function setId($id){
 		$this->id = $id;
 	}
