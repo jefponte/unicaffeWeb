@@ -49,15 +49,28 @@ include 'classes/autoload.php';
 	</div>
 	<div class="doze colunas barra-menu">
 		<div class="menu-horizontal">
-			<ol class="a-esquerda">
-				<li><a href="#" class="item-ativo"><span class="icone-home3"></span>
-						<span class="item-texto">Item ativo</span></a></li>
-				<li><a href="#" class="item"><span class="icone-link"></span> <span
-						class="item-texto">Item padrao</span></a></li>
-				<li><a href="#" class="item"><span class="icone-enlarge2"></span> <span
-						class="item-texto">Item com subitens</span><span
-						class="icone-expande"></span></a></li>
-			</ol>
+			<li><a href='#'>1-Op&ccedil;&ouml;es administrativas<!--[if IE 7]><!--></a><!--<![endif]-->
+		        <!--[if lte IE 6]><table><tr><td><![endif]-->
+		        	<ul>
+			            
+			            <li><a href='index.php?cadastroLab' title=>Cadastrar Laboratorio</a></li>
+			            <li><a href='index.php?cadastroLabMaquina' >cadastroLabMaquina</a></li>
+			            
+		            </ul>
+                           
+		                    <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+		        </li>
+                        <li><a href='#'>2-Relat&oacute;rios<!--[if IE 7]><!--></a><!--<![endif]-->
+		        <!--[if lte IE 6]><table><tr><td><![endif]-->
+		        	<ul>
+			            
+			            <li><a href='index.php?listarmaq' title=>Listar m&aacute;quinas </a></li>
+			            <li><a href='index.php?listarlab' >Listar Laborat&oacute;rios</a></li>
+			           
+		            </ul>
+                           
+		                    <!--[if lte IE 6]></td></tr></table></a><![endif]-->
+		        </li>
 
 		</div>
 
@@ -72,33 +85,13 @@ include 'classes/autoload.php';
 			
 		
 			<?php 
-			
-			if(isset($_GET['pagina'])){
-				switch ($_GET['pagina'])
-				{
-					case "home":
-						echo '<div class="titulo-com-borda">UniCafe</div>
-			<p>Pagina Inicial</p>';
-						break;
-					case "maquina":
-						echo '<div class="titulo-com-borda">Maquina</div>
-			<p>Pagina Maquina</p>';
-						break;
-					default:
-						echo '<div class="titulo-com-borda">UniCafe</div>
-			<p>Pagina Inicial</p>';
-							break;
-				}
-				
-			}else{
-				echo '<div class="titulo-com-borda">UniCafe</div><p>Pagina Inicial</p>';
+			if(isset($_GET["cadastroLab"]))
+				LaboratorioControl::main(LaboratorioControl::$TELA_CADASTRO=1);
+			else if  (isset($_GET["cadastroLabMaquina"])){
+				LaboratorioControl::main(LaboratorioControl::$TELA_CADASTRO=2);
 			}
-			
-			$dao = new DAO(null, DAO::TIPO_PG_TESTE);
-			$stmt = $dao->getConexao()->query("SELECT * FROM acesso");
-			foreach ($stmt as $elemento)
-			{
-				echo $elemento['id_acesso'].' -  '.$elemento['hora_inicial'].' - '.$elemento['tempo_usado'].'<br>';
+			else if(isset($_GET["listarmaq"])){
+				LaboratorioControl::main(LaboratorioControl::$TELA_CADASTRO=3);
 			}
 			
 			
