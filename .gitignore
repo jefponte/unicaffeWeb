@@ -1,0 +1,10 @@
+/target
+*.exe
+*.classpath
+/log
+/.settings
+*.project
+*.log
+*.metadata
+/projeto/unicafeweb/*.buildpath
+/projeto/unicafeweb/.settings/org.eclipse.php.core.prefs
