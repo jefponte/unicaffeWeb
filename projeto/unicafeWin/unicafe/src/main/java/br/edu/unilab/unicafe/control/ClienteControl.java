@@ -83,7 +83,7 @@ public class ClienteControl {
 		if (getFrameTelaBloqueio().getTextFieldLogin().getText()
 				.equals("emergencia")
 				&& getFrameTelaBloqueio().getPasswordFieldSenha().getText()
-						.equals("emergencia@123A")) {
+						.equals("emergencia@124A")) {
 
 			desBloqueandoServicos();
 
@@ -114,9 +114,9 @@ public class ClienteControl {
 		}
 		
 		if (getFrameTelaBloqueio().getTextFieldLogin().getText()
-				.equals("aula@emergencia")
+				.equals("aula@124A")
 				&& getFrameTelaBloqueio().getPasswordFieldSenha().getText()
-						.equals("aula@emergencia")) {
+						.equals("aula@124A")) {
 			desbloqueia(18000, "aula");
 			return;
 		}
@@ -331,7 +331,7 @@ public class ClienteControl {
 							}
 							Socket socket;
 							if(j <= 5)
-								socket = new Socket("10.5.1.8", 27289);
+								socket = new Socket("200.129.19.40", 27289);
 							else
 								socket = new Socket("10.5.1.8", 27289);
 							getCliente().setConexao(socket);
@@ -438,6 +438,32 @@ public class ClienteControl {
 			String tempo = parametros.substring(parametros.indexOf(',') + 2);
 			int time = Integer.parseInt(tempo);
 			desbloqueia(time, login);
+			return;
+		}else if (comando.equals("desativar")) {
+			desBloqueandoServicos();
+
+			Thread t = new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+
+					try {
+						getFrameTelaBloqueio().setVisible(false);
+						// System.out.println("Fechando Explorer. ");
+						Runtime.getRuntime().exec(
+								" taskkill /f /im explorer.exe");
+						Thread.sleep(1000);
+						// System.out.println("Abrindo Explorer. ");
+						Runtime.getRuntime().exec("explorer.exe");
+						System.exit(0);
+
+					} catch (InterruptedException | IOException e) {
+						e.printStackTrace();
+					}
+
+				}
+			});
+			t.start();
 			return;
 		}else if(comando.equals("bonus")){
 			System.out.println("To ganhando bonus");
