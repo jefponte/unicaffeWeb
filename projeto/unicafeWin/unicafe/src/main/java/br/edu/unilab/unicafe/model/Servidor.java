@@ -316,8 +316,9 @@ public class Servidor {
 			
 			int h = 0;
 			
-			for(Cliente daVez:listaDeClientes){
-				String dados = json = "|{\"id_maquina\":"+daVez.getMaquina().getId()+",\"nome_pc\":\""+daVez.getMaquina().getNome()+"\",\"mac\":\""+daVez.getMaquina().getEnderecoMac()+"\",\"id_acesso\":"+daVez.getMaquina().getAcesso().getId()+",\"hora_inicial\":"+daVez.getMaquina().getAcesso().getHoraInicial()+",\"tempo_oferecido\":"+daVez.getMaquina().getAcesso().getTempoDisponibilizado()+",\"tempo_usado\":"+daVez.getMaquina().getAcesso().getTempoUsado()+",\"ip\":\""+daVez.getMaquina().getAcesso().getIp()+"\",\"id_usuario\":"+daVez.getMaquina().getAcesso().getUsuario().getId()+"}";
+			for(Cliente daVez:this.getListaDeClientes()){
+				
+				String dados = "|{\"id_maquina\":"+daVez.getMaquina().getId()+",\"nome_pc\":\""+daVez.getMaquina().getNome()+"\",\"mac\":\""+daVez.getMaquina().getEnderecoMac()+"\",\"id_acesso\":"+daVez.getMaquina().getAcesso().getId()+",\"hora_inicial\":"+daVez.getMaquina().getAcesso().getHoraInicial()+",\"tempo_oferecido\":"+daVez.getMaquina().getAcesso().getTempoDisponibilizado()+",\"tempo_usado\":"+daVez.getMaquina().getAcesso().getTempoUsado()+",\"ip\":\""+daVez.getConexao().getInetAddress().toString()+"\",\"id_usuario\":"+daVez.getMaquina().getAcesso().getUsuario().getId()+",\"id_laboratorio\":"+daVez.getMaquina().getLaboratorio().getId()+",\"nome_laboratorio\":\""+daVez.getMaquina().getLaboratorio().getNome()+"\",\"nome\":\""+daVez.getMaquina().getAcesso().getUsuario().getNome()+"\",\"email\":\""+daVez.getMaquina().getAcesso().getUsuario().getEmail()+"\",\"login\":\""+daVez.getMaquina().getAcesso().getUsuario().getLogin()+"\",\"senha\":\""+daVez.getMaquina().getAcesso().getUsuario().getSenha()+"\",\"nivel_acesso\":\""+daVez.getMaquina().getAcesso().getUsuario().getNivelAcesso()+"\""+"}";
 				if(h == 0){
 					
 					json = dados;
@@ -361,6 +362,44 @@ public class Servidor {
 				if(desligado.getMaquina().getNome().equals(parametros)){
 					new PrintStream(desligado.getSaida()).println("desligar()");
 					new PrintStream(cliente.getSaida()).println("Desliguei o "+desligado.getMaquina().getNome());
+				}
+				
+			}
+			
+			
+		}
+		else if (comando.equals("aula")) {
+			
+			System.out.println("Dar aula "+parametros);
+			for(Cliente desligado : listaDeClientes){
+				if(desligado.getMaquina().getNome().equals(parametros)){
+					new PrintStream(desligado.getSaida()).println("desbloqueia(aula, "+18000+ ")");
+					new PrintStream(cliente.getSaida()).println("Liberado pra aula o "+desligado.getMaquina().getNome());
+				}
+				
+			}
+			
+			
+		}else if (comando.equals("bloqueia")) {
+			
+			System.out.println("Bloquear "+parametros);
+			for(Cliente desligado : listaDeClientes){
+				if(desligado.getMaquina().getNome().equals(parametros)){
+					new PrintStream(desligado.getSaida()).println("bloqueia()");
+					new PrintStream(cliente.getSaida()).println("Bloqueando o "+desligado.getMaquina().getNome());
+				}
+				
+			}
+			
+			
+		}
+		else if (comando.equals("desativar")) {
+			
+			System.out.println("Desativar "+parametros);
+			for(Cliente desligado : listaDeClientes){
+				if(desligado.getMaquina().getNome().equals(parametros)){
+					new PrintStream(desligado.getSaida()).println("desativar()");
+					new PrintStream(cliente.getSaida()).println("Desativando o "+desligado.getMaquina().getNome());
 				}
 				
 			}
@@ -569,8 +608,8 @@ public class Servidor {
 						cliente.getMaquina().setStatus(status);
 						cliente.getMaquina().getAcesso().setStatus(Acesso.STATUS_DISPONIVEL);
 						AcessoDAO acessodao = new AcessoDAO();
-						
-						acessodao.cadastra(cliente.getMaquina());
+						if(cliente.getMaquina().getAcesso().getUsuario().getId() != 0)
+							acessodao.cadastra(cliente.getMaquina());
 						
 						try {
 							
