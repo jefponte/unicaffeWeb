@@ -158,9 +158,10 @@ public class Servidor {
 								+ "</style></header>"
 								+ ""
 								+ "<h1>Servidor Funcionando!</h1>"
-								+ ""
-								+ ""
-								+ ""
+								+ "<form action=\"\" method=\"post\">"
+								+ "<input type=\"text\" name=\"nome\" />"
+								+ "<input type=\"submit\" />" 
+								+"</form>"
 								+ "</html>");
 						cliente.getConexao().close();
 						
@@ -293,7 +294,7 @@ public class Servidor {
 		if(mensagem == null)
 			return;
 		
-		if(!cliente.getConexao().getInetAddress().toString().equals("/127.0.0.1"))
+		if(!cliente.getConexao().getInetAddress().toString().equals("/127.0.0.1") && !cliente.getConexao().getInetAddress().toString().equals("/10.5.6.79"))
 		{
 			new PrintStream(cliente.getSaida()).println(cliente.getConexao().getInetAddress().toString()+">> "+"Conexao Recusada");	
 			System.out.println(cliente.getConexao().getInetAddress()+">> Comando recusado, IP estranho tentando dar uma de administrador. ");
@@ -372,6 +373,8 @@ public class Servidor {
 			
 			System.out.println("Dar aula "+parametros);
 			for(Cliente desligado : listaDeClientes){
+				
+				
 				if(desligado.getMaquina().getNome().equals(parametros)){
 					new PrintStream(desligado.getSaida()).println("desbloqueia(aula, "+18000+ ")");
 					new PrintStream(cliente.getSaida()).println("Liberado pra aula o "+desligado.getMaquina().getNome());

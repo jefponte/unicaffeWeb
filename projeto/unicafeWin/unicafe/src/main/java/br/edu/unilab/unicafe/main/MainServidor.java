@@ -17,10 +17,6 @@ public class MainServidor {
 
 		 Servidor servidor = new Servidor();
 		 servidor.iniciaServico();
-
-		
-		
-		
 		
 
 	}

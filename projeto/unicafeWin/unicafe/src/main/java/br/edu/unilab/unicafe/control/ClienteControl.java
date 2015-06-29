@@ -331,7 +331,7 @@ public class ClienteControl {
 							}
 							Socket socket;
 							if(j <= 5)
-								socket = new Socket("200.129.19.40", 27289);
+								socket = new Socket("localhost", 27289);
 							else
 								socket = new Socket("10.5.1.8", 27289);
 							getCliente().setConexao(socket);
@@ -348,16 +348,16 @@ public class ClienteControl {
 							
 							break;
 						} catch (UnknownHostException e) {
-							System.out.println("Não encontrei o servidor, vou tentar de novo em 5 segundos. ");
+//							System.out.println("Não encontrei o servidor, vou tentar de novo em 5 segundos. ");
 							getFrameTelaBloqueio().getLabelStatus().setText("Servidor não encontrado. Tentativa: "+i);
 							
 						} catch (IOException e) {
-							System.out.println("Erro de IO Exception. Deve ter desligado o Servidor.");
+//							System.out.println("Erro de IO Exception. Deve ter desligado o Servidor.");
 							getFrameTelaBloqueio().getLabelStatus().setText("Erro no Servidor. Tentativa: "+i);
 						}
 						Thread.sleep(100);
 					} catch (InterruptedException e) {
-						System.out.println("Não consegui esperar 5 segundos. Esse erro não dá muito problema. ");
+//						System.out.println("Não consegui esperar 5 segundos. Esse erro não dá muito problema. ");
 						getFrameTelaBloqueio().getLabelStatus().setText("Thread Não dormiu. Tentativa: "+i);
 					}
 					
@@ -390,7 +390,7 @@ public class ClienteControl {
 						String mensagem;
 						try {
 							mensagem = buffereReader.readLine();
-							System.out.println(mensagem);
+//							System.out.println(mensagem);
 							processaMensagem(mensagem);
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -450,8 +450,7 @@ public class ClienteControl {
 					try {
 						getFrameTelaBloqueio().setVisible(false);
 						// System.out.println("Fechando Explorer. ");
-						Runtime.getRuntime().exec(
-								" taskkill /f /im explorer.exe");
+						Runtime.getRuntime().exec(" taskkill /f /im explorer.exe");
 						Thread.sleep(1000);
 						// System.out.println("Abrindo Explorer. ");
 						Runtime.getRuntime().exec("explorer.exe");
@@ -466,13 +465,13 @@ public class ClienteControl {
 			t.start();
 			return;
 		}else if(comando.equals("bonus")){
-			System.out.println("To ganhando bonus");
+//			System.out.println("To ganhando bonus");
 			int bonus = 600;
 			try {
 				getSemaforo().acquire();
 
 				//Região crítica. 
-				System.out.println("Entrei na zona critica, ganhando tempo");
+//				System.out.println("Entrei na zona critica, ganhando tempo");
 				getCliente().getMaquina().getAcesso().setTempoDisponibilizado(getCliente().getMaquina().getAcesso().getTempoDisponibilizado()+bonus);
 				
 			} catch (InterruptedException e) {
@@ -480,7 +479,7 @@ public class ClienteControl {
 			}
 			finally{
 				semaforo.release();
-				System.out.println("Saindo da zona critica, ganhando tempo");
+//				System.out.println("Saindo da zona critica, ganhando tempo");
 			}
 			return;
 		}
@@ -530,7 +529,6 @@ public class ClienteControl {
 						e.printStackTrace();
 					}
 					getFrameTelaBloqueio().getLabelMensagem().setText("");
-
 				}
 			});
 			t.start();
