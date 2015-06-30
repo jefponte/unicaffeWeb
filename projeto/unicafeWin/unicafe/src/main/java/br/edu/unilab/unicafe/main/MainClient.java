@@ -18,7 +18,6 @@ public class MainClient {
 
 		ClienteControl controle = new ClienteControl();
 		controle.iniciaCliente();
-	
 		
 	}
 

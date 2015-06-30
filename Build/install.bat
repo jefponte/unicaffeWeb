@@ -1,3 +1,5 @@
 echo Antes de Continuar você precisa instalar esta versão do java. 
-net user unicafelocal unicafe@unilab /add
-net localgroup administradores unicafelocal /add
+net user unicafe /delete
+net user unicafe unicafe@unilab /add /expires:never
+net localgroup administradores unicafe /add
+

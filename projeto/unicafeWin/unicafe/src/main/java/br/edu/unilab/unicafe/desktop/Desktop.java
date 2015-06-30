@@ -61,7 +61,8 @@ public class Desktop {
 		perfilDesktop = new Perfil();
 		ArrayList<Registro> listaPersonalizada  = new ArrayList<Registro>();
 		perfilDesktop.setListaDeRegistros(listaPersonalizada);
-		listaPersonalizada.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "Common Desktop", Registro.REG_SZ, caminho+"\\public\\Desktop", "%PUBLIC%\\Desktop","Muda a pasta da �rea de trabalho p�blica. "));
+		//Vamos deixar a pasta do desktop público não mexida pra que o usuário possa ver os incones. 
+//		listaPersonalizada.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "Common Desktop", Registro.REG_SZ, caminho+"\\public\\Desktop", "%PUBLIC%\\Desktop","Muda a pasta da �rea de trabalho p�blica. "));
 		listaPersonalizada.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "Common Documents", Registro.REG_SZ, caminho+"\\public\\Documents", "%PUBLIC%\\Documents","Muda a pasta da �rea de trabalho p�blica. "));
 		listaPersonalizada.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "CommonMusic", Registro.REG_SZ, caminho+"\\public\\Music", "%PUBLIC%\\Music","Muda a pasta da �rea de trabalho p�blica. "));
 		listaPersonalizada.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Explorer\\User Shell Folders", "CommonPictures", Registro.REG_SZ, caminho+"\\public\\Pictures", "%PUBLIC%\\Pictures","Muda a pasta da �rea de trabalho p�blica. "));

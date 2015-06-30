@@ -97,7 +97,7 @@ public class ClienteControl {
 						// System.out.println("Fechando Explorer. ");
 						Runtime.getRuntime().exec(
 								" taskkill /f /im explorer.exe");
-						Runtime.getRuntime().exec(" attrib C:\\Users\\unicafelocal\\Links\\RecentPlaces.lnk -h");//Oculta Locais em Favoritos
+						Runtime.getRuntime().exec(" attrib C:\\Users\\unicafe\\Links\\RecentPlaces.lnk -h");//Oculta Locais em Favoritos
 						Thread.sleep(1000);
 						// System.out.println("Abrindo Explorer. ");
 						Runtime.getRuntime().exec("explorer.exe");
@@ -186,7 +186,7 @@ public class ClienteControl {
 	public void bloqueia(){
 		getCliente().getMaquina().getAcesso().getUsuario().setLogin("livre");
 		getCliente().getMaquina().getAcesso().pararDeContar();
-		String caminho = "\\\\DTI43\\arquivos";
+		String caminho = "c:\\arquivos";
 		Desktop d = new Desktop(caminho, "jefponte");
 		d.desfazer();
 		if(getCliente().getSaida() != null){
@@ -572,7 +572,7 @@ public class ClienteControl {
 			public void run() {
 		
 				try {
-					Runtime.getRuntime().exec(" attrib C:\\Users\\dtiusr\\Links\\RecentPlaces.lnk +h");//Oculta Locais em Favoritos
+					Runtime.getRuntime().exec(" attrib C:\\Users\\unicafe\\Links\\RecentPlaces.lnk +h");//Oculta Locais em Favoritos
 					Runtime.getRuntime().exec(" taskkill /f /im firefox.exe");
 					Runtime.getRuntime().exec(" taskkill /f /im iexplore.exe");
 					Runtime.getRuntime().exec(" taskkill /f /im explorer.exe");
