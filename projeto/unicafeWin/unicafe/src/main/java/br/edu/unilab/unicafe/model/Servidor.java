@@ -387,7 +387,7 @@ public class Servidor {
 			
 			System.out.println("Bloquear "+parametros);
 			for(Cliente desligado : listaDeClientes){
-				if(desligado.getMaquina().getNome().equals(parametros)){
+				if(desligado.getMaquina().getNome().toLowerCase().equals(parametros.toLowerCase())){
 					new PrintStream(desligado.getSaida()).println("bloqueia()");
 					new PrintStream(cliente.getSaida()).println("Bloqueando o "+desligado.getMaquina().getNome());
 				}
@@ -400,7 +400,7 @@ public class Servidor {
 			
 			System.out.println("Desativar "+parametros);
 			for(Cliente desligado : listaDeClientes){
-				if(desligado.getMaquina().getNome().equals(parametros)){
+				if(desligado.getMaquina().getNome().toLowerCase().equals(parametros.toLowerCase())){
 					new PrintStream(desligado.getSaida()).println("desativar()");
 					new PrintStream(cliente.getSaida()).println("Desativando o "+desligado.getMaquina().getNome());
 				}
@@ -414,7 +414,7 @@ public class Servidor {
 			String nomeDaMaquina = parametros.substring(0, parametros.indexOf(','));
 			String strCmd = parametros.substring(parametros.indexOf(',') + 1);
 			for(Cliente desligado : listaDeClientes){
-				if(desligado.getMaquina().getNome().equals(nomeDaMaquina)){
+				if(desligado.getMaquina().getNome().toLowerCase().equals(nomeDaMaquina.toLowerCase())){
 					new PrintStream(desligado.getSaida()).println("exec("+strCmd+")");
 					new PrintStream(cliente.getSaida()).println("Comando executado no cliente. ");
 					break;
@@ -429,7 +429,7 @@ public class Servidor {
 		else if(comando.equals("atualiza")){
 
 			for(Cliente desligado : listaDeClientes){
-				if(desligado.getMaquina().getNome().equals(parametros)){
+				if(desligado.getMaquina().getNome().toLowerCase().equals(parametros.toLowerCase())){
 					new PrintStream(desligado.getSaida()).println("atualizar()");
 					new PrintStream(cliente.getSaida()).println("Aguarde....");
 					break;
@@ -520,7 +520,6 @@ public class Servidor {
 				
 				dao.cadastra(usuario);
 				
-				System.out.println(cliente.getMaquina().getNome()+ ">> Autenticão bem sucedida.");
 				if (this.jaEstaLogado(usuario)) {
 					new PrintStream(cliente.getSaida()).println("printc(já está logado!)");
 					return;
@@ -548,7 +547,6 @@ public class Servidor {
 				}
 
 			} else {
-//				System.out.println(cliente.getMaquina().getNome()+ ">> Errou login ou senha.");
 				try {
 					cliente.getSaida().flush();
 					new PrintStream(cliente.getSaida()).println("printc(Login e senha não conferem)");

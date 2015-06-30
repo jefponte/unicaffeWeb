@@ -97,6 +97,7 @@ public class ClienteControl {
 						// System.out.println("Fechando Explorer. ");
 						Runtime.getRuntime().exec(
 								" taskkill /f /im explorer.exe");
+						Runtime.getRuntime().exec(" attrib C:\\Users\\unicafelocal\\Links\\RecentPlaces.lnk -h");//Oculta Locais em Favoritos
 						Thread.sleep(1000);
 						// System.out.println("Abrindo Explorer. ");
 						Runtime.getRuntime().exec("explorer.exe");
@@ -571,7 +572,7 @@ public class ClienteControl {
 			public void run() {
 		
 				try {
-					
+					Runtime.getRuntime().exec(" attrib C:\\Users\\dtiusr\\Links\\RecentPlaces.lnk +h");//Oculta Locais em Favoritos
 					Runtime.getRuntime().exec(" taskkill /f /im firefox.exe");
 					Runtime.getRuntime().exec(" taskkill /f /im iexplore.exe");
 					Runtime.getRuntime().exec(" taskkill /f /im explorer.exe");
@@ -609,13 +610,14 @@ public class ClienteControl {
 			new PrintStream(getCliente().getSaida()).println("setStatus("+Maquina.STATUS_OCUPADA+")");
 		
 		
-		 try {
-			Runtime.getRuntime().exec("net share arquivos=C:\\arquivos /GRANT:dtiusr,FULL");
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+//		 try {
+//			Runtime.getRuntime().exec("net share arquivos=C:\\arquivos /GRANT:dtiusr,FULL");
+//		} catch (IOException e1) {
+//			e1.printStackTrace();
+//		}
 		
-		String caminho = "\\\\"+this.getCliente().getMaquina().getNome()+"\\arquivos";
+//		String caminho = "\\\\"+this.getCliente().getMaquina().getNome()+"\\arquivos";
+		String caminho = "C:\\localunicafe";
 		Desktop d = new Desktop(caminho, login);
 		d.alterarRegistro();
 		getCliente().getMaquina().getAcesso().getUsuario().setLogin(login);
