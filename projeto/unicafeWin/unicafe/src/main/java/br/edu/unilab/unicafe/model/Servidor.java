@@ -375,7 +375,7 @@ public class Servidor {
 			for(Cliente desligado : listaDeClientes){
 				
 				
-				if(desligado.getMaquina().getNome().equals(parametros)){
+				if(desligado.getMaquina().getNome().toLowerCase().equals(parametros.toLowerCase())){
 					new PrintStream(desligado.getSaida()).println("desbloqueia(aula, "+18000+ ")");
 					new PrintStream(cliente.getSaida()).println("Liberado pra aula o "+desligado.getMaquina().getNome());
 				}

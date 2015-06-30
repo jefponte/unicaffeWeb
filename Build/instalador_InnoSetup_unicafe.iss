@@ -50,7 +50,7 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: 
 
 [Registry]
 ;loga com essa senha
-Root: HKLM64; Subkey: "SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"; ValueType: string; ValueName: "DefaultUserName"; ValueData: ".\unicafelocal"; Flags: uninsdeletekey
+Root: HKLM64; Subkey: "SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"; ValueType: string; ValueName: "DefaultUserName"; ValueData: ".\unicafe"; Flags: uninsdeletekey
 ;Loga com esse usuario
 Root: HKLM64; Subkey: "SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"; ValueType: string; ValueName: "DefaultPassword"; ValueData: "unicafe@unilab"; Flags: uninsdeletekey
 ;Loga automatico
@@ -66,8 +66,8 @@ Root: HKLM64; Subkey: "SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFla
 [Run]
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 ;cria um usuario
-Filename: {sys}\cmd.exe; Parameters: "/C net user unicafelocal unicafe@unilab /add /expires:never /passwordchg:no"; Flags: nowait
+;Filename: {sys}\cmd.exe; Parameters: "/C net user unicafe unicafe@unilab /add /expires:never /passwordchg:no"; Flags: nowait
 ;poe como administrador. 
-Filename: {sys}\cmd.exe; Parameters: "/C net localgroup administradores unicafelocal  /add"; Flags: nowait; 
+;Filename: {sys}\cmd.exe; Parameters: "/C net localgroup administradores unicafe  /add"; Flags: nowait; 
 ;Instalar servico
 Filename: "{app}\install.bat"; Parameters: "{app}"
