@@ -99,7 +99,7 @@ public class Perfil {
 		lista.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer","NoRun", Registro.REG_DWORD, "1", "0", "Não abrir o Executar"));
 		lista.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Programs","NoProgramsAndFeatures", Registro.REG_DWORD, "1", "0","Não exibir a lista no Add ou remover programas"));
 		
-		lista.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer", "NoViewOnDrive", Registro.REG_DWORD, "0x0000000C", "0x00000000","Não acessaar disco local C"));
+//		lista.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer", "NoViewOnDrive", Registro.REG_DWORD, "0x0000000C", "0x00000000","Não acessaar disco local C"));
 		lista.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer","NoDrives", Registro.REG_DWORD, "0x00000c", "0", "Não pode ver o disco C:"));
 		
 		
@@ -118,6 +118,19 @@ public class Perfil {
 		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", "DisableTaskMgr", Registro.REG_DWORD, "1", "0","Desativar Gerenciador de Tarefas"));
 		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer", "NoPropertiesMyComputer", Registro.REG_DWORD, "1", "0","Não ver Propriedades do Meu Computador"));
 		
+		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer", "NoFolderOptions", Registro.REG_DWORD, "1", "0","Remove Opções de Pastas"));
+
+
+		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer", "DisallowRun", Registro.REG_DWORD, "1", "0","Bloqueio de Programas"));
+		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\DisallowRun", "1", Registro.REG_SZ, "PCFasterSvc.exe", "","Baidu"));
+		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\DisallowRun", "2", Registro.REG_SZ, "BavSvc.exe", "","Baidu"));
+		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\DisallowRun", "3", Registro.REG_SZ, "BHipsSvc.exe", "","Baidu"));
+		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\DisallowRun", "4", Registro.REG_SZ, "bavhm.exe", "","Baidu"));
+		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\DisallowRun", "5", Registro.REG_SZ, "Updater.exe", "","Baidu"));
+		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\DisallowRun", "6", Registro.REG_SZ, "Bav.exe", "","Baidu"));
+		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\DisallowRun", "7", Registro.REG_SZ, "PCFTray.exe", "","Baidu"));
+		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\DisallowRun", "8", Registro.REG_SZ, "PCFasterSvc.exe", "","Baidu"));
+		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\DisallowRun", "9", Registro.REG_SZ, "cmd.exe", "","cmd"));
 		
 		//lista.add(new Registro("HKLM\\SOFTWARE\\Classes\\Wow6432Node\\CLSID\\{323CA680-C24D-4099-B94D-446DD2D7249E}", "ShellFolder", Registro.REG_DWORD, "a9400100", "a0900100","N�o ver Propriedades do Meu Computador"));
 		

@@ -37,10 +37,10 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 Source: "C:\unicafe\Build\UniCafeClient.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\arquivos\jefponte\Documents\workspace\unicafe\unicafe-update.jar"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\arquivos\jefponte\Documents\workspace\unicafe\config.ini"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\arquivos\jefponte\Documents\workspace\unicafe\liberados.txt"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\unicafe\services\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+;Source: "C:\arquivos\jefponte\Documents\workspace\unicafe\unicafe-update.jar"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "C:\arquivos\jefponte\Documents\workspace\unicafe\config.ini"; DestDir: "{app}"; Flags: ignoreversion
+;Source: "C:\arquivos\jefponte\Documents\workspace\unicafe\liberados.txt"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\unicafe\Build\install.bat"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
