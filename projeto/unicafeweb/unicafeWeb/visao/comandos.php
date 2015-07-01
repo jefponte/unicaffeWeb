@@ -5,29 +5,54 @@ $msg_erro="";
 $sucesso=FALSE;
 $msg_sucesso="";
 if(isset($_GET["comando"])){
-     if($comando="desligar"){
+     if($comando=="desligar"){
           $unicafe = new UniCafe();
-          echo $unicafe->dialoga("desliga(LABTI36)");
+          echo $unicafe->dialoga("desligar($_GET[maquina])");
+
+          
+     }
+    else if($comando=="aula"){
+          $unicafe = new UniCafe();
+          echo $unicafe->dialoga("aula($_GET[maquina])");
+
+          
+     }
+    else if($comando=="bloqueia"){
+          $unicafe = new UniCafe();
+          echo $unicafe->dialoga("bloqueia($_GET[maquina])");
+
+          
+     }
+      else if($comando=="desativar"){
+          $unicafe = new UniCafe();
+          echo $unicafe->dialoga("desativar($_GET[maquina])");
+
+          
+     }
+      else if($comando=="ajuda"){
+          $unicafe = new UniCafe();
+          echo $unicafe->dialoga("ajuda()");
 
           
      }
 } 
-
-$acesso=new AcessoDAO();
-       $lista=$acesso->retornaAcesso();
+echo "<a href='?comando=ajuda'>Ajuda</a></br>";
+$acesso=new conectadosDAO();
+       $lista=$acesso->retornaConectados();
        $div="";
+       
         foreach ($lista as $linha){
             
-            print $linha->getMaquina()->getNome();
+           // print $linha->getMaquina()->getNome();
             $div.= "<div style=' background-color: activecaption;  width:150px; '> Máquina: ".$linha->getMaquina()->getNome()."\t"."Usuário: ".$linha->getUsuario()->getNome()."\t".
              "Hora Inicial: ".   $linha->getHoraInicial()."\t"."Usuário: ".$linha->getUsuario()->getNome()."\t"
                     . "<a href='?comando=desligar&maquina=".$linha->getMaquina()->getNome()."'>desligar</a></br>"
                     . "<a href='?comando=aula&maquina=".$linha->getMaquina()->getNome()."'>Aula</a></br>".
-                "<a href='?comando=desligar&maquina=".$linha->getMaquina()->getNome()."'>Bloquear</a></br>".
-                "<a href='?comando=desligar&maquina=".$linha->getMaquina()->getNome()."'>Desativar</a></br>".
-                "<a href='?comando=desligar&maquina=".$linha->getMaquina()->getNome()."'>Ajuda</a></br></div>";
+                "<a href='?comando=bloqueia&maquina=".$linha->getMaquina()->getNome()."'>Bloquear</a></br>".
+                "<a href='?comando=desativar&maquina=".$linha->getMaquina()->getNome()."'>Desativar</a></br>".
+                "</div>";
 
-                   echo"div";
+                  
           
            
            
