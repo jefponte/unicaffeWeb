@@ -2,6 +2,8 @@
 $erro=FALSE;
 $msg_erro="";
 $tabela="";
+$sucesso=false;
+$msg_sucesso="";
             $condicao = array();        
         if(!empty($op1)){
             $condicao[] =  "nome_maq = '{$nome_maq}'";
@@ -16,8 +18,8 @@ $tabela="";
        
      // $linhas= $listar->listarDados("laboratorio","nome_laboratorio",$grupo_cond);
        
-      while($linha = $listar->listarDados("laboratorio","nome_laboratorio",$grupo_cond)){
-          $tabela=$tabela."<tr><td>".$linha['nome_laboratorio']."</td></tr>";
+      while($linha = $listar->listarDados("laboratorio","nome_laboratorio,id_laboratorio",$grupo_cond)){
+          $tabela=$tabela."<tr><td>".$linha['nome_laboratorio']."</td><td><a href='?editar&nome=$linha[nome_laboratorio]&id=$linha[id_laboratorio]'> Editar </a>"."</td></tr>";
       }
       
        /*foreach ($linhas as $linha => $cont) {
@@ -30,7 +32,18 @@ $tabela="";
            // echo "Nome: {$linha['nome_pc']} - Usuário: {$linha['mac']}<br />";
 
        
+if(isset($_POST['alterar_lab'])){
 
+      $laboratorio = new Laboratorio();
+            $laboratorio->setNome($_POST['nome']);
+            $laboratorio->setId($_POST['id']);
+
+            $labDao= new LabDao();
+            if(!$labDao->editarLab($laboratorio)){
+                $sucesso=TRUE;
+                $msg_sucesso="Atualizado com sucesso.";
+            }
+}
           
 
 
@@ -38,7 +51,8 @@ $tabela="";
 
 ?>
             
-          
+                    
+   
 
         <div class="resolucao"> <!-- Opcional -->
            
@@ -69,7 +83,10 @@ $tabela="";
                             <thead>
                                 <tr>
                                     <th>Nome do Laborat&oacute;rio</th>
+                                    <th>Editar</th>
+                                    
                                 </tr>
+                                
                             </thead>
                         <tbody>
                         
@@ -90,3 +107,103 @@ $tabela="";
         </div>
     </div>
 
+    
+    
+    
+    
+    
+  <?php
+        if(isset($_GET["editar"])){
+    
+    ?>
+       
+            
+            <div id="modal">
+              <div class="box-modal">
+                      <div class="box-modal-load">
+                          
+                          
+                          
+                          <div class="resolucao"> <!-- Opcional -->
+           
+            <!-- O layout é dividido em 12 colunas por linha. Assim, você poderá montá -->
+            <!-- Ex.: Se você precisar de 12 colunas, você deverá colocar 12 DIVs com a declaração de uma coluna para cada -->
+              <?php
+                
+                        if($sucesso==TRUE){
+                   
+                    ?>
+                        <div class="alerta-ajuda quatro">
+                            <div class="icone icone-enter ix16"></div>
+                            <div class="titulo-alerta"><?php print $msg_sucesso;?></div>
+                            <div class="subtitulo-alerta"><?php echo  $msg_sucesso ?></div>
+                        </div> 
+                    <?php
+                    }
+                    ?>
+                    
+            
+            
+            
+            <div class="doze colunas">
+            
+                    <span class="titulo">
+                        
+                        Atualizar dados do laborat&oacute;rio  
+                    </span>
+                     
+                    <?php
+                        if($erro==TRUE){
+                   
+                    ?>
+                        <div class="alerta-erro">
+                            <div class="icone icone-clock2 ix16"></div>
+                            <div class="titulo-alerta"><?php print $msg_erro;?></div>
+                            <div class="subtitulo-alerta"><?php print $msg_erro;?></div>
+                        </div> 
+                    <?php
+                    }
+                    ?>
+               
+                  <form action="index.php?listar&editar" method="post" name="editar_lab" id="formulario_cadastro" class="formulario-organizado">
+                    <?php
+                    $global = array();
+                    if(COUNT($_POST) > 0){
+                        $global = $_POST;
+                    }
+                    else{
+                        $global = $_GET;
+                    }
+                   // $nome = "";
+                    //$id = "";
+                    foreach($global as $chave => $valor){
+                        $$chave = $valor;
+                        //$nome
+                    }
+                    ?>
+                      <label>
+                          <object class="dois alinhado a-esquerda"> Descrição: </object>
+                             <input type="text" onkeypress="return valida_texto(event,'msg2');" onkeyup="letras_maiusculas(this);" name="nome" placeholder="" required value="<?php print $nome; ?>" />
+                     </label>
+
+                      <input type="hidden" name="id" value="<?php print $id; ?>" />
+                        <div class="a-direta">
+                            
+                            <input type="submit"  value="Enviar" name="alterar_lab" value="Alterar" /> 
+                        </div>            
+
+                    </form>
+            </div>
+
+        </div>
+    </div> 
+                    <div class=""><a class="fechar botao b-erro" href="index.php?listarlab">Fechar</a></div>
+                          
+                          
+                      
+    
+                    </div>
+              </div>
+    
+</div>
+         <?php }?>             

@@ -38,11 +38,12 @@
                     <li><a href="#" class="item"><span class="icone-IE"></span> <span class="item-texto">Máquina</span><span class="icone-expande"></span></a>
                 <ul>
                     <li><a href="index.php?cadastromaq">Cadastrar M&aacute;quina no Laborat&oacute;rio</a></li>
-                       
-                            <li><a href="index.php?listarmaq"> Listar</a></li>
+                    <li><a href="index.php?editarmaqlab"> Mudar m&aacute;quina no labor&aacute;torio</a></li>
+                    <li><a href="index.php?listarmaq"> Listar</a></li>
                            
                     
                 </ul>
+                        
                     </li>
                      <li><a href="#" class="item"><span class="icone-IE"></span> <span class="item-texto">Gerenciamento</span><span class="icone-expande"></span></a>
                 <ul>

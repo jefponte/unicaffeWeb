@@ -28,7 +28,22 @@ class LabDao extends DAO{
        
         
     }
-    
+    public function editarLab(Laboratorio $lab) {
+        
+        $nome= $lab->getNome();
+        $id=$lab->getId();
+        $geraSql=new GeraSQL();
+        $dados="nome_laboratorio='$nome'";
+        $add = "WHERE id_laboratorio = $id";
+       $retornaSql= $geraSql->setUpdade("laboratorio", $dados,$add);
+       echo $retornaSql;
+       if($this->getConexao()->query($retornaSql)){
+           print "editou";
+       }
+        
+       
+        
+    }
     
     
     

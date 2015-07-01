@@ -19,9 +19,12 @@ class LaboratorioControl{
    
     
     public function listarDados($tabela,$campus,$grupo_cond) {
+        echo "lisrar";
         if($this->consulta == null){
             $dao=new DAO();
+            
             $listar = new GeraSQL();
+            //$dao->tipoDeConexao=$tipo_conexao;
             $lista = $listar->setLoad($tabela, $campus, $grupo_cond);
             echo $lista."aqui";
 

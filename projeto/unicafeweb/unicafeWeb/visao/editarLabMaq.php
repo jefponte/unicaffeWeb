@@ -20,7 +20,7 @@ if(isset($_POST["formulario_cadastro"])){
 
             $laboratorio->setIdLaboratorio($_POST['id_lab']);
             $labDao= new MaquinaLabDao();
-            if($labDao->cadastraMaquinalab($laboratorio)){
+            if($labDao->editarMaquinalab($laboratorio)){
                 $sucesso=TRUE;
                 $msg_sucesso="Inserido com sucesso";
             }
@@ -70,8 +70,8 @@ if(isset($_POST["formulario_cadastro"])){
                       <?php 
                          
                      $listar=new LaboratorioControl();
-                      $grupo_cond1="where maquina.id_maquina not in  ((select id_maquina from laboratorio_maquina ))";
-                      while ($linha = $listar->listarDados("maquina","nome_pc,maquina.id_maquina",$grupo_cond1) ){
+                      $grupo_cond1="inner join laboratorio_maquina on laboratorio_maquina.id_maquina=maquina.id_maquina";
+                      while ($linha = $listar->listarDados("maquina","nome_pc,laboratorio_maquina.id_maquina",$grupo_cond1) ){
                       ?>
                       <option value="<?php print  $linha['id_maquina'] ?>" id="" name="id_maquina"><?php echo $linha["nome_pc"];  ?> </option>
        
@@ -91,9 +91,9 @@ if(isset($_POST["formulario_cadastro"])){
 
 
 
-                        //$grupo_cond="inner join laboratorio_maquina on laboratorio_maquina.id_laboratorio=laboratorio.id_laboratorio";
+                        $grupo_cond="inner join laboratorio_maquina on laboratorio_maquina.id_laboratorio=laboratorio.id_laboratorio";
 
-                        while ($linha = $listar->listarDados("laboratorio","nome_laboratorio,laboratorio.id_laboratorio") ){
+                        while ($linha = $listar->listarDados("laboratorio","nome_laboratorio,laboratorio_maquina.id_laboratorio",$grupo_cond) ){
                         ?>
                         <option value="<?php print  $linha['id_laboratorio'] ?>" id="" name="id_lab"><?php echo $linha["nome_laboratorio"];  ?> </option>
 
