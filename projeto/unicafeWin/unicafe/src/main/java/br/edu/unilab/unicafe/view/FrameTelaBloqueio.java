@@ -2,6 +2,7 @@ package br.edu.unilab.unicafe.view;
 
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
@@ -24,6 +25,7 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.net.URL;
 
 public class FrameTelaBloqueio extends JFrame {
 
@@ -65,6 +67,10 @@ public class FrameTelaBloqueio extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setAlwaysOnTop(true);
+		
+		URL url = this.getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "unicafe-logo-ap.png");    
+		Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(url);    
+		this.setIconImage(iconeTitulo);
 		
 		JPanel panelForm2 = new JPanel();
 		panelForm2.setBackground(Color.WHITE);

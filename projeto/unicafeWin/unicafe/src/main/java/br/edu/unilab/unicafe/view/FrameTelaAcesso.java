@@ -2,6 +2,7 @@ package br.edu.unilab.unicafe.view;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Image;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
@@ -18,6 +19,7 @@ import javax.swing.JButton;
 import java.awt.Font;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.net.URL;
 
 public class FrameTelaAcesso extends JFrame {
 
@@ -27,6 +29,12 @@ public class FrameTelaAcesso extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JButton btnFinalizar;
+	private JButton btnChat;
+	
+	public JButton getBntChat(){
+		return this.btnChat;
+	}
+	
 	public JButton getBtnFinalizar(){
 		return this.btnFinalizar;
 	}
@@ -60,6 +68,10 @@ public class FrameTelaAcesso extends JFrame {
 			}
 		});
 		
+		URL url = this.getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "unicafe-logo-ap.png");    
+		Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(url);    
+		this.setIconImage(iconeTitulo);
+		
 		contentPane.setBackground(new Color(0, 158, 216));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -79,8 +91,7 @@ public class FrameTelaAcesso extends JFrame {
 		btnFinalizar.setForeground(new Color(255, 255, 255));
 		btnFinalizar.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseEntered(MouseEvent e) {
-				
+			public void mouseEntered(MouseEvent e) {				
 				setOpacity(1f);
 			}
 		});
@@ -94,12 +105,12 @@ public class FrameTelaAcesso extends JFrame {
 		
 		
 		
-		JButton btnChat = new JButton("Minimizar");
-		btnChat.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				setState(ICONIFIED);
-			}
-		});
+		btnChat = new JButton("Minimizar");
+//		btnChat.addActionListener(new ActionListener() {
+//			public void actionPerformed(ActionEvent arg0) {
+//				setState(ICONIFIED);
+//			}
+//		});
 		
 		
 		//btnChat.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "chat.png")));
@@ -107,11 +118,11 @@ public class FrameTelaAcesso extends JFrame {
 		btnChat.setForeground(new Color(255, 255, 255));
 		btnChat.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseEntered(MouseEvent e) {
-				
+			public void mouseEntered(MouseEvent e) {				
 				setOpacity(1f);
 			}
 		});
+		
 		btnChat.setBackground(new Color(248, 158, 50));
 		btnChat.setBounds((getWidth()-220), 5, 100, 35);
 		contentPane.add(btnChat);

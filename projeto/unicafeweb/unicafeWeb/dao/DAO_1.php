@@ -12,7 +12,7 @@ class DAO{
 	const TIPO_PG_SIGAA= 5;
 	public function DAO($conexao = null, $tipo = null){
 		$this->tipoDeConexao = 3;
-                echo $this->tipoDeConexao;
+                
 		if($conexao != null){
 			$this->conexao = $conexao;
 		}else

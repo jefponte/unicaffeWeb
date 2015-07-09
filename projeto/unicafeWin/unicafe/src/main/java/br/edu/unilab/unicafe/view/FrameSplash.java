@@ -5,6 +5,9 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import java.awt.Color;
+import java.awt.Image;
+import java.awt.Toolkit;
+import java.net.URL;
 
 import javax.swing.JLabel;
 
@@ -22,6 +25,10 @@ public class FrameSplash extends JFrame {
 		setSize(800, 350);
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		
+		URL url = this.getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "unicafe-logo-ap.png");    
+		Image iconeTitulo = Toolkit.getDefaultToolkit().getImage(url);    
+		this.setIconImage(iconeTitulo);
 		
 		JLabel label = new JLabel("");
 		label.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "unicafe-logo.png")));

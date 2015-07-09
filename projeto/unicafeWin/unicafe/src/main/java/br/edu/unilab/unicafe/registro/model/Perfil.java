@@ -120,7 +120,19 @@ public class Perfil {
 		
 		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer", "NoFolderOptions", Registro.REG_DWORD, "1", "0","Remove Opções de Pastas"));
 
+		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", "Wallpaper", Registro.REG_SZ, "C:\\Windows\\Web\\Wallpaper\\Windows\\papel-de-parede.jpg", "C:\\Windows\\Web\\Wallpaper\\Windows\\img0.jpg","definir papel de parede"));
+		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", "WallpaperStyle", Registro.REG_DWORD, "2", "0","impede a alteração do plano de fundo"));
+		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\ActiveDesktop", "NoChangingWallpaper", Registro.REG_DWORD, "1", "0", "Não altera plano de fundo"));
+		
+		lista.add(new Registro("HKCU\\Software\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\CurrentVersion\\TrayNotify", "PastIconsStream", Registro.REG_DWORD, "0", "0","Mostra os icones na area de notificação"));
+		lista.add(new Registro("HKCU\\Software\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\CurrentVersion\\TrayNotify", "IconStreams", Registro.REG_DWORD, "0", "0","Mostra os icones na area de notificação"));
+		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer", "EnableAutoTray", Registro.REG_DWORD, "0", "0","Mostra os icones na area de notificação"));
+		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer", "NoTrayItemsDisplay", Registro.REG_DWORD, "0", "0","Mostra os icones na area de notificação"));
+		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", "Hidden", Registro.REG_DWORD, "0", "0","Ocultar arquivos de sistema"));
+		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", "ShowSuperHidden", Registro.REG_DWORD, "0", "0","Ocultar arquivos de sistema protegido"));
+		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Advanced", "HideFileExt", Registro.REG_DWORD, "1", "1","Ocultar extensões"));
 
+		
 		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer", "DisallowRun", Registro.REG_DWORD, "1", "0","Bloqueio de Programas"));
 		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\DisallowRun", "1", Registro.REG_SZ, "PCFasterSvc.exe", "","Baidu"));
 		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\DisallowRun", "2", Registro.REG_SZ, "BavSvc.exe", "","Baidu"));

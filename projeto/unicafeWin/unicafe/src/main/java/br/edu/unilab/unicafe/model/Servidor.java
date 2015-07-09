@@ -360,7 +360,7 @@ public class Servidor {
 			
 			System.out.println("Desligando "+parametros);
 			for(Cliente desligado : listaDeClientes){
-				if(desligado.getMaquina().getNome().equals(parametros)){
+				if(desligado.getMaquina().getNome().toLowerCase().equals(parametros.toLowerCase())){
 					new PrintStream(desligado.getSaida()).println("desligar()");
 					new PrintStream(cliente.getSaida()).println("Desliguei o "+desligado.getMaquina().getNome());
 				}

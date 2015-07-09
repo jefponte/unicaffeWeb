@@ -65,7 +65,7 @@ class UniCafe {
 	
 	
 	/**
-	 * Executa uma instrução SQL, retornando um objeto UniCafeStatement como resultado. 
+	 * Executa uma instruï¿½ï¿½o SQL, retornando um objeto UniCafeStatement como resultado. 
 	 * @return UniCafeStatement UniCafe::query retorna um objeto UniCafeStatement, ou falto se der erro.
 	 */
 	public function query($statement) {
@@ -74,7 +74,7 @@ class UniCafe {
 		//Isso vai vir do JSON convertido. :) 
 		$listaJSON = $this->dialoga($statement);
 		
-		//Essa lista aí eu espero que seja um JSON. 
+		//Essa lista aï¿½ eu espero que seja um JSON. 
 		//Tenho que pegar ela e separar e matriz. 
 
 		$arrJson = explode('|', $listaJSON);

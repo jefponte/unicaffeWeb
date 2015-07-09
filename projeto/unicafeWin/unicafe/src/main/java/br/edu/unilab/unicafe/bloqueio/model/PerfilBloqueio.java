@@ -11,7 +11,8 @@ import java.util.Scanner;
 
 public class PerfilBloqueio {
 	private ArrayList<Processo> listaDeProcessosAceitos;
-
+	public String user = System.getProperty("user.home");
+	
 	public ArrayList<Processo> getListaDeAceitos() {
 		return this.listaDeProcessosAceitos;
 	}
@@ -460,15 +461,35 @@ public class PerfilBloqueio {
 			this.listaDeProcessosAceitos.add(new Processo("eclipse.exe", "C:\\Program Files (x86)\\eclipse_c\\eclipse.exe", "944"));			
 			this.listaDeProcessosAceitos.add(new Processo("starter.exe", "C:\\Program Files (x86)\\eclipse_c\\plugins\\org.eclipse.cdt.core.win32.x86_64_5.3.0.201409172108\\os\\win32\\x86_64\\starter.exe", "944"));			
 			this.listaDeProcessosAceitos.add(new Processo("gcc.exe", "C:\\MinGW\\bin\\gcc.exe", "944"));
-			
-			
-			
-			
+						
 			this.listaDeProcessosAceitos.add(new Processo("javaw.exe", "C:\\Program Files\\Java\\jre1.8.0_40\\bin\\javaw.exe", "944"));
 			this.listaDeProcessosAceitos.add(new Processo("eclipse.exe", "C:\\Program Files\\Java\\jre1.8.0_40\\bin\\javaw.exe", "944"));
 			this.listaDeProcessosAceitos.add(new Processo("drvinst.exe", "C:\\Windows\\system32\\DrvInst.exe", "944"));
 			this.listaDeProcessosAceitos.add(new Processo("wmpnscfg.exe", "C:\\Program Files\\Windows Media Player\\wmpnscfg.exe", "944"));
 
+			this.listaDeProcessosAceitos.add(new Processo("makecab.exe", "C:\\Windows\\system32\\makecab.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("attrib.exe", "C:\\Windows\\system32\\attrib.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("eclipse.exe", user + "\\Documents\\eclipse\\eclipse.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("eclipse.exe", user + "\\Downloads\\eclipse_java\\eclipse.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("eclipse.exe", user + "\\Downloads\\eclipse\\eclipse.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("Dropbox.exe", user + "\\AppData\\Roaming\\Dropbox\\bin\\Dropbox.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("DrvUpdater.exe", user + "\\AppData\\Roaming\\DRPSu\\DrvUpdater.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("CmapTools_v6.01_02-25-15.exe", user + "\\AppData\\Local\\Temp\\I1434973992\\Windows\\CmapTools_v6.01_02-25-15.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("javaw.exe", user + "\\AppData\\Local\\Temp\\I1434973992\\Windows\\resource\\jre\\bin\\javaw.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("Photoshop.exe", user + "\\Documents\\Photoshop CS6 Portable\\AutoPlay\\Docs\\App\\PhotoshopCS6\\Photoshop.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("PhotoshopCS6Portable.exe", user + "\\Documents\\Photoshop CS6 Portable\\AutoPlay\\Docs\\PhotoshopCS6Portable.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("eclipse.exe", user + "\\Downloads\\eclipse\\eclipse.exe", "944"));			
+			
+			
+			//PRocessos relacionados ao Autocad
+			this.listaDeProcessosAceitos.add(new Processo("msiexec.exe", "C:\\Windows\\system32\\MsiExe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("msiexec.exe", "C:\\Windows\\syswow64\\MsiExec.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("AdMigrator.exe", "C:\\Program Files\\Autodesk\\AutoCAD 2013\\admigrator.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("csc.exe", "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\csc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("GUP.exe", "C:\\Program Files (x86)\\Notepad++\\updater\\gup.exe", "944"));
+
+			
+			
 			
 			while (linhaArquivo.ready()) {
 				String linha = linhaArquivo.readLine();
