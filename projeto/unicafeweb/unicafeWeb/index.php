@@ -3,28 +3,29 @@
         
         
         <?php
+        $sessao = new Sessao();
         ini_set("display_errors", 1);
-            include_once 'dao/DAO.php';
-        include_once './modelo/LaboratorioMaquina.php';
-        include_once './dao/MaquinaLabDao.php';
-        include_once './visao/LaboratorioVisao.php';
-        include_once './controle/LaboratorioControl.php';
-        include_once 'dao/Conexao.php';
-        include_once './modelo/Laboratorio.php';
-        include_once './controle/validacoes_php.php';
-        include_once './dao/LabDao.php';
-        include_once './dao/GeraSQL.php';
-        include_once "incluir_paginas/cabecalho.php";
-        include_once "incluir_paginas/topo.php";
-        include_once 'dao/AcessoDAO.php';
-        include_once './modelo/Acesso.class.php';
-        include_once './modelo/Usuario.class.php';
-        include_once './modelo/Maquina.class.php';
-        include_once 'dao/ConectadosDAO.php';
-        include_once 'dao/MaquinaDAO.php';
-        include_once 'dao/Conexao.php';
-        include_once 'dao/UniCafe.php';
-      
+       include_once "incluir_paginas/cabecalho.php";
+        include_once "incluir_paginas/topo.php"; 
+         //include_once "incluir_paginas/menu.php"; 
+        function __autoload($classe){
+            
+            
+            if(file_exists('dao/'.$classe.'.php'))
+                include_once 'dao/'.$classe.'.php';
+            if(file_exists('modelo/'.$classe.'.php'))
+                include_once 'modelo/'.$classe.'.php';
+           if(file_exists('controle/'.$classe.'.php'))
+                include_once 'controle/'.$classe.'.php';
+           if(file_exists('util/'.$classe.'.php'))
+                include_once 'util/'.$classe.'.php';
+            
+        }
+        
+
+
+
+
       ?>
 
 
@@ -33,6 +34,24 @@
 
 <?php
 
+
+if(isset($_GET["sair"])){
+     
+      $sessao->mataSessao();
+      header("Location: index.php");
+      
+      
+  }
+            
+  
+else if($sessao->getNivelAcesso() != Sessao::NIVEL_SUPER){
+  
+    include './visao/login.php';
+    return;
+}
+else{
+      include_once "incluir_paginas/menu.php"; 
+}
 if(isset($_GET["cadastroLab"]))
             include './visao/cadastroLab.php';
 else if  (isset($_GET["listarlab"])){
@@ -57,6 +76,10 @@ else if  (isset($_GET["acessosmaq"])){
      print $_GET["maquina"];
             include './visao/comandos.php';
  }
+  else if  (isset($_GET["comando1"])){
+     print $_GET["maquina"];
+            include './visao/comandos.php';
+ }
  else if  (isset($_GET["editar"])){
                include './visao/listagemLab.php';
  }
@@ -66,5 +89,10 @@ else if  (isset($_GET["acessosmaq"])){
  else if  (isset($_GET["editarmaqlab"])){
             include './visao/editarLabMaq.php';
  }
+ 
+ else if  (isset($_GET["vermaquina"])){
+            include './visao/listagemLab.php';
+ }
+
 ?>
 

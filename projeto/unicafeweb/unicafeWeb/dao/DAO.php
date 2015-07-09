@@ -21,7 +21,7 @@ class DAO{
 		$this->tipoDeConexao = self::TIPO_PG_TESTE;
             }
             
-            echo $this->tipoDeConexao ;
+            //echo $this->tipoDeConexao ;
 		if($conexao != null){
 			$this->conexao = $conexao;
 		}else

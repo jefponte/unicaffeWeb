@@ -6,11 +6,11 @@ if(isset($_POST["formulario_cadastro"])){
     if(isset($_POST['nome']) && $_POST["nome"]!="")
             { 
         $valida=new validacoes();
-        if(!$valida->validaCampos(3, $_POST["nome"])){
+    /*    if(!$valida->validaCampos(3, $_POST["nome"])){
                 $msg_erro.="Nome invalido";
                 $erro=TRUE;
                 
-         }
+         }*/
          
          
          if($erro==FALSE){

@@ -4,7 +4,8 @@
 	<title>UniCafe</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="http://spa.dsi.unilab.edu.br/spa/css/spa.css" />
-        
+       <link rel="shortcut icon" href="img/unicafe-logo-pp-b.png"  />
+
         <!-- arquivos JavaScript -->
         
         <script src="http://code.jquery.com/jquery-1.5.js"></script>

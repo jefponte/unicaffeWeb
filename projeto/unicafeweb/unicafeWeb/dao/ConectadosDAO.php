@@ -16,7 +16,10 @@ class conectadosDAO extends DAO{
            $acesso->setHoraInicial($linha['hora_inicial']);
            $acesso->getUsuario()->setId($linha['id_usuario']);
            $acesso->getUsuario()->setNome($linha['nome']);
-
+           $laboratorio = new Laboratorio();
+           $laboratorio->setNome($linha['nome_laboratorio']);
+           $laboratorio->setId($linha['id_laboratorio']);
+           $acesso->getMaquina()->setLaboratorio($laboratorio);
            $acesso->getMaquina()->setNome($linha['nome_pc']);
            $lista[] = $acesso;
        }

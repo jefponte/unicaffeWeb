@@ -37,6 +37,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 Source: "C:\unicafe\Build\UniCafeClient.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\unicafe\projeto\unicafeWin\unicafe\src\main\resources\images\papel-de-parede.jpg"; DestDir:"C:\Windows\Web\Wallpaper\Windows"; Flags: ignoreversion;
 ;Source: "C:\arquivos\jefponte\Documents\workspace\unicafe\unicafe-update.jar"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "C:\arquivos\jefponte\Documents\workspace\unicafe\config.ini"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "C:\arquivos\jefponte\Documents\workspace\unicafe\liberados.txt"; DestDir: "{app}"; Flags: ignoreversion

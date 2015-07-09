@@ -1,6 +1,6 @@
 <?php
 
- $acesso=new conectadosDAO();
+ $acesso=new ConectadosDAO();
        $lista=$acesso->retornaConectados();
        $div="";
         foreach ($lista as $linha){

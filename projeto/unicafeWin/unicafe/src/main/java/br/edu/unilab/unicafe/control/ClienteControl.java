@@ -3,7 +3,12 @@ package br.edu.unilab.unicafe.control;
 
 import java.awt.AWTException;
 import java.awt.EventQueue;
+import java.awt.Image;
+import java.awt.MenuItem;
+import java.awt.PopupMenu;
 import java.awt.Robot;
+import java.awt.SystemTray;
+import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -14,11 +19,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
+import java.net.URL;
 import java.net.UnknownHostException;
 import java.util.Scanner;
 import java.util.concurrent.Semaphore;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 
 import br.edu.unilab.unicafe.bloqueio.model.PerfilBloqueio;
 import br.edu.unilab.unicafe.dao.UsuarioDAO;
@@ -30,6 +38,7 @@ import br.edu.unilab.unicafe.view.FrameAviso;
 import br.edu.unilab.unicafe.view.FrameSplash;
 import br.edu.unilab.unicafe.view.FrameTelaAcesso;
 import br.edu.unilab.unicafe.view.FrameTelaBloqueio;
+import br.edu.unilab.unicafe.view.UtilFrames;
 
 /**
  * Control
@@ -43,6 +52,9 @@ public class ClienteControl {
 	 * View
 	 * 
 	 */
+	public SystemTray tray;
+	public TrayIcon trayIcon;
+	public String user = System.getProperty("user.home");
 	private FrameTelaAcesso frameTelaAcesso;
 	private FrameSplash frameSplash;
 	private FrameTelaBloqueio frameTelaBloqueio;
@@ -97,7 +109,7 @@ public class ClienteControl {
 						// System.out.println("Fechando Explorer. ");
 						Runtime.getRuntime().exec(
 								" taskkill /f /im explorer.exe");
-						Runtime.getRuntime().exec(" attrib C:\\Users\\unicafe\\Links\\RecentPlaces.lnk -h");//Oculta Locais em Favoritos
+						Runtime.getRuntime().exec(" attrib " + user + "\\Links\\RecentPlaces.lnk -h");//Oculta Locais em Favoritos
 						Thread.sleep(1000);
 						// System.out.println("Abrindo Explorer. ");
 						Runtime.getRuntime().exec("explorer.exe");
@@ -148,10 +160,18 @@ public class ClienteControl {
 						new ActionListener() {
 							@Override
 							public void actionPerformed(ActionEvent e) {
-
 								bloqueia();
 							}
 						});
+				
+				getFrameTelaAcesso().getBntChat().addActionListener(new ActionListener() {					
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						getFrameTelaAcesso().setVisible(false);
+						criaAreaNotificacao();
+					}
+				});
+				
 				getFrameTelaBloqueio().getPasswordFieldSenha().addKeyListener(new KeyAdapter() {
 					public void keyPressed(java.awt.event.KeyEvent e) {
 						if (e.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
@@ -498,8 +518,7 @@ public class ClienteControl {
 		            Thread.sleep(5000);
 		        	new PrintStream(getCliente().getSaida()).println("retorno("+retorno+")");
 		    		
-		        } catch (IOException | InterruptedException e) {
-		            // TODO Auto-generated catch block
+		        } catch (IOException | InterruptedException e) {		            
 		            e.printStackTrace();
 		        }
 			return;
@@ -550,7 +569,7 @@ public class ClienteControl {
 
 	            
 	         } catch (IOException e) {
-	                // TODO Auto-generated catch block
+	                
 	                e.printStackTrace();
 	            
 	         }
@@ -572,10 +591,11 @@ public class ClienteControl {
 			public void run() {
 		
 				try {
-					Runtime.getRuntime().exec(" attrib C:\\Users\\unicafe\\Links\\RecentPlaces.lnk +h");//Oculta Locais em Favoritos
+					Runtime.getRuntime().exec(" attrib " + user + "\\Links\\RecentPlaces.lnk +h");//Oculta Locais em Favoritos
 					Runtime.getRuntime().exec(" taskkill /f /im firefox.exe");
 					Runtime.getRuntime().exec(" taskkill /f /im iexplore.exe");
-					Runtime.getRuntime().exec(" taskkill /f /im explorer.exe");
+					Runtime.getRuntime().exec(" taskkill /f /im chrome.exe");
+					Runtime.getRuntime().exec(" taskkill /f /im explorer.exe");					
 					Thread.sleep(1000);
 					Runtime.getRuntime().exec("explorer.exe");
 				} catch (IOException | InterruptedException e) {
@@ -662,8 +682,10 @@ public class ClienteControl {
 						if(tempo == 300 || tempo == 120 || tempo == 20){
 								//getControle().mostraBarra();
 								getFrameAviso().setVisible(true);
+								getFrameTelaAcesso().setVisible(true);
 								getFrameTelaAcesso().setState(JFrame.NORMAL);
 								getFrameAviso().setState(JFrame.NORMAL);
+								tray.remove(trayIcon);
 								if(getCliente().getSaida() != null){
 									new PrintStream(getCliente().getSaida()).println("meDaBonus()");								
 								}
@@ -686,12 +708,7 @@ public class ClienteControl {
 							
 						} catch (InterruptedException e) {
 							e.printStackTrace();
-						}
-					
-						
-						
-						
-					
+						}					
 					
 				}
 				getFrameAviso().setVisible(false);
@@ -704,6 +721,98 @@ public class ClienteControl {
 		
 	}
 	
+	/**
+	* 
+	 *Este método envia o icone do aplicativo para área de notificação.
+	 *	
+	 */
+	@SuppressWarnings("deprecation")
+	public void criaAreaNotificacao(){			
+				
+		if (!SystemTray.isSupported()) {
+	            System.out.println("Não dá pra fazer, nem tenta!");
+	            	return;
+		}
+						
+		final PopupMenu pop = new PopupMenu();		
+		tray = SystemTray.getSystemTray();		
+		trayIcon = new TrayIcon(createImage(UtilFrames.BASE_PATH_IMAGES + "logo-an.png", "Unicafé"));			
+				
+		//Cria oos itens do Menu que aprarecerá na area de notificação
+		MenuItem item_1 = new MenuItem("Abrir Barra Unicafé");
+		MenuItem item_2 = new MenuItem("Chat");			
+		MenuItem item_5 = new MenuItem("Finalizar");
+						
+		pop.add(item_1);
+		pop.add(item_2);		
+		pop.addSeparator();			
+		pop.add(item_5);			
+				
+		trayIcon.setPopupMenu(pop);
+		trayIcon.setToolTip("Opções do UniCafé");
+
+				
+		//Adicionando o Icone na Area de Notificão, como o menu já está dentro do ícone,
+		//irá junto também.
+		try {
+	            tray.add(trayIcon);		            
+	            trayIcon.displayMessage("UniCafé", "Clique com o botão direito do mouse para vêr as "+ "Opções ou dê um duplo clique para abrir a barra do UniCafé!", TrayIcon.MessageType.INFO);
+	            trayIcon.addActionListener(new ActionListener() {					
+		
+	            	@Override
+	            	public void actionPerformed(ActionEvent e) {						
+	            		getFrameTelaAcesso().setVisible(true);	
+	            		getFrameTelaAcesso().setExtendedState(JFrame.NORMAL);
+	            		tray.remove(trayIcon);
+	            	}
+	            });					
+		
+		} catch (AWTException e) {
+			System.out.println("Não deu pra fazer isso...");
+			return;
+		}
+				
+		//ação das opções do menu
+		item_1.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {									
+				getFrameTelaAcesso().setVisible(true);
+				getFrameTelaAcesso().setExtendedState(JFrame.NORMAL);
+				try {					
+					tray.remove(trayIcon);						
+					trayIcon = null;
+					//pai.an.finalize();//Limpando a referência ao Systemtray da classe						
+				} catch (Throwable e1) {
+					e1.printStackTrace();
+				}
+			}
+		});
+				
+		item_2.disable();
+		item_2.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {					 
+				JOptionPane.showMessageDialog(null, "Em breve estaremos com esta funcionalidade ativa!");					 
+			}
+		});
+									
+		item_5.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				//JOptionPane.showMessageDialog(null, "Você está encerrando a sua sessão!!!!");					 
+				tray.remove(trayIcon);
+				bloqueia();			 
+			}
+		});			
+			//msg();			
+	}		
+			
+	protected static Image createImage(String path, String description) {
+		URL imageURL = ClienteControl.class.getResource(path);		        
+		if (imageURL == null) {
+			System.err.println("Caminho não encontrado: " + path);
+			return null;
+		} else {
+			return (new ImageIcon(imageURL, description)).getImage();
+		}
+	}	
 	
 	public FrameTelaAcesso getFrameTelaAcesso() {
 		return frameTelaAcesso;

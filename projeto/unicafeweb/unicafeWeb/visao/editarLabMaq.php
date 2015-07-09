@@ -91,9 +91,9 @@ if(isset($_POST["formulario_cadastro"])){
 
 
 
-                        $grupo_cond="inner join laboratorio_maquina on laboratorio_maquina.id_laboratorio=laboratorio.id_laboratorio";
+                        $grupo_cond="";
 
-                        while ($linha = $listar->listarDados("laboratorio","nome_laboratorio,laboratorio_maquina.id_laboratorio",$grupo_cond) ){
+                        while ($linha = $listar->listarDados("laboratorio","nome_laboratorio,id_laboratorio") ){
                         ?>
                         <option value="<?php print  $linha['id_laboratorio'] ?>" id="" name="id_lab"><?php echo $linha["nome_laboratorio"];  ?> </option>
 
