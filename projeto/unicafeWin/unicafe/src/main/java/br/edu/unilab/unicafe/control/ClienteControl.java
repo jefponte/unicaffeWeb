@@ -13,6 +13,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
@@ -109,7 +111,7 @@ public class ClienteControl {
 						// System.out.println("Fechando Explorer. ");
 						Runtime.getRuntime().exec(
 								" taskkill /f /im explorer.exe");
-						Runtime.getRuntime().exec(" attrib " + user + "\\Links\\RecentPlaces.lnk -h");//Oculta Locais em Favoritos
+						Runtime.getRuntime().exec(" attrib " + user + "\\Links\\RecentPlaces.lnk -h");//Retorna Locais em Favoritos
 						Thread.sleep(1000);
 						// System.out.println("Abrindo Explorer. ");
 						Runtime.getRuntime().exec("explorer.exe");
@@ -716,9 +718,7 @@ public class ClienteControl {
 
 			}
 		});
-		sessao.start();	
-		
-		
+		sessao.start();		
 	}
 	
 	/**
@@ -726,9 +726,7 @@ public class ClienteControl {
 	 *Este método envia o icone do aplicativo para área de notificação.
 	 *	
 	 */
-	@SuppressWarnings("deprecation")
-	public void criaAreaNotificacao(){			
-				
+	public void criaAreaNotificacao(){				
 		if (!SystemTray.isSupported()) {
 	            System.out.println("Não dá pra fazer, nem tenta!");
 	            	return;
@@ -756,16 +754,37 @@ public class ClienteControl {
 		//irá junto também.
 		try {
 	            tray.add(trayIcon);		            
-	            trayIcon.displayMessage("UniCafé", "Clique com o botão direito do mouse para vêr as "+ "Opções ou dê um duplo clique para abrir a barra do UniCafé!", TrayIcon.MessageType.INFO);
-	            trayIcon.addActionListener(new ActionListener() {					
-		
-	            	@Override
-	            	public void actionPerformed(ActionEvent e) {						
-	            		getFrameTelaAcesso().setVisible(true);	
+	            trayIcon.displayMessage("UniCafé", "Clique para abrir a barra do UniCafé "
+	            		+ "ou clique com o botão direito para vêr as opções.", TrayIcon.MessageType.INFO);
+	            trayIcon.addMouseListener(new MouseListener() {			
+					@Override
+					public void mouseReleased(MouseEvent e) {}
+					
+					@Override
+					public void mousePressed(MouseEvent e) {}
+					
+					@Override
+					public void mouseExited(MouseEvent e) {}
+					
+					@Override
+					public void mouseEntered(MouseEvent e) {}
+					
+					@Override
+					public void mouseClicked(MouseEvent e) {
+						getFrameTelaAcesso().setVisible(true);	
 	            		getFrameTelaAcesso().setExtendedState(JFrame.NORMAL);
 	            		tray.remove(trayIcon);
-	            	}
-	            });					
+					}
+				});
+//	            .addActionListener(new ActionListener() {					
+//		
+//	            	@Override
+//	            	public void actionPerformed(ActionEvent e) {						
+//	            		getFrameTelaAcesso().setVisible(true);	
+//	            		getFrameTelaAcesso().setExtendedState(JFrame.NORMAL);
+//	            		tray.remove(trayIcon);
+//	            	}
+//	            });					
 		
 		} catch (AWTException e) {
 			System.out.println("Não deu pra fazer isso...");
@@ -779,15 +798,14 @@ public class ClienteControl {
 				getFrameTelaAcesso().setExtendedState(JFrame.NORMAL);
 				try {					
 					tray.remove(trayIcon);						
-					trayIcon = null;
-					//pai.an.finalize();//Limpando a referência ao Systemtray da classe						
+					trayIcon = null;										
 				} catch (Throwable e1) {
 					e1.printStackTrace();
 				}
 			}
 		});
 				
-		item_2.disable();
+		item_2.setEnabled(false);
 		item_2.addActionListener(new ActionListener(){
 			public void actionPerformed(ActionEvent e) {					 
 				JOptionPane.showMessageDialog(null, "Em breve estaremos com esta funcionalidade ativa!");					 
