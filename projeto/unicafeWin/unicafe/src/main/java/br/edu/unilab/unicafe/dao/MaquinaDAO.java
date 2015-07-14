@@ -25,12 +25,14 @@ public class MaquinaDAO extends DAO{
 		ArrayList<Maquina>lista = new ArrayList<Maquina>();
 		PreparedStatement ps;
 		try {
-			ps = this.getConexao().prepareStatement("SELECT * FROM maquina");
+			ps = this.getConexao().prepareStatement("SELECT * FROM maquina LEFT join laboratorio ON maquina.id_laboratorio = laboratorio.id_maquina");
 			ResultSet resultSet = ps.executeQuery();
 			while(resultSet.next()){
 				Maquina maquina = new Maquina();
-
+				maquina.getLaboratorio().setId(resultSet.getInt("id_laboratorio"));
+				maquina.getLaboratorio().setNome(resultSet.getString("nome_laboratorio"));
 				maquina.setNome(resultSet.getString("nome_pc"));
+				
 				maquina.setId(resultSet.getInt("id_maquina"));
 				lista.add(maquina);
 			}
@@ -63,13 +65,15 @@ public class MaquinaDAO extends DAO{
 	 */
 	public boolean existe(Maquina maquina){
 		try {
-			PreparedStatement ps = this.getConexao().prepareStatement("SELECT * FROM maquina WHERE nome_pc = ?");
+			PreparedStatement ps = this.getConexao().prepareStatement("SELECT * FROM maquina LEFT JOIN laboratorio_maquina ON maquina.id_maquina = laboratorio_maquina.id_maquina LEFT JOIN laboratorio ON laboratorio.id_laboratorio = laboratorio_maquina.id_laboratorio WHERE nome_pc = ? ");
 			ps.setString(1, maquina.getNome());
 			
 			
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
 				maquina.setId(rs.getInt("id_maquina"));
+				maquina.getLaboratorio().setId(rs.getInt("id_laboratorio"));
+				maquina.getLaboratorio().setNome(rs.getString("nome_laboratorio"));
 				return true;
 			}
 			return false;					

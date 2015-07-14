@@ -18,7 +18,6 @@ public class Acesso {
 	public Acesso() {
 		this.status = STATUS_DISPONIVEL;
 		this.usuario = new Usuario();
-		this.usuario.setLogin("Não identificado");
 		this.setTempoUsado(0);
 	}
 	public void contar(){

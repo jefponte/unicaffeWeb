@@ -12,7 +12,9 @@ import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import com.google.gson.Gson;
 
@@ -319,7 +321,13 @@ public class Servidor {
 			
 			for(Cliente daVez:this.getListaDeClientes()){
 				
-				String dados = "|{\"id_maquina\":"+daVez.getMaquina().getId()+",\"nome_pc\":\""+daVez.getMaquina().getNome()+"\",\"mac\":\""+daVez.getMaquina().getEnderecoMac()+"\",\"id_acesso\":"+daVez.getMaquina().getAcesso().getId()+",\"hora_inicial\":"+daVez.getMaquina().getAcesso().getHoraInicial()+",\"tempo_oferecido\":"+daVez.getMaquina().getAcesso().getTempoDisponibilizado()+",\"tempo_usado\":"+daVez.getMaquina().getAcesso().getTempoUsado()+",\"ip\":\""+daVez.getConexao().getInetAddress().toString()+"\",\"id_usuario\":"+daVez.getMaquina().getAcesso().getUsuario().getId()+",\"id_laboratorio\":"+daVez.getMaquina().getLaboratorio().getId()+",\"nome_laboratorio\":\""+daVez.getMaquina().getLaboratorio().getNome()+"\",\"nome\":\""+daVez.getMaquina().getAcesso().getUsuario().getNome()+"\",\"email\":\""+daVez.getMaquina().getAcesso().getUsuario().getEmail()+"\",\"login\":\""+daVez.getMaquina().getAcesso().getUsuario().getLogin()+"\",\"senha\":\""+daVez.getMaquina().getAcesso().getUsuario().getSenha()+"\",\"nivel_acesso\":\""+daVez.getMaquina().getAcesso().getUsuario().getNivelAcesso()+"\""+"}";
+				
+				
+				Date data = new Date(daVez.getMaquina().getAcesso().getHoraInicial());
+				String horaInicial = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss").format(data);
+				
+				String dados = "|{\"id_maquina\":"+daVez.getMaquina().getId()+",\"nome_pc\":\""+daVez.getMaquina().getNome()+"\",\"mac\":\""+daVez.getMaquina().getEnderecoMac()+"\",\"id_acesso\":"+daVez.getMaquina().getAcesso().getId()+",\"hora_inicial\":\""+horaInicial+"\",\"tempo_oferecido\":"+daVez.getMaquina().getAcesso().getTempoDisponibilizado()+",\"tempo_usado\":"+daVez.getMaquina().getAcesso().getTempoUsado()+",\"ip\":\""+daVez.getConexao().getInetAddress().toString()+"\",\"id_usuario\":"+daVez.getMaquina().getAcesso().getUsuario().getId()+",\"id_laboratorio\":"+daVez.getMaquina().getLaboratorio().getId()+",\"nome_laboratorio\":\""+daVez.getMaquina().getLaboratorio().getNome()+"\",\"nome\":\""+daVez.getMaquina().getAcesso().getUsuario().getNome()+"\",\"email\":\""+daVez.getMaquina().getAcesso().getUsuario().getEmail()+"\",\"login\":\""+daVez.getMaquina().getAcesso().getUsuario().getLogin()+"\",\"senha\":\""+daVez.getMaquina().getAcesso().getUsuario().getSenha()+"\",\"status_maquina\":"+daVez.getMaquina().getStatus()+",\"status_acesso\":"+daVez.getMaquina().getAcesso().getStatus()+",\"nivel_acesso\":\""+daVez.getMaquina().getAcesso().getUsuario().getNivelAcesso()+"\""+"}";
+				
 				if(h == 0){
 					
 					json = dados;

@@ -99,9 +99,9 @@ public class Usuario {
 
 	public Usuario() {
 		id = 0;
-		nome = "";
+		nome = "livre";
 		email = "";
-		login = "";
+		login = "livre";
 		senha = "";
 	}
 

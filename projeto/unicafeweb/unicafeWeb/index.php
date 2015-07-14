@@ -39,9 +39,8 @@ if(isset($_GET["sair"])){
      
       $sessao->mataSessao();
       header("Location: index.php");
-      
-      
-  }
+           
+ }
             
   
 else if($sessao->getNivelAcesso() != Sessao::NIVEL_SUPER){
@@ -50,7 +49,9 @@ else if($sessao->getNivelAcesso() != Sessao::NIVEL_SUPER){
     return;
 }
 else{
-      include_once "incluir_paginas/menu.php"; 
+	$menu = new Menu();
+	$menu->mostraMenu();
+	
 }
 if(isset($_GET["cadastroLab"]))
             include './visao/cadastroLab.php';
