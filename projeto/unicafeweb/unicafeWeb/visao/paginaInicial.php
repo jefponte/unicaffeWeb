@@ -1,1 +1,0 @@
-   <div class="resolucao"> <!-- Opc

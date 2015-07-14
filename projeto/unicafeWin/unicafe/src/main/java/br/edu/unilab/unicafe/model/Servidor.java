@@ -116,6 +116,21 @@ public class Servidor {
 		recebendoConexao.start();
 
 	}
+	/**
+	 * Testa a conexão e deleta 
+	 */
+	public void limpezaDeMemoria(){
+		for(Cliente c: listaDeClientes){
+			try {
+				c.getConexao().close();
+				listaDeClientes.remove(c);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+	}
 
 	/**
 	 * 
@@ -179,9 +194,11 @@ public class Servidor {
 								
 								//Aqui trocaremos printStrema por ObjectInputStream. 
 								mensagem = in.readLine();
-								
 								processaMensagem(cliente, mensagem);
 							}
+							listaDeClientes.remove(cliente);
+							return;
+							
 							
 						}else if(comando.equals("setStatus") && status == Maquina.STATUS_ADMIN){
 							
@@ -417,7 +434,10 @@ public class Servidor {
 			
 			
 		}
-		
+		else if (comando.equals("limpar")) {
+			limpezaDeMemoria();
+			return;
+		}
 		else if(comando.equals("exec")){
 			String nomeDaMaquina = parametros.substring(0, parametros.indexOf(','));
 			String strCmd = parametros.substring(parametros.indexOf(',') + 1);
@@ -474,23 +494,28 @@ public class Servidor {
 			usuario.setSenha(senha);
 			if(login.equals("visitante") && senha.equals(UsuarioDAO.getMD5("123456"))){
 				//Contar clientes e contar visitantes. 
+				//Visitante também vai levar em consideração apenas máquinas no mesmo laboratório. 
+				int idLaboratorio = cliente.getMaquina().getLaboratorio().getId();
+				
 				int numeroDeClientes = 0;
 				int numeroDeVisitantes = 0;
 				int numeroDeMaquinasLivres = 0;
 				for(Cliente oDaVez : listaDeClientes){
-					if(oDaVez.getMaquina().getAcesso().getUsuario().getLogin().equals("visitante"))
+					if(oDaVez.getMaquina().getAcesso().getUsuario().getLogin().equals("visitante") && oDaVez.getMaquina().getLaboratorio().getId() == idLaboratorio)
 						numeroDeVisitantes++;
-					numeroDeClientes++;
-					if(oDaVez.getMaquina().getAcesso().getStatus() == Acesso.STATUS_DISPONIVEL)
+					if(oDaVez.getMaquina().getLaboratorio().getId() == idLaboratorio)
+						numeroDeClientes++;
+					if(oDaVez.getMaquina().getAcesso().getStatus() == Acesso.STATUS_DISPONIVEL && oDaVez.getMaquina().getLaboratorio().getId() == idLaboratorio)
 						numeroDeMaquinasLivres++;
+					
 				}
 
 				//Verificar se existem 20 por centod e maquinas conectadas livres.
-				if(numeroDeMaquinasLivres < numeroDeClientes*20/100){
+				if(numeroDeMaquinasLivres <= 5){
 					new PrintStream(cliente.getSaida()).println("printc(Laboratório Lotado!)");
 					return;
 				}
-				if(numeroDeVisitantes >= numeroDeClientes*30/100){
+				if(numeroDeVisitantes >= 5){
 					new PrintStream(cliente.getSaida()).println("printc(Muitos visitantes conectados!)");
 					return;
 				}
@@ -570,14 +595,23 @@ public class Servidor {
 				e.printStackTrace();
 			}
 			
-		}else if (comando.equals("meDaBonus")) {
+		}
+		else if (comando.equals("meDaBonus")) {
 			int disponiveis = 0;
+			/*
+			 * Iremos considerar apenas máquinas em seu laboratório. 
+			 * 
+			 */
+			int idLaboratorio = cliente.getMaquina().getLaboratorio().getId();
+			
 			for(Cliente umCliente : listaDeClientes){
-				if(umCliente.getMaquina().getStatus() == Maquina.STATUS_DISPONIVEL){
+				
+				if(umCliente.getMaquina().getStatus() == Maquina.STATUS_DISPONIVEL && umCliente.getMaquina().getLaboratorio().getId() == idLaboratorio){
 					disponiveis++;
+					
 				}		
 			}
-			if(disponiveis >= 7){
+			if(disponiveis >= 5){
 				new PrintStream(cliente.getSaida()).println("bonus()");
 
 			}

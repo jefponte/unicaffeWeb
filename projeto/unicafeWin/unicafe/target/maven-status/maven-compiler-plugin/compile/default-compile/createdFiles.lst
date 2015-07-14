@@ -39,7 +39,6 @@ br\edu\unilab\unicafe\control\ClienteControl$10.class
 br\edu\unilab\unicafe\desktop\Desktop.class
 br\edu\unilab\unicafe\control\ClienteControl$12.class
 br\edu\unilab\unicafe\model\Laboratorio.class
-br\edu\unilab\unicafe\view\FrameTelaAcesso$4.class
 br\edu\unilab\unicafe\control\ClienteControl$6.class
 br\edu\unilab\unicafe\control\ClienteControl.class
 br\edu\unilab\unicafe\dao\DAO.class

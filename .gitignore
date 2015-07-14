@@ -5,6 +5,7 @@
 /.settings
 *.project
 *.log
+.class
 *.metadata
 /projeto/unicafeweb/*.buildpath
 /projeto/unicafeweb/.settings/org.eclipse.php.core.prefs
