@@ -354,7 +354,7 @@ public class ClienteControl {
 							}
 							Socket socket;
 							if(j <= 5)
-								socket = new Socket("200.129.19.40", 27289);
+								socket = new Socket("localhost", 27289);
 							else
 								socket = new Socket("10.5.1.8", 27289);
 							getCliente().setConexao(socket);
@@ -556,27 +556,49 @@ public class ClienteControl {
 			t.start();
 			return;
 		} else if (comando.equals("atualizar")) {
-			 desBloqueandoServicos();
-			 getFrameTelaBloqueio().setVisible(false);
-			 
-			 Process process;
-	         Scanner leitor;
-	         try {
-	         	process = Runtime.getRuntime().exec(" java -jar \"C:\\Program Files (x86)\\UniCafe\\unicafe-update.jar\"");
-	         	leitor = new Scanner(process.getInputStream());
-	            while (leitor.hasNext()) {
-	            	String linha = leitor.nextLine();
-	            }
-	            System.exit(0);
 
-	            
-	         } catch (IOException e) {
-	                
-	                e.printStackTrace();
-	            
-	         }
-	         
-			
+			desBloqueandoServicos();
+
+			Thread t = new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+
+					try {
+						getFrameTelaBloqueio().setVisible(false);
+						// System.out.println("Fechando Explorer. ");
+						Runtime.getRuntime().exec(
+								" taskkill /f /im explorer.exe");
+						Thread.sleep(1000);
+						// System.out.println("Abrindo Explorer. ");
+						Runtime.getRuntime().exec("explorer.exe");
+						System.exit(0);
+
+					} catch (InterruptedException | IOException e) {
+						e.printStackTrace();
+					}
+
+				}
+			});
+			t.start();
+			Process process;
+			Scanner leitor;
+			try {
+				process = Runtime
+						.getRuntime()
+						.exec(" java -jar \"C:\\Program Files (x86)\\UniCafe\\unicafe-update.jar\"");
+				leitor = new Scanner(process.getInputStream());
+				while (leitor.hasNext()) {
+					String linha = leitor.nextLine();
+				}
+				System.exit(0);
+
+			} catch (IOException e) {
+
+				e.printStackTrace();
+
+			}
+
 			return;
 		} else {
 			
