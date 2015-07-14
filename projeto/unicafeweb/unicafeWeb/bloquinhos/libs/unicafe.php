@@ -78,18 +78,18 @@ class UniCafeResult {
  * @return boolean|resource
  */
 function unicafeConnect($servidor = null, $usuario = null, $senha = null) {
-	$host = "localhost";
+	$host = "10.5.1.8";
 	$port = 27289;
 	$message = "setStatus(3)\n";
 	
 	$socket = socket_create ( AF_INET, SOCK_STREAM, 0 );
 	
 	if (false == ($result = @socket_connect ( $socket, $host, $port ))) {
-		throw new UniCafeException ( "Erro de conexão!" );
+		throw new UniCafeException ( "Erro de conexï¿½o!" );
 		return false;
 	}
 	if (false == ($result = socket_write ( $socket, $message, strlen ( $message ) ))) {
-		throw new UniCafeException ( "Conexão recusada!" );
+		throw new UniCafeException ( "Conexï¿½o recusada!" );
 		return false;
 	}
 	return $socket;
@@ -106,7 +106,7 @@ function unicafeExec($link, $comando) {
 	echo $comando;
 	
 	if (false == ($result = socket_write ( $link, $comando, strlen ( $comando ) ))) {
-		throw new UniCafeException ( "Conexão recusada!" );
+		throw new UniCafeException ( "Conexï¿½o recusada!" );
 		return false;
 	} else {
 		
@@ -114,7 +114,7 @@ function unicafeExec($link, $comando) {
 	}
 }
 /**
- * Envia Sql para o UniCafe para que possa retornar dados de máquinas conectadas.
+ * Envia Sql para o UniCafe para que possa retornar dados de mï¿½quinas conectadas.
  *
  * @param resource $link        	
  * @param string $query        	
@@ -123,7 +123,7 @@ function unicafeQuery($link, $query) {
 }
 
 /**
- * Função que conversa com o servidor a baixo nível, enviando comandos e esperando resposta completa.
+ * Funï¿½ï¿½o que conversa com o servidor a baixo nï¿½vel, enviando comandos e esperando resposta completa.
  *
  * @param resource $link        	
  * @param string $query        	
@@ -154,7 +154,7 @@ function unicafeQueryArray($link, $query) {
 function unicafeFetchAssoc(UniCafeResult $result) {
 }
 /**
- * Fecha uma conexão com o UniCafe.
+ * Fecha uma conexï¿½o com o UniCafe.
  * 
  * @param resource $link        	
  */

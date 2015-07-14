@@ -5,6 +5,7 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" href="http://spa.dsi.unilab.edu.br/spa/css/spa.css" />
        <link rel="shortcut icon" href="img/unicafe-logo-pp-b.png"  />
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
 
         <!-- arquivos JavaScript -->
         
