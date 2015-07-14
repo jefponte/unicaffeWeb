@@ -253,7 +253,6 @@ if(isset($_POST['alterar_lab'])){
             
                     <span class="titulo">
                         
-                        Máquinas por labor&aacute;torio
                     </span>
                      
                     <?php

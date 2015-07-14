@@ -3,7 +3,7 @@ $erro=FALSE;
 $msg_erro="";
 $tabela="";
 $sucesso=false;
-$msg_sucesso="";
+$msg_sucesso="";/*
             $condicao = array();        
         if(!empty($op1)){
             $condicao[] =  "nome_maq = '{$nome_maq}'";
@@ -13,12 +13,19 @@ $msg_sucesso="";
                     . " = '{$desc_mac}'";
         }
         $grupo_cond = join(" AND ", $condicao);
+        */
+        $grupo_cond="left join laboratorio_maquina as lm on maquina.id_maquina=lm.id_maquina left join laboratorio on laboratorio.id_laboratorio=lm.id_laboratorio";
         
         $listar=new LaboratorioControl();
        
      // $linhas= $listar->listarDados("laboratorio","nome_laboratorio",$grupo_cond);
-      while($linha = $listar->listarDados("maquina","nome_pc,mac,id_maquina",$grupo_cond)){
-          $tabela=$tabela."<tr><td>".$linha['nome_pc']."</td>"."<td>".$linha['mac']."</td><td><a href='?editarmaq&nome=$linha[nome_pc]&mac=$linha[mac]&id=$linha[id_maquina]'>Editar</a></td></tr>";
+      while($linha = $listar->listarDados("maquina","nome_pc,mac,maquina.id_maquina,nome_laboratorio",$grupo_cond)){
+          $tabela=$tabela."<tr><td>".$linha['nome_pc']."</td>"."<td>".$linha['mac']."</td>"
+                  ."<td>".$linha['nome_laboratorio']."</td>"
+                  . "<td><a href='?editarmaq&nome=$linha[nome_pc]&mac=$linha[mac]&id=$linha[id_maquina]' style='position:relative;
+		left:10px;'> <img  src=img/editar.png> </a></td>"
+                  . ""
+                  . "</tr>";
       }
       
        /*foreach ($linhas as $linha => $cont) {
@@ -88,6 +95,7 @@ $msg_sucesso="";
                                 <tr>
                                     <th>Nome da M&aacute;quina</th>
                                     <th>MAC</th>
+                                    <th>Laborat&oacute;rio</th>
                                     <th>Editar</th>
                                 </tr>
                             </thead>

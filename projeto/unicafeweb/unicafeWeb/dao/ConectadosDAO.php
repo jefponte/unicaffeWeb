@@ -7,7 +7,7 @@ class conectadosDAO extends DAO{
         
         $lista=  array();
         $sql="SELECT * FROM acesso INNER JOIN maquina on acesso.id_maquina=maquina.id_maquina INNER JOIN usuario on acesso.id_usuario=usuario.id_usuario";
-        echo $sql;
+      //  echo $sql;
         $this->DAO(NULL,1);
         
        $result= $this->getConexao()->query($sql);

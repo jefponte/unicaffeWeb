@@ -17,13 +17,9 @@ class Maquina{
             
             return $this->laboratorio;
         }
-        /*
-	public function Maquina(){
-		
-		$this->acesso = new Acesso();
-		
-	}
-	*/
+        
+	
+	
 	public function setId($id){
 		$this->id = $id;
 	}
@@ -49,6 +45,19 @@ class Maquina{
 	}
 	public function getEnderecoMac(){
 		return $this->enderecoMac;
+	}
+        	public function setStatus($status){
+		$this->status = $status;
+	}
+	
+	public function getStatus(){
+		return $this->status;
+	}
+	public function setAcesso(Acesso $acesso){
+		$this->acesso = $acesso;
+	}
+	public function getAcesso(){
+		return $this->acesso;
 	}
 	/*
 	public function setAcesso(Acesso $acesso){

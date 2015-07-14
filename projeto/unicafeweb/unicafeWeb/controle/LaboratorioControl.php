@@ -26,7 +26,7 @@ class LaboratorioControl{
             
             //$dao->tipoDeConexao=$tipo_conexao;
             $lista = $listar->setLoad($tabela, $campus, $grupo_cond);
-           //echo $lista;
+          // echo $lista;
             
 
             $this->consulta = $dao->getConexao()->query($lista);

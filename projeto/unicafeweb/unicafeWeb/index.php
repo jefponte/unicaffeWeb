@@ -39,8 +39,9 @@ if(isset($_GET["sair"])){
      
       $sessao->mataSessao();
       header("Location: index.php");
-           
- }
+      
+      
+  }
             
   
 else if($sessao->getNivelAcesso() != Sessao::NIVEL_SUPER){
@@ -49,9 +50,7 @@ else if($sessao->getNivelAcesso() != Sessao::NIVEL_SUPER){
     return;
 }
 else{
-	$menu = new Menu();
-	$menu->mostraMenu();
-	
+      include_once "incluir_paginas/menu.php"; 
 }
 if(isset($_GET["cadastroLab"]))
             include './visao/cadastroLab.php';
@@ -78,7 +77,7 @@ else if  (isset($_GET["acessosmaq"])){
             include './visao/comandos.php';
  }
   else if  (isset($_GET["comando1"])){
-     print $_GET["maquina"];
+    // print $_GET["maquina"];
             include './visao/comandos.php';
  }
  else if  (isset($_GET["editar"])){
@@ -94,6 +93,39 @@ else if  (isset($_GET["acessosmaq"])){
  else if  (isset($_GET["vermaquina"])){
             include './visao/listagemLab.php';
  }
+else{
 
 ?>
+<div class="resolucao"> 
+                <div class="conteudo fundo-branco">
+                    
+            <h1>Seja bem-vindo(a),</h1>
+            <br />
+            <p>Esse é um sistema de gerenciamneto de laborat&oacute;rio, onde será possível cadastrar máquinas e laborat&oacute;rios, bem como monitorar máquinas e enviar comandos, como por exemplo:</p>
+            <br />
+            <p></p>
+            <br />
+            
+            <ol>
+                <li>Desligar m&aacute;quinas</li>
+                <li>Bloquear</li>
+                <li>Liberar</li>
+            </ol>
+            <br />
+            
+           
+            <br />
+            
+          
 
+                    
+                
+       
+    
+</div>
+  <?php
+
+}
+
+?>     
+        
