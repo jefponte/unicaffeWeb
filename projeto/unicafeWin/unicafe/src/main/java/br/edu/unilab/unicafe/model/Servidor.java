@@ -381,7 +381,45 @@ public class Servidor {
 			for(Cliente daVez : listaDeClientes){
 				new PrintStream(daVez.getSaida()).println("desligar()");
 			}
-		}else if (comando.equals("desliga")) {
+			return;
+		}else if(comando.equals("atualizaTudo")){
+			System.out.println("Vou atualizar, calma.");
+			for(Cliente daVez : listaDeClientes){
+				
+				new PrintStream(daVez.getSaida()).println("atualizar()");
+				new PrintStream(cliente.getSaida()).println("Atualizando Tudo....");
+				
+				
+			}
+			return;
+		}else if(comando.equals("desativaTudo")){
+			System.out.println("Vou desativar, calma.");
+			for(Cliente daVez : listaDeClientes){
+				
+				new PrintStream(daVez.getSaida()).println("desativar()");
+				new PrintStream(cliente.getSaida()).println("desativando Tudo....");
+				
+				
+				
+			}
+			return;
+			
+		}
+		
+		else if(comando.equals("aulaEmTudo")){
+			System.out.println("Vou desativar, calma.");
+			for(Cliente daVez : listaDeClientes){
+				
+				new PrintStream(daVez.getSaida()).println("desbloqueia(aula, "+18000+ ")");
+				new PrintStream(cliente.getSaida()).println("aula em Tudo....");
+				
+				
+				
+			}
+			return;
+			
+		}
+		else if (comando.equals("desliga")) {
 			
 			System.out.println("Desligando "+parametros);
 			for(Cliente desligado : listaDeClientes){

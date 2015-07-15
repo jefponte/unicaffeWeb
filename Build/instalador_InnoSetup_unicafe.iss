@@ -24,7 +24,7 @@ DefaultGroupName={#MyAppName}
 LicenseFile=C:\projetos\unicafe\doc\LICENSE.txt
 InfoBeforeFile=C:\projetos\unicafe\doc\NOTICE.txt
 InfoAfterFile=C:\projetos\unicafe\doc\depois.txt
-OutputBaseFilename=setup
+OutputBaseFilename=setupUniCafe64
 Compression=lzma
 SolidCompression=yes
 
@@ -38,7 +38,7 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 [Files]
 Source: "C:\projetos\unicafe\Build\UniCafeClient.exe"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\projetos\unicafe\projeto\unicafeWin\unicafe\src\main\resources\images\papel-de-parede.jpg"; DestDir:"C:\Windows\Web\Wallpaper\Windows"; Flags: ignoreversion;
-;Source: "C:\arquivos\jefponte\Documents\workspace\unicafe\unicafe-update.jar"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\projetos\unicafe\projeto\unicafeWin\unicafe\target\unicafe-update.jar"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "C:\arquivos\jefponte\Documents\workspace\unicafe\config.ini"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "C:\arquivos\jefponte\Documents\workspace\unicafe\liberados.txt"; DestDir: "{app}"; Flags: ignoreversion
 Source: "C:\projetos\unicafe\Build\install.bat"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
