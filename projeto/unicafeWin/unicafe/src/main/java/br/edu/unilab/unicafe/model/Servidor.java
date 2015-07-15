@@ -212,7 +212,7 @@ public class Servidor {
 							System.out.println("Vamos Atualizar esse cara.");
 							cliente.getMaquina().setStatus(status);
 							try {
-								File f = new File("C:\\UniCafe\\UniCafeClient.exe");
+								File f = new File("/dados/unicafe/UniCafeClient.exe");
 								@SuppressWarnings("resource")
 								FileInputStream in1 = new FileInputStream(f);
 								OutputStream out = cliente.getConexao().getOutputStream(); 
@@ -511,11 +511,11 @@ public class Servidor {
 				}
 
 				//Verificar se existem 20 por centod e maquinas conectadas livres.
-				if(numeroDeMaquinasLivres <= 5){
+				if(numeroDeMaquinasLivres <= 2){
 					new PrintStream(cliente.getSaida()).println("printc(Laboratório Lotado!)");
 					return;
 				}
-				if(numeroDeVisitantes >= 5){
+				if(numeroDeVisitantes >= 2){
 					new PrintStream(cliente.getSaida()).println("printc(Muitos visitantes conectados!)");
 					return;
 				}
@@ -611,7 +611,7 @@ public class Servidor {
 					
 				}		
 			}
-			if(disponiveis >= 5){
+			if(disponiveis >= 2){
 				new PrintStream(cliente.getSaida()).println("bonus()");
 
 			}

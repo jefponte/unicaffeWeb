@@ -467,6 +467,8 @@ public class PerfilBloqueio {
 			this.listaDeProcessosAceitos.add(new Processo("PhotoshopCS6Portable.exe", user + "\\Documents\\Photoshop CS6 Portable\\AutoPlay\\Docs\\PhotoshopCS6Portable.exe", "944"));
 			this.listaDeProcessosAceitos.add(new Processo("eclipse.exe", user + "\\Downloads\\eclipse\\eclipse.exe", "944"));
 			this.listaDeProcessosAceitos.add(new Processo("notepad.exe", "C:\\Windows\\SysWOW64\\notepad.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("eclipse.exe", user + "C:\\arquivos\\jefponte\\Documents\\eclipse\\eclipse.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("eclipse.exe", user + "C:\\Program Files (x86)\\eclipse_php\\eclipse.exe", "944"));
 			//C:\Windows\SysWOW64\notepad.exe,notepad.exe,123
 
 			
