@@ -9,12 +9,15 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.PrintStream;
 import java.net.Socket;
 import java.net.UnknownHostException;
 import java.util.Properties;
 import java.util.Scanner;
 
 import javax.swing.JLabel;
+
+import br.edu.unilab.unicafe.model.Maquina;
 
 public class Update {
 
@@ -34,7 +37,7 @@ public class Update {
 		janela.setVisible(true);
 		
 		try {
-			Thread.sleep(10000);
+			Thread.sleep(5000);
 			
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
@@ -45,23 +48,19 @@ public class Update {
 		
 
 		try {
-//			Properties config = new Properties();
-//			FileInputStream fileInputStream = new FileInputStream("config.ini");
-//			config.load(fileInputStream);
-//			String ipDoServidor = config.getProperty("host_unicafeserver");
-//			fileInputStream.close();
-			conexao = new Socket("200.129.19.40", 27289);
-			ObjectOutputStream saida = new ObjectOutputStream(conexao.getOutputStream());
+			System.out.println("La vai");
+			conexao = new Socket("10.5.1.8", 27289);
+			PrintStream saida = new PrintStream(conexao.getOutputStream());
+			
+			//ObjectOutputStream saida = new ObjectOutputStream(conexao.getOutputStream());
 			InputStream in = conexao.getInputStream();
 			InputStreamReader isr = new InputStreamReader(in);
 			setReader(new BufferedReader(isr));
 			
 			
 			
-			
-			saida.writeObject("setStatus(4)");
+			saida.println("setStatus("+Maquina.STATUS_UPDATE+")");
 			saida.flush();
-			setEntrada(new ObjectInputStream(conexao.getInputStream()));
 			File f1 = new File("C:\\Program Files (x86)\\UniCafe\\UniCafeClient.exe");
 			out = new FileOutputStream(f1);
 			int tamanho = 4096;
@@ -72,12 +71,15 @@ public class Update {
 				out.write(buffer, 0, lidos);
 			}
 			out.flush();
+			
 
-			janela.add(new JLabel("Reiniciando Computador"));
+			out.close();
+			
+			janela.add(new JLabel("Reiniciar Computador"));
 			Process process;
 			Scanner leitor;
 			try {
-				process = Runtime.getRuntime().exec(" shutdown -r");
+				process = Runtime.getRuntime().exec("shutdown -r -t 1");
 				leitor = new Scanner(process.getInputStream());
 				while (leitor.hasNext()) {
 					setLinha(leitor.nextLine());
