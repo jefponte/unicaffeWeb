@@ -472,6 +472,50 @@ public class PerfilBloqueio {
 			//C:\Windows\SysWOW64\notepad.exe,notepad.exe,123
 
 			
+			
+			
+			//Windows 32 bits. 
+			
+			this.listaDeProcessosAceitos.add(new Processo("TdmService.exe", "C:\\Program Files\\Wave Systems Corp\\Trusted Drive Manager\\TdmService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("armsvc.exe", "C:\\Program Files\\Common Files\\Adobe\\ARM\\1.0\\armsvc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("TeamViewer_Service.exe", "C:\\Program Files\\TeamViewer\\Version8\\TeamViewer_Service.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("unsecapp.exe", "C:\\Windows\\system32\\wbem\\unsecapp.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("OcsService.exe", "C:\\Program Files\\OCS Inventory Agent\\OcsService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("IAStorDataMgrSvc.exe", "C:\\Program Files\\Intel\\Intel(R) Rapid Storage Technology\\IAStorDataMgrSvc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("lms.exe", "C:\\Program Files\\Intel\\AMT\\LMS.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("UNS.exe", "C:\\Program Files\\Common Files\\Intel\\Privacy Icon\\UNS\\UNS.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("smax4pnp.exe", "C:\\Program Files\\Analog Devices\\Core\\smax4pnp.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("IAStorIcon.exe", "C:\\Program Files\\Intel\\Intel(R) Rapid Storage Technology\\IAStorIcon.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WavXDocMgr.exe", "C:\\Program Files\\Wave Systems Corp\\Services Manager\\DocMgr\\bin\\WavXDocMgr.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("BcmDeviceAndTaskStatusService.exe", "C:\\Program Files\\Dell\\Dell ControlPoint\\Security Manager\\BcmDeviceAndTaskStatusService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("PDVDDXSrv.exe", "C:\\Program Files\\CyberLink\\PowerDVD DX\\PDVDDXSrv.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wmdc.exe", "C:\\Windows\\WindowsMobile\\wmdc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("OcsSystray.exe", "C:\\Program Files\\OCS Inventory Agent\\OcsSystray.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("TdmNotify.exe", "C:\\Program Files\\Wave Systems Corp\\Trusted Drive Manager\\TdmNotify.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("soffice.exe", "C:\\Program Files\\BrOffice.org 3\\program\\soffice.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("soffice.bin", "C:\\Program Files\\BrOffice.org 3\\program\\soffice.bin", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("PrivacyIconClient.exe", "C:\\Program Files\\Common Files\\Intel\\Privacy Icon\\PrivacyIconClient.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("eclipse.exe", "C:\\Program Files\\eclipse\\eclipse.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SeaPort.EXE", "C:\\Program Files\\Microsoft\\BingBar\\7.3.132.0\\SeaPort.exe", "944"));
+			
+			this.listaDeProcessosAceitos.add(new Processo("firefox.exe", "C:\\Program Files\\Mozilla Firefox\\firefox.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("chrome.exe", "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("chrome.exe", "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("chrome.exe", "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("chrome.exe", "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("chrome.exe", "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("POWERPNT.EXE", "C:\\Program Files\\Microsoft Office\\Office15\\POWERPNT.EXE", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WINWORD.EXE", "C:\\Program Files\\Microsoft Office\\Office15\\WINWORD.EXE", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("FIRSTRUN.EXE", "C:\\Program Files\\Microsoft Office\\Office15\\FIRSTRUN.EXE", "944"));
+	
+			this.listaDeProcessosAceitos.add(new Processo("eclipse.exe", user + "C:\\Program Files (x86)\\eclipse_php\\eclipse.exe", "944"));
+
+			this.listaDeProcessosAceitos.add(new Processo("BBSvc.EXE", "C:\\Program Files\\Microsoft\\BingBar\\7.3.132.0\\BBSvc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("Compil32.exe", "C:\\Program Files\\Inno Setup 5\\Compil32.exe", "944"));
+
+			
+			
+			
 			while (linhaArquivo.ready()) {
 				String linha = linhaArquivo.readLine();
 				String[] vDados = linha.split("[,]");
