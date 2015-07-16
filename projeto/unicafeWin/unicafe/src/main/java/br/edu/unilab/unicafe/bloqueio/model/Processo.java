@@ -56,7 +56,7 @@ public class Processo {
 	@Override
 	public boolean equals(Object obj) {
 		Processo processo = (Processo)obj;
-		if((processo.getImagem().equals(this.getImagem())) && (processo.getExecutablePath().equals(this.executablePath))){
+		if((processo.getImagem().toLowerCase().equals(this.getImagem().toLowerCase())) && (processo.getExecutablePath().toLowerCase().equals(this.executablePath.toLowerCase()))){
 			return true;
 		}else{
 			return false;

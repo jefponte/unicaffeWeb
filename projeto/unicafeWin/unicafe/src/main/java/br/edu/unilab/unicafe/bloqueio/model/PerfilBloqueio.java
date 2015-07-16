@@ -7,6 +7,9 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import br.edu.unilab.unicafe.util.GeraLog;
+import br.edu.unilab.unicafe.util.Log;
+
 
 
 public class PerfilBloqueio {
@@ -38,13 +41,6 @@ public class PerfilBloqueio {
 
 	public void buscaAceitos() {
 		this.listaDeProcessosAceitos = new ArrayList<Processo>();
-		FileInputStream arquivo;
-		try {
-			arquivo = new FileInputStream("liberados.txt");
-			BufferedReader linhaArquivo = new BufferedReader(
-					new InputStreamReader(arquivo));
-
-
 			this.listaDeProcessosAceitos.add(new Processo("System Idle Process", "", "0"));
 			this.listaDeProcessosAceitos.add(new Processo("System", "", "4"));
 			this.listaDeProcessosAceitos.add(new Processo("smss.exe", "", "404"));
@@ -476,6 +472,7 @@ public class PerfilBloqueio {
 			
 			//Windows 32 bits. 
 			
+			
 			this.listaDeProcessosAceitos.add(new Processo("TdmService.exe", "C:\\Program Files\\Wave Systems Corp\\Trusted Drive Manager\\TdmService.exe", "944"));
 			this.listaDeProcessosAceitos.add(new Processo("armsvc.exe", "C:\\Program Files\\Common Files\\Adobe\\ARM\\1.0\\armsvc.exe", "944"));
 			this.listaDeProcessosAceitos.add(new Processo("TeamViewer_Service.exe", "C:\\Program Files\\TeamViewer\\Version8\\TeamViewer_Service.exe", "944"));
@@ -497,55 +494,560 @@ public class PerfilBloqueio {
 			this.listaDeProcessosAceitos.add(new Processo("PrivacyIconClient.exe", "C:\\Program Files\\Common Files\\Intel\\Privacy Icon\\PrivacyIconClient.exe", "944"));
 			this.listaDeProcessosAceitos.add(new Processo("eclipse.exe", "C:\\Program Files\\eclipse\\eclipse.exe", "944"));
 			this.listaDeProcessosAceitos.add(new Processo("SeaPort.EXE", "C:\\Program Files\\Microsoft\\BingBar\\7.3.132.0\\SeaPort.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("csrss.exe", "C:\\Windows\\system32\\csrss.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wininit.exe", "C:\\Windows\\system32\\wininit.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("csrss.exe", "C:\\Windows\\system32\\csrss.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("winlogon.exe", "C:\\Windows\\system32\\winlogon.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("services.exe", "C:\\Windows\\system32\\services.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("lsass.exe", "C:\\Windows\\system32\\lsass.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("lsm.exe", "C:\\Windows\\system32\\lsm.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("MsMpEng.exe", "c:\\Program Files\\Microsoft Security Client\\MsMpEng.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\System32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\System32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("spoolsv.exe", "C:\\Windows\\System32\\spoolsv.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("TdmService.exe", "C:\\Program Files\\Wave Systems Corp\\Trusted Drive Manager\\TdmService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("armsvc.exe", "C:\\Program Files\\Common Files\\Adobe\\ARM\\1.0\\armsvc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("taskhost.exe", "C:\\Windows\\system32\\taskhost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("dwm.exe", "C:\\Windows\\system32\\Dwm.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\System32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("TeamViewer_Service.exe", "C:\\Program Files\\TeamViewer\\Version8\\TeamViewer_Service.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WLIDSVC.EXE", "C:\\Program Files\\Common Files\\Microsoft Shared\\Windows Live\\WLIDSVC.EXE", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WLIDSVCM.EXE", "C:\\Program Files\\Common Files\\Microsoft Shared\\Windows Live\\WLIDSvcM.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("unsecapp.exe", "C:\\Windows\\system32\\wbem\\unsecapp.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WmiPrvSE.exe", "C:\\Windows\\system32\\wbem\\wmiprvse.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("NisSrv.exe", "c:\\Program Files\\Microsoft Security Client\\NisSrv.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("smax4pnp.exe", "C:\\Program Files\\Analog Devices\\Core\\smax4pnp.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("IAStorIcon.exe", "C:\\Program Files\\Intel\\Intel(R) Rapid Storage Technology\\IAStorIcon.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WavXDocMgr.exe", "C:\\Program Files\\Wave Systems Corp\\Services Manager\\DocMgr\\bin\\WavXDocMgr.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("BcmDeviceAndTaskStatusService.exe", "C:\\Program Files\\Dell\\Dell ControlPoint\\Security Manager\\BcmDeviceAndTaskStatusService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("PDVDDXSrv.exe", "C:\\Program Files\\CyberLink\\PowerDVD DX\\PDVDDXSrv.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("igfxtray.exe", "C:\\Windows\\System32\\igfxtray.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("hkcmd.exe", "C:\\Windows\\System32\\hkcmd.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("igfxpers.exe", "C:\\Windows\\System32\\igfxpers.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("msseces.exe", "C:\\Program Files\\Microsoft Security Client\\msseces.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wmdc.exe", "C:\\Windows\\WindowsMobile\\wmdc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("TdmNotify.exe", "C:\\Program Files\\Wave Systems Corp\\Trusted Drive Manager\\TdmNotify.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SearchIndexer.exe", "C:\\Windows\\system32\\SearchIndexer.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("PrivacyIconClient.exe", "C:\\Program Files\\Common Files\\Intel\\Privacy Icon\\PrivacyIconClient.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("OcsService.exe", "C:\\Program Files\\OCS Inventory Agent\\OcsService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("IAStorDataMgrSvc.exe", "C:\\Program Files\\Intel\\Intel(R) Rapid Storage Technology\\IAStorDataMgrSvc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("lms.exe", "C:\\Program Files\\Intel\\AMT\\LMS.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("UNS.exe", "C:\\Program Files\\Common Files\\Intel\\Privacy Icon\\UNS\\UNS.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wuauclt.exe", "C:\\Windows\\system32\\wuauclt.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SeaPort.EXE", "C:\\Program Files\\Microsoft\\BingBar\\7.3.132.0\\SeaPort.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WUDFHost.exe", "C:\\Windows\\System32\\WUDFHost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("cmd.exe", "C:\\Windows\\system32\\cmd.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("conhost.exe", "C:\\Windows\\system32\\conhost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("java.exe", "C:\\Windows\\system32\\java.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SearchProtocolHost.exe", "C:\\Windows\\system32\\SearchProtocolHost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SearchFilterHost.exe", "C:\\Windows\\system32\\SearchFilterHost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("explorer.exe", "C:\\Windows\\explorer.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("igfxsrvc.exe", "C:\\Windows\\system32\\igfxsrvc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("csrss.exe", "C:\\Windows\\system32\\csrss.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wininit.exe", "C:\\Windows\\system32\\wininit.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("csrss.exe", "C:\\Windows\\system32\\csrss.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("winlogon.exe", "C:\\Windows\\system32\\winlogon.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("services.exe", "C:\\Windows\\system32\\services.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("lsass.exe", "C:\\Windows\\system32\\lsass.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("lsm.exe", "C:\\Windows\\system32\\lsm.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("MsMpEng.exe", "c:\\Program Files\\Microsoft Security Client\\MsMpEng.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\System32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\System32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("spoolsv.exe", "C:\\Windows\\System32\\spoolsv.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("TdmService.exe", "C:\\Program Files\\Wave Systems Corp\\Trusted Drive Manager\\TdmService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("armsvc.exe", "C:\\Program Files\\Common Files\\Adobe\\ARM\\1.0\\armsvc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("taskhost.exe", "C:\\Windows\\system32\\taskhost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("dwm.exe", "C:\\Windows\\system32\\Dwm.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\System32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("TeamViewer_Service.exe", "C:\\Program Files\\TeamViewer\\Version8\\TeamViewer_Service.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WLIDSVC.EXE", "C:\\Program Files\\Common Files\\Microsoft Shared\\Windows Live\\WLIDSVC.EXE", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WLIDSVCM.EXE", "C:\\Program Files\\Common Files\\Microsoft Shared\\Windows Live\\WLIDSvcM.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("unsecapp.exe", "C:\\Windows\\system32\\wbem\\unsecapp.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WmiPrvSE.exe", "C:\\Windows\\system32\\wbem\\wmiprvse.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("NisSrv.exe", "c:\\Program Files\\Microsoft Security Client\\NisSrv.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("smax4pnp.exe", "C:\\Program Files\\Analog Devices\\Core\\smax4pnp.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("IAStorIcon.exe", "C:\\Program Files\\Intel\\Intel(R) Rapid Storage Technology\\IAStorIcon.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WavXDocMgr.exe", "C:\\Program Files\\Wave Systems Corp\\Services Manager\\DocMgr\\bin\\WavXDocMgr.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("BcmDeviceAndTaskStatusService.exe", "C:\\Program Files\\Dell\\Dell ControlPoint\\Security Manager\\BcmDeviceAndTaskStatusService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("PDVDDXSrv.exe", "C:\\Program Files\\CyberLink\\PowerDVD DX\\PDVDDXSrv.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("igfxtray.exe", "C:\\Windows\\System32\\igfxtray.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("hkcmd.exe", "C:\\Windows\\System32\\hkcmd.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("igfxpers.exe", "C:\\Windows\\System32\\igfxpers.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("msseces.exe", "C:\\Program Files\\Microsoft Security Client\\msseces.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wmdc.exe", "C:\\Windows\\WindowsMobile\\wmdc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("TdmNotify.exe", "C:\\Program Files\\Wave Systems Corp\\Trusted Drive Manager\\TdmNotify.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SearchIndexer.exe", "C:\\Windows\\system32\\SearchIndexer.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("PrivacyIconClient.exe", "C:\\Program Files\\Common Files\\Intel\\Privacy Icon\\PrivacyIconClient.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("OcsService.exe", "C:\\Program Files\\OCS Inventory Agent\\OcsService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("IAStorDataMgrSvc.exe", "C:\\Program Files\\Intel\\Intel(R) Rapid Storage Technology\\IAStorDataMgrSvc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("lms.exe", "C:\\Program Files\\Intel\\AMT\\LMS.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("UNS.exe", "C:\\Program Files\\Common Files\\Intel\\Privacy Icon\\UNS\\UNS.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wuauclt.exe", "C:\\Windows\\system32\\wuauclt.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SeaPort.EXE", "C:\\Program Files\\Microsoft\\BingBar\\7.3.132.0\\SeaPort.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WUDFHost.exe", "C:\\Windows\\System32\\WUDFHost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("cmd.exe", "C:\\Windows\\system32\\cmd.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("conhost.exe", "C:\\Windows\\system32\\conhost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("java.exe", "C:\\Windows\\system32\\java.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SearchProtocolHost.exe", "C:\\Windows\\system32\\SearchProtocolHost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SearchFilterHost.exe", "C:\\Windows\\system32\\SearchFilterHost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("explorer.exe", "C:\\Windows\\explorer.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("igfxsrvc.exe", "C:\\Windows\\system32\\igfxsrvc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WMIC.exe", "C:\\Windows\\System32\\Wbem\\wmic.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("csrss.exe", "C:\\Windows\\system32\\csrss.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wininit.exe", "C:\\Windows\\system32\\wininit.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("csrss.exe", "C:\\Windows\\system32\\csrss.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("winlogon.exe", "C:\\Windows\\system32\\winlogon.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("services.exe", "C:\\Windows\\system32\\services.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("lsass.exe", "C:\\Windows\\system32\\lsass.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("lsm.exe", "C:\\Windows\\system32\\lsm.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("MsMpEng.exe", "c:\\Program Files\\Microsoft Security Client\\MsMpEng.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\System32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\System32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("spoolsv.exe", "C:\\Windows\\System32\\spoolsv.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("TdmService.exe", "C:\\Program Files\\Wave Systems Corp\\Trusted Drive Manager\\TdmService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("armsvc.exe", "C:\\Program Files\\Common Files\\Adobe\\ARM\\1.0\\armsvc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("taskhost.exe", "C:\\Windows\\system32\\taskhost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("dwm.exe", "C:\\Windows\\system32\\Dwm.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\System32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("TeamViewer_Service.exe", "C:\\Program Files\\TeamViewer\\Version8\\TeamViewer_Service.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WLIDSVC.EXE", "C:\\Program Files\\Common Files\\Microsoft Shared\\Windows Live\\WLIDSVC.EXE", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WLIDSVCM.EXE", "C:\\Program Files\\Common Files\\Microsoft Shared\\Windows Live\\WLIDSvcM.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("unsecapp.exe", "C:\\Windows\\system32\\wbem\\unsecapp.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WmiPrvSE.exe", "C:\\Windows\\system32\\wbem\\wmiprvse.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("NisSrv.exe", "c:\\Program Files\\Microsoft Security Client\\NisSrv.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("smax4pnp.exe", "C:\\Program Files\\Analog Devices\\Core\\smax4pnp.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("IAStorIcon.exe", "C:\\Program Files\\Intel\\Intel(R) Rapid Storage Technology\\IAStorIcon.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WavXDocMgr.exe", "C:\\Program Files\\Wave Systems Corp\\Services Manager\\DocMgr\\bin\\WavXDocMgr.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("BcmDeviceAndTaskStatusService.exe", "C:\\Program Files\\Dell\\Dell ControlPoint\\Security Manager\\BcmDeviceAndTaskStatusService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("PDVDDXSrv.exe", "C:\\Program Files\\CyberLink\\PowerDVD DX\\PDVDDXSrv.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("igfxtray.exe", "C:\\Windows\\System32\\igfxtray.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("hkcmd.exe", "C:\\Windows\\System32\\hkcmd.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("igfxpers.exe", "C:\\Windows\\System32\\igfxpers.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("msseces.exe", "C:\\Program Files\\Microsoft Security Client\\msseces.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wmdc.exe", "C:\\Windows\\WindowsMobile\\wmdc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("TdmNotify.exe", "C:\\Program Files\\Wave Systems Corp\\Trusted Drive Manager\\TdmNotify.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SearchIndexer.exe", "C:\\Windows\\system32\\SearchIndexer.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("PrivacyIconClient.exe", "C:\\Program Files\\Common Files\\Intel\\Privacy Icon\\PrivacyIconClient.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("OcsService.exe", "C:\\Program Files\\OCS Inventory Agent\\OcsService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("IAStorDataMgrSvc.exe", "C:\\Program Files\\Intel\\Intel(R) Rapid Storage Technology\\IAStorDataMgrSvc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("lms.exe", "C:\\Program Files\\Intel\\AMT\\LMS.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("UNS.exe", "C:\\Program Files\\Common Files\\Intel\\Privacy Icon\\UNS\\UNS.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wuauclt.exe", "C:\\Windows\\system32\\wuauclt.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SeaPort.EXE", "C:\\Program Files\\Microsoft\\BingBar\\7.3.132.0\\SeaPort.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WUDFHost.exe", "C:\\Windows\\System32\\WUDFHost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("cmd.exe", "C:\\Windows\\system32\\cmd.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("conhost.exe", "C:\\Windows\\system32\\conhost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("java.exe", "C:\\Windows\\system32\\java.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SearchProtocolHost.exe", "C:\\Windows\\system32\\SearchProtocolHost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SearchFilterHost.exe", "C:\\Windows\\system32\\SearchFilterHost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("explorer.exe", "C:\\Windows\\explorer.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("igfxsrvc.exe", "C:\\Windows\\system32\\igfxsrvc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WMIC.exe", "C:\\Windows\\System32\\Wbem\\wmic.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("csrss.exe", "C:\\Windows\\system32\\csrss.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wininit.exe", "C:\\Windows\\system32\\wininit.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("csrss.exe", "C:\\Windows\\system32\\csrss.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("winlogon.exe", "C:\\Windows\\system32\\winlogon.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("services.exe", "C:\\Windows\\system32\\services.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("lsass.exe", "C:\\Windows\\system32\\lsass.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("lsm.exe", "C:\\Windows\\system32\\lsm.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("MsMpEng.exe", "c:\\Program Files\\Microsoft Security Client\\MsMpEng.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\System32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\System32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("spoolsv.exe", "C:\\Windows\\System32\\spoolsv.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("TdmService.exe", "C:\\Program Files\\Wave Systems Corp\\Trusted Drive Manager\\TdmService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("armsvc.exe", "C:\\Program Files\\Common Files\\Adobe\\ARM\\1.0\\armsvc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("taskhost.exe", "C:\\Windows\\system32\\taskhost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("dwm.exe", "C:\\Windows\\system32\\Dwm.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\System32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("TeamViewer_Service.exe", "C:\\Program Files\\TeamViewer\\Version8\\TeamViewer_Service.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WLIDSVC.EXE", "C:\\Program Files\\Common Files\\Microsoft Shared\\Windows Live\\WLIDSVC.EXE", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WLIDSVCM.EXE", "C:\\Program Files\\Common Files\\Microsoft Shared\\Windows Live\\WLIDSvcM.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("unsecapp.exe", "C:\\Windows\\system32\\wbem\\unsecapp.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WmiPrvSE.exe", "C:\\Windows\\system32\\wbem\\wmiprvse.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("NisSrv.exe", "c:\\Program Files\\Microsoft Security Client\\NisSrv.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("smax4pnp.exe", "C:\\Program Files\\Analog Devices\\Core\\smax4pnp.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("IAStorIcon.exe", "C:\\Program Files\\Intel\\Intel(R) Rapid Storage Technology\\IAStorIcon.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WavXDocMgr.exe", "C:\\Program Files\\Wave Systems Corp\\Services Manager\\DocMgr\\bin\\WavXDocMgr.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("BcmDeviceAndTaskStatusService.exe", "C:\\Program Files\\Dell\\Dell ControlPoint\\Security Manager\\BcmDeviceAndTaskStatusService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("PDVDDXSrv.exe", "C:\\Program Files\\CyberLink\\PowerDVD DX\\PDVDDXSrv.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("igfxtray.exe", "C:\\Windows\\System32\\igfxtray.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("hkcmd.exe", "C:\\Windows\\System32\\hkcmd.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("igfxpers.exe", "C:\\Windows\\System32\\igfxpers.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("msseces.exe", "C:\\Program Files\\Microsoft Security Client\\msseces.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wmdc.exe", "C:\\Windows\\WindowsMobile\\wmdc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("TdmNotify.exe", "C:\\Program Files\\Wave Systems Corp\\Trusted Drive Manager\\TdmNotify.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SearchIndexer.exe", "C:\\Windows\\system32\\SearchIndexer.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("PrivacyIconClient.exe", "C:\\Program Files\\Common Files\\Intel\\Privacy Icon\\PrivacyIconClient.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("OcsService.exe", "C:\\Program Files\\OCS Inventory Agent\\OcsService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("IAStorDataMgrSvc.exe", "C:\\Program Files\\Intel\\Intel(R) Rapid Storage Technology\\IAStorDataMgrSvc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("lms.exe", "C:\\Program Files\\Intel\\AMT\\LMS.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("UNS.exe", "C:\\Program Files\\Common Files\\Intel\\Privacy Icon\\UNS\\UNS.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wuauclt.exe", "C:\\Windows\\system32\\wuauclt.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SeaPort.EXE", "C:\\Program Files\\Microsoft\\BingBar\\7.3.132.0\\SeaPort.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WUDFHost.exe", "C:\\Windows\\System32\\WUDFHost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("cmd.exe", "C:\\Windows\\system32\\cmd.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("conhost.exe", "C:\\Windows\\system32\\conhost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("java.exe", "C:\\Windows\\system32\\java.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SearchProtocolHost.exe", "C:\\Windows\\system32\\SearchProtocolHost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SearchFilterHost.exe", "C:\\Windows\\system32\\SearchFilterHost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("explorer.exe", "C:\\Windows\\explorer.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("igfxsrvc.exe", "C:\\Windows\\system32\\igfxsrvc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WMIC.exe", "C:\\Windows\\System32\\Wbem\\wmic.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("csrss.exe", "C:\\Windows\\system32\\csrss.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wininit.exe", "C:\\Windows\\system32\\wininit.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("csrss.exe", "C:\\Windows\\system32\\csrss.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("winlogon.exe", "C:\\Windows\\system32\\winlogon.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("services.exe", "C:\\Windows\\system32\\services.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("lsass.exe", "C:\\Windows\\system32\\lsass.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("lsm.exe", "C:\\Windows\\system32\\lsm.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("MsMpEng.exe", "c:\\Program Files\\Microsoft Security Client\\MsMpEng.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\System32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\System32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("spoolsv.exe", "C:\\Windows\\System32\\spoolsv.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("TdmService.exe", "C:\\Program Files\\Wave Systems Corp\\Trusted Drive Manager\\TdmService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("armsvc.exe", "C:\\Program Files\\Common Files\\Adobe\\ARM\\1.0\\armsvc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("taskhost.exe", "C:\\Windows\\system32\\taskhost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("dwm.exe", "C:\\Windows\\system32\\Dwm.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\System32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("TeamViewer_Service.exe", "C:\\Program Files\\TeamViewer\\Version8\\TeamViewer_Service.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WLIDSVC.EXE", "C:\\Program Files\\Common Files\\Microsoft Shared\\Windows Live\\WLIDSVC.EXE", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WLIDSVCM.EXE", "C:\\Program Files\\Common Files\\Microsoft Shared\\Windows Live\\WLIDSvcM.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("unsecapp.exe", "C:\\Windows\\system32\\wbem\\unsecapp.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WmiPrvSE.exe", "C:\\Windows\\system32\\wbem\\wmiprvse.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("NisSrv.exe", "c:\\Program Files\\Microsoft Security Client\\NisSrv.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("smax4pnp.exe", "C:\\Program Files\\Analog Devices\\Core\\smax4pnp.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("IAStorIcon.exe", "C:\\Program Files\\Intel\\Intel(R) Rapid Storage Technology\\IAStorIcon.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WavXDocMgr.exe", "C:\\Program Files\\Wave Systems Corp\\Services Manager\\DocMgr\\bin\\WavXDocMgr.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("BcmDeviceAndTaskStatusService.exe", "C:\\Program Files\\Dell\\Dell ControlPoint\\Security Manager\\BcmDeviceAndTaskStatusService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("PDVDDXSrv.exe", "C:\\Program Files\\CyberLink\\PowerDVD DX\\PDVDDXSrv.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("igfxtray.exe", "C:\\Windows\\System32\\igfxtray.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("hkcmd.exe", "C:\\Windows\\System32\\hkcmd.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("igfxpers.exe", "C:\\Windows\\System32\\igfxpers.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("msseces.exe", "C:\\Program Files\\Microsoft Security Client\\msseces.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wmdc.exe", "C:\\Windows\\WindowsMobile\\wmdc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("TdmNotify.exe", "C:\\Program Files\\Wave Systems Corp\\Trusted Drive Manager\\TdmNotify.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SearchIndexer.exe", "C:\\Windows\\system32\\SearchIndexer.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("PrivacyIconClient.exe", "C:\\Program Files\\Common Files\\Intel\\Privacy Icon\\PrivacyIconClient.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("OcsService.exe", "C:\\Program Files\\OCS Inventory Agent\\OcsService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("IAStorDataMgrSvc.exe", "C:\\Program Files\\Intel\\Intel(R) Rapid Storage Technology\\IAStorDataMgrSvc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("lms.exe", "C:\\Program Files\\Intel\\AMT\\LMS.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("UNS.exe", "C:\\Program Files\\Common Files\\Intel\\Privacy Icon\\UNS\\UNS.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wuauclt.exe", "C:\\Windows\\system32\\wuauclt.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SeaPort.EXE", "C:\\Program Files\\Microsoft\\BingBar\\7.3.132.0\\SeaPort.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("cmd.exe", "C:\\Windows\\system32\\cmd.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("conhost.exe", "C:\\Windows\\system32\\conhost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WUDFHost.exe", "C:\\Windows\\System32\\WUDFHost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("java.exe", "C:\\Windows\\system32\\java.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SearchProtocolHost.exe", "C:\\Windows\\system32\\SearchProtocolHost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SearchFilterHost.exe", "C:\\Windows\\system32\\SearchFilterHost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("explorer.exe", "C:\\Windows\\explorer.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("igfxsrvc.exe", "C:\\Windows\\system32\\igfxsrvc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WMIC.exe", "C:\\Windows\\System32\\Wbem\\wmic.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("csrss.exe", "C:\\Windows\\system32\\csrss.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wininit.exe", "C:\\Windows\\system32\\wininit.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("csrss.exe", "C:\\Windows\\system32\\csrss.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("winlogon.exe", "C:\\Windows\\system32\\winlogon.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("services.exe", "C:\\Windows\\system32\\services.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("lsass.exe", "C:\\Windows\\system32\\lsass.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("lsm.exe", "C:\\Windows\\system32\\lsm.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("MsMpEng.exe", "c:\\Program Files\\Microsoft Security Client\\MsMpEng.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\System32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\System32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("spoolsv.exe", "C:\\Windows\\System32\\spoolsv.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("TdmService.exe", "C:\\Program Files\\Wave Systems Corp\\Trusted Drive Manager\\TdmService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("armsvc.exe", "C:\\Program Files\\Common Files\\Adobe\\ARM\\1.0\\armsvc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("taskhost.exe", "C:\\Windows\\system32\\taskhost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("dwm.exe", "C:\\Windows\\system32\\Dwm.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\System32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("TeamViewer_Service.exe", "C:\\Program Files\\TeamViewer\\Version8\\TeamViewer_Service.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WLIDSVC.EXE", "C:\\Program Files\\Common Files\\Microsoft Shared\\Windows Live\\WLIDSVC.EXE", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WLIDSVCM.EXE", "C:\\Program Files\\Common Files\\Microsoft Shared\\Windows Live\\WLIDSvcM.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("unsecapp.exe", "C:\\Windows\\system32\\wbem\\unsecapp.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WmiPrvSE.exe", "C:\\Windows\\system32\\wbem\\wmiprvse.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("NisSrv.exe", "c:\\Program Files\\Microsoft Security Client\\NisSrv.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("smax4pnp.exe", "C:\\Program Files\\Analog Devices\\Core\\smax4pnp.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("IAStorIcon.exe", "C:\\Program Files\\Intel\\Intel(R) Rapid Storage Technology\\IAStorIcon.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WavXDocMgr.exe", "C:\\Program Files\\Wave Systems Corp\\Services Manager\\DocMgr\\bin\\WavXDocMgr.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("BcmDeviceAndTaskStatusService.exe", "C:\\Program Files\\Dell\\Dell ControlPoint\\Security Manager\\BcmDeviceAndTaskStatusService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("PDVDDXSrv.exe", "C:\\Program Files\\CyberLink\\PowerDVD DX\\PDVDDXSrv.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("igfxtray.exe", "C:\\Windows\\System32\\igfxtray.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("hkcmd.exe", "C:\\Windows\\System32\\hkcmd.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("igfxpers.exe", "C:\\Windows\\System32\\igfxpers.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("msseces.exe", "C:\\Program Files\\Microsoft Security Client\\msseces.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wmdc.exe", "C:\\Windows\\WindowsMobile\\wmdc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("TdmNotify.exe", "C:\\Program Files\\Wave Systems Corp\\Trusted Drive Manager\\TdmNotify.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SearchIndexer.exe", "C:\\Windows\\system32\\SearchIndexer.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("PrivacyIconClient.exe", "C:\\Program Files\\Common Files\\Intel\\Privacy Icon\\PrivacyIconClient.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("OcsService.exe", "C:\\Program Files\\OCS Inventory Agent\\OcsService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("IAStorDataMgrSvc.exe", "C:\\Program Files\\Intel\\Intel(R) Rapid Storage Technology\\IAStorDataMgrSvc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("lms.exe", "C:\\Program Files\\Intel\\AMT\\LMS.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("UNS.exe", "C:\\Program Files\\Common Files\\Intel\\Privacy Icon\\UNS\\UNS.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wuauclt.exe", "C:\\Windows\\system32\\wuauclt.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SeaPort.EXE", "C:\\Program Files\\Microsoft\\BingBar\\7.3.132.0\\SeaPort.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("cmd.exe", "C:\\Windows\\system32\\cmd.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("conhost.exe", "C:\\Windows\\system32\\conhost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WUDFHost.exe", "C:\\Windows\\System32\\WUDFHost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("java.exe", "C:\\Windows\\system32\\java.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SearchProtocolHost.exe", "C:\\Windows\\system32\\SearchProtocolHost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SearchFilterHost.exe", "C:\\Windows\\system32\\SearchFilterHost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("explorer.exe", "C:\\Windows\\explorer.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("igfxsrvc.exe", "C:\\Windows\\system32\\igfxsrvc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WMIC.exe", "C:\\Windows\\System32\\Wbem\\wmic.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("csrss.exe", "C:\\Windows\\system32\\csrss.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wininit.exe", "C:\\Windows\\system32\\wininit.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("csrss.exe", "C:\\Windows\\system32\\csrss.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("winlogon.exe", "C:\\Windows\\system32\\winlogon.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("services.exe", "C:\\Windows\\system32\\services.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("lsass.exe", "C:\\Windows\\system32\\lsass.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("lsm.exe", "C:\\Windows\\system32\\lsm.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("MsMpEng.exe", "c:\\Program Files\\Microsoft Security Client\\MsMpEng.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\System32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\System32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("spoolsv.exe", "C:\\Windows\\System32\\spoolsv.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("TdmService.exe", "C:\\Program Files\\Wave Systems Corp\\Trusted Drive Manager\\TdmService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("armsvc.exe", "C:\\Program Files\\Common Files\\Adobe\\ARM\\1.0\\armsvc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("taskhost.exe", "C:\\Windows\\system32\\taskhost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("dwm.exe", "C:\\Windows\\system32\\Dwm.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\System32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("TeamViewer_Service.exe", "C:\\Program Files\\TeamViewer\\Version8\\TeamViewer_Service.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WLIDSVC.EXE", "C:\\Program Files\\Common Files\\Microsoft Shared\\Windows Live\\WLIDSVC.EXE", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WLIDSVCM.EXE", "C:\\Program Files\\Common Files\\Microsoft Shared\\Windows Live\\WLIDSvcM.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("unsecapp.exe", "C:\\Windows\\system32\\wbem\\unsecapp.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WmiPrvSE.exe", "C:\\Windows\\system32\\wbem\\wmiprvse.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("NisSrv.exe", "c:\\Program Files\\Microsoft Security Client\\NisSrv.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("smax4pnp.exe", "C:\\Program Files\\Analog Devices\\Core\\smax4pnp.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("IAStorIcon.exe", "C:\\Program Files\\Intel\\Intel(R) Rapid Storage Technology\\IAStorIcon.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WavXDocMgr.exe", "C:\\Program Files\\Wave Systems Corp\\Services Manager\\DocMgr\\bin\\WavXDocMgr.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("BcmDeviceAndTaskStatusService.exe", "C:\\Program Files\\Dell\\Dell ControlPoint\\Security Manager\\BcmDeviceAndTaskStatusService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("PDVDDXSrv.exe", "C:\\Program Files\\CyberLink\\PowerDVD DX\\PDVDDXSrv.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("igfxtray.exe", "C:\\Windows\\System32\\igfxtray.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("hkcmd.exe", "C:\\Windows\\System32\\hkcmd.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("igfxpers.exe", "C:\\Windows\\System32\\igfxpers.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("msseces.exe", "C:\\Program Files\\Microsoft Security Client\\msseces.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wmdc.exe", "C:\\Windows\\WindowsMobile\\wmdc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("TdmNotify.exe", "C:\\Program Files\\Wave Systems Corp\\Trusted Drive Manager\\TdmNotify.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SearchIndexer.exe", "C:\\Windows\\system32\\SearchIndexer.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("PrivacyIconClient.exe", "C:\\Program Files\\Common Files\\Intel\\Privacy Icon\\PrivacyIconClient.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("OcsService.exe", "C:\\Program Files\\OCS Inventory Agent\\OcsService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("IAStorDataMgrSvc.exe", "C:\\Program Files\\Intel\\Intel(R) Rapid Storage Technology\\IAStorDataMgrSvc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("lms.exe", "C:\\Program Files\\Intel\\AMT\\LMS.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("UNS.exe", "C:\\Program Files\\Common Files\\Intel\\Privacy Icon\\UNS\\UNS.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wuauclt.exe", "C:\\Windows\\system32\\wuauclt.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SeaPort.EXE", "C:\\Program Files\\Microsoft\\BingBar\\7.3.132.0\\SeaPort.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("cmd.exe", "C:\\Windows\\system32\\cmd.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("conhost.exe", "C:\\Windows\\system32\\conhost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WUDFHost.exe", "C:\\Windows\\System32\\WUDFHost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("java.exe", "C:\\Windows\\system32\\java.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SearchProtocolHost.exe", "C:\\Windows\\system32\\SearchProtocolHost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SearchFilterHost.exe", "C:\\Windows\\system32\\SearchFilterHost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("explorer.exe", "C:\\Windows\\explorer.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WMIC.exe", "C:\\Windows\\System32\\Wbem\\wmic.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("csrss.exe", "C:\\Windows\\system32\\csrss.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wininit.exe", "C:\\Windows\\system32\\wininit.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("csrss.exe", "C:\\Windows\\system32\\csrss.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("winlogon.exe", "C:\\Windows\\system32\\winlogon.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("services.exe", "C:\\Windows\\system32\\services.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("lsass.exe", "C:\\Windows\\system32\\lsass.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("lsm.exe", "C:\\Windows\\system32\\lsm.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("MsMpEng.exe", "c:\\Program Files\\Microsoft Security Client\\MsMpEng.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\System32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\System32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("spoolsv.exe", "C:\\Windows\\System32\\spoolsv.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("TdmService.exe", "C:\\Program Files\\Wave Systems Corp\\Trusted Drive Manager\\TdmService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("armsvc.exe", "C:\\Program Files\\Common Files\\Adobe\\ARM\\1.0\\armsvc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("taskhost.exe", "C:\\Windows\\system32\\taskhost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("dwm.exe", "C:\\Windows\\system32\\Dwm.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\System32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("TeamViewer_Service.exe", "C:\\Program Files\\TeamViewer\\Version8\\TeamViewer_Service.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WLIDSVC.EXE", "C:\\Program Files\\Common Files\\Microsoft Shared\\Windows Live\\WLIDSVC.EXE", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WLIDSVCM.EXE", "C:\\Program Files\\Common Files\\Microsoft Shared\\Windows Live\\WLIDSvcM.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("unsecapp.exe", "C:\\Windows\\system32\\wbem\\unsecapp.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WmiPrvSE.exe", "C:\\Windows\\system32\\wbem\\wmiprvse.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("NisSrv.exe", "c:\\Program Files\\Microsoft Security Client\\NisSrv.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("smax4pnp.exe", "C:\\Program Files\\Analog Devices\\Core\\smax4pnp.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("IAStorIcon.exe", "C:\\Program Files\\Intel\\Intel(R) Rapid Storage Technology\\IAStorIcon.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WavXDocMgr.exe", "C:\\Program Files\\Wave Systems Corp\\Services Manager\\DocMgr\\bin\\WavXDocMgr.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("BcmDeviceAndTaskStatusService.exe", "C:\\Program Files\\Dell\\Dell ControlPoint\\Security Manager\\BcmDeviceAndTaskStatusService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("PDVDDXSrv.exe", "C:\\Program Files\\CyberLink\\PowerDVD DX\\PDVDDXSrv.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("igfxtray.exe", "C:\\Windows\\System32\\igfxtray.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("hkcmd.exe", "C:\\Windows\\System32\\hkcmd.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("igfxpers.exe", "C:\\Windows\\System32\\igfxpers.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("msseces.exe", "C:\\Program Files\\Microsoft Security Client\\msseces.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wmdc.exe", "C:\\Windows\\WindowsMobile\\wmdc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("TdmNotify.exe", "C:\\Program Files\\Wave Systems Corp\\Trusted Drive Manager\\TdmNotify.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SearchIndexer.exe", "C:\\Windows\\system32\\SearchIndexer.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("PrivacyIconClient.exe", "C:\\Program Files\\Common Files\\Intel\\Privacy Icon\\PrivacyIconClient.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("OcsService.exe", "C:\\Program Files\\OCS Inventory Agent\\OcsService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("IAStorDataMgrSvc.exe", "C:\\Program Files\\Intel\\Intel(R) Rapid Storage Technology\\IAStorDataMgrSvc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("lms.exe", "C:\\Program Files\\Intel\\AMT\\LMS.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("UNS.exe", "C:\\Program Files\\Common Files\\Intel\\Privacy Icon\\UNS\\UNS.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wuauclt.exe", "C:\\Windows\\system32\\wuauclt.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SeaPort.EXE", "C:\\Program Files\\Microsoft\\BingBar\\7.3.132.0\\SeaPort.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("cmd.exe", "C:\\Windows\\system32\\cmd.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("conhost.exe", "C:\\Windows\\system32\\conhost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WUDFHost.exe", "C:\\Windows\\System32\\WUDFHost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("java.exe", "C:\\Windows\\system32\\java.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SearchProtocolHost.exe", "C:\\Windows\\system32\\SearchProtocolHost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SearchFilterHost.exe", "C:\\Windows\\system32\\SearchFilterHost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("explorer.exe", "C:\\Windows\\explorer.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SearchProtocolHost.exe", "C:\\Windows\\system32\\SearchProtocolHost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WMIC.exe", "C:\\Windows\\System32\\Wbem\\wmic.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("csrss.exe", "C:\\Windows\\system32\\csrss.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wininit.exe", "C:\\Windows\\system32\\wininit.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("csrss.exe", "C:\\Windows\\system32\\csrss.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("winlogon.exe", "C:\\Windows\\system32\\winlogon.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("services.exe", "C:\\Windows\\system32\\services.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("lsass.exe", "C:\\Windows\\system32\\lsass.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("lsm.exe", "C:\\Windows\\system32\\lsm.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("MsMpEng.exe", "c:\\Program Files\\Microsoft Security Client\\MsMpEng.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\System32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\System32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("spoolsv.exe", "C:\\Windows\\System32\\spoolsv.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("TdmService.exe", "C:\\Program Files\\Wave Systems Corp\\Trusted Drive Manager\\TdmService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("armsvc.exe", "C:\\Program Files\\Common Files\\Adobe\\ARM\\1.0\\armsvc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("taskhost.exe", "C:\\Windows\\system32\\taskhost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("dwm.exe", "C:\\Windows\\system32\\Dwm.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\System32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("TeamViewer_Service.exe", "C:\\Program Files\\TeamViewer\\Version8\\TeamViewer_Service.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WLIDSVC.EXE", "C:\\Program Files\\Common Files\\Microsoft Shared\\Windows Live\\WLIDSVC.EXE", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WLIDSVCM.EXE", "C:\\Program Files\\Common Files\\Microsoft Shared\\Windows Live\\WLIDSvcM.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("unsecapp.exe", "C:\\Windows\\system32\\wbem\\unsecapp.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WmiPrvSE.exe", "C:\\Windows\\system32\\wbem\\wmiprvse.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("NisSrv.exe", "c:\\Program Files\\Microsoft Security Client\\NisSrv.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("smax4pnp.exe", "C:\\Program Files\\Analog Devices\\Core\\smax4pnp.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("IAStorIcon.exe", "C:\\Program Files\\Intel\\Intel(R) Rapid Storage Technology\\IAStorIcon.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WavXDocMgr.exe", "C:\\Program Files\\Wave Systems Corp\\Services Manager\\DocMgr\\bin\\WavXDocMgr.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("BcmDeviceAndTaskStatusService.exe", "C:\\Program Files\\Dell\\Dell ControlPoint\\Security Manager\\BcmDeviceAndTaskStatusService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("PDVDDXSrv.exe", "C:\\Program Files\\CyberLink\\PowerDVD DX\\PDVDDXSrv.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("igfxtray.exe", "C:\\Windows\\System32\\igfxtray.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("hkcmd.exe", "C:\\Windows\\System32\\hkcmd.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("igfxpers.exe", "C:\\Windows\\System32\\igfxpers.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("msseces.exe", "C:\\Program Files\\Microsoft Security Client\\msseces.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wmdc.exe", "C:\\Windows\\WindowsMobile\\wmdc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("TdmNotify.exe", "C:\\Program Files\\Wave Systems Corp\\Trusted Drive Manager\\TdmNotify.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SearchIndexer.exe", "C:\\Windows\\system32\\SearchIndexer.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("PrivacyIconClient.exe", "C:\\Program Files\\Common Files\\Intel\\Privacy Icon\\PrivacyIconClient.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("OcsService.exe", "C:\\Program Files\\OCS Inventory Agent\\OcsService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("svchost.exe", "C:\\Windows\\system32\\svchost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("IAStorDataMgrSvc.exe", "C:\\Program Files\\Intel\\Intel(R) Rapid Storage Technology\\IAStorDataMgrSvc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("lms.exe", "C:\\Program Files\\Intel\\AMT\\LMS.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("UNS.exe", "C:\\Program Files\\Common Files\\Intel\\Privacy Icon\\UNS\\UNS.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wuauclt.exe", "C:\\Windows\\system32\\wuauclt.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SeaPort.EXE", "C:\\Program Files\\Microsoft\\BingBar\\7.3.132.0\\SeaPort.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("cmd.exe", "C:\\Windows\\system32\\cmd.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("conhost.exe", "C:\\Windows\\system32\\conhost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WUDFHost.exe", "C:\\Windows\\System32\\WUDFHost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("java.exe", "C:\\Windows\\system32\\java.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SearchProtocolHost.exe", "C:\\Windows\\system32\\SearchProtocolHost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SearchFilterHost.exe", "C:\\Windows\\system32\\SearchFilterHost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SearchProtocolHost.exe", "C:\\Windows\\system32\\SearchProtocolHost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WMIC.exe", "C:\\Windows\\System32\\Wbem\\wmic.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("java.exe", "C:\\Program Files\\Java\\jre7\\bin\\java.exe", "944"));
 			
-			this.listaDeProcessosAceitos.add(new Processo("firefox.exe", "C:\\Program Files\\Mozilla Firefox\\firefox.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("smath.exe", "C:\\Program Files\\BrOffice.org 3\\program\\smath.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("java.exe", "C:\\Program Files\\Java\\jdk1.6.0_21\\bin\\java.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("java.exe", "C:\\Program Files\\Java\\jre6\\bin\\java.exe", "944"));
 			this.listaDeProcessosAceitos.add(new Processo("chrome.exe", "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe", "944"));
-			this.listaDeProcessosAceitos.add(new Processo("chrome.exe", "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe", "944"));
-			this.listaDeProcessosAceitos.add(new Processo("chrome.exe", "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe", "944"));
-			this.listaDeProcessosAceitos.add(new Processo("chrome.exe", "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe", "944"));
-			this.listaDeProcessosAceitos.add(new Processo("chrome.exe", "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe", "944"));
-			this.listaDeProcessosAceitos.add(new Processo("POWERPNT.EXE", "C:\\Program Files\\Microsoft Office\\Office15\\POWERPNT.EXE", "944"));
-			this.listaDeProcessosAceitos.add(new Processo("WINWORD.EXE", "C:\\Program Files\\Microsoft Office\\Office15\\WINWORD.EXE", "944"));
-			this.listaDeProcessosAceitos.add(new Processo("FIRSTRUN.EXE", "C:\\Program Files\\Microsoft Office\\Office15\\FIRSTRUN.EXE", "944"));
-	
-			this.listaDeProcessosAceitos.add(new Processo("eclipse.exe", user + "C:\\Program Files (x86)\\eclipse_php\\eclipse.exe", "944"));
-
-			this.listaDeProcessosAceitos.add(new Processo("BBSvc.EXE", "C:\\Program Files\\Microsoft\\BingBar\\7.3.132.0\\BBSvc.exe", "944"));
-			this.listaDeProcessosAceitos.add(new Processo("Compil32.exe", "C:\\Program Files\\Inno Setup 5\\Compil32.exe", "944"));
-
+			this.listaDeProcessosAceitos.add(new Processo("ISIS.EXE", "C:\\Program Files (x86)\\Labcenter Electronics\\Proteus 7 Professional\\BIN\\ISIS.EXE", "944"));
 			
-			
-			
-			while (linhaArquivo.ready()) {
-				String linha = linhaArquivo.readLine();
-				String[] vDados = linha.split("[,]");
-				try{
-					@SuppressWarnings("unused")
-					Processo p = new Processo(vDados[1], vDados[0], vDados[2]);
-					//System.out.println("this.listaDeProcessosAceitos.add(new Processo(\""+vDados[1]+"\", \""+vDados[0]+"\", \""+vDados[2]+"\"));");
-					this.listaDeProcessosAceitos.add(new Processo(vDados[1], vDados[0], vDados[2]));
-				}catch(ArrayIndexOutOfBoundsException fora){
-					System.out.println("Vetor foi fora. Mas tem problema não, continua");
-					
-				}
-			//	System.out.println(linha);
-				
-			}
-			linhaArquivo.close();
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		//this.listaDeProcessosAceitos = new ArrayList<Processo>();
-		
-		
-		/*
-		
-
-		 */
-
 	}
 
 	public void buscaAtivos() {
@@ -592,15 +1094,15 @@ public class PerfilBloqueio {
 		boolean existeNaLista = false;
 		for (Processo processoAtivo : this.processosAtivos) {
 			existeNaLista = false;
-//			if(processoAtivo.getExecutablePath().length() > 5){
+			if(processoAtivo.getExecutablePath().length() <= 1){
 //				if(processoAtivo.getExecutablePath().substring(0, 5).equals("C:\\Pr") || processoAtivo.getExecutablePath().substring(0, 5).equals("C:\\Wi")){
 //					
 //					//System.out.println("Foi");
 //					//System.out.println(processoAtivo.getExecutablePath().substring(0, 4));
-//					existeNaLista = true;
-//					continue;
+					existeNaLista = true;
+					continue;
 //				}
-//			}
+			}
 			for (Processo processoAceito : this.listaDeProcessosAceitos) {
 	
 				if (processoAtivo.equals(processoAceito)) {
@@ -623,11 +1125,13 @@ public class PerfilBloqueio {
 					//System.out.println("Meu Amor, não pode executar "+ processoAtivo.getImagem()+" - "+processoAtivo.getExecutablePath());
 					//new Log("Matei Um processo \n"+processoAtivo.getExecutablePath()+","+processoAtivo.getImagem());
 					Runtime.getRuntime().exec(" taskkill /PID \"" + processoAtivo.getProcessId()+"\" /F");
-					if(processoAtivo.getExecutablePath().length() > 5){
 						
-						System.out.println("Processo Bloqueado: "+processoAtivo.getExecutablePath()+","+processoAtivo.getImagem()+",123");	
-						
-					}      
+					//System.out.println("Processo Bloqueado: "+processoAtivo.getExecutablePath()+","+processoAtivo.getImagem()+",123");	
+					
+					new Log("this.listaDeProcessosAceitos.add(new Processo(\""+processoAtivo.getImagem()+"\", \""+processoAtivo.getExecutablePath()+"\", \"944\"));");
+					
+					
+					System.out.println("this.listaDeProcessosAceitos.add(new Processo(\""+processoAtivo.getImagem()+"\", \""+processoAtivo.getExecutablePath()+"\", \"944\"));");
 					
 
 					/*

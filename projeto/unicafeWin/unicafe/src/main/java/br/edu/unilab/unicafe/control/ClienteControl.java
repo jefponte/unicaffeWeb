@@ -166,13 +166,13 @@ public class ClienteControl {
 							}
 						});
 				
-				getFrameTelaAcesso().getBntChat().addActionListener(new ActionListener() {					
-					@Override
-					public void actionPerformed(ActionEvent e) {
-						getFrameTelaAcesso().setVisible(false);
-						criaAreaNotificacao();
-					}
-				});
+//				getFrameTelaAcesso().getBntChat().addActionListener(new ActionListener() {					
+//					@Override
+//					public void actionPerformed(ActionEvent e) {
+//						getFrameTelaAcesso().setVisible(false);
+//						criaAreaNotificacao();
+//					}
+//				});
 				
 				getFrameTelaBloqueio().getPasswordFieldSenha().addKeyListener(new KeyAdapter() {
 					public void keyPressed(java.awt.event.KeyEvent e) {
@@ -748,101 +748,101 @@ public class ClienteControl {
 	 *Este método envia o icone do aplicativo para área de notificação.
 	 *	
 	 */
-	public void criaAreaNotificacao(){				
-		if (!SystemTray.isSupported()) {
-	            System.out.println("Não dá pra fazer, nem tenta!");
-	            	return;
-		}
-						
-		final PopupMenu pop = new PopupMenu();		
-		tray = SystemTray.getSystemTray();		
-		trayIcon = new TrayIcon(createImage(UtilFrames.BASE_PATH_IMAGES + "logo-an.png", "Unicafé"));			
-				
-		//Cria oos itens do Menu que aprarecerá na area de notificação
-		MenuItem item_1 = new MenuItem("Abrir Barra Unicafé");
-		MenuItem item_2 = new MenuItem("Chat");			
-		MenuItem item_5 = new MenuItem("Finalizar");
-						
-		pop.add(item_1);
-		pop.add(item_2);		
-		pop.addSeparator();			
-		pop.add(item_5);			
-				
-		trayIcon.setPopupMenu(pop);
-		trayIcon.setToolTip("Opções do UniCafé");
-
-				
-		//Adicionando o Icone na Area de Notificão, como o menu já está dentro do ícone,
-		//irá junto também.
-		try {
-	            tray.add(trayIcon);		            
-	            trayIcon.displayMessage("UniCafé", "Clique para abrir a barra do UniCafé "
-	            		+ "ou clique com o botão direito para vêr as opções.", TrayIcon.MessageType.INFO);
-	            trayIcon.addMouseListener(new MouseListener() {			
-					@Override
-					public void mouseReleased(MouseEvent e) {}
-					
-					@Override
-					public void mousePressed(MouseEvent e) {}
-					
-					@Override
-					public void mouseExited(MouseEvent e) {}
-					
-					@Override
-					public void mouseEntered(MouseEvent e) {}
-					
-					@Override
-					public void mouseClicked(MouseEvent e) {
-						getFrameTelaAcesso().setVisible(true);	
-	            		getFrameTelaAcesso().setExtendedState(JFrame.NORMAL);
-	            		tray.remove(trayIcon);
-					}
-				});
-//	            .addActionListener(new ActionListener() {					
-//		
-//	            	@Override
-//	            	public void actionPerformed(ActionEvent e) {						
-//	            		getFrameTelaAcesso().setVisible(true);	
+//	public void criaAreaNotificacao(){				
+//		if (!SystemTray.isSupported()) {
+//	            System.out.println("Não dá pra fazer, nem tenta!");
+//	            	return;
+//		}
+//						
+//		final PopupMenu pop = new PopupMenu();		
+//		tray = SystemTray.getSystemTray();		
+//		trayIcon = new TrayIcon(createImage(UtilFrames.BASE_PATH_IMAGES + "logo-an.png", "Unicafé"));			
+//				
+//		//Cria oos itens do Menu que aprarecerá na area de notificação
+//		MenuItem item_1 = new MenuItem("Abrir Barra Unicafé");
+//		MenuItem item_2 = new MenuItem("Chat");			
+//		MenuItem item_5 = new MenuItem("Finalizar");
+//						
+//		pop.add(item_1);
+//		pop.add(item_2);		
+//		pop.addSeparator();			
+//		pop.add(item_5);			
+//				
+//		trayIcon.setPopupMenu(pop);
+//		trayIcon.setToolTip("Opções do UniCafé");
+//
+//				
+//		//Adicionando o Icone na Area de Notificão, como o menu já está dentro do ícone,
+//		//irá junto também.
+//		try {
+//	            tray.add(trayIcon);		            
+//	            trayIcon.displayMessage("UniCafé", "Clique para abrir a barra do UniCafé "
+//	            		+ "ou clique com o botão direito para vêr as opções.", TrayIcon.MessageType.INFO);
+//	            trayIcon.addMouseListener(new MouseListener() {			
+//					@Override
+//					public void mouseReleased(MouseEvent e) {}
+//					
+//					@Override
+//					public void mousePressed(MouseEvent e) {}
+//					
+//					@Override
+//					public void mouseExited(MouseEvent e) {}
+//					
+//					@Override
+//					public void mouseEntered(MouseEvent e) {}
+//					
+//					@Override
+//					public void mouseClicked(MouseEvent e) {
+//						getFrameTelaAcesso().setVisible(true);	
 //	            		getFrameTelaAcesso().setExtendedState(JFrame.NORMAL);
 //	            		tray.remove(trayIcon);
-//	            	}
-//	            });					
-		
-		} catch (AWTException e) {
-			System.out.println("Não deu pra fazer isso...");
-			return;
-		}
-				
-		//ação das opções do menu
-		item_1.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e) {									
-				getFrameTelaAcesso().setVisible(true);
-				getFrameTelaAcesso().setExtendedState(JFrame.NORMAL);
-				try {					
-					tray.remove(trayIcon);						
-					trayIcon = null;										
-				} catch (Throwable e1) {
-					e1.printStackTrace();
-				}
-			}
-		});
-				
-		item_2.setEnabled(false);
-		item_2.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e) {					 
-				JOptionPane.showMessageDialog(null, "Em breve estaremos com esta funcionalidade ativa!");					 
-			}
-		});
-									
-		item_5.addActionListener(new ActionListener(){
-			public void actionPerformed(ActionEvent e) {
-				//JOptionPane.showMessageDialog(null, "Você está encerrando a sua sessão!!!!");					 
-				tray.remove(trayIcon);
-				bloqueia();			 
-			}
-		});			
-			//msg();			
-	}		
+//					}
+//				});
+////	            .addActionListener(new ActionListener() {					
+////		
+////	            	@Override
+////	            	public void actionPerformed(ActionEvent e) {						
+////	            		getFrameTelaAcesso().setVisible(true);	
+////	            		getFrameTelaAcesso().setExtendedState(JFrame.NORMAL);
+////	            		tray.remove(trayIcon);
+////	            	}
+////	            });					
+//		
+//		} catch (AWTException e) {
+//			System.out.println("Não deu pra fazer isso...");
+//			return;
+//		}
+//				
+//		//ação das opções do menu
+//		item_1.addActionListener(new ActionListener(){
+//			public void actionPerformed(ActionEvent e) {									
+//				getFrameTelaAcesso().setVisible(true);
+//				getFrameTelaAcesso().setExtendedState(JFrame.NORMAL);
+//				try {					
+//					tray.remove(trayIcon);						
+//					trayIcon = null;										
+//				} catch (Throwable e1) {
+//					e1.printStackTrace();
+//				}
+//			}
+//		});
+//				
+//		item_2.setEnabled(false);
+//		item_2.addActionListener(new ActionListener(){
+//			public void actionPerformed(ActionEvent e) {					 
+//				JOptionPane.showMessageDialog(null, "Em breve estaremos com esta funcionalidade ativa!");					 
+//			}
+//		});
+//									
+//		item_5.addActionListener(new ActionListener(){
+//			public void actionPerformed(ActionEvent e) {
+//				//JOptionPane.showMessageDialog(null, "Você está encerrando a sua sessão!!!!");					 
+//				tray.remove(trayIcon);
+//				bloqueia();			 
+//			}
+//		});			
+//			//msg();			
+//	}		
 			
 	protected static Image createImage(String path, String description) {
 		URL imageURL = ClienteControl.class.getResource(path);		        
