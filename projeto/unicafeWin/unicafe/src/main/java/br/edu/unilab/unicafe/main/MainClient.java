@@ -9,6 +9,7 @@ import java.io.RandomAccessFile;
 import java.nio.channels.FileLock;
 
 import br.edu.unilab.unicafe.control.ClienteControl;
+import br.edu.unilab.unicafe.registro.model.Perfil;
 
 /**
  * 
@@ -47,6 +48,14 @@ public class MainClient {
 		} else {
 			System.out.println("Ja ha uma instancia rodando");
 		}
+		
+		
+		
+//
+//		Perfil perfilBloqueio = new Perfil();
+//		perfilBloqueio.setListaDeRegistros(Perfil.listaParaBloqueio());
+//		perfilBloqueio.desfazer();
+
 		
 		
 	}
