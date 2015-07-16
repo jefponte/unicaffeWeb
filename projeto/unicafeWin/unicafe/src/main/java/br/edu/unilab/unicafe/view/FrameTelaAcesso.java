@@ -106,11 +106,11 @@ public class FrameTelaAcesso extends JFrame {
 		
 		
 		btnChat = new JButton("Minimizar");
-//		btnChat.addActionListener(new ActionListener() {
-//			public void actionPerformed(ActionEvent arg0) {
-//				setState(ICONIFIED);
-//			}
-//		});
+		btnChat.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setState(ICONIFIED);
+			}
+		});
 		
 		
 		//btnChat.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "chat.png")));
