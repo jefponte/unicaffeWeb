@@ -98,7 +98,7 @@ public class Servidor {
 
 			@Override
 			public void run() {
-				System.out.println("Servidor iniciado...");
+				System.out.println("Servidor iniciado! \n Wait for Client...");
 				while (true) {
 					
 					Socket conexao;
@@ -121,15 +121,17 @@ public class Servidor {
 	 */
 	public void limpezaDeMemoria(){
 		for(Cliente c: listaDeClientes){
+			
 			try {
 				c.getConexao().close();
-				listaDeClientes.remove(c);
+				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 			
 		}
+		listaDeClientes = new ArrayList<Cliente>();
 	}
 
 	/**
