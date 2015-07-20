@@ -1,4 +1,8 @@
-<?php
+
+        
+        
+        
+        <?php
         $sessao = new Sessao();
         ini_set("display_errors", 1);
        include_once "incluir_paginas/cabecalho.php";
@@ -19,6 +23,16 @@
         }
         
 
+
+
+
+      ?>
+
+
+
+  
+
+<?php
 
 
 if(isset($_GET["sair"])){
