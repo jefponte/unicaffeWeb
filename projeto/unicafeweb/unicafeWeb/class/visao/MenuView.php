@@ -1,4 +1,13 @@
-<div class="doze colunas barra-menu">
+<?php
+
+
+class MenuView{
+	
+	
+	
+
+	public function mostraMenu(){
+		echo '<div class="doze colunas barra-menu">
     <div class="menu-horizontal resolucao">
         <ol class="a-esquerda">
             <li><a href="index.php" class="item-ativo"><span class="icone-home3"></span> <span class="item-texto">Pagina Inicial</span></a></li>
@@ -32,18 +41,21 @@
                            
                     
                 </ul>
-                       
-                   
-                       
-                           
-                           
-                    
-                
-                    </li>
+                   </li>
                     
         </ol>
         <ol class="a-direita" start="4"> <!-- Altere o valor do start de acordo com a quantidade de itens à esquerda -->
             <li><a href="index.php?sair" class="item"><span class="icone-arrow-right"></span> <span class="item-texto">Sair</span></a></li>
         </ol>
     </div>
-</div>
+</div>';
+		
+		
+	}
+	
+	
+}
+
+
+
+?>

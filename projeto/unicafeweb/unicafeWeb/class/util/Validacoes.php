@@ -16,7 +16,7 @@
     *   login = 12
    */   
 
-class validacoes{
+class Validacoes{
     
 	
     private $expressao;
@@ -27,7 +27,7 @@ class validacoes{
 
         if(!in_array($tipo_campo,$this->tipoCampo)){
 
-            echo "<pre style='color:#f00;'>Tipo de campo inválido.</pre>";
+            echo "<pre style='color:#f00;'>Tipo de campo invÃ¡lido.</pre>";
 
         }else{
 
@@ -69,7 +69,7 @@ class validacoes{
                     return $this->valida_login($valor);
                     break;
                 default:
-                    echo "Não foi possivel realizar a validação do campo ".$tipo_campo;
+                    echo "NÃ£o foi possivel realizar a validaÃ§Ã£o do campo ".$tipo_campo;
                     break;
             }
         }
@@ -107,11 +107,11 @@ class validacoes{
     private function valida_text($strText){
         
         $erro=FALSE;
-        $conversao = array('á' => 'a','à' => 'a','ã' => 'a','â' => 'a', 'é' => 'e',
-         'ê' => 'e', 'í' => 'i', 'ï'=>'i', 'ó' => 'o', 'ô' => 'o', 'õ' => 'o', "ö"=>"o",
-         'ú' => 'u', 'ü' => 'u', 'ç' => 'c', 'ñ'=>'n', 'Á' => 'A', 'À' => 'A', 'Ã' => 'A',
-         'Â' => 'A', 'É' => 'E', 'Ê' => 'E', 'Í' => 'I', 'Ï'=>'I', "Ö"=>"O", 'Ó' => 'O',
-         'Ô' => 'O', 'Õ' => 'O', 'Ú' => 'U', 'Ü' => 'U', 'Ç' =>'C', 'Ñ'=>'N');
+        $conversao = array('Ã¡' => 'a','Ã ' => 'a','Ã£' => 'a','Ã¢' => 'a', 'Ã©' => 'e',
+         'Ãª' => 'e', 'Ã­' => 'i', 'Ã¯'=>'i', 'Ã³' => 'o', 'Ã´' => 'o', 'Ãµ' => 'o', "Ã¶"=>"o",
+         'Ãº' => 'u', 'Ã¼' => 'u', 'Ã§' => 'c', 'Ã±'=>'n', 'Ã�' => 'A', 'Ã€' => 'A', 'Ãƒ' => 'A',
+         'Ã‚' => 'A', 'Ã‰' => 'E', 'ÃŠ' => 'E', 'Ã�' => 'I', 'Ã�'=>'I', "Ã–"=>"O", 'Ã“' => 'O',
+         'Ã”' => 'O', 'Ã•' => 'O', 'Ãš' => 'U', 'Ãœ' => 'U', 'Ã‡' =>'C', 'Ã‘'=>'N');
         
         $text=(trim($strText));
         $text=str_replace(" ","",$text);
@@ -165,11 +165,11 @@ class validacoes{
     private function valida_endereco($strText){
         
         
-        $conversao = array('á' => 'a','à' => 'a','ã' => 'a','â' => 'a', 'é' => 'e',
-         'ê' => 'e', 'í' => 'i', 'ï'=>'i', 'ó' => 'o', 'ô' => 'o', 'õ' => 'o', "ö"=>"o",
-         'ú' => 'u', 'ü' => 'u', 'ç' => 'c', 'ñ'=>'n', 'Á' => 'A', 'À' => 'A', 'Ã' => 'A',
-         'Â' => 'A', 'É' => 'E', 'Ê' => 'E', 'Í' => 'I', 'Ï'=>'I', "Ö"=>"O", 'Ó' => 'O',
-         'Ô' => 'O', 'Õ' => 'O', 'Ú' => 'U', 'Ü' => 'U', 'Ç' =>'C', 'Ñ'=>'N');
+        $conversao = array('Ã¡' => 'a','Ã ' => 'a','Ã£' => 'a','Ã¢' => 'a', 'Ã©' => 'e',
+         'Ãª' => 'e', 'Ã­' => 'i', 'Ã¯'=>'i', 'Ã³' => 'o', 'Ã´' => 'o', 'Ãµ' => 'o', "Ã¶"=>"o",
+         'Ãº' => 'u', 'Ã¼' => 'u', 'Ã§' => 'c', 'Ã±'=>'n', 'Ã�' => 'A', 'Ã€' => 'A', 'Ãƒ' => 'A',
+         'Ã‚' => 'A', 'Ã‰' => 'E', 'ÃŠ' => 'E', 'Ã�' => 'I', 'Ã�'=>'I', "Ã–"=>"O", 'Ã“' => 'O',
+         'Ã”' => 'O', 'Ã•' => 'O', 'Ãš' => 'U', 'Ãœ' => 'U', 'Ã‡' =>'C', 'Ã‘'=>'N');
         
         $text=(trim($strText));
         $text=str_replace(" ","",$text);
@@ -186,7 +186,7 @@ class validacoes{
     
     private function valida_CPF($cpf = null) {
         
-        // Verifica se um número foi informado
+        // Verifica se um nÃºmero foi informado
         if(empty($cpf)) {
             return false;
         }
@@ -197,11 +197,11 @@ class validacoes{
         
 
         
-        // Verifica se o numero de digitos informados é igual a 11 
+        // Verifica se o numero de digitos informados Ã© igual a 11 
         if (strlen($cpf) != 11) {
             return false;
         }
-        // Verifica se nenhuma das sequências invalidas abaixo 
+        // Verifica se nenhuma das sequÃªncias invalidas abaixo 
         // foi digitada. Caso afirmativo, retorna falso
         else if ($cpf == '00000000000' || 
             $cpf == '11111111111' || 
@@ -215,7 +215,7 @@ class validacoes{
             $cpf == '99999999999') {
             return false;
          // Calcula os digitos verificadores para verificar se o
-         // CPF é válido
+         // CPF Ã© vÃ¡lido
          } else {   
 
             for ($t = 9; $t < 11; $t++) {
@@ -239,14 +239,14 @@ class validacoes{
             return FALSE;
         }else{
 
-            $data = explode("-",$date); // fatia a string $dat em pedados, usando / como referência
+            $data = explode("-",$date); // fatia a string $dat em pedados, usando / como referÃªncia
              $d = $data[0];
              $m = $data[1];
              $y = $data[2];
          
-            // verifica se a data é válida!
-            // 1 = true (válida)
-            // 0 = false (inválida)
+            // verifica se a data Ã© vÃ¡lida!
+            // 1 = true (vÃ¡lida)
+            // 0 = false (invÃ¡lida)
             $res = checkdate($d,$m,$y);
 
             if($d > 31 || $m > 12 || $y < 1){
@@ -311,9 +311,9 @@ class validacoes{
         }
                    
         return TRUE;
-	// verifica se a data é válida!
-	// 1 = true (válida)
-	// 0 = false (inválida)
+	// verifica se a data Ã© vÃ¡lida!
+	// 1 = true (vÃ¡lida)
+	// 0 = false (invÃ¡lida)
 	
     }
     
@@ -342,7 +342,7 @@ class validacoes{
     function  valida_login($login){
         $long = strlen ($login);
         for ($i = 0; $i < $long; $i++) {
-            if($login[$i]=='"' || $login[$i] =='@' || $login[$i]=='!' || $login[$i] =='#' || $login[$i]=='#' || $login[$i] =='$' || $login[$i]=='%' || $login[$i] =='¨' ||
+            if($login[$i]=='"' || $login[$i] =='@' || $login[$i]=='!' || $login[$i] =='#' || $login[$i]=='#' || $login[$i] =='$' || $login[$i]=='%' || $login[$i] =='Â¨' ||
             $login[$i]=='&' || $login[$i] =='*' || $login[$i]=='(' || $login[$i] ==')' || $login[$i]=='+' || $login[$i] =='=' || $login[$i]=='/' || $login[$i] =='*' 
                     ){
                 
