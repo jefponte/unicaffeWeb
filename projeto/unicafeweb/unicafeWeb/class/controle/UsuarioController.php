@@ -2,6 +2,13 @@
 
 
 class UsuarioController{
+	
+	
+	public static function main(){
+		$usuarioController = new UsuarioController();
+		$usuarioController->login();
+	}
+	
 	public function login(){
 		$msg_erro = "";
 		$erro=FALSE;
