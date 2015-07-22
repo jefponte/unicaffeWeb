@@ -14,15 +14,19 @@ if(isset($_POST["formulario_cadastro"])){
          
          
          if($erro==FALSE){
-             //ECHO 'ENTROU';
-            $laboratorio = new LaboratorioMaquina();
+             $laboratorio = new LaboratorioMaquina();
             $laboratorio->setIdMaquina($_POST['id_maquina']);
 
             $laboratorio->setIdLaboratorio($_POST['id_lab']);
             $labDao= new MaquinaLabDao();
+            //echo "dd".$laboratorio;
             if($labDao->editarMaquinalab($laboratorio)){
                 $sucesso=TRUE;
                 $msg_sucesso="Inserido com sucesso";
+            }
+            else{
+                $erro=TRUE;
+                $msg_erro="Não foi possível editar";
             }
          }
         }  
@@ -54,9 +58,9 @@ if(isset($_POST["formulario_cadastro"])){
                    
                     ?>
                         <div class="alerta-sucesso">
-                            <div class="icone icone-download ix48"></div>
+                            <div class="icone icone-clock2 ix16"></div>
                             <div class="titulo-alerta"><?php print $msg_sucesso;?></div>
-                            <div class="subtitulo-alerta"><?php ?></div>
+                            <div class="subtitulo-alerta"><?php print $msg_sucesso ?></div>
                         </div> 
                     <?php
                     }

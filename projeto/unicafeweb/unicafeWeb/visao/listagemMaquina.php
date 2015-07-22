@@ -3,23 +3,35 @@ $erro=FALSE;
 $msg_erro="";
 $tabela="";
 $sucesso=false;
-$msg_sucesso="";/*
-            $condicao = array();        
-        if(!empty($op1)){
-            $condicao[] =  "nome_maq = '{$nome_maq}'";
+$msg_sucesso="";
+extract($_POST);
+$grupo_cond="";
+$where="";
+if(isset($_POST["botao_filtrar"]) ){
+
+        $condicao = array();   
+        print $_POST['nome'];
+        if(isset($_POST['op1'])){
+            $condicao[] =  "nome_pc ilike '%{$_POST["nome"]}%'";$where=" where ";
         }  else {}
-        if(!empty($op2)){
+        if(!empty($op2)){print "m";
             $condicao[] =  "mac"
-                    . " = '{$desc_mac}'";
+                    . " = '{$mac}'";  $where=" where ";  
+        }
+        if(!empty($op3)){print "m";
+            $condicao[] =  "lm.id_laboratorio"
+                    . " = {$lab}";  $where=" where ";  
         }
         $grupo_cond = join(" AND ", $condicao);
-        */
-        $grupo_cond="left join laboratorio_maquina as lm on maquina.id_maquina=lm.id_maquina left join laboratorio on laboratorio.id_laboratorio=lm.id_laboratorio";
-        
-        $listar=new LaboratorioControl();
+    
+        }  
        
+        $filtro="left join laboratorio_maquina as lm on maquina.id_maquina=lm.id_maquina left join laboratorio on laboratorio.id_laboratorio=lm.id_laboratorio  ". $where .$grupo_cond;
+        $listar=new LaboratorioControl();
+        //print $filtro;
+
      // $linhas= $listar->listarDados("laboratorio","nome_laboratorio",$grupo_cond);
-      while($linha = $listar->listarDados("maquina","nome_pc,mac,maquina.id_maquina,nome_laboratorio",$grupo_cond)){
+      while($linha = $listar->listarDados("maquina","nome_pc,mac,maquina.id_maquina,nome_laboratorio",$filtro)){
           $tabela=$tabela."<tr><td>".$linha['nome_pc']."</td>"."<td>".$linha['mac']."</td>"
                   ."<td>".$linha['nome_laboratorio']."</td>"
                   . "<td><a href='?editarmaq&nome=$linha[nome_pc]&mac=$linha[mac]&id=$linha[id_maquina]' style='position:relative;
@@ -89,7 +101,44 @@ $msg_sucesso="";/*
                     ?>
                     
                   <form action="#" method="post" name="formulario_cadastro" id="formulario_cadastro" class="formulario-organizado">
-                     
+                      <label class="checkbox-1.1">
+                          <object class="rotulo um  alinhado-a-direita">
+                              <input type="checkbox" name="op1" id="op01" class="alinhado a esquerda"/> Nome:  
+                          </object>
+
+
+                          <input type="text" name="nome" onclick=" return marca_check('op01')"/>
+                      </label>
+                      <label class="checkbox-1.1">
+                          <object class="rotulo um  alinhado-a-direita">
+                              <input type="checkbox" name="op2" id="op02" class="alinhado a esquerda"/> MAC:  
+                          </object>
+
+                          <input type="text" name="mac" onclick=" return marca_check('op02')"/>
+                      </label>
+                      <label class="checkbox-1.1">
+                          <object class="rotulo um  alinhado-a-direita">
+                              <input type="checkbox" name="op3" id="op3" class="alinhado a esquerda"/> Laborat&oacute;rio:  
+                          </object>
+                           </label> 
+                      <select onclick="return marca_check('op3')" name="lab">
+                             <?php
+                                                    $listar=new LaboratorioControl();
+
+                          while($linha = $listar->listarDados("laboratorio","nome_laboratorio,id_laboratorio")){
+                           ?>
+                          <option value="<?php print $linha["id_laboratorio"]?>"  name="lab1">
+                                 <?php
+                                    echo  $linha["nome_laboratorio"];
+
+                                  ?>
+                              </option>
+                          <?php
+                           }
+                          ?>
+                          </select>
+                      
+                      <input type="submit" name="botao_filtrar" value="Filtrar"/>
                       <table class="tabela borda-vertical zebrada">
                             <thead>
                                 <tr>
