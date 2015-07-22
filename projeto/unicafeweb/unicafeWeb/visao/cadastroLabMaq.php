@@ -54,9 +54,9 @@ if(isset($_POST["formulario_cadastro"])){
                    
                     ?>
                         <div class="alerta-sucesso">
-                            <div class="icone icone-download ix48"></div>
+                            <div class="icone icone-download ix16"></div>
                             <div class="titulo-alerta"><?php print $msg_sucesso;?></div>
-                            <div class="subtitulo-alerta"><?php ?></div>
+                            <div class="subtitulo-alerta"><?php PRINT $msg_sucesso; ?></div>
                         </div> 
                     <?php
                     }

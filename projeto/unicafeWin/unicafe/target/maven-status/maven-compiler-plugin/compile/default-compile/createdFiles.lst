@@ -1,7 +1,5 @@
 br\edu\unilab\unicafe\main\MainServidor.class
 br\edu\unilab\unicafe\dao\AcessoDAO.class
-br\edu\unilab\unicafe\control\ClienteControl$16.class
-br\edu\unilab\unicafe\control\ClienteControl$17.class
 br\edu\unilab\unicafe\util\Log.class
 br\edu\unilab\unicafe\model\Servidor$2.class
 br\edu\unilab\unicafe\view\FrameTelaAcesso$1.class
@@ -17,7 +15,6 @@ br\edu\unilab\unicafe\model\Acesso.class
 br\edu\unilab\unicafe\control\ClienteControl$9.class
 br\edu\unilab\unicafe\control\ClienteControl$2$3.class
 br\edu\unilab\unicafe\control\ClienteControl$5.class
-br\edu\unilab\unicafe\control\ClienteControl$2$4.class
 br\edu\unilab\unicafe\dao\MaquinaDAO.class
 br\edu\unilab\unicafe\main\MainClient.class
 br\edu\unilab\unicafe\view\FrameAviso$1.class
@@ -28,7 +25,6 @@ br\edu\unilab\unicafe\bloqueio\model\PerfilBloqueio.class
 br\edu\unilab\unicafe\control\ClienteControl$11.class
 br\edu\unilab\unicafe\view\JPanelImageResized.class
 br\edu\unilab\unicafe\view\FrameSplash.class
-br\edu\unilab\unicafe\control\ClienteControl$19.class
 br\edu\unilab\unicafe\view\FrameTelaAcesso.class
 br\edu\unilab\unicafe\model\Servidor$1.class
 br\edu\unilab\unicafe\dao\UsuarioDAO.class
@@ -54,7 +50,6 @@ br\edu\unilab\unicafe\update\FrameReiniciando.class
 br\edu\unilab\unicafe\control\ClienteControl.class
 br\edu\unilab\unicafe\dao\DAO.class
 br\edu\unilab\unicafe\control\ClienteControl$15.class
-br\edu\unilab\unicafe\control\ClienteControl$18.class
 br\edu\unilab\unicafe\model\Servidor.class
 br\edu\unilab\unicafe\view\FrameTelaBloqueio$4.class
 br\edu\unilab\unicafe\registro\model\Registro.class
