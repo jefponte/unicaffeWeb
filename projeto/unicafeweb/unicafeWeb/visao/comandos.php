@@ -49,9 +49,9 @@ $acesso=new ConectadosDAO();
             
            
            $div.="<div class='tres colunas centralizado '>"
-            ."<div class='conteudo medio fundo-azul2 texto-branco'>"
-                ."<div class='seis colunas a-esquerda'>"
-                    ."<div class='doze colunas fundo-azul1  linha'>"
+            ."<div class='conteudo medio  bloquinhos' >"
+                ."<div class='seis colunas a-esquerda bloquinhos'>"
+                    ."<div class='doze colunas fundo-azul1  linha maiorzinho' >"
                         ."<div class='conteudo'>"
                            ."<span class='icone-display centralizado'>&nbsp;&nbsp;&nbsp;&nbsp;</span>".$linha->getMaquina()->getNome()."</div>"
                    ." </div>"
@@ -65,8 +65,8 @@ $acesso=new ConectadosDAO();
                    . "<a href='?comando=bloqueia&maquina=".$linha->getMaquina()->getNome()."' style='color:#FFFFFF'>Bloquear</a></br>"
                 ."<a href='?comando=desativar&maquina=".$linha->getMaquina()->getNome()."' style='color:#FFFFFF'>Desativar</a></br>"
                    ." </div>"
-               ." <div class='seis colunas a-direita fundo-azul2'>"
-                  ."  <div class='doze a-esquerda colunas fundo-vazul2 texto-branco '>"
+               ." <div class='seis colunas a-direita bloquinhos'>"
+                  ."  <div class='doze a-esquerda colunas bloquinhos texto-branco '>"
                        ." <div class='conteudo'>"
                           ."  <h1 class='icone-user centralizado'></h1>".$linha->getUsuario()->getNome()."</div>"
                    ." </div>"
