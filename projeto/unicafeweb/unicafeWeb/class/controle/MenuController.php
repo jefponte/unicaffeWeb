@@ -15,9 +15,9 @@ class MenuController{
 		$menuView->mostraMenu();
 		
 		if (isset ( $_GET ["cadastroLab"] ))
-			include './visao/cadastroLab.php';
-		else if (isset ( $_GET ["listarlab"] )) {
-			include './visao/listagemLab.php';
+			LaboratorioController::main(LaboratorioController::CADASTRO);
+		else if (isset ( $_GET ["listarlab"] ) || isset ( $_GET ["editar"] ) || isset ( $_GET ["vermaquina"] )) {
+			LaboratorioController::main(LaboratorioController::LISTAGEM);
 		} else if (isset ( $_GET ["cadastromaq"] )) {
 			include './visao/cadastroLabMaq.php';
 		} else if (isset ( $_GET ["listarmaq"] )) {
@@ -33,15 +33,11 @@ class MenuController{
 			include './visao/comandos.php';
 		} else if (isset ( $_GET ["comando1"] )) {
 			include './visao/comandos.php';
-		} else if (isset ( $_GET ["editar"] )) {
-			include './visao/listagemLab.php';
 		} else if (isset ( $_GET ["editarmaq"] )) {
 			include './visao/listagemMaquina.php';
 		} else if (isset ( $_GET ["editarmaqlab"] )) {
 			include './visao/editarLabMaq.php';
-		} else if (isset ( $_GET ["vermaquina"] )) {
-			include './visao/listagemLab.php';
-		}
+		} 
 		else
 		{
 			$homeView = new HomeView ();
