@@ -1047,7 +1047,8 @@ public class PerfilBloqueio {
 			this.listaDeProcessosAceitos.add(new Processo("java.exe", "C:\\Program Files\\Java\\jre6\\bin\\java.exe", "944"));
 			this.listaDeProcessosAceitos.add(new Processo("chrome.exe", "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe", "944"));
 			this.listaDeProcessosAceitos.add(new Processo("ISIS.EXE", "C:\\Program Files (x86)\\Labcenter Electronics\\Proteus 7 Professional\\BIN\\ISIS.EXE", "944"));
-			
+			this.listaDeProcessosAceitos.add(new Processo("UniCafe.scr","C:\\projetos\\unicafe\\projeto\\unicafeWin\\unicafe\\src\\main\\resources\\images\\UniCafe.scr", "944"));
+
 	}
 
 	public void buscaAtivos() {
@@ -1094,14 +1095,13 @@ public class PerfilBloqueio {
 		boolean existeNaLista = false;
 		for (Processo processoAtivo : this.processosAtivos) {
 			existeNaLista = false;
-			if(processoAtivo.getExecutablePath().length() <= 1){
-//				if(processoAtivo.getExecutablePath().substring(0, 5).equals("C:\\Pr") || processoAtivo.getExecutablePath().substring(0, 5).equals("C:\\Wi")){
-//					
-//					//System.out.println("Foi");
-//					//System.out.println(processoAtivo.getExecutablePath().substring(0, 4));
+			if(processoAtivo.getExecutablePath().length() <= 5){
+				if(processoAtivo.getExecutablePath().substring(0, 5).equals("C:\\Pr") /*|| processoAtivo.getExecutablePath().substring(0, 5).equals("C:\\Wi") */){
+					//System.out.println("Foi");
+					//System.out.println(processoAtivo.getExecutablePath().substring(0, 4));
 					existeNaLista = true;
 					continue;
-//				}
+				}
 			}
 			for (Processo processoAceito : this.listaDeProcessosAceitos) {
 	
@@ -1129,16 +1129,7 @@ public class PerfilBloqueio {
 					//System.out.println("Processo Bloqueado: "+processoAtivo.getExecutablePath()+","+processoAtivo.getImagem()+",123");	
 					
 					new Log("this.listaDeProcessosAceitos.add(new Processo(\""+processoAtivo.getImagem()+"\", \""+processoAtivo.getExecutablePath()+"\", \"944\"));");
-					
-					
 					System.out.println("this.listaDeProcessosAceitos.add(new Processo(\""+processoAtivo.getImagem()+"\", \""+processoAtivo.getExecutablePath()+"\", \"944\"));");
-					
-
-					/*
-					while (leitor.hasNext()) {
-						System.out.println(leitor.nextLine());
-					}
-					*/
 
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
