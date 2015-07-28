@@ -4,6 +4,8 @@ public class Laboratorio {
 
 	
 	private int id;
+	private String nome;
+	
 	public int getId() {
 		return id;
 	}
@@ -16,5 +18,5 @@ public class Laboratorio {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	private String nome;
+
 }

@@ -23,19 +23,7 @@ class AcessoDAO extends DAO{
        
     }
     
-    public static function fazdecontaqtanoIndes(){
-        
-        
-           $dao = new AcessoDAO();
-           $lista = $dao->retornaAcessos();
-        
-           foreach($lista as $acesso){
-               
-               echo $acesso->getUsuario()->getNome(); 
-               
-           }
-    }
-    
+
     
 }
 

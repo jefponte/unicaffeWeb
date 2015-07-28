@@ -75,6 +75,8 @@ class Sessao{
 	}
 	const NIVEL_DESLOGADO = 0;
 	const NIVEL_COMUM = 1;
+	const NIVEL_ADMIN= 1;
+	
 	const NIVEL_SUPER = 3;
 	/**
 	 * 

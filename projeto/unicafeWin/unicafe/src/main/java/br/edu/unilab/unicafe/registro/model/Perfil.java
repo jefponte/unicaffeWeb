@@ -144,6 +144,10 @@ public class Perfil {
 		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\DisallowRun", "8", Registro.REG_SZ, "PCFasterSvc.exe", "","Baidu"));
 		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer\\DisallowRun", "9", Registro.REG_SZ, "cmd.exe", "","cmd"));
 		
+		lista.add(new Registro("HKCU\\Control Panel\\Desktop", "SCRNSAVE.EXE", Registro.REG_SZ, "C:\\projetos\\unicafe\\projeto\\unicafeWin\\unicafe\\src\\main\\resources\\images\\UniCafe.scr", "C:\\Windows\\system32\\PhotoScreensaver.scr","Local da proteção de tela"));
+		lista.add(new Registro("HKCU\\Control Panel\\Desktop", "ScreenSaveTimeOut", Registro.REG_SZ, "60", "60","Determina o tempo"));
+		lista.add(new Registro("HKCU\\Control Panel\\Desktop", "ScreenSaveActive", Registro.REG_SZ, "1", "0","Ativa proteção de tela"));
+		
 		//lista.add(new Registro("HKLM\\SOFTWARE\\Classes\\Wow6432Node\\CLSID\\{323CA680-C24D-4099-B94D-446DD2D7249E}", "ShellFolder", Registro.REG_DWORD, "a9400100", "a0900100","N�o ver Propriedades do Meu Computador"));
 		
 		return lista;
