@@ -65,17 +65,22 @@ class Maquina{
 	
 	public function __toString(){
 		
-		$strMaquina = 'Nome: '.$this->nome.' MAC: '.$this->enderecoMac;
-		if($this->getStatus() == self::STATUS_DESCONECTADA)
-			$strMaquina .= ' Desconectada';
-		if($this->getStatus() == self::STATUS_DISPONIVEL)
-			$strMaquina .= ' Disponivel';
-		if($this->getStatus() == self::STATUS_OCUPADA)
-			$strMaquina .= ' Ocupada';
+		$strMaquina = $this->nome.' MAC: '.$this->enderecoMac;
+		
+		
 		if($this->isCadastrada()){
 			$strMaquina .= ' Cadatrada';
 		}else{
-			$strMaquina .= ' Não cadastrada';
+			$strMaquina .= ' Nao cadastrada';
+		}
+		
+		if($this->getStatus() == self::STATUS_DESCONECTADA)
+			$strMaquina .= ' Desconectada';
+		if($this->getStatus() == self::STATUS_DISPONIVEL)
+			$strMaquina .= ' Disponivel ';
+		if($this->getStatus() == self::STATUS_OCUPADA){
+			$strMaquina .= ' Ocupada ';
+			
 		}
 		
 		return $strMaquina;

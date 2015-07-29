@@ -42,9 +42,14 @@ class MaquinaController {
 	public function telaMaquinas() {
 		$maquinaDAO = new MaquinaDAO ();
 		$lista = $maquinaDAO->listaCompleta ();
+		$maquinaDAO->ordenaPorNome($lista);
 		
 		foreach ( $lista as $maquina ) {
-			echo $maquina . '<br>';
+			echo $maquina;
+			if($maquina->getStatus() == Maquina::STATUS_OCUPADA){
+				echo $maquina->getAcesso();
+			} 
+			echo '<br><br><hr>';
 		}
 	}
 	
@@ -54,10 +59,17 @@ class MaquinaController {
 	public function telaMaquinasSuper() {
 		$maquinaDAO = new MaquinaDAO ();
 		$lista = $maquinaDAO->listaCompleta ();
+		$lista = $maquinaDAO->ordenaPorNome($lista);
 		
-		foreach ( $lista as $maquina ) {
-			echo $maquina . '<br>';
-		}
+// 		foreach ( $lista as $maquina ) {
+// 			echo $maquina;
+// 			if($maquina->getStatus() == Maquina::STATUS_OCUPADA){
+// 				echo $maquina->getAcesso();
+// 				echo $maquina->getAcesso()->getUsuario();
+// 			} 
+// 			echo '<br><br><hr>';
+// 		}
+		
 	}
 	/**
 	 * Em todos os casos o usuário verá todas as máquinas, o status de cada uma e
@@ -68,9 +80,16 @@ class MaquinaController {
 	public function telaMaquinasAdmin() {
 		$maquinaDAO = new MaquinaDAO ();
 		$lista = $maquinaDAO->listaCompleta ();
+		$maquinaDAO->ordenaPorNome($lista);
 		
 		foreach ( $lista as $maquina ) {
-			echo $maquina . '<br>';
+			echo $maquina;
+			if($maquina->getStatus() == Maquina::STATUS_OCUPADA){
+				echo $maquina->getAcesso();
+				echo $maquina->getAcesso()->getUsuario();
+			}
+			echo '<br><br><hr>';
 		}
+		
 	}
 }

@@ -48,6 +48,19 @@ class Usuario{
 		return $this->nivelAcesso;
 	}
 	
+	public function __toString(){
+		$strUsuario = ' Nome: '.$this->nome.' email: '.$this->email.' Login: '.$this->login;
+		if($this->getNivelAcesso() == Sessao::NIVEL_COMUM){
+			$strUsuario .= 'Nivel Default';
+		}
+		if($this->getNivelAcesso() == Sessao::NIVEL_ADMIN){
+			$strUsuario .= 'Nivel Administrador';
+		}
+		if($this->getNivelAcesso() == Sessao::NIVEL_SUPER){
+			$strUsuario .= 'Nivel Super';
+		}
+		return $strUsuario;
+	}
 	
 	
 	

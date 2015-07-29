@@ -397,8 +397,7 @@ public class ClienteControl {
 					
 					printStream.println("setStatus(" + getCliente().getMaquina().getStatus() + ")");
 					printStream.println("setNome(" + getCliente().getMaquina().getNome() + ")");
-					printStream.println("setNome(" + getCliente().getMaquina().getNome() + ")");
-					printStream.println("setNome(" + getCliente().getMaquina().getNome() + ")");
+					printStream.println("setVersao(1.0)");
 					printStream.println("setMac(" + getCliente().getMaquina().getEnderecoMac()+ ")");
 					
 					while (getCliente().getConexao().isConnected()) {
