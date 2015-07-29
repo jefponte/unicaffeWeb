@@ -14,7 +14,8 @@ public class Maquina {
 	private Acesso acesso;
 	private Laboratorio laboratorio;
 	private boolean cadastrada; 
-
+	private String versao;
+	
 	
 	
 	
@@ -32,6 +33,7 @@ public class Maquina {
 		this.laboratorio = new Laboratorio();
 		this.laboratorio.setId(1);
 		this.acesso = new Acesso();
+		this.setVersao("1.0");
 		this.setNome("Não Listado");
 		this.getAcesso().setStatus(Acesso.STATUS_DISPONIVEL);
 	}
@@ -151,5 +153,11 @@ public class Maquina {
 	}
 	public void setCadastrada(boolean cadastrada) {
 		this.cadastrada = cadastrada;
+	}
+	public String getVersao() {
+		return versao;
+	}
+	public void setVersao(String versao) {
+		this.versao = versao;
 	}
 }

@@ -54,7 +54,7 @@ class DAO {
 	}
 	const TIPO_UNICAFE = 0;
 	const TIPO_PG_TESTE = 1;
-	const TIPO_DEFAULT = self::TIPO_PG_TESTE;
+	const TIPO_DEFAULT = self::TIPO_PG_PRODUCAO;
 	const TIPO_SQLITE = 2;
 	const TIPO_PG_CAMILA = 3;
 	const TIPO_PG_PRODUCAO = 4;

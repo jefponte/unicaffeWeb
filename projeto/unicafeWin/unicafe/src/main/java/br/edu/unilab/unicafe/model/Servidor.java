@@ -708,6 +708,9 @@ public class Servidor {
 		} else if (comando.equals("setMac")) {
 			cliente.getMaquina().setEnderecoMac(parametros);
 
+		} else if (comando.equals("setVersao")) {
+			cliente.getMaquina().setVersao(parametros);
+
 		} else if (comando.equals("setStatus")) {
 			int status = Integer.parseInt(parametros);
 			cliente.getMaquina().setStatus(status);

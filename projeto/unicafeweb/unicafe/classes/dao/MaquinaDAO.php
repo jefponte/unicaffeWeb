@@ -19,6 +19,13 @@ class MaquinaDAO extends DAO {
 				$maquina->setEnderecoMac($linha['mac']);
 				$maquina->setStatus($linha['status_maquina']);
 				$maquina->getAcesso()->setHoraInicial($linha['hora_inicial']);
+				$maquina->getAcesso()->setTempoUsado($linha['tempo_usado']);
+				$maquina->getAcesso()->setTempoDisponibilizado($linha['tempo_oferecido']);
+				$maquina->getAcesso()->setIp($linha['ip']);
+				$maquina->getAcesso()->getUsuario()->setNome($linha['nome']);
+				$maquina->getAcesso()->getUsuario()->setLogin($linha['login']);
+				$maquina->getAcesso()->getUsuario()->setNivelAcesso($linha['nivel_acesso']);
+				
 				
 			}
 			$lista [] = $maquina;
@@ -26,7 +33,35 @@ class MaquinaDAO extends DAO {
 		
 		return $lista;
 	}
-	
+	/**
+	 * Pega uma lista de máquinas e for ordenação pelo nome da maquina. 
+	 * @param unknown $lista
+	 */
+	public function ordenaPorNome($lista){
+		$maquinas = array();
+		foreach($lista as $elemento){
+			$maquinas[] = $elemento;
+		}
+		$quantidade = count($maquinas);
+		$houveTroca = false;
+		$dim = count($maquinas);
+		do{
+				
+			$houveTroca = false;
+			for($i = 0; $i < ($dim - 1); $i++)
+			{
+				if(strcmp(strtolower($maquinas[$i]), strtolower($maquinas[$i+1])) > 0)
+				{
+					$maquinaAux = clone $maquinas[$i];
+					$maquinas[$i] = clone $maquinas[$i+1];
+					$maquinas[$i+1] = clone $maquinaAux;
+					$houveTroca = true;
+				}
+			}
+		}while($houveTroca);
+		return $maquinas;
+		
+	}
 	public function listaCompleta(){
 		
 		
@@ -38,9 +73,10 @@ class MaquinaDAO extends DAO {
 		
 		
 		$listaCompleta = array();
-// 		echo 'Maquinas do Banco: '.count($listaDeMaquinas);
-// 		echo 'Maquinas do UniCafe: '.count($listaDeMaquinasUniCafe);
-// 		echo 'Maquinas do Completa: '.count($listaCompleta);
+		echo 'Maquinas do Banco: '.count($listaDeMaquinas);
+		
+		echo 'Maquinas do UniCafe: '.count($listaDeMaquinasUniCafe);
+		echo 'Maquinas do Completa: '.count($listaCompleta);
 		
 		
 		/*
@@ -61,12 +97,13 @@ class MaquinaDAO extends DAO {
 			//Vamos verificar se essa maquina do UniCafe Existe na outra. 
 			//Eliminando da lista caso exista. 
 			$existe = false;
-			foreach($listaDeMaquinas as $maquinaBanco){
-				if($maquinaUniCafe->getNome() == $maquinaBanco->getNome())
+			foreach($listaDeMaquinas as $chave => $maquinaBanco){
+				if(strcmp(strtolower($maquinaUniCafe->getNome()), strtolower($maquinaBanco->getNome())) == 0)
 				{
+				
 					$existe = true;
 					$maquinaUniCafe->setCadastrada(true);
-					unset($maquinaBanco);
+					unset($listaDeMaquinas[$chave]);
 					break;
 				}
 			}
@@ -80,6 +117,10 @@ class MaquinaDAO extends DAO {
 			$desconectada->setStatus(Maquina::STATUS_DESCONECTADA);
 			$listaCompleta[] = $desconectada;
 		}
+		
+		echo 'Maquinas do Banco: '.count($listaDeMaquinas);
+		echo 'Maquinas do UniCafe: '.count($listaDeMaquinasUniCafe);
+		echo 'Maquinas do Completa: '.count($listaCompleta);
 		
 		return $listaCompleta;
 		

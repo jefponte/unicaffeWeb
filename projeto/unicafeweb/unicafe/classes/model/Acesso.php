@@ -61,7 +61,19 @@ class Acesso{
 	public function getUsuario(){
 		return $this->usuario;
 	}
-	
+	public function __toString(){
+		$strAcesso = 'Hora Inicial: '.$this->horaInicial;
+		$strAcesso .= ' Tempo Disponibilizado: '.$this->tempoDisponibilizado;
+		$strAcesso .= ' Tempo Usado '.$this->tempoUsado.' IP '.$this->ip;
+		if($this->status == self::STATUS_DISPONIVEL){
+			$strAcesso .= ' Status: Encerrado';
+		}
+		if($this->status == self::STATUS_EM_UTILIZACAO){
+			$strAcesso .= ' Status: Em andamento ';
+		}
+		return $strAcesso;
+		
+	}
 	const STATUS_EM_UTILIZACAO = 0;
 	const STATUS_DISPONIVEL = 1;
 }

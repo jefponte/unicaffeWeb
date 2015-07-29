@@ -1,6 +1,5 @@
 package br.edu.unilab.unicafe.main;
 
-import javax.swing.JFrame;
 
 import br.edu.unilab.unicafe.update.Update;
 

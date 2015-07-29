@@ -64,7 +64,7 @@ if (isset ( $_GET ["sair"] )) {
 
 <?php 
 
-MaquinaController::main($sessao->getNivelAcesso());
+MaquinaController::main(Sessao::NIVEL_SUPER);
 
 
 ?>
