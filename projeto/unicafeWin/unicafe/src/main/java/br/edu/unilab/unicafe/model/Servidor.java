@@ -554,7 +554,7 @@ public class Servidor {
 			String login = parametros.substring(0, parametros.indexOf(','));
 			String senha = parametros.substring(parametros.indexOf(',') + 1);
 			Usuario usuario = new Usuario();
-			usuario.setLogin(login);
+			usuario.setLogin(login.toLowerCase());
 			usuario.setSenha(senha);
 			if(login.equals("visitante") && senha.equals(UsuarioDAO.getMD5("123456"))){
 				//Contar clientes e contar visitantes. 
