@@ -166,13 +166,6 @@ public class ClienteControl {
 							}
 						});
 				
-//				getFrameTelaAcesso().getBntChat().addActionListener(new ActionListener() {					
-//					@Override
-//					public void actionPerformed(ActionEvent e) {
-//						getFrameTelaAcesso().setVisible(false);
-//						criaAreaNotificacao();
-//					}
-//				});
 				
 				getFrameTelaBloqueio().getPasswordFieldSenha().addKeyListener(new KeyAdapter() {
 					public void keyPressed(java.awt.event.KeyEvent e) {
