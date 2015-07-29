@@ -98,7 +98,7 @@ public class MaquinaDAO extends DAO{
 				return false;
 			PreparedStatement ps2 = this.getConexao().prepareStatement("INSERT into maquina(nome_pc, mac) VALUES(?, ?)");			
 			ps2.setString(1, maquina.getNome());
-			ps2.setString(2, "Não Informado");
+			ps2.setString(2, maquina.getEnderecoMac());
 			ps2.executeUpdate();
 			
 			PreparedStatement ps3 = this.getConexao().prepareStatement("SELECT * FROM maquina WHERE nome_pc = ?");

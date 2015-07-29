@@ -13,6 +13,10 @@ public class Maquina {
 	private int status;
 	private Acesso acesso;
 	private Laboratorio laboratorio;
+	private boolean cadastrada; 
+
+	
+	
 	
 	//kantu tempu ki bu misti.
 	
@@ -141,5 +145,11 @@ public class Maquina {
 	}
 	public void setLaboratorio(Laboratorio laboratorio) {
 		this.laboratorio = laboratorio;
+	}
+	public boolean isCadastrada() {
+		return cadastrada;
+	}
+	public void setCadastrada(boolean cadastrada) {
+		this.cadastrada = cadastrada;
 	}
 }

@@ -1,0 +1,120 @@
+@CHARSET "UTF-8";
+
+/*
+CORES
+	MARROM: #A45E4D rgb(164,94,77);
+	AZUL1: ;
+	AZUL2: #6DAFDB rgb(109,175,219);
+}
+*/
+
+.topo {
+	border: none;
+	/* border-top: 4px solid #6DAFDB; */
+	margin-bottom: -4px;
+    position: relative;
+    z-index: 999;
+}
+#logo-unicaffe, #logo-universidade {
+	width: 50%;
+	display: inline-block;
+	padding: 20px 0 10px;
+}
+#logo-unicaffe img, #logo-universidade img {
+	width: 300px;
+}
+#logo-unicaffe{
+	text-align: left;
+	float: left;
+} 
+#logo-universidade {
+	text-align: right;
+	float: right;
+}
+.unicaffe-menu {
+	/* background: rgba(164,94,77,0.5); */
+	-webkit-box-shadow: 0px 1px 10px 0px rgba(109,175,219,0.4);
+    -moz-box-shadow: 0px 1px 10px 0px rgba(109,175,219,0.4);
+    box-shadow: 0px 1px 10px 0px rgba(109,175,219,0.4);
+}
+.unicaffe-menu ol {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	font-size: 0;
+}
+.unicaffe-menu ol li {
+	display: inline-block;
+	margin: 0 4px;
+	font-size: 18px; 
+	padding: 4px;	
+	position: relative;
+}
+.unicaffe-menu ol li a{
+	padding: 8px 16px;
+	display: block; 
+	color: #6DAFDB;
+	text-decoration: none !important;
+	font-weight: 400;
+	border: thin solid #ffffff;
+	border-radius: 4px;
+}
+.unicaffe-menu ol li a:hover, .unicaffe-menu ol li a.ativo:hover{
+	color: #A45E4D;
+	border: thin solid #A45E4D;
+	background: #ffffff;
+}
+.unicaffe-menu ol li a.ativo{
+	color: #ffffff;
+	border: thin solid #A45E4D;
+	background: #A45E4D;
+}
+.unicaffe-menu ul {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+	display: none;
+	position: absolute;
+    left: 0;
+    z-index: 99999;
+    /* background: #ccc; */
+}
+.unicaffe-menu ul li {
+	display: block;
+	margin: 0;
+	font-size: 16px; 
+	padding: 4px;	
+	position: relative;
+	width: 100%;
+}
+.unicaffe-menu ul li a{
+	padding: 4px;
+	display: block; 
+	color: #6DAFDB;
+	text-decoration: none !important;
+	font-weight: 400;
+	border: none !important;
+	border-radius: 0;
+}
+.unicaffe-menu li:hover > ul{
+    display: block;
+}
+
+@media (max-width: 640px){
+    #logo-unicaffe img, #logo-universidade img {
+		width: 200px;
+	}
+}
+
+@media (max-width: 420px){
+    #logo-unicaffe {
+		text-align: center;
+		display: block;
+		margin: 0 auto;
+		width: 200px;
+		float: none;
+	}
+	#logo-universidade {
+		display: none;
+	}
+}

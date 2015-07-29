@@ -378,7 +378,31 @@ public class Servidor {
 			String json = anotaJson();
 			new PrintStream(cliente.getSaida()).println(json);	
 			System.out.println("Resposta: "+json);
-		}else if(comando.equals("desligaTudo")){
+		}else if(comando.equals("cadastraMaquina")){
+			// A gente pesquisa uma máquina com esse nome e cadastra ela. 
+			boolean achei = false;
+			for(Cliente daVez : listaDeClientes){
+				
+				if(parametros.toLowerCase().equals(daVez.getMaquina().getNome().toLowerCase())){
+					achei = true;
+					MaquinaDAO dao = new MaquinaDAO();
+					if(dao.cadastra(daVez.getMaquina())){
+						daVez.getMaquina().setCadastrada(true);
+						new PrintStream(cliente.getSaida()).println("Cadastrei "+parametros);	
+					}else
+						new PrintStream(cliente.getSaida()).println("Erro na tentativa de cadastro de "+parametros);
+					break;
+				}
+				
+				
+			}
+			if(!achei)
+				new PrintStream(cliente.getSaida()).println("Não encontrei "+parametros);
+			return;
+			
+		}
+		
+		else if(comando.equals("desligaTudo")){
 			System.out.println("Vou desligar, calma.");
 			for(Cliente daVez : listaDeClientes){
 				new PrintStream(daVez.getSaida()).println("desligar()");
@@ -656,7 +680,8 @@ public class Servidor {
 
 			}
 		
-		} else if (comando.equals("setNome")) {
+		}
+		else if (comando.equals("setNome")) {
 
 			String nome = parametros;
 			//Antes de setar o nome temos que excluir outras que possuem o mesmo nome. 
@@ -666,11 +691,14 @@ public class Servidor {
 			cliente.getMaquina().setNome(nome);
 			
 			MaquinaDAO maquinaDao = new MaquinaDAO();
-			if (!maquinaDao.existe(cliente.getMaquina())) {
+			if (maquinaDao.existe(cliente.getMaquina())) 
+				cliente.getMaquina().setCadastrada(true);
+			else
+				cliente.getMaquina().setCadastrada(false);
+			
 				
-				maquinaDao.cadastra(cliente.getMaquina());
 
-			}
+			
 			try {
 				maquinaDao.getConexao().close();
 			} catch (SQLException e) {
