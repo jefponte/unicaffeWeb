@@ -82,6 +82,8 @@ class Maquina{
 			$strMaquina .= ' Ocupada ';
 			
 		}
+		if($this->getLaboratorio()->getNome() != null)
+			$strMaquina .= $this->getLaboratorio()->getNome();
 		
 		return $strMaquina;
 	}

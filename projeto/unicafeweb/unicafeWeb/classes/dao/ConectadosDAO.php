@@ -17,6 +17,7 @@ class conectadosDAO extends DAO{
            $acesso->getUsuario()->setId($linha['id_usuario']);
            $acesso->getUsuario()->setNome($linha['nome']);
            $laboratorio = new Laboratorio();
+           
            $laboratorio->setNome($linha['nome_laboratorio']);
            $laboratorio->setId($linha['id_laboratorio']);
            $acesso->getMaquina()->setLaboratorio($laboratorio);
