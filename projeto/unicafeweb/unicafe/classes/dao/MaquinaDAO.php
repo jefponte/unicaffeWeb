@@ -7,13 +7,16 @@ class MaquinaDAO extends DAO {
 
 	public function retornaLista() {
 		$lista = array ();
-		$sql = "SELECT * FROM maquina";
+		$sql = "SELECT * FROM maquina LEFT JOIN laboratorio_maquina ON maquina.id_maquina = laboratorio_maquina.id_maquina LEFT JOIN laboratorio ON laboratorio_maquina.id_laboratorio = laboratorio.id_laboratorio;";
 		$result = $this->getConexao ()->query ( $sql );
 		foreach ( $result as $linha ) {
 			$maquina = new Maquina();
 			$maquina->setNome($linha['nome_pc']);
 			$maquina->setId($linha['id_maquina']);
 
+			$maquina->getLaboratorio()->setId($linha['id_laboratorio']);
+			$maquina->getLaboratorio()->setNome($linha['nome_laboratorio']);
+			
 			if($this->getTipoDeConexao() == self::TIPO_UNICAFE)
 			{
 				$maquina->setEnderecoMac($linha['mac']);
@@ -42,6 +45,7 @@ class MaquinaDAO extends DAO {
 		foreach($lista as $elemento){
 			$maquinas[] = $elemento;
 		}
+		
 		$quantidade = count($maquinas);
 		$houveTroca = false;
 		$dim = count($maquinas);
@@ -67,19 +71,38 @@ class MaquinaDAO extends DAO {
 		
 		$daoUniCafe = new MaquinaDAO(null, 0);
 		$listaDeMaquinasUniCafe = $daoUniCafe->retornaLista();
+		//Antes de continuar vamos remover as repeticoes na lista do UniCafe
+		
+		foreach($listaDeMaquinasUniCafe as $chave => $elementoRepeticao){
+			$quantidade = 0;
+			foreach($listaDeMaquinasUniCafe as $segundaChave => $elemento){
+				if($elementoRepeticao->getNome() == $elemento->getNome())
+					$quantidade++;
+				if($quantidade > 1){
+					$quantidade = 1;
+					unset($listaDeMaquinasUniCafe[$segundaChave]);
+				}
+				
+				
+			}
+			
+		}
 		
 		$listaDeMaquinas = $this->retornaLista();
 		
 		
 		
 		$listaCompleta = array();
-		echo 'Maquinas do Banco: '.count($listaDeMaquinas);
-		
-		echo 'Maquinas do UniCafe: '.count($listaDeMaquinasUniCafe);
-		echo 'Maquinas do Completa: '.count($listaCompleta);
 		
 		
 		/*
+		 * Teste
+		 * echo 'Maquinas do Banco: '.count($listaDeMaquinas);
+		 * echo 'Maquinas do UniCafe: '.count($listaDeMaquinasUniCafe);
+		 * echo 'Maquinas do Completa: '.count($listaCompleta);
+		 * 
+		 * 
+		 * 
 		 * Primeiro vou percorrer a lista do UniCaffe, verifico se existe na outra
 		 * Caso exista,
 		 * 		Significa que ela é cadastrada. Setamos o atributo cadastrada para true 
@@ -117,11 +140,6 @@ class MaquinaDAO extends DAO {
 			$desconectada->setStatus(Maquina::STATUS_DESCONECTADA);
 			$listaCompleta[] = $desconectada;
 		}
-		
-		echo 'Maquinas do Banco: '.count($listaDeMaquinas);
-		echo 'Maquinas do UniCafe: '.count($listaDeMaquinasUniCafe);
-		echo 'Maquinas do Completa: '.count($listaCompleta);
-		
 		return $listaCompleta;
 		
 	}

@@ -1049,6 +1049,135 @@ public class PerfilBloqueio {
 			this.listaDeProcessosAceitos.add(new Processo("ISIS.EXE", "C:\\Program Files (x86)\\Labcenter Electronics\\Proteus 7 Professional\\BIN\\ISIS.EXE", "944"));
 			this.listaDeProcessosAceitos.add(new Processo("UniCafe.scr","C:\\projetos\\unicafe\\projeto\\unicafeWin\\unicafe\\src\\main\\resources\\images\\UniCafe.scr", "944"));
 
+			
+			//bloqueios sistema 32bit			
+			//this.listaDeProcessosAceitos.add(new Processo("FrzState2k.exe", "C:\\Program Files\\Faronics\\Deep Freeze\\Install C-0\\_$Df\\FrzState2k.exe", "944"));
+			//this.listaDeProcessosAceitos.add(new Processo("DFServ.exe", "C:\\Program Files\\Faronics\\Deep Freeze\\Install C-0\\DFServ.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("antirun.exe", "C:\\Program Files\\Antirun\\antirun.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("AdobeARM.exe", "C:\\Program Files\\Common Files\\Adobe\\ARM\\1.0\\AdobeARM.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("AddInUtil.exe", "C:\\Windows\\Microsoft.NET\\Framework\\v3.5\\addinutil.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("AM_Delta_Patch_1.201.2218.0.exe", "C:\\Windows\\SoftwareDistribution\\Download\\Install\\AM_Delta_Patch_1.201.2218.0.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("AM_Delta_Patch_1.203.205.0.exe", "C:\\Windows\\SoftwareDistribution\\Download\\Install\\AM_Delta_Patch_1.203.205.0.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("AM_Delta_Patch_1.201.2067.0.exe", "C:\\Windows\\SoftwareDistribution\\Download\\Install\\AM_Delta_Patch_1.201.2067.0.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("AM_Delta_Patch_1.201.1937.0.exe", "C:\\Windows\\SoftwareDistribution\\Download\\Install\\AM_Delta_Patch_1.201.1937.0.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("AcroRd32.exe", "C:\\Program Files\\Adobe\\Reader 11.0\\Reader\\AcroRd32.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("AM_Base_Patch1.exe", "C:\\Windows\\SoftwareDistribution\\Download\\Install\\AM_Base_Patch1.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("AM_Delta.exe", "C:\\Windows\\SoftwareDistribution\\Download\\Install\\AM_Delta.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("CompatTelRunner.exe", "C:\\Windows\\system32\\CompatTelRunner.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("csc.exe", "C:\\Windows\\Microsoft.NET\\Framework\\v2.0.50727\\csc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("CompatTelRunner.exe", "C:\\Windows\\system32\\CompatTelRunner.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("chrmstp.exe", "C:\\Program Files\\Google\\Chrome\\Application\\43.0.2357.134\\Installer\\chrmstp.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("CompatTelRunner.exe", "C:\\Windows\\system32\\CompatTelRunner.exe", "944"));		
+			this.listaDeProcessosAceitos.add(new Processo("DFLocker.exe", "C:\\Windows\\TEMP\\DFLocker.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("diagtrackrunner.exe", "C:\\Windows\\system32\\compattel\\DiagTrackRunner.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("firefox.exe", "C:\\Program Files\\Mozilla Firefox\\firefox.exe", "944"));			
+			this.listaDeProcessosAceitos.add(new Processo("gpscript.exe", "C:\\Windows\\system32\\gpscript.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("GWXConfigManager.exe", "C:\\Windows\\system32\\GWX\\GWXConfigManager.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("GoogleUpdate.exe", "C:\\Program Files\\Google\\Update\\GoogleUpdate.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("gpscript.exe", "C:\\Windows\\system32\\gpscript.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("GWX.exe", "C:\\Windows\\system32\\GWX\\GWX.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("GoogleCrashHandler.exe", "C:\\Program Files\\Google\\Update\\1.3.28.1\\GoogleCrashHandler.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("gpscript.exe", "C:\\Windows\\system32\\gpscript.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("jusched.exe", "C:\\Program Files\\Common Files\\Java\\Java Update\\jusched.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("jp2launcher.exe", "C:\\Program Files\\Java\\jre7\\bin\\jp2launcher.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("mobsync.exe", "C:\\Windows\\System32\\mobsync.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("msoia.exe", "C:\\Program Files\\Microsoft Office\\Office15\\msoia.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("mscorsvw.exe", "C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319\\mscorsvw.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("mpam-fc777bc9.exe", "C:\\Windows\\SERVIC~2\\NETWOR~1\\AppData\\Local\\Temp\\mpam-fc777bc9.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("mpam-4c2ad6cf.exe", "C:\\Windows\\SERVIC~2\\NETWOR~1\\AppData\\Local\\Temp\\mpam-4c2ad6cf.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("mpam-943bc045.exe", "C:\\Windows\\SERVIC~2\\NETWOR~1\\AppData\\Local\\Temp\\mpam-943bc045.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("mpam-c4773883.exe", "C:\\Windows\\SERVIC~2\\NETWOR~1\\AppData\\Local\\Temp\\mpam-c4773883.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("mpam-7c4cdcc4.exe", "C:\\Windows\\SERVIC~2\\NETWOR~1\\AppData\\Local\\Temp\\mpam-7c4cdcc4.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("MPSigStub.exe", "c:\\59a0b9075bdf5a428ed9\\MpSigStub.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("mobsync.exe", "C:\\Windows\\System32\\mobsync.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("OLicenseHeartbeat.exe", "C:\\Program Files\\Common Files\\Microsoft Shared\\Office15\\OLicenseHeartbeat.exe", "944"));	
+			this.listaDeProcessosAceitos.add(new Processo("OCSInventory.exe", "C:\\Program Files\\OCS Inventory Agent\\OCSInventory.exe", "944"));			
+			this.listaDeProcessosAceitos.add(new Processo("OCS-NG-Windows-Agent-Setup.exe", "\\\\net.unilab.edu.br\\SysVol\\net.unilab.edu.br\\Policies\\{2A4896A8-6128-47A7-A2DB-32577BE2EDA9}\\Machine\\Scripts\\Startup\\OCS-NG-Windows-Agent-Setup.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("PIconStartup.exe", "C:\\Program Files\\Common Files\\Intel\\Privacy Icon\\PIconStartup.exe", "944"));			
+			this.listaDeProcessosAceitos.add(new Processo("reader_sl.exe", "C:\\Program Files\\Adobe\\Reader 11.0\\Reader\\Reader_sl.exe", "944"));			
+			this.listaDeProcessosAceitos.add(new Processo("sc.exe", "C:\\Windows\\system32\\sc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("sdiagnhost.exe", "C:\\Windows\\System32\\sdiagnhost.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("TDMAuditLogger.exe", "C:\\Program Files\\Wave Systems Corp\\Trusted Drive Manager\\TDMAuditLogger.exe", "944"));			
+			this.listaDeProcessosAceitos.add(new Processo("VCDDaemon.exe", "C:\\Program Files\\Elaborate Bytes\\VirtualCloneDrive\\VCDDaemon.exe", "944"));			
+			this.listaDeProcessosAceitos.add(new Processo("wsqmcons.exe", "C:\\Windows\\System32\\wsqmcons.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wermgr.exe", "C:\\Windows\\system32\\wermgr.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wsqmcons.exe", "C:\\Windows\\System32\\wsqmcons.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wsqmcons.exe", "C:\\Windows\\System32\\wsqmcons.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wicainventory.exe", "C:\\Windows\\system32\\CompatTel\\WicaInventory.exe", "944"));		
+			this.listaDeProcessosAceitos.add(new Processo("WatAdminSvc.exe", "C:\\Windows\\system32\\Wat\\WatAdminSvc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WerFault.exe", "C:\\Windows\\system32\\WerFault.exe", "944"));			
+			this.listaDeProcessosAceitos.add(new Processo("POWERPNT.EXE", "C:\\Program Files\\Microsoft Office\\Office15\\POWERPNT.EXE", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("WINWORD.EXE", "C:\\Program Files\\Microsoft Office\\Office15\\WINWORD.EXE", "944"));			
+			this.listaDeProcessosAceitos.add(new Processo("armsvc.exe", "C:\\Program Files\\Common Files\\Adobe\\ARM\\1.0\\armsvc.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("OcsService.exe", "C:\\Program Files\\OCS Inventory Agent\\OcsService.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("OcsSystray.exe", "C:\\Program Files\\OCS Inventory Agent\\OcsSystray.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("eclipse.exe", "C:\\Program Files\\eclipse\\eclipse.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("UI0Detect.exe", "C:\\Windows\\system32\\UI0Detect.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("javaw.exe", "C:\\Program Files\\Java\\jre1.8.0_51\\bin\\javaw.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wuauclt.exe", "C:\\Windows\\system32\\wuauclt.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("msiexec.exe", "C:\\Windows\\system32\\MsiExec.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("chrome.exe","C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("chrome.exe","C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("setup_wm.exe","C:\\Program Files\\Windows Media Player\\setup_wm.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("setup_wm.exe","C:\\Program\\Files\\Windows Media Player\\setup_wm.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("Eula.exe","C:\\Program Files\\Adobe\\Reader 11.0\\Reader\\Eula.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("helper.exe","C:\\Program Files\\Mozilla Firefox\\uninstall\\helper.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("plugin-container.exe","C:\\Program Files\\Mozilla Firefox\\plugin-container.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("FlashPlayerPlugin_18_0_0_209.exe","C:\\Windows\\system32\\Macromed\\Flash\\FlashPlayerPlugin_18_0_0_209.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("FlashPlayerPlugin_18_0_0_209.exe","C:\\Windows\\system32\\Macromed\\Flash\\FlashPlayerPlugin_18_0_0_209.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("plugin-container.exe","C:\\Program Files\\Mozilla Firefox\\plugin-container.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("FlashPlayerPlugin_18_0_0_209.exe","C:\\Windows\\system32\\Macromed\\Flash\\FlashPlayerPlugin_18_0_0_209.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("FlashPlayerPlugin_18_0_0_209.exe","C:\\Windows\\system32\\Macromed\\Flash\\FlashPlayerPlugin_18_0_0_209.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("plugin-container.exe","C:\\Program Files\\Mozilla Firefox\\plugin-container.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("FlashPlayerPlugin_18_0_0_209.exe","C:\\Windows\\system32\\Macromed\\Flash\\FlashPlayerPlugin_18_0_0_209.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("FlashPlayerPlugin_18_0_0_209.exe","C:\\Windows\\system32\\Macromed\\Flash\\FlashPlayerPlugin_18_0_0_209.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("dfsvc.exe","C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319\\dfsvc.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("dfsvc.exe","C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319\\dfsvc.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("mpc-hc.exe","C:\\Program Files\\K-Lite Codec Pack\\MPC-HC\\mpc-hc.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("sbase.exe","C:\\Program Files\\LibreOffice 4\\program\\sbase.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("soffice.exe","C:\\Program Files\\LibreOffice 4\\program\\soffice.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("soffice.bin","C:\\Program Files\\LibreOffice 4\\program\\soffice.bin","123"));
+			this.listaDeProcessosAceitos.add(new Processo("scalc.exe","C:\\Program Files\\LibreOffice 4\\program\\scalc.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("soffice.exe","C:\\Program Files\\LibreOffice 4\\program\\soffice.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("soffice.bin","C:\\Program Files\\LibreOffice 4\\program\\soffice.bin","123"));
+			this.listaDeProcessosAceitos.add(new Processo("sdraw.exe","C:\\Program Files\\LibreOffice 4\\program\\sdraw.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("soffice.exe","C:\\Program Files\\LibreOffice 4\\program\\soffice.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("soffice.bin","C:\\Program Files\\LibreOffice 4\\program\\soffice.bin","123"));
+			this.listaDeProcessosAceitos.add(new Processo("simpress.exe","C:\\Program Files\\LibreOffice 4\\program\\simpress.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("soffice.exe","C:\\Program Files\\LibreOffice 4\\program\\soffice.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("soffice.bin","C:\\Program Files\\LibreOffice 4\\program\\soffice.bin","123"));
+			this.listaDeProcessosAceitos.add(new Processo("smath.exe","C:\\Program Files\\LibreOffice 4\\program\\smath.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("soffice.exe","C:\\Program Files\\LibreOffice 4\\program\\soffice.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("soffice.bin","C:\\Program Files\\LibreOffice 4\\program\\soffice.bin","123"));
+			this.listaDeProcessosAceitos.add(new Processo("swriter.exe","C:\\Program Files\\LibreOffice 4\\program\\swriter.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("soffice.exe","C:\\Program Files\\LibreOffice 4\\program\\soffice.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("soffice.bin","C:\\Program Files\\LibreOffice 4\\program\\soffice.bin","123"));
+			this.listaDeProcessosAceitos.add(new Processo("MSACCESS.EXE","C:\\Program Files\\Microsoft Office\\Office15\\MSACCESS.EXE","123"));
+			this.listaDeProcessosAceitos.add(new Processo("EXCEL.EXE","C:\\Program Files\\Microsoft Office\\Office15\\EXCEL.EXE","123"));
+			this.listaDeProcessosAceitos.add(new Processo("INFOPATH.EXE","C:\\Program Files\\Microsoft Office\\Office15\\INFOPATH.EXE","123"));
+			this.listaDeProcessosAceitos.add(new Processo("INFOPATH.EXE","C:\\Program Files\\Microsoft Office\\Office15\\INFOPATH.EXE","123"));
+			this.listaDeProcessosAceitos.add(new Processo("GROOVE.EXE","C:\\Program Files\\Microsoft Office\\Office15\\GROOVE.EXE","123"));
+			this.listaDeProcessosAceitos.add(new Processo("ONENOTE.EXE","C:\\Program Files\\Microsoft Office\\Office15\\ONENOTE.EXE","123"));
+			this.listaDeProcessosAceitos.add(new Processo("OUTLOOK.EXE","C:\\Program Files\\Microsoft Office\\Office15\\OUTLOOK.EXE","123"));
+			this.listaDeProcessosAceitos.add(new Processo("FIRSTRUN.EXE","C:\\Program Files\\Microsoft Office\\Office15\\FIRSTRUN.EXE","123"));
+			this.listaDeProcessosAceitos.add(new Processo("MSOSQM.EXE","C:\\Program Files\\Common Files\\Microsoft Shared\\Office15\\msosqm.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("lync.exe","C:\\Program Files\\Microsoft Office\\Office15\\lync.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("MSOSQM.EXE","C:\\Program Files\\Common Files\\Microsoft Shared\\Office15\\msosqm.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("Silverlight.Configuration.exe","C:\\Program Files\\Microsoft Silverlight\\5.1.40416.0\\Silverlight.Configuration.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("Skype.exe","C:\\Program Files\\Skype\\Phone\\Skype.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("vlc.exe","C:\\Program Files\\VideoLAN\\VLC\\vlc.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("vlc.exe","C:\\Program Files\\VideoLAN\\VLC\\vlc.exe","123"));
+			this.listaDeProcessosAceitos.add(new Processo("TeamViewer.exe","C:\\Program Files\\TeamViewer\\Version9\\TeamViewer.exe","123"));			
+			this.listaDeProcessosAceitos.add(new Processo("unregmp2.exe", "", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("wmplayer.exe", "C:\\Program Files\\Windows Media Player\\wmplayer.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("software_reporter_tool.exe", user +"\\AppData\\Local\\Google\\Chrome\\User Data\\SwReporter\\3.21.0\\software_reporter_tool.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("SearchFilterHost.exe", "", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("msiexec.exe", "", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("AcroRd32.exe", "C:\\Program Files\\Adobe\\Acrobat Reader DC\\Reader\\AcroRd32.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("net1.exe", "", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("TeamViewer_Service.exe", "C:\\Program Files\\TeamViewer\\Version9\\TeamViewer_Service.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("javaw.exe", System.getProperty("sun.boot.library.path") + "\\javaw.exe", "5632"));
+
 	}
 
 	public void buscaAtivos() {
@@ -1095,14 +1224,14 @@ public class PerfilBloqueio {
 		boolean existeNaLista = false;
 		for (Processo processoAtivo : this.processosAtivos) {
 			existeNaLista = false;
-			if(processoAtivo.getExecutablePath().length() <= 5){
-				if(processoAtivo.getExecutablePath().substring(0, 5).equals("C:\\Pr") /*|| processoAtivo.getExecutablePath().substring(0, 5).equals("C:\\Wi") */){
-					//System.out.println("Foi");
-					//System.out.println(processoAtivo.getExecutablePath().substring(0, 4));
-					existeNaLista = true;
-					continue;
-				}
-			}
+//			if(processoAtivo.getExecutablePath().length() <= 5){
+//				if(processoAtivo.getExecutablePath().substring(0, 5).equals("C:\\Pr") /*|| processoAtivo.getExecutablePath().substring(0, 5).equals("C:\\Wi") */){
+//					//System.out.println("Foi");
+//					//System.out.println(processoAtivo.getExecutablePath().substring(0, 4));
+//					existeNaLista = true;
+//					continue;
+//				}
+//			}
 			for (Processo processoAceito : this.listaDeProcessosAceitos) {
 	
 				if (processoAtivo.equals(processoAceito)) {

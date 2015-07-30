@@ -72,6 +72,7 @@ public class MaquinaDAO extends DAO{
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
 				maquina.setId(rs.getInt("id_maquina"));
+				
 				maquina.getLaboratorio().setId(rs.getInt("id_laboratorio"));
 				maquina.getLaboratorio().setNome(rs.getString("nome_laboratorio"));
 				return true;

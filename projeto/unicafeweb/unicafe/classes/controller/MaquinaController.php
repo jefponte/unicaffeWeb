@@ -1,5 +1,8 @@
 <?php
 class MaquinaController {
+	const TELA_ADMINISTRADOR = 1;
+	const TELA_SUPER = 2;
+	
 	public static function main($tipoDeTela) {
 		$maquinaController = new MaquinaController ();
 		
@@ -25,10 +28,10 @@ class MaquinaController {
 		
 		switch ($tipoDeTela) {
 			
-			case Sessao::NIVEL_ADMIN :
+			case self::TELA_ADMINISTRADOR :
 				$maquinaController->telaMaquinasAdmin ();
 				break;
-			case Sessao::NIVEL_SUPER :
+			case self::TELA_SUPER :
 				$maquinaController->telaMaquinasSuper ();
 				break;
 			default :
@@ -42,15 +45,32 @@ class MaquinaController {
 	public function telaMaquinas() {
 		$maquinaDAO = new MaquinaDAO ();
 		$lista = $maquinaDAO->listaCompleta ();
-		$maquinaDAO->ordenaPorNome($lista);
+		$lista = $maquinaDAO->ordenaPorNome($lista);
+		
+		if(isset($_GET['detalhe'])){
+			foreach ( $lista as $maquina ) {
+				echo '<a href="?detalhe='.$maquina->getNome().'">'.$maquina->getNome().'</a>';
+				if($_GET['detalhe']== $maquina->getNome()){
+					echo $maquina;
+					if($maquina->getStatus() == Maquina::STATUS_OCUPADA){
+						echo $maquina->getAcesso();
+					}
+				}
+				echo '<br><br><hr>';
+				
+			}
+			return;
+		}
 		
 		foreach ( $lista as $maquina ) {
-			echo $maquina;
-			if($maquina->getStatus() == Maquina::STATUS_OCUPADA){
-				echo $maquina->getAcesso();
-			} 
+			echo '<a href="?detalhe='.$maquina->getNome().'">'.$maquina->getNome().'</a>';
+			if(!$maquina->isCadastrada())
+				echo 'Nao Cadastrada';
 			echo '<br><br><hr>';
+		
 		}
+		
+		
 	}
 	
 	/**
@@ -60,15 +80,47 @@ class MaquinaController {
 		$maquinaDAO = new MaquinaDAO ();
 		$lista = $maquinaDAO->listaCompleta ();
 		$lista = $maquinaDAO->ordenaPorNome($lista);
+		if(isset($_GET['cadastrar'])){
+			
+			echo "Vamos tentar: ";
+			$unicafe= new UniCafe();
+			echo $unicafe->dialoga('cadastraMaquina('.$_GET['cadastrar'].')');
+
+ 			
+			
+		}
 		
-// 		foreach ( $lista as $maquina ) {
-// 			echo $maquina;
-// 			if($maquina->getStatus() == Maquina::STATUS_OCUPADA){
-// 				echo $maquina->getAcesso();
-// 				echo $maquina->getAcesso()->getUsuario();
-// 			} 
-// 			echo '<br><br><hr>';
-// 		}
+		
+		if(isset($_GET['detalhe'])){
+			
+			foreach ( $lista as $maquina ) {
+				echo '<a href="?detalhe='.$maquina->getNome().'">'.$maquina->getNome().'</a>';
+				if($_GET['detalhe']== $maquina->getNome()){
+					echo $maquina;
+					if(!$maquina->isCadastrada())
+						echo '<br><a href="?cadastrar='.$maquina->getNome().'">Nao Cadastrada</a><br>';
+					if($maquina->getStatus() == Maquina::STATUS_OCUPADA){
+						echo $maquina->getAcesso();
+						echo '<br>'.$maquina->getAcesso()->getUsuario();
+						echo 'Laboratorio: '.$maquina->getLaboratorio()->getNome();
+					}
+				}
+				echo '<br><br><hr>';
+				
+			}
+			return;
+		}
+		
+		
+		foreach ( $lista as $maquina ) {
+			echo '<a href="?detalhe='.$maquina->getNome().'">'.$maquina->getNome().'</a>';
+			if(!$maquina->isCadastrada())
+				echo '<br><a href="?cadastrar='.$maquina->getNome().'">Nao Cadastrada</a>';
+
+			echo '<br><br><hr>';
+		
+		}
+		
 		
 	}
 	/**
@@ -80,16 +132,33 @@ class MaquinaController {
 	public function telaMaquinasAdmin() {
 		$maquinaDAO = new MaquinaDAO ();
 		$lista = $maquinaDAO->listaCompleta ();
-		$maquinaDAO->ordenaPorNome($lista);
+		$lista = $maquinaDAO->ordenaPorNome($lista);
+		
+		if(isset($_GET['detalhe'])){
+			foreach ( $lista as $maquina ) {
+				echo '<a href="?detalhe='.$maquina->getNome().'">'.$maquina->getNome().'</a>';
+				if($_GET['detalhe']== $maquina->getNome()){
+					echo $maquina;
+					if($maquina->getStatus() == Maquina::STATUS_OCUPADA){
+						echo $maquina->getAcesso();
+						echo '<br>'.$maquina->getAcesso()->getUsuario();
+						
+					}
+				}
+				echo '<br><br><hr>';
+				
+			}
+			return;
+		}
 		
 		foreach ( $lista as $maquina ) {
-			echo $maquina;
-			if($maquina->getStatus() == Maquina::STATUS_OCUPADA){
-				echo $maquina->getAcesso();
-				echo $maquina->getAcesso()->getUsuario();
-			}
+			echo '<a href="?detalhe='.$maquina->getNome().'">'.$maquina->getNome().'</a>';
+			if(!$maquina->isCadastrada())
+				echo 'Nao Cadastrada';
 			echo '<br><br><hr>';
+		
 		}
+		
 		
 	}
 }
