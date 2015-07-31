@@ -63,8 +63,8 @@ if (isset ( $_GET ["sair"] )) {
 <div class="pagina"> 
 
 <?php 
-MaquinaController::main(MaquinaController::TELA_SUPER);
-
+//MaquinaController::main(MaquinaController::TELA_SUPER);
+LaboratorioController::main(LaboratorioController::TELA_DEFAULT);
 
 
 ?>

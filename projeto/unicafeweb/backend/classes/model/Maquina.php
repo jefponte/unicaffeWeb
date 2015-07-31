@@ -83,7 +83,7 @@ class Maquina{
 			
 		}
 		if($this->getLaboratorio()->getNome() != null)
-			$strMaquina .= $this->getLaboratorio()->getNome();
+			$strMaquina .= 'Laboratorio: '.$this->getLaboratorio()->getNome();
 		
 		return $strMaquina;
 	}
