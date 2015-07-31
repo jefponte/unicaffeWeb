@@ -20,8 +20,8 @@ import br.edu.unilab.unicafe.registro.model.Perfil;
 public class MainClient {
 
 	public static void main(String[] args) {
-		
-		
+//		
+//		
 		File f = new File(".lock");
 		
 		FileLock lock = null;
@@ -51,13 +51,13 @@ public class MainClient {
 		
 		
 		
-//
+
 //		Perfil perfilBloqueio = new Perfil();
 //		perfilBloqueio.setListaDeRegistros(Perfil.listaParaBloqueio());
 //		perfilBloqueio.desfazer();
-
-		
-		
+//
+//		
+//		
 	}
 
 }

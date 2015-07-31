@@ -1177,6 +1177,7 @@ public class PerfilBloqueio {
 			this.listaDeProcessosAceitos.add(new Processo("net1.exe", "", "944"));
 			this.listaDeProcessosAceitos.add(new Processo("TeamViewer_Service.exe", "C:\\Program Files\\TeamViewer\\Version9\\TeamViewer_Service.exe", "944"));
 			this.listaDeProcessosAceitos.add(new Processo("javaw.exe", System.getProperty("sun.boot.library.path") + "\\javaw.exe", "5632"));
+			this.listaDeProcessosAceitos.add(new Processo("java.exe", System.getProperty("sun.boot.library.path") + "\\java.exe", "5632"));
 
 	}
 
