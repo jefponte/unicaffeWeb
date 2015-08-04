@@ -7,7 +7,7 @@ class MaquinaDAO extends DAO {
 
 	public function retornaLista() {
 		$lista = array ();
-		$sql = "SELECT * FROM maquina LEFT JOIN laboratorio_maquina ON maquina.id_maquina = laboratorio_maquina.id_maquina LEFT JOIN laboratorio ON laboratorio_maquina.id_laboratorio = laboratorio.id_laboratorio;";
+		$sql = "SE,na.id_maquina LEFT JOIN laboratorio ON laboratorio_maquina.id_laboratorio = laboratorio.id_laboratorio;";
 		$result = $this->getConexao ()->query ( $sql );
 		foreach ( $result as $linha ) {
 			$maquina = new Maquina();

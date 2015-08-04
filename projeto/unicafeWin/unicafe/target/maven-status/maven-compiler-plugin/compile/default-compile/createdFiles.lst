@@ -44,6 +44,7 @@ br\edu\unilab\unicafe\desktop\Desktop.class
 br\edu\unilab\unicafe\control\ClienteControl$12.class
 br\edu\unilab\unicafe\model\Laboratorio.class
 br\edu\unilab\unicafe\main\MainAdmin.class
+br\edu\unilab\unicafe\view\FrameTelaAcesso$4.class
 br\edu\unilab\unicafe\control\ClienteControl$14.class
 br\edu\unilab\unicafe\control\ClienteControl$6.class
 br\edu\unilab\unicafe\update\FrameReiniciando.class
@@ -58,5 +59,6 @@ br\edu\unilab\unicafe\main\MainUpdate.class
 br\edu\unilab\unicafe\model\Usuario.class
 br\edu\unilab\unicafe\model\Maquina.class
 br\edu\unilab\unicafe\view\FrameTelaBloqueio$1.class
+br\edu\unilab\unicafe\main\MaquinaTeste.class
 br\edu\unilab\unicafe\bloqueio\model\Processo.class
 br\edu\unilab\unicafe\registro\model\Perfil.class
