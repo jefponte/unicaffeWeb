@@ -8,11 +8,12 @@
 *.class
 *.metadata
 /projeto/unicafeweb/*.buildpath
-/projeto/unicafeweb/.settings/org.eclipse.php.core.prefs
+/projeto/unicafeweb/.settings/org.eclipse.php*.prefs
 *.fdt
 *.frq
 *.fnm
 *.bildpath
-*.settings/org.eclipse.php.core.prefs
+*.settings/org.eclipse.php.core*.prefs
 *.jar
 *.class
+*.prx
