@@ -123,7 +123,7 @@ public class DAO {
 	public static final String BANCO_MYSQL = "banco_sigaa";
 	public static final String DRIVER_MYSQL = "com.mysql.jdbc.Driver";
 	public static final String JDBC_BANCO_MYSQL = "jdbc:mysql:";
-
+	
 	
 	
 	public static final int TIPO_SQLITE = 0;
@@ -135,8 +135,8 @@ public class DAO {
 	
 	public static final int TIPO_PG_PRODUCAO = 7;
 	
-	public static final int TIPO_CONEXAO_DEFAULT = TIPO_PG_PRODUCAO;
-	public static final int TIPO_CONEXAO_AUTENTICACAO = TIPO_PG_SIGAA;
+	public static final int TIPO_CONEXAO_DEFAULT = TIPO_PG_TESTE;
+	public static final int TIPO_CONEXAO_AUTENTICACAO = TIPO_PG_SIMULACAO_SIGAA;
 	
 	
 

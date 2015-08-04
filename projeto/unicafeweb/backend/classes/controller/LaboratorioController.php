@@ -32,29 +32,13 @@ class LaboratorioController{
 		}
 	}
 	public function telaDefault(){
-		
-		if(!isset($_GET['laboratorio'])){
-			///MOstrarei todas as máquinas sem laboratório. 
-			
-			$maquinaDao = new MaquinaDAO();
-			$lista = $maquinaDao->ordenaPorNome($maquinaDao->listaCompleta());
-			foreach($lista as $maquina){
-				if(!$maquina->getLaboratorio()->getId()){
-					echo $maquina;
-					echo "<br>".$maquina->getLaboratorio()->getNome();
-				}
-			}
-			
-			return;	
-		}
+		$laboratorioView = new LaboratorioView();
 		
 		$maquinaDao = new MaquinaDAO();
-		$lista = $maquinaDao->ordenaPorNome($maquinaDao->listaCompleta());
-		foreach($lista as $maquina){
-			if($maquina->getLaboratorio()->getNome() == $_GET['laboratorio']){
-				echo $maquina.'<br><hr>';
-
-			}
+		$lista =$maquinaDao->listaCompleta();
+		foreach ($lista as $elemento){
+			
+			$laboratorioView->mostraMaquina($elemento);
 		}
 		
 		
