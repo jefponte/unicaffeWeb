@@ -22,54 +22,91 @@ if (isset ( $_GET ["sair"] )) {
 }
 
 
+require_once('header.php');
 ?>
+            
+            <div class="linha doze colunas fundo-azul1" >
+                <div class="conteudo">
+                    <div class="linha doze">
+                        <h1 class="titulo texto-branco maiusculas a-esquerda seis grande">Visualização de acessos</h1>
+                        <div class="a-direita seis alinhado-a-direita">
+                            <form method="post" action="#" class="formulario doze">
+                                <label class="dez" style="display: inline;">
+                                    <span class="texto-branco negrito">Visualizar laboratório: </span>
+                                    <select>
+                                        <option>LABTI01</option>
+                                        <option>LABTI02</option>
+                                        <option>LABTI03</option>
+                                    </select>
+                                </label>
+                                <button class="botao b-aviso duas" type="submit">Alterar</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="doze colunas fundo-branco">
+            <?php 
+            LaboratorioController::main(LaboratorioController::TELA_DEFAULT);
+            
+            
+            ?>
 
-<!DOCTYPE html>
-<html>
-<head>
-<title>UniCafe</title>
-        <meta charset="UTF-8">
-        <link rel="stylesheet" href="http://spa.dsi.unilab.edu.br/spa/css/spa.css" />
-       <link rel="shortcut icon" href="img/unicafe-logo-pp-b.png"  />
-  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.2.min.js"></script>
-
-        <!-- arquivos JavaScript -->
-        <script src="http://code.jquery.com/jquery-1.5.js"></script>
-        <script src="incluir_paginas/js/valida_campos.js"></script>
-		<!-- CSS -->
-        <link rel="stylesheet" type="text/css" href="css/style.css">
-        
-        
-        
-</head>
-
-  <body class="fundo-cinza1">
-	<div class="doze colunas">
-	<div id="barra-governo">
-       <div class="resolucao">
-          <div class="a-esquerda">
-             <a href="http://brasil.gov.br/" target="_blank"><span id="bandeira"></span><span>BRASIL</span></a>
-             <a href="http://acessoainformacao.unilab.edu.br/" target="_blank">Acesso à informação</a>
-          </div>
-          <ul>
-             <li><a href="http://brasil.gov.br/barra#participe" target="_blank">Participe</a></li>
-             <li><a href="http://www.servicos.gov.br/" target="_blank">Serviços</a></li>
-             <li><a href="http://www.planalto.gov.br/legislacao" target="_blank">Legislação</a></li>
-             <li><a href="http://brasil.gov.br/barra#orgaos-atuacao-canais" target="_blank">Canais</a></li>
-          </ul>
-       </div>
-    </div>
-</div>
-<div class="pagina"> 
-
-<?php 
-//MaquinaController::main(MaquinaController::TELA_SUPER);
-LaboratorioController::main(LaboratorioController::TELA_DEFAULT);
+// MaquinaController::main(MaquinaController::TELA_SUPER);
 
 
-?>
 
-
-</div>
-</body>
+// ?>
+<!--            <div class="linha fundo-marrom1" > -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <h>Tela 01</h> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--             </div> -->
+<!--             <div class="linha fundo-branco" > -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <h>Tela 02</h> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--             </div> -->
+<!--             <div class="linha fundo-marrom1" > -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <h>Tela 03</h> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--                 <br/> -->
+<!--             </div> -->
+        </div>
+    </body>
 </html>
