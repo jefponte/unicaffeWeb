@@ -1,19 +1,5 @@
-/target
-*.exe
-*.classpath
-/log
-/.settings
-*.project
-*.log
-*.class
-*.metadata
-/projeto/unicafeweb/*.buildpath
-/projeto/unicafeweb/.settings/org.eclipse.php*.prefs
-*.fdt
-*.frq
-*.fnm
-*.bildpath
-*.settings/org.eclipse.php.core*.prefs
+# Package Files #
 *.jar
+*.war
+*.ear
 *.class
-*.prx
