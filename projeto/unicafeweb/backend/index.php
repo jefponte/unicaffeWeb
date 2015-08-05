@@ -46,6 +46,11 @@ require_once('header.php');
                 </div>
             </div>
             <div class="doze colunas fundo-branco">
+            
+            
+            
+            
+           
             <?php 
            	LaboratorioController::main(LaboratorioController::TELA_DEFAULT);
 		// MaquinaController::main(MaquinaController::TELA_SUPER);
