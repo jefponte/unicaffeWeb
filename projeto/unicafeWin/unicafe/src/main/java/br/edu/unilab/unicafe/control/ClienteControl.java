@@ -199,8 +199,7 @@ public class ClienteControl {
 	}
 	
 	public void bloqueia(){
-		
-		
+
 		getCliente().getMaquina().getAcesso().getUsuario().setLogin("livre");
 		getCliente().getMaquina().getAcesso().pararDeContar();
 		String caminho = "c:\\arquivos";
@@ -209,6 +208,7 @@ public class ClienteControl {
 		if(getCliente().getSaida() != null){
 			new PrintStream(getCliente().getSaida()).println("setStatus("+Maquina.STATUS_DISPONIVEL+")");
 		}
+
 		EventQueue.invokeLater(new Runnable() {
 
 			@Override
@@ -244,8 +244,7 @@ public class ClienteControl {
 
 	}
 
-	
-	
+
 	public void bloqueandoAplicacoes(){
 		
 		Thread t = new Thread(new Runnable() {
