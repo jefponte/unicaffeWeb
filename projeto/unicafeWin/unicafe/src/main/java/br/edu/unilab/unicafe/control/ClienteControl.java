@@ -244,6 +244,8 @@ public class ClienteControl {
 
 	}
 
+	
+	
 	public void bloqueandoAplicacoes(){
 		
 		Thread t = new Thread(new Runnable() {
