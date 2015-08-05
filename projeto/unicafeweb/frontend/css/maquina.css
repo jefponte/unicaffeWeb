@@ -1,120 +1,139 @@
+.ver-laboratorio {
+    display: table;
+    margin: 0 auto;
+}
 .maquina {
+    width: 210px;
+    height: 95px;
+    display: inline-block;
+}
+.conteudo-maquina {
     border-width: thin;
     border-style: solid;
     border-color: #fff;
     box-sizing: border-box;
+    margin: 2px;
+    min-width: 150px;
 }
-.maquina:hover {
+.conteudo-maquina:hover {
     cursor: pointer;
 }
-.maquina h3 {
+.conteudo-maquina h2 {
     margin: 0;
     font-size: 14px;
+    font-weight: bold;
+}
+.conteudo-maquina h3 {
+    margin: 0;
     font-weight: 500;
     text-align: center;
-    color: #fff !important;
     border-top: 1px solid #f3f3f3;
 }
-.maquina h3 span {
+.conteudo-maquina h3 span {
     padding: 2px 5px;
+}
+.maq-icone svg {
+    display: block;
+    width: 50px;
+    height: 50px;
 }
 /*
     Cores de bordas para as máquinas
 */
-.maquina:hover.borda-amarelo1{
+.conteudo-maquina:hover.borda-amarelo1{
     border-color:#FFDB69;
 }
-.maquina:hover.borda-amarelo2{
+.conteudo-maquina:hover.borda-amarelo2{
     border-color:#FFCD0E;
 }
-.maquina:hover.borda-amarelo3{
+.conteudo-maquina:hover.borda-amarelo3{
     border-color:#F6B80B;
 }
 /* Vermelho */
-.maquina:hover.borda-vermelho1{
+.conteudo-maquina:hover.borda-vermelho1{
     border-color:#FF5B5C;
 }
-.maquina:hover.borda-vermelho2{
+.conteudo-maquina:hover.borda-vermelho2{
     border-color:#FF2E33;
 }
-.maquina:hover.borda-vermelho3{
+.conteudo-maquina:hover.borda-vermelho3{
     border-color:#DD2326;
 }
 /* Laranja */
-.maquina:hover.borda-laranja1{
+.conteudo-maquina:hover.borda-laranja1{
     border-color:#FFAB6B;
 }
-.maquina:hover.borda-laranja2{
+.conteudo-maquina:hover.borda-laranja2{
     border-color:#FF8824;
 }
-.maquina:hover.borda-laranja3{
+.conteudo-maquina:hover.borda-laranja3{
     border-color:#DE6B1A;
 }
 /* Marrom */
-.maquina:hover.borda-marrom1{
+.conteudo-maquina:hover.borda-marrom1{
     border-color:#B4474D;
 }
-.maquina:hover.borda-marrom2{
+.conteudo-maquina:hover.borda-marrom2{
     border-color:#9C131D;
 }
-.maquina:hover.borda-marrom3{
+.conteudo-maquina:hover.borda-marrom3{
     border-color:#7C0D14;
 }
 /* Limão */
-.maquina:hover.borda-limao1{
+.conteudo-maquina:hover.borda-limao1{
     border-color:#ACDB6B;
 }
-.maquina:hover.borda-limao2{
+.conteudo-maquina:hover.borda-limao2{
     border-color:#96D141;
 }
-.maquina:hover.borda-limao3{
+.conteudo-maquina:hover.borda-limao3{
     border-color:#77A832;
 }
 /* Azul */
-.maquina:hover.borda-azul1{
+.conteudo-maquina:hover.borda-azul1{
     border-color:#3696D0;
 }
-.maquina:hover.borda-azul2{
+.conteudo-maquina:hover.borda-azul2{
     border-color:#007CC2;
 }
-.maquina:hover.borda-azul3{
+.conteudo-maquina:hover.borda-azul3{
     border-color:#00629D;
 }
 /* Verde */
-.maquina:hover.borda-verde1{
+.conteudo-maquina:hover.borda-verde1{
     border-color:#01AA6F;
 }
-.maquina:hover.borda-verde2{
+.conteudo-maquina:hover.borda-verde2{
     border-color:#01934A;
 }
-.maquina:hover.borda-verde3{
+.conteudo-maquina:hover.borda-verde3{
     border-color:#007639;
 }
 /* Azul marinho */
-.maquina:hover.borda-azul-marinho1{
+.conteudo-maquina:hover.borda-azul-marinho1{
     border-color:#276385;
 }
-.maquina:hover.borda-azul-marinho2{
+.conteudo-maquina:hover.borda-azul-marinho2{
     border-color:#003966;
 }
-.maquina:hover.borda-azul-marinho3{
+.conteudo-maquina:hover.borda-azul-marinho3{
     border-color:#002C4F;
 }
 /* Cinza */
-.maquina:hover.borda-cinza1{
+.conteudo-maquina:hover.borda-cinza1{
     border-color:#F3F3F3;
 }
-.maquina:hover.borda-cinza2{
+.conteudo-maquina:hover.borda-cinza2{
     border-color:#C3C3C3;
 }
-.maquina:hover.borda-cinza3{
+.conteudo-maquina:hover.borda-cinza3{
     border-color:#939393;
 }
 /* Luz */
-.maquina:hover.borda-branco{
+.conteudo-maquina:hover.borda-branco{
     border-color:#FFFFFF;
 }
-.maquina:hover.borda-preto{
+.conteudo-maquina:hover.borda-preto{
     border-color:#000000;
 }
 

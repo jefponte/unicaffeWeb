@@ -5,8 +5,10 @@
         <title>Unicaffé Web</title>
         <meta name="viewport" content="width=device-width, initial-scale=1" /><!-- meta tag para responsividade em Windows e Linux -->  
         <link rel="stylesheet" href="http://spa.dsi.unilab.edu.br/spa/css/spa.css" />
+        <script src="js/menudireito.js"></script>
         <link rel="stylesheet" href="css/style.css" />
         <link rel="stylesheet" href="css/maquina.css" />
+        
     </head>
     <body>
         <div class="pagina doze colunas">
