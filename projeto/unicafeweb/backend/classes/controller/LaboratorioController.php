@@ -35,7 +35,7 @@ class LaboratorioController{
 		$laboratorioView = new LaboratorioView();
 		
 		$maquinaDao = new MaquinaDAO();
-		$lista =$maquinaDao->listaCompleta();
+		$lista = $maquinaDao->listaCompleta();
 		foreach ($lista as $elemento){
 			
 			$laboratorioView->mostraMaquina($elemento);

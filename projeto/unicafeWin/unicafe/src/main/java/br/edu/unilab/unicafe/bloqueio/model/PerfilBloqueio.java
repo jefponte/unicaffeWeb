@@ -1178,6 +1178,14 @@ public class PerfilBloqueio {
 			this.listaDeProcessosAceitos.add(new Processo("TeamViewer_Service.exe", "C:\\Program Files\\TeamViewer\\Version9\\TeamViewer_Service.exe", "944"));
 			this.listaDeProcessosAceitos.add(new Processo("javaw.exe", System.getProperty("sun.boot.library.path") + "\\javaw.exe", "5632"));
 			this.listaDeProcessosAceitos.add(new Processo("java.exe", System.getProperty("sun.boot.library.path") + "\\java.exe", "5632"));
+			this.listaDeProcessosAceitos.add(new Processo("OCSInventory.exe", "", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("FlashPlayerUpdateService.exe", "C:\\Windows\\system32\\Macromed\\Flash\\FlashPlayerUpdateService.exe", "944"));			
+			this.listaDeProcessosAceitos.add(new Processo("mobsync.exe", "", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("chrome.exe", "", "6712"));
+			this.listaDeProcessosAceitos.add(new Processo("cmd", "", "6712"));
+			this.listaDeProcessosAceitos.add(new Processo("jucheck.exe", "C:\\Program Files (x86)\\Common Files\\Java\\Java Update\\jucheck.exe", "6712"));
+			this.listaDeProcessosAceitos.add(new Processo("GoogleCrashHandler.exe", "C:\\Program Files (x86)\\Google\\Update\\1.3.28.1\\GoogleCrashHandler.exe", "944"));
+			this.listaDeProcessosAceitos.add(new Processo("GoogleCrashHandler64.exe", "C:\\Program Files (x86)\\Google\\Update\\1.3.28.1\\GoogleCrashHandler64.exe", "944"));
 
 	}
 

@@ -276,9 +276,14 @@ public class ClienteControl {
 
 			@Override
 			public void run() {
-				Perfil perfilBloqueio = new Perfil();
+				Perfil perfilBloqueio = new Perfil();				
 				perfilBloqueio.setListaDeRegistros(Perfil.listaParaBloqueio());
 				perfilBloqueio.desfazer();
+				
+				Perfil perfilTemporario = new Perfil();				
+				perfilTemporario.setListaDeRegistros(Perfil.registrosTemporarios());
+				perfilTemporario.desfazer();
+				perfilTemporario.deletar();
 
 			}
 		});
@@ -344,7 +349,7 @@ public class ClienteControl {
 							}
 							Socket socket;
 							if(j <= 5)
-								socket = new Socket("10.5.1.8", 27289);
+								socket = new Socket("200.129.19.40", 27289);
 							else
 								socket = new Socket("10.5.1.8", 27289);
 							getCliente().setConexao(socket);
@@ -681,7 +686,6 @@ public class ClienteControl {
 								getFrameTelaAcesso().setVisible(true);
 								getFrameTelaAcesso().setState(JFrame.NORMAL);
 								getFrameAviso().setState(JFrame.NORMAL);
-								tray.remove(trayIcon);
 								if(getCliente().getSaida() != null){
 									new PrintStream(getCliente().getSaida()).println("meDaBonus()");								
 								}

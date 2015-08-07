@@ -65,7 +65,10 @@ class LaboratorioView {
 			$cor = 'cinza';
 		else if ($maquina->getStatus () == Maquina::STATUS_OCUPADA)
 			$cor = 'vermelho';
-		echo ' <div class="maquina maquina-g">
+		$valor = "offline";
+		if($maquina->getStatus() != Maquina::STATUS_DESCONECTADA)
+			$valor = 'online';
+		echo ' <div id="'.$maquina->getNome().'" class="maquina maquina-'.$valor.'">
 		  	<h2 class="maquina-titulo">' . $maquina->getNome () . '</h2>
 		  	<div class="maquina-icone">
 				<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 109.602 109.602" style="enable-background:new 0 0 109.602 109.602;" xml:space="preserve">

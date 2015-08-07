@@ -7,6 +7,9 @@ import java.util.ArrayList;
 public class Perfil {
 	private int id;
 	private ArrayList<Registro> listaDeRegistros;
+
+
+
 	private String nome;
 	private String descricao;
 
@@ -61,7 +64,7 @@ public class Perfil {
 		for (Registro registro : listaDeRegistros) {
 			try {
 
-				process = Runtime.getRuntime().exec(registro.toString());
+				process = Runtime.getRuntime().exec(registro.toStringDeletar());
 
 			} catch (IOException e) {
 				
@@ -120,6 +123,10 @@ public class Perfil {
 		
 		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer", "NoFolderOptions", Registro.REG_DWORD, "1", "0","Remove Opções de Pastas"));
 
+		lista.add(new Registro("HKCU\\Software\\Policies\\Microsoft\\Windows\\System", "DisableCMD", Registro.REG_DWORD, "1", "0","Desativar prompt"));
+		lista.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\WindowsUpdate\\Auto Update", "AUOptions", Registro.REG_DWORD, "1", "4","Desativar Opções Update"));
+		lista.add(new Registro("HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU", "NoAutoUpdate", Registro.REG_DWORD, "1", "0","Desativar Update"));
+		
 		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", "Wallpaper", Registro.REG_SZ, "C:\\Windows\\Web\\Wallpaper\\Windows\\papel-de-parede.jpg", "C:\\Windows\\Web\\Wallpaper\\Windows\\img0.jpg","definir papel de parede"));
 		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", "WallpaperStyle", Registro.REG_DWORD, "2", "0","impede a alteração do plano de fundo"));
 		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\ActiveDesktop", "NoChangingWallpaper", Registro.REG_DWORD, "1", "0", "Não altera plano de fundo"));
@@ -153,6 +160,16 @@ public class Perfil {
 		return lista;
 
 	}
+	
+	public static ArrayList<Registro> registrosTemporarios(){
+		
+		ArrayList<Registro> temporario = new ArrayList<Registro>();
+		
+		temporario.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", "Wallpaper", Registro.REG_SZ, "C:\\Windows\\Web\\Wallpaper\\Windows\\papel-de-parede.jpg", "C:\\Windows\\Web\\Wallpaper\\Windows\\img0.jpg" ,"definir papel de parede"));
+
+		return temporario;
+	}
+
 
 	/**
 	 * Retorna uma lista de valores que para serem testados e documentados
