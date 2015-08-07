@@ -31,30 +31,7 @@ class MaquinaDAO extends DAO {
 		
 		return $lista;
 	}
-	/**
-	 * Pega uma lista de máquinas e for ordenação pelo nome da maquina.
-	 *
-	 * @param unknown $lista        	
-	 */
-	public function ordenaPorNome($maquinas) {
-		$maquinas = array ();
-		$quantidade = count ( $maquinas );
-		$houveTroca = false;
-		$dim = count ( $maquinas );
-		do {
-			
-			$houveTroca = false;
-			for($i = 0; $i < ($dim - 1); $i ++) {
-				if (strcmp ( strtolower ( $maquinas [$i] ), strtolower ( $maquinas [$i + 1] ) ) > 0) {
-					$maquinaAux = clone $maquinas [$i];
-					$maquinas [$i] = clone $maquinas [$i + 1];
-					$maquinas [$i + 1] = clone $maquinaAux;
-					$houveTroca = true;
-				}
-			}
-		} while ( $houveTroca );
-		return $maquinas;
-	}
+	
 	public function listaCompleta() {
 		$daoUniCafe = new MaquinaDAO ( null, 0 );
 		$listaDeMaquinasUniCafe = $daoUniCafe->retornaLista ();
@@ -118,6 +95,28 @@ class MaquinaDAO extends DAO {
 			$desconectada->setStatus ( Maquina::STATUS_DESCONECTADA );
 			$listaCompleta [] = $desconectada;
 		}
+		
+		
+		//$maquinas = array ();
+		$quantidade = count ( $listaCompleta );
+		$houveTroca = false;
+		$dim = count ( $listaCompleta);
+		do {
+				
+			$houveTroca = false;
+			for($i = 0; $i < ($dim - 1); $i ++) {
+				if (strcmp ( strtolower ( $listaCompleta [$i] ), strtolower ( $listaCompleta [$i + 1] ) ) > 0) {
+					$maquinaAux = clone $listaCompleta [$i];
+					$listaCompleta [$i] = clone $listaCompleta [$i + 1];
+					$listaCompleta [$i + 1] = clone $maquinaAux;
+					$houveTroca = true;
+				}
+			}
+		} while ( $houveTroca );
+		
+		
+		
+		
 		return $listaCompleta;
 	}
 }

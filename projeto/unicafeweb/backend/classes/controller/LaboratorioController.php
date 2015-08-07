@@ -12,8 +12,8 @@ class LaboratorioController{
 		$laboratorioController = new LaboratorioController();
 		switch ($tipoDeTela) {
 			
-			case self::SUPER_USUARIO:
-				
+			case Sessao::NIVEL_SUPER:
+				$laboratorioController->telaSuperUsuario();
 				break;
 			
 			default :
@@ -27,11 +27,12 @@ class LaboratorioController{
 				 * mostra dados de usuário nem permite envio de comandos. 
 				 * 
 				 */
-				$laboratorioController->telaDefault();
+				$laboratorioController->telaSuperUsuarioDefault();
 				break;
 		}
 	}
-	public function telaDefault(){
+	public function telaSuperUsuario()
+	{
 		$laboratorioView = new LaboratorioView();
 		
 		$maquinaDao = new MaquinaDAO();
@@ -42,6 +43,23 @@ class LaboratorioController{
 		}
 		
 		
+		
+	}
+	
+	public function telaSuperUsuarioDefault()
+	{
+		$laboratorioView = new LaboratorioView();
+	
+		$maquinaDao = new MaquinaDAO();
+		$lista = $maquinaDao->listaCompleta();
+		foreach ($lista as $elemento){
+				
+			$elemento->getAcesso()->getUsuario()->setNome("");
+			$laboratorioView->mostraMaquina($elemento, false);
+		}
+	
+	
+	
 	}
 	
 

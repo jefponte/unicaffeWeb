@@ -1,8 +1,7 @@
 <?php 
 
-
 $sessao = new Sessao ();
-ini_set ( "display_errors", 1 );
+
 function __autoload($classe) {
 	if (file_exists ( 'classes/dao/' . $classe . '.php' ))
 		include_once 'classes/dao/' . $classe . '.php';
@@ -14,13 +13,20 @@ function __autoload($classe) {
 		include_once 'classes/util/' . $classe . '.php';
 	if (file_exists ( 'classes/view/' . $classe . '.php' ))
 		include_once 'classes/view/' . $classe . '.php';
+	
+	
 }
+
+
 if (isset ( $_GET ["sair"] )) {
 
 	$sessao->mataSessao ();
 	header ( "Location: index.php" );
 }
 
+ini_set('display_errors',1);
+ini_set('display_startup_erros',1);
+error_reporting(E_ALL);
 
 ?>
 <!DOCTYPE html>
@@ -116,22 +122,28 @@ if (isset ( $_GET ["sair"] )) {
                     </div>
                 </div>
             </div>
-            <div class="doze colunas fundo-branco">
-            
-            
-            
-            
-           
             <?php 
-           	LaboratorioController::main(LaboratorioController::TELA_DEFAULT);
-		// MaquinaController::main(MaquinaController::TELA_SUPER);
             
+            ComandoController::main($sessao->getNivelAcesso());
             
-            ?>
-
-
-
-            </div>
+           echo '<script>
+			var auto_refresh = setInterval (function () {
+				$.ajax({
+				url: \'maquinas.php\',
+				success: function (response) {
+					$(\'#olinda\').html(response);
+				}
+				});
+			}, 1000);
+			</script>
+			'; 
+            echo '<div id="olinda" class="doze colunas fundo-branco">';
+	        
+           	LaboratorioController::main($sessao->getNivelAcesso());
+			
+	        echo ' </div>';
+	           
+	        ?>
         </div>
         
         

@@ -9,7 +9,7 @@ $(document).ready(function(){
 
 	context.attach('.maquina-online', [
 		{header: 'Comandos:'},
-		{text: 'Desligar', action: function(e){
+		{text: '<span class="icone-bin"> </span> Desligar', action: function(e){
 				seleciona(1,that.id);
 			}},
 		{text: 'Liberar p/ aula', action: function(e){
