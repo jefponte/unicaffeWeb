@@ -1,6 +1,6 @@
 
 function seleciona(comando, valor){
-	location.href='?comando='+comando+'&maquina='+valor;
+	location.href='?pagina=maquinas&comando='+comando+'&maquina='+valor;
 }
 
 $(document).ready(function(){
@@ -9,7 +9,7 @@ $(document).ready(function(){
 
 	context.attach('.maquina-online', [
 		{header: 'Comandos:'},
-		{text: '<span class="icone-bin"> </span> Desligar', action: function(e){
+		{text: 'Desligar', action: function(e){
 				seleciona(1,that.id);
 			}},
 		{text: 'Liberar p/ aula', action: function(e){

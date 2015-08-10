@@ -53,7 +53,9 @@ class LaboratorioController{
 		$maquinaDao = new MaquinaDAO();
 		$lista = $maquinaDao->listaCompleta();
 		foreach ($lista as $elemento){
+			if(isset($_GET['laboratorio'])){
 				
+			}	
 			$elemento->getAcesso()->getUsuario()->setNome("");
 			$laboratorioView->mostraMaquina($elemento, false);
 		}

@@ -56,9 +56,6 @@ public class Update {
 			InputStream in = conexao.getInputStream();
 			InputStreamReader isr = new InputStreamReader(in);
 			setReader(new BufferedReader(isr));
-			
-			
-			
 			saida.println("setStatus("+Maquina.STATUS_UPDATE+")");
 			saida.flush();
 			File f1 = new File("C:\\Program Files (x86)\\UniCafe\\UniCafeClient.exe");

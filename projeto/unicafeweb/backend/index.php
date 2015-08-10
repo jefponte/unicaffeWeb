@@ -60,39 +60,22 @@ error_reporting(E_ALL);
             </div>
             <div class="unicaffe-menu">
                 <ol>
-                    <li><a href="#">Inicío</a></li>
-                    <li><a href="#">Máquinas</a>
+                    <li><a href="?pagina=inicio">Inicío</a></li>
+                    <li><a href="?pagina=maquinas">Máquinas</a>
                         <ul class="seta-pra-cima">
-                            <li><a href="#" class="ativo">Listagem</a></li>
-                            <li><a href="#">Cadastro</a></li>
+                            <li><a href="?pagina=maquinas" class="ativo">Listagem</a></li>
                         </ul>
                     </li>
-                    <li><a href="#">Laboratório</a>
+                    <li><a href="?pagina=laboratorios">Laboratório</a>
                         <ul class="seta-pra-cima">
-                            <li><a href="lab_visualizacao.php" class="ativo">Visualização</a></li>
-                            <li><a href="#">Cadastro</a></li>
+                            <li><a href="?pagina=laboratorios" class="ativo">Visualização</a></li>
+                            <li><a href="?pagina=laboratorios_cadastro">Cadastro</a></li>
                         </ul>
                     </li>
-                    <li><a href="#">Gerenciamento</a>
+                    <li><a href="?pagina=gerenciamento_usuarios">Gerenciamento</a>
                         <ul class="seta-pra-cima">
-                            <li><a href="#">Subitem (1º Nível)</a>
-                                <ul>
-                                    <li><a href="#">Subitem (2º Nível)</a>
-                                        <ul>
-                                            <li><a href="#">Subitem (3º Nível) ...</a></li>
-                                            <li><a href="#">Subitem com texto muito extenso</a></li>
-                                        </ul>
-                                    </li>
-                                    <li><a href="#">Com ícone</a></li>
-                                    <li><a href="#">Com subitens</a>
-                                        <ul>
-                                            <li><a href="#">Lista não ordenada</a></li>
-                                            <li><a href="#">dentro de um item</a></li>
-                                            <li><a href="#">cria novos níveis</a></li>
-                                        </ul>
-                                    </li>
-                                </ul>
-                            </li>
+                            <li><a href="?pagina=gerenciamento_relatorios">Relatórios </a></li>
+                            <li><a href="?pagina=gerenciamento_usuarios">Usuarios</a></li>
                         </ul>
                     </li>
                     <li class="a-direita"><a href="#" class="ativo">Login</a></li>
@@ -125,24 +108,68 @@ error_reporting(E_ALL);
             <?php 
             
             ComandoController::main($sessao->getNivelAcesso());
-            
-           echo '<script>
-			var auto_refresh = setInterval (function () {
-				$.ajax({
-				url: \'maquinas.php\',
-				success: function (response) {
-					$(\'#olinda\').html(response);
-				}
-				});
-			}, 1000);
-			</script>
-			'; 
-            echo '<div id="olinda" class="doze colunas fundo-branco">';
-	        
-           	LaboratorioController::main($sessao->getNivelAcesso());
-			
-	        echo ' </div>';
-	           
+           	if(isset($_GET['pagina'])){
+           		switch ($_GET['pagina']){
+           			case 'maquinas':
+           				echo '<script>
+							var auto_refresh = setInterval (function () {
+							$.ajax({
+							url: \'maquinas.php\',
+							success: function (response) {
+							$(\'#olinda\').html(response);
+							}
+							});
+							}, 1000);
+							</script>
+							';
+           				echo '<div id="olinda" class="doze colunas fundo-branco">';
+           				 
+           				LaboratorioController::main($sessao->getNivelAcesso());
+           					
+           				echo ' </div>';
+           				 
+           				break;
+           			case 'usuarios':
+           				
+           				break;
+           			case 'laboratorios':
+           				echo '<script>
+							var auto_refresh = setInterval (function () {
+							$.ajax({
+							url: \'maquinas.php\',
+							success: function (response) {
+							$(\'#olinda\').html(response);
+							}
+							});
+							}, 1000);
+							</script>
+							';
+           				echo '<div id="olinda" class="doze colunas fundo-branco">';
+           				LaboratorioController::main($sessao->getNivelAcesso());
+           				echo ' </div>';
+           				break;
+           			case 'inicio':
+           				echo '<div id="olinda" class="doze colunas fundo-branco">';
+           				$homeView = new HomeView();
+           				$homeView->mostraPaginaInicial();
+           				echo ' </div>';
+           				break;
+           			default:
+           				echo '<div id="olinda" class="doze colunas fundo-branco">';
+						echo '<h1>404 Not Found</h1>';
+           				echo ' </div>';
+           				break;
+           			
+           		}
+           		
+           		
+           	}else {
+           		echo '<div id="olinda" class="doze colunas fundo-branco">';
+           		$homeView = new HomeView();
+           		$homeView->mostraPaginaInicial();
+           		echo ' </div>';
+           	}
+           
 	        ?>
         </div>
         

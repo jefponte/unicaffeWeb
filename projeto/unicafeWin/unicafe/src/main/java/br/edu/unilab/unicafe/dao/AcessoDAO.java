@@ -138,7 +138,7 @@ public class AcessoDAO extends DAO {
 		PreparedStatement ps;
 		try {
 			ps = this.getConexao().prepareStatement(
-					"SELECT * FROM acesso WHERE id_usuario = ? AND hora_inicial BETWEEN ? AND ?");
+					"SELECT * FROM acesso WHERE id_usuario = ? AND hora_inicial BETWEEN ? AND ? LIMIT 3600");
 			
 			SimpleDateFormat formatarDate = new SimpleDateFormat(
 					"yyyy-MM-dd HH:mm:ss");

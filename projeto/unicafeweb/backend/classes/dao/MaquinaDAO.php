@@ -31,12 +31,10 @@ class MaquinaDAO extends DAO {
 		
 		return $lista;
 	}
-	
 	public function listaCompleta() {
 		$daoUniCafe = new MaquinaDAO ( null, 0 );
 		$listaDeMaquinasUniCafe = $daoUniCafe->retornaLista ();
 		// Antes de continuar vamos remover as repeticoes na lista do UniCafe
-		
 		foreach ( $listaDeMaquinasUniCafe as $chave => $elementoRepeticao ) {
 			$quantidade = 0;
 			foreach ( $listaDeMaquinasUniCafe as $segundaChave => $elemento ) {
@@ -44,13 +42,14 @@ class MaquinaDAO extends DAO {
 					$quantidade ++;
 				if ($quantidade > 1) {
 					$quantidade = 1;
-					unset ( $listaDeMaquinasUniCafe [$segundaChave] );
+					unset ( $listaDeMaquinasUniCafe [$chave] );
+					break;
 				}
 			}
 		}
 		
-		$listaDeMaquinas = $this->retornaLista ();
 		
+		$listaDeMaquinas = $this->retornaLista ();
 		$listaCompleta = array ();
 		
 		/*
@@ -78,17 +77,17 @@ class MaquinaDAO extends DAO {
 			// Vamos verificar se essa maquina do UniCafe Existe na outra.
 			// Eliminando da lista caso exista.
 			$existe = false;
+			
 			foreach ( $listaDeMaquinas as $chave => $maquinaBanco ) {
 				if (strcmp ( strtolower ( $maquinaUniCafe->getNome () ), strtolower ( $maquinaBanco->getNome () ) ) == 0) {
 					
-					$existe = true;
 					$maquinaUniCafe->setCadastrada ( true );
 					unset ( $listaDeMaquinas [$chave] );
 					break;
 				}
 			}
+			$listaCompleta [] = $maquinaUniCafe;
 		}
-		$listaCompleta = $listaDeMaquinasUniCafe;
 		
 		foreach ( $listaDeMaquinas as $desconectada ) {
 			$desconectada->setCadastrada ( true );
@@ -96,15 +95,15 @@ class MaquinaDAO extends DAO {
 			$listaCompleta [] = $desconectada;
 		}
 		
-		
-		//$maquinas = array ();
+		// $maquinas = array ();
 		$quantidade = count ( $listaCompleta );
 		$houveTroca = false;
-		$dim = count ( $listaCompleta);
+		$dim = count ( $listaCompleta );
+		
 		do {
-				
+			
 			$houveTroca = false;
-			for($i = 0; $i < ($dim - 1); $i ++) {
+			for($i = 0; $i < ($dim - 2); $i ++) {
 				if (strcmp ( strtolower ( $listaCompleta [$i] ), strtolower ( $listaCompleta [$i + 1] ) ) > 0) {
 					$maquinaAux = clone $listaCompleta [$i];
 					$listaCompleta [$i] = clone $listaCompleta [$i + 1];
@@ -113,10 +112,6 @@ class MaquinaDAO extends DAO {
 				}
 			}
 		} while ( $houveTroca );
-		
-		
-		
-		
 		return $listaCompleta;
 	}
 }
