@@ -1,28 +1,25 @@
 <?php
-include_once 'classes/controller/LaboratorioController.php';
-include_once 'classes/controller/MaquinaController.php';
-include_once 'classes/model/Laboratorio.php';
-include_once 'classes/model/Maquina.php';
-include_once 'classes/model/Usuario.php';
-include_once 'classes/model/Acesso.php';
-include_once 'classes/dao/DAO.php';
-include_once 'classes/dao/LaboratorioDAO.php';
-include_once 'classes/dao/MaquinaDAO.php';
-include_once 'classes/dao/UniCafe.php';
-include_once 'classes/view/LaboratorioView.php';
-include_once 'classes/util/Sessao.php';
+$sessao = new Sessao ();
 
-
-
-$maquinaDao = new MaquinaDAO();
-$maquinaDao->listaCompleta();
-
-
-// $dao = new DAO(null, DAO::TIPO_PG_PRODUCAO);
-// $result  = $dao->getConexao()->query("SELECT * FROM acesso INNER JOIN usuario ON acesso.id_usuario = usuario.id_usuario where usuario.login like '%carena%' ORDER BY acesso.id_acesso DESC");
-// foreach($result as $elemento){
-// 	echo 'Hora Inicial: '.$elemento['hora_inicial'].'Nome: '.$elemento['nome'].' Tempo Usado :'.$elemento['tempo_usado'].'<br>';
+function __autoload($classe) {
+	if (file_exists ( 'classes/dao/' . $classe . '.php' ))
+		include_once 'classes/dao/' . $classe . '.php';
+	if (file_exists ( 'classes/model/' . $classe . '.php' ))
+		include_once 'classes/model/' . $classe . '.php';
+	if (file_exists ( 'classes/controller/' . $classe . '.php' ))
+		include_once 'classes/controller/' . $classe . '.php';
+	if (file_exists ( 'classes/util/' . $classe . '.php' ))
+		include_once 'classes/util/' . $classe . '.php';
+	if (file_exists ( 'classes/view/' . $classe . '.php' ))
+		include_once 'classes/view/' . $classe . '.php';
 	
-// }
+	
+}
 
+
+$dao = new DAO();
+$result = $dao->getConexao()->query("SELECT * FROM usuario INNER JOIN acesso ON acesso.id_usuario = usuario.id_usuario WHERE login like '%barnabe%' ORDER BY id_acesso DESC");
+foreach($result as $elemento){
+	echo 'Hora: '.$elemento['hora_inicial'].' Nome: '.$elemento['nome'].' Tempo Usado :'.$elemento['tempo_usado'].'<br>';
+}
 ?>

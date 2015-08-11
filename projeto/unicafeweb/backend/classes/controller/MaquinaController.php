@@ -1,7 +1,6 @@
 <?php
 class MaquinaController {
-	const TELA_ADMINISTRADOR = 1;
-	const TELA_SUPER = 2;
+
 	
 	public static function main($tipoDeTela) {
 		$maquinaController = new MaquinaController ();
@@ -28,13 +27,14 @@ class MaquinaController {
 		
 		switch ($tipoDeTela) {
 			
-			case self::TELA_ADMINISTRADOR :
+			case Sessao::NIVEL_ADMIN:
 				$maquinaController->telaMaquinasAdmin ();
 				break;
-			case self::TELA_SUPER :
+			case Sessao::NIVEL_SUPER:
 				$maquinaController->telaMaquinasSuper ();
 				break;
-			default :
+				
+			default : 
 				$maquinaController->telaMaquinas ();
 				break;
 		}
@@ -43,32 +43,24 @@ class MaquinaController {
 	 * Essa tela é visível por qualquer tipo de usuário.
 	 */
 	public function telaMaquinas() {
-		$maquinaDAO = new MaquinaDAO ();
-		$lista = $maquinaDAO->listaCompleta ();
-		$lista = $maquinaDAO->ordenaPorNome($lista);
 		
-		if(isset($_GET['detalhe'])){
-			foreach ( $lista as $maquina ) {
-				echo '<a href="?detalhe='.$maquina->getNome().'">'.$maquina->getNome().'</a>';
-				if($_GET['detalhe']== $maquina->getNome()){
-					echo $maquina;
-					if($maquina->getStatus() == Maquina::STATUS_OCUPADA){
-						echo $maquina->getAcesso();
-					}
+		$maquinaView = new MaquinaView();
+		
+		$maquinaDao = new MaquinaDAO();
+		$lista = $maquinaDao->listaCompleta();
+		foreach ($lista as $elemento){
+			if(isset($_GET['laboratorio'])){
+				if(strtolower ($elemento->getLaboratorio()->getNome()) == strtolower ($_GET['laboratorio'])){
+					$elemento->getAcesso()->getUsuario()->setNome("");
+					$maquinaView->mostraMaquina($elemento, false);
+					continue;
 				}
-				echo '<br><br><hr>';
-				
+					
 			}
-			return;
+			$elemento->getAcesso()->getUsuario()->setNome("");
+			$maquinaView->mostraMaquina($elemento, false);
 		}
 		
-		foreach ( $lista as $maquina ) {
-			echo '<a href="?detalhe='.$maquina->getNome().'">'.$maquina->getNome().'</a>';
-			if(!$maquina->isCadastrada())
-				echo 'Nao Cadastrada';
-			echo '<br><br><hr>';
-		
-		}
 		
 		
 	}
@@ -77,48 +69,20 @@ class MaquinaController {
 	 * Nessa é possível cadastrar a máquina ou atualizar.
 	 */
 	public function telaMaquinasSuper() {
-		$maquinaDAO = new MaquinaDAO ();
-		$lista = $maquinaDAO->listaCompleta ();
-		$lista = $maquinaDAO->ordenaPorNome($lista);
-		if(isset($_GET['cadastrar'])){
-			
-			echo "Vamos tentar: ";
-			$unicafe= new UniCafe();
-			echo $unicafe->dialoga('cadastraMaquina('.$_GET['cadastrar'].')');
-
- 			
-			
-		}
 		
+		$maquinaView = new MaquinaView();
 		
-		if(isset($_GET['detalhe'])){
-			
-			foreach ( $lista as $maquina ) {
-				echo '<a href="?detalhe='.$maquina->getNome().'">'.$maquina->getNome().'</a>';
-				if($_GET['detalhe']== $maquina->getNome()){
-					echo $maquina;
-					if(!$maquina->isCadastrada())
-						echo '<br><a href="?cadastrar='.$maquina->getNome().'">Nao Cadastrada</a><br>';
-					if($maquina->getStatus() == Maquina::STATUS_OCUPADA){
-						echo $maquina->getAcesso();
-						echo '<br>'.$maquina->getAcesso()->getUsuario();
-						echo 'Laboratorio: '.$maquina->getLaboratorio()->getNome();
-					}
-				}
-				echo '<br><br><hr>';
-				
+		$maquinaDao = new MaquinaDAO();
+		$lista = $maquinaDao->listaCompleta();
+		foreach ($lista as $elemento){
+			if(isset($_GET['laboratorio'])){
+				if(!strcmp(strtolower ( $_GET['laboratorio'] ),strtolower ( $elemento->getLaboratorio()->getNome())))
+					$maquinaView->mostraMaquina($elemento);
+					
 			}
-			return;
-		}
-		
-		
-		foreach ( $lista as $maquina ) {
-			echo '<a href="?detalhe='.$maquina->getNome().'">'.$maquina->getNome().'</a>';
-			if(!$maquina->isCadastrada())
-				echo '<br><a href="?cadastrar='.$maquina->getNome().'">Nao Cadastrada</a>';
-
-			echo '<br><br><hr>';
-		
+			else 
+				$maquinaView->mostraMaquina($elemento);
+			
 		}
 		
 		
@@ -130,34 +94,7 @@ class MaquinaController {
 	 */
 	
 	public function telaMaquinasAdmin() {
-		$maquinaDAO = new MaquinaDAO ();
-		$lista = $maquinaDAO->listaCompleta ();
-		$lista = $maquinaDAO->ordenaPorNome($lista);
 		
-		if(isset($_GET['detalhe'])){
-			foreach ( $lista as $maquina ) {
-				echo '<a href="?detalhe='.$maquina->getNome().'">'.$maquina->getNome().'</a>';
-				if($_GET['detalhe']== $maquina->getNome()){
-					echo $maquina;
-					if($maquina->getStatus() == Maquina::STATUS_OCUPADA){
-						echo $maquina->getAcesso();
-						echo '<br>'.$maquina->getAcesso()->getUsuario();
-						
-					}
-				}
-				echo '<br><br><hr>';
-				
-			}
-			return;
-		}
-		
-		foreach ( $lista as $maquina ) {
-			echo '<a href="?detalhe='.$maquina->getNome().'">'.$maquina->getNome().'</a>';
-			if(!$maquina->isCadastrada())
-				echo 'Nao Cadastrada';
-			echo '<br><br><hr>';
-		
-		}
 		
 		
 	}

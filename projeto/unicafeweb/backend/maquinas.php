@@ -1,6 +1,7 @@
 <?php
 include_once 'classes/controller/LaboratorioController.php';
 include_once 'classes/controller/MaquinaController.php';
+include_once 'classes/view/MaquinaView.php';
 include_once 'classes/model/Laboratorio.php';
 include_once 'classes/model/Maquina.php';
 include_once 'classes/model/Usuario.php';
@@ -14,7 +15,7 @@ include_once 'classes/util/Sessao.php';
 
 
 $sessao = new Sessao ();
-LaboratorioController::main($sessao->getNivelAcesso());
+MaquinaController::main($sessao->getNivelAcesso());
 
 
 

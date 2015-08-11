@@ -10,5 +10,17 @@ class LaboratorioDAO extends DAO{
 		parent::DAO($conexao, $tipo);
 	}
 	
+	public function retornaLaboratorios(){
+		$lista = array();
+		$sql = "SELECT * FROM laboratorio ORDER BY nome_laboratorio LIMIT 10";
+		foreach($this->getConexao()->query($sql) as $elemento){
+			$laboratorio = new Laboratorio();
+			$laboratorio->setNome($elemento['nome_laboratorio']);
+			$laboratorio->setId($elemento['id_laboratorio']);
+			$lista[] = $laboratorio;
+		}
+		return $lista;
+	}
+	
 	
 }
