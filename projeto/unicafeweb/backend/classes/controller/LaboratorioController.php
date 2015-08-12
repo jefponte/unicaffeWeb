@@ -7,9 +7,13 @@ class LaboratorioController{
 	
 	public static function main($tipoDeTela) {
 		$laboratorioController = new LaboratorioController();
-		$laboratorioController->telaDefault();
+		$laboratorioController->telaVisualizacao();
 	}
-	public function telaDefault()
+	
+	public static function mainCadastro(){
+		
+	}
+	public function telaVisualizacao()
 	{
 		$dao = new LaboratorioDAO();
 		$lista = $dao->retornaLaboratorios();

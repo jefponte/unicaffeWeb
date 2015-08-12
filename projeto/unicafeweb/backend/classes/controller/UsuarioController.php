@@ -3,10 +3,32 @@
 
 class UsuarioController{
 	
-	public static function main(){
-		$usuarioController = new UsuarioController();
-		$usuarioController->telaLogin();
+	public static function main($tela){
+		switch ($tela){
+			case Sessao::NIVEL_SUPER:
+				echo 	'<meta http-equiv="refresh" content=1;url="index.php">';
+				break;
+			case Sessao::NIVEL_DESLOGADO:
+				$usuarioController = new UsuarioController();
+				$usuarioController->telaLogin();
+				break;
+			default:
+				echo 	'<meta http-equiv="refresh" content=1;url="index.php">';
+				break;
+		}
+
 		
+	}
+	
+	public static function gerenciamentoSuperAdmin($nivelDeAcesso){
+		switch ($nivelDeAcesso)
+		{
+			case Sessao::NIVEL_SUPER:
+				
+				break;
+			default:
+				break;
+		}
 	}
 	public function telaLogin(){
 		$usuarioView = new UsuarioView();
@@ -22,7 +44,7 @@ class UsuarioController{
 		
 				$sessao2 = new Sessao();
 				$sessao2->criaSessao($usuario->getId(), $usuario->getNivelAcesso(), $usuario->getLogin());
-				header("Location: index.php");
+				echo '<meta http-equiv="refresh" content=1;url="index.php">';
 			}else{
 				$msg_erro= "Senha ou usuário Inválido";
 				$erro=true;

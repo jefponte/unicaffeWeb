@@ -3461,6 +3461,24 @@ public class PerfilBloqueio {
 						"FlashPlayerPlugin_13_0_0_214.exe",
 						"C:\\Windows\\SysWOW64\\Macromed\\Flash\\FlashPlayerPlugin_13_0_0_214.exe",
 						"944"));
+		this.listaDeProcessosAceitos.add(new Processo("FlashPlayerUpdateService.exe", "", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("FlashPlayerUpdateService.exe", "", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("chrmstp.exe", "C:\\Program Files (x86)\\Google\\Chrome\\Application\\44.0.2403.130\\Installer\\chrmstp.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("OIS.EXE", "C:\\PROGRA~2\\MICROS~2\\Office14\\OIS.EXE", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("OIS.EXE", "C:\\PROGRA~2\\MICROS~2\\Office14\\OIS.EXE", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("software_reporter_tool.exe", "C:\\localunicafe\\irlandia\\local\\Google\\Chrome\\User Data\\SwReporter\\4.28.1\\software_reporter_tool.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("software_reporter_tool.exe", "C:\\localunicafe\\irlandia\\local\\Google\\Chrome\\User Data\\SwReporter\\4.28.1\\software_reporter_tool.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("igfxsrvc.exe", "", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("LiveUpdate.exe", "C:\\Program Files (x86)\\IObit\\LiveUpdate\\LiveUpdate.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("IObitLauncher.exe", "C:\\Program Files (x86)\\IObit\\LiveUpdate\\IObitLauncher.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("Updater.exe", "C:\\Program Files (x86)\\Skype\\Updater\\Updater.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("IAStorIcon.exe", "", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("OCS-NG-Windows-Agent-Setup.exe", "", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("rundll32.exe", "", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("wicainventory.exe", "", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("AM_Delta_Patch_1.203.1791.0.exe", "C:\\Windows\\SoftwareDistribution\\Download\\Install\\AM_Delta_Patch_1.203.1791.0.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("mpam-a6cbaad3.exe", "C:\\Windows\\SERVIC~2\\NETWOR~1\\AppData\\Local\\Temp\\mpam-a6cbaad3.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("mpam-8733523d.exe", "C:\\Windows\\SERVIC~2\\NETWOR~1\\AppData\\Local\\Temp\\mpam-8733523d.exe", "944"));
 	}
 
 	public void buscaAtivos() {

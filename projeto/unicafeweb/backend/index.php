@@ -17,14 +17,13 @@ function __autoload($classe) {
 	
 }
 
-
+$laboratorioDao = new LaboratorioDAO();
+$listaDeLaboratorios = $laboratorioDao->retornaLaboratorios();
 if (isset ( $_GET ["sair"] )) {
 
 	$sessao->mataSessao ();
 	header ( "Location: index.php" );
 }
-
-
 ini_set('display_errors',1);
 ini_set('display_startup_erros',1);
 error_reporting(E_ALL);
@@ -41,7 +40,22 @@ error_reporting(E_ALL);
         <link rel="stylesheet" href="css/maquina.css" />
         <link rel="stylesheet" href="css/new_maquina.css" />
         <link rel="stylesheet" type="text/css" href="css/context.standalone.css"/>
-        
+        <script type="text/javascript">
+        var subMenu =  [
+ 			<?php 
+ 			
+	 			foreach ($listaDeLaboratorios as $lab){
+	 				echo '{text: \''.$lab->getNome().'\', href: \'http://jakiestfu.com/\', target: \'_blank\'},';
+	 				
+	 			}	
+ 			
+ 			
+ 			?>
+			
+			
+		];
+
+        </script>
     </head>
     <body>
         <div class="pagina doze colunas">
@@ -103,9 +117,8 @@ error_reporting(E_ALL);
                                     <span class="texto-branco negrito">Visualizar laboratório: </span>
                                     <select name="laboratorio">
                                     <?php 
-	                                    $laboratorioDao = new LaboratorioDAO();
-	                                    $lista = $laboratorioDao->retornaLaboratorios();
-	                                    foreach ($lista as $laboratorio){
+	                                    
+	                                    foreach ($listaDeLaboratorios as $laboratorio){
 	                                    	echo '<option value="'.$laboratorio->getNome().'">'.$laboratorio->getNome().'</option>';
 	                                    }
 	                                    echo ' <option value="nao_listada">Sem Laboratorio</option>';
@@ -159,7 +172,7 @@ error_reporting(E_ALL);
            				
            				break;
            			case 'login':
-           				UsuarioController::main();
+           				UsuarioController::main($sessao->getNivelAcesso());
            				break;
            			case 'laboratorios':
            				echo '<div class="doze colunas fundo-branco">';

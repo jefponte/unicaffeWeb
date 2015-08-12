@@ -1,6 +1,15 @@
 <?php
 class MaquinaController {
 
+	public static function mainDetalhar($tipoDeTela){
+		
+		switch ($tipoDeTela){
+			case Sessao::NIVEL_SUPER:
+				break;
+			default:
+					break;
+			}
+	}
 	
 	public static function main($tipoDeTela) {
 		$maquinaController = new MaquinaController ();

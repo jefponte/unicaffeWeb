@@ -21,6 +21,7 @@ $(document).ready(function(){
 		{text: 'Bloquear acesso',  action: function(e){
 			seleciona(4,that.id);
 		}},
+		{text:'Definir Laboratório', subMenu},
 	]);
 	
 	
