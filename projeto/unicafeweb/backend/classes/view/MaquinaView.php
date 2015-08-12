@@ -22,20 +22,42 @@ class MaquinaView {
 		return $strHoras;
 	}
 	public function mostraMaquina(Maquina $maquina, $admin = true) {
-		
+		$valor = "";
 		$cor = 'cinza';
-		if ($maquina->getStatus () == Maquina::STATUS_DISPONIVEL)
+		if ($maquina->getStatus () == Maquina::STATUS_DISPONIVEL){
 			$cor = 'verde';
-		else if ($maquina->getStatus () == Maquina::STATUS_DESCONECTADA)
+			$maquina->getAcesso()->getUsuario()->setNome('Livre');
+			
+		}
+		else if ($maquina->getStatus () == Maquina::STATUS_DESCONECTADA){
 			$cor = 'cinza';
-		else if ($maquina->getStatus () == Maquina::STATUS_OCUPADA)
-			$cor = 'vermelho';
-		$valor = "offline";
-		if($maquina->getStatus() != Maquina::STATUS_DESCONECTADA)
+			$maquina->getAcesso()->getUsuario()->setNome('Desligado');
+		}
+		else if ($maquina->getStatus () == Maquina::STATUS_OCUPADA){
+			$cor = 'laranja';
+			$valor = "online";
+			if($maquina->getAcesso()->getTempoDisponibilizado() - $maquina->getAcesso()->getTempoUsado() <= 600){
+				$cor = 'vermelho';
+
+				if(!$admin)
+					$maquina->getAcesso()->getUsuario()->setNome('Finalizando');
+			}else
+			{
+				if(!$admin)
+					$maquina->getAcesso()->getUsuario()->setNome('Ocupada');
+			}
+			
+		}
+		if($maquina->getStatus() != Maquina::STATUS_DESCONECTADA){
 			$valor = 'online';
+		}
 		if(!$admin){
 			$valor = "";//Desabilitar o menu para não administradores. 
 		}
+// 		if($maquina->getAcesso()->getTempoDisponibilizado() - $maquina->getAcesso()->getTempoUsado() <= 600 && $maquina->getStatus() != Maquina::STATUS_DESCONECTADA){
+// 			$cor = 'vermelho';
+// 			$valor = 'online';
+// 		}
 		echo ' <div id="'.$maquina->getNome().'" class="maquina maquina-'.$valor.'">
 		  	<h2 class="maquina-titulo">' . $maquina->getNome () . '</h2>
 		  	<div class="maquina-icone">
@@ -69,6 +91,12 @@ class MaquinaView {
 			echo '
 			    	<span class="maquina-tempo maquina-tempo-total">'.self::segundosParaHora($maquina->getAcesso()->getTempoUsado()).'</span>
 			    	<span class="maquina-tempo maquina-tempo-restante">'.self::segundosParaHora($maquina->getAcesso()->getTempoDisponibilizado() - $maquina->getAcesso()->getTempoUsado()).'</span>';
+		
+		else 
+			echo '
+			    	<span class="maquina-tempo maquina-tempo-total">--:--:--</span>
+			    	<span class="maquina-tempo maquina-tempo-restante">--:--:--</span>';
+			
 		echo '
 			</div>
 		</div>';

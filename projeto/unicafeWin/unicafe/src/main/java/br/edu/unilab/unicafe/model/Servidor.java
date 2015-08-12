@@ -463,6 +463,8 @@ public class Servidor {
 				
 				
 				if(desligado.getMaquina().getNome().toLowerCase().equals(parametros.toLowerCase())){
+					desligado.getMaquina().getAcesso().getUsuario().setNome("Aula");
+					
 					new PrintStream(desligado.getSaida()).println("desbloqueia(aula, "+18000+ ")");
 					new PrintStream(cliente.getSaida()).println("Liberado pra aula o "+desligado.getMaquina().getNome());
 				}
@@ -475,6 +477,7 @@ public class Servidor {
 			System.out.println("Bloquear "+parametros);
 			for(Cliente desligado : listaDeClientes){
 				if(desligado.getMaquina().getNome().toLowerCase().equals(parametros.toLowerCase())){
+					desligado.getMaquina().getAcesso().getUsuario().setNome("Livre");
 					new PrintStream(desligado.getSaida()).println("bloqueia()");
 					new PrintStream(cliente.getSaida()).println("Bloqueando o "+desligado.getMaquina().getNome());
 				}
@@ -581,7 +584,9 @@ public class Servidor {
 					new PrintStream(cliente.getSaida()).println("printc(Muitos visitantes conectados!)");
 					return;
 				}
+				usuario.setNome("Visitante");
 				cliente.getMaquina().getAcesso().setUsuario(usuario);
+				
 				cliente.getMaquina().getAcesso().setStatus(Acesso.STATUS_EM_UTILIZACAO);
 				cliente.getMaquina().setStatus(Maquina.STATUS_OCUPADA);
 				new PrintStream(cliente.getSaida()).println("desbloqueia(" + login + ", "+120+ ")");

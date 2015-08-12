@@ -135,8 +135,8 @@ public class DAO {
 	
 	public static final int TIPO_PG_PRODUCAO = 7;
 	
-	public static final int TIPO_CONEXAO_DEFAULT = TIPO_PG_TESTE;
-	public static final int TIPO_CONEXAO_AUTENTICACAO = TIPO_PG_SIMULACAO_SIGAA;
+	public static final int TIPO_CONEXAO_DEFAULT = TIPO_PG_PRODUCAO;
+	public static final int TIPO_CONEXAO_AUTENTICACAO = TIPO_PG_SIGAA;
 	
 	
 
