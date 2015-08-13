@@ -45,7 +45,7 @@ class LaboratorioView{
 			echo '<form action="#" method="post" name="formulario_cadastro" id="formulario_cadastro" class="formulario-organizado">
                       <label for="lab">
                       <object class="">Nome Laboratório: </object> 
-
+                      
                       <input type="text" name="nome" id="nome" />
                       </label>
                         <input type="submit" value="enviar" name="formulario_cadastro" />

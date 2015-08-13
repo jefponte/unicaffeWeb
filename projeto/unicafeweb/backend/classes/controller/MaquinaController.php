@@ -1,15 +1,36 @@
 <?php
 class MaquinaController {
 
-	public static function mainDetalhar($tipoDeTela){
+	public static function mainHistorico($tipoDeTela){
 		
 		switch ($tipoDeTela){
 			case Sessao::NIVEL_SUPER:
+				$maquinaController = new MaquinaController();
+				$maquinaController->telaHistoricoSuper();
 				break;
 			default:
+				$maquinaController = new MaquinaController();
+				$maquinaController->telaHistoricoDefault();
 					break;
 			}
 	}
+	public function telaHistoricoSuper(){
+		$maquinaView = new MaquinaView();
+		$maquinaView->formPesquisaHistorico();
+		if(isset($_GET['usuario'])){
+
+			$maquinaDao = new MaquinaDAO();
+			$usuario = new Usuario();
+			$usuario->setLogin($_GET['usuario']);
+			$maquinaDao->pesquisaHistoricoDeUsuario($usuario);
+		}
+	}
+	public function telaHistoricoDefault(){
+		
+		echo 'Indisponivel no momento';
+		
+	}
+	
 	
 	public static function main($tipoDeTela) {
 		$maquinaController = new MaquinaController ();
@@ -37,7 +58,7 @@ class MaquinaController {
 		switch ($tipoDeTela) {
 			
 			case Sessao::NIVEL_ADMIN:
-				$maquinaController->telaMaquinasAdmin ();
+				$maquinaController->telaMaquinas ();
 				break;
 			case Sessao::NIVEL_SUPER:
 				$maquinaController->telaMaquinasSuper ();
@@ -53,21 +74,19 @@ class MaquinaController {
 	 */
 	public function telaMaquinas() {
 		
-		$maquinaView = new MaquinaView();
+	$maquinaView = new MaquinaView();
 		
 		$maquinaDao = new MaquinaDAO();
 		$lista = $maquinaDao->listaCompleta();
 		foreach ($lista as $elemento){
 			if(isset($_GET['laboratorio'])){
-				if(strtolower ($elemento->getLaboratorio()->getNome()) == strtolower ($_GET['laboratorio'])){
-					$elemento->getAcesso()->getUsuario()->setNome("");
+				if(!strcmp(strtolower ( $_GET['laboratorio'] ),strtolower ( $elemento->getLaboratorio()->getNome())))
 					$maquinaView->mostraMaquina($elemento, false);
-					continue;
-				}
 					
 			}
-			$elemento->getAcesso()->getUsuario()->setNome("");
-			$maquinaView->mostraMaquina($elemento, false);
+			else 
+				$maquinaView->mostraMaquina($elemento, false);
+			
 		}
 		
 		
@@ -87,6 +106,8 @@ class MaquinaController {
 			if(isset($_GET['laboratorio'])){
 				if(!strcmp(strtolower ( $_GET['laboratorio'] ),strtolower ( $elemento->getLaboratorio()->getNome())))
 					$maquinaView->mostraMaquina($elemento);
+				if($_GET['laboratorio'] =='nao_listada' && !$elemento->getLaboratorio()->getId())
+					$maquinaView->mostraMaquina($elemento);
 					
 			}
 			else 
@@ -103,7 +124,6 @@ class MaquinaController {
 	 */
 	
 	public function telaMaquinasAdmin() {
-		
 		
 		
 	}

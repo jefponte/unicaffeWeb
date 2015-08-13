@@ -114,6 +114,23 @@ class MaquinaDAO extends DAO {
 		} while ( $houveTroca );
 		return $listaCompleta;
 	}
+	/**
+	 * Retorna 100 ultimas maquinas acessadas por um usuario. 
+	 */
+	public function pesquisaHistoricoDeUsuario(Usuario $usuario){
+		$login = $usuario->getLogin();
+		$sql = "SELECT * FROM acesso 
+				INNER JOIN maquina ON acesso.id_maquina = maquina.id_maquina
+				INNER JOIN usuario ON acesso.id_usuario = usuario.id_usuario
+				LEFT JOIN laboratorio_maquina ON maquina.id_maquina = laboratorio_maquina.id_maquina 
+				LEFT JOIN laboratorio ON laboratorio_maquina.id_laboratorio = laboratorio.id_laboratorio WHERE usuario.nome like '%$login%' ORDER BY acesso.id_acesso DESC LIMIT 100;";
+		$result = $this->getConexao()->query($sql);
+		foreach($result as $elemento){
+			echo 'Hora: '.$elemento['hora_inicial'].' Nome: '.$elemento['nome'].' Tempo Usado :'.$elemento['tempo_usado'].'<br>';
+		}
+		
+		
+	}
 }
 
 ?>

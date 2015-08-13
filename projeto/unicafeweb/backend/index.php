@@ -90,14 +90,28 @@ error_reporting(E_ALL);
                     </li>
                     <li><a href="?pagina=maquinas">Máquinas</a>
                         <ul class="seta-pra-cima">
-                            <li><a href="?pagina=maquinas" class="ativo">Listagem</a></li>
+                            <li><a href="?pagina=maquinas" class="ativo">Listagem</a>
+                            <ul>
+                            <?php 
+                            
+                            foreach ($listaDeLaboratorios as $lab){
+                            	
+                            	echo '<li><a href="?pagina=maquinas&laboratorio='.$lab->getNome().'">'.$lab->getNome().'</a></li>';
+                            }
+                            	
+                            
+                            ?>
+                            	
+                            </ul>
+                            
+                            </li>
                         </ul>
                     </li>
                     
-                    <li><a href="?pagina=gerenciamento_usuarios">Gerenciamento</a>
+                    <li><a href="?pagina=gerenciamento_relatorios">Gerenciamento</a>
                         <ul class="seta-pra-cima">
                             <li><a href="?pagina=gerenciamento_relatorios">Relatorios </a></li>
-                            <li><a href="?pagina=gerenciamento_usuarios">Usuarios</a></li>
+<!--                             <li><a href="?pagina=gerenciamento_usuarios">Usuarios</a></li> -->
                         </ul>
                     </li>
                     <?php 
@@ -194,6 +208,11 @@ error_reporting(E_ALL);
            				echo '<div class="doze colunas fundo-branco">';
            				echo '<br><br><h1>Laboratorios</h1><br><br>';
            				LaboratorioController::main($sessao->getNivelAcesso());
+           				echo ' </div>';
+           				break;
+           			case 'gerenciamento_relatorios':
+           				echo '<div class="doze colunas fundo-branco">';
+           				MaquinaController::mainHistorico($sessao->getNivelAcesso());
            				echo ' </div>';
            				break;
            			default:

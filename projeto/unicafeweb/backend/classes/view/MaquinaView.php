@@ -101,7 +101,23 @@ class MaquinaView {
 			</div>
 		</div>';
 	}
-	
+	public function formPesquisaHistorico(){
+		echo '<div class="resolucao">
+            <div class="doze colunas">
+                <div class="conteudo fundo-branco">';
+		
+		echo '<form action="#" method="get" name="form_pesquisa" id="pesquisa" class="formulario-organizado">
+                      <label for="lab">
+                      <object class="">Usuario: </object>
+		
+                      <input type="text" name="usuario" id="usuario" />
+                      </label>
+						<input type="hidden" name="pagina" value="gerenciamento_relatorios" />
+                        <input type="submit" value="enviar" name="form_pesquisa" />
+                    </form></div>
+            </div>
+        </div>';
+	}
 }
 
 ?>
