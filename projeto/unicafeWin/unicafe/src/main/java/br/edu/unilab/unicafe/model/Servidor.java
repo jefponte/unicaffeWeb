@@ -254,7 +254,8 @@ public class Servidor {
 					if (cliente.getMaquina().getAcesso().getStatus() ==  Acesso.STATUS_EM_UTILIZACAO) {
 						cliente.getMaquina().getAcesso().pararDeContar();
 						AcessoDAO acessodao = new AcessoDAO();
-						acessodao.cadastra(cliente.getMaquina());
+						if(cliente.getMaquina().getLaboratorio().getId() != 0)
+							acessodao.cadastra(cliente.getMaquina());
 						
 						try {
 							acessodao.getConexao().close();
@@ -271,7 +272,8 @@ public class Servidor {
 				if (cliente.getMaquina().getAcesso().getStatus() ==  Acesso.STATUS_EM_UTILIZACAO) {
 					cliente.getMaquina().getAcesso().pararDeContar();
 					AcessoDAO acessodao = new AcessoDAO();
-					acessodao.cadastra(cliente.getMaquina());
+					if(cliente.getMaquina().getLaboratorio().getId() != 0)
+						acessodao.cadastra(cliente.getMaquina());
 					
 					try {
 						
@@ -391,15 +393,93 @@ public class Servidor {
 						new PrintStream(cliente.getSaida()).println("Erro na tentativa de cadastro de "+parametros);
 					break;
 				}
-				
-				
 			}
 			if(!achei)
 				new PrintStream(cliente.getSaida()).println("Não encontrei "+parametros);
 			return;
 			
 		}
-		
+		else if(comando.equals("alocarMaquina")){
+			String nomeMaquina = parametros.substring(0, parametros.indexOf(','));
+			String nomeLaboratorio = parametros.substring(parametros.indexOf(',') + 1);
+			Laboratorio laboratorio = new Laboratorio();
+			laboratorio.setNome(nomeLaboratorio.trim());
+			
+			System.out.println("Segundo parametro "+nomeLaboratorio);
+			boolean achei = false;
+			Cliente caraQueSeraMexido = null;
+			for(Cliente daVez : listaDeClientes){
+				if(nomeMaquina.toLowerCase().equals(daVez.getMaquina().getNome().toLowerCase())){
+					achei = true;
+					caraQueSeraMexido = daVez;
+					break;
+				}
+			}
+			
+			
+			
+			
+			MaquinaDAO dao = new MaquinaDAO();
+			Maquina maquina = new Maquina();
+			maquina.setNome(nomeMaquina);
+			maquina.setLaboratorio(laboratorio);
+			
+			if(!dao.existeEsseLaboratorio(laboratorio))
+			{
+				new PrintStream(cliente.getSaida()).println("Não existe esse laboratorio "+laboratorio.getNome());
+				return;
+			}
+			
+			
+			
+			System.out.println("ID do laboratorio"+laboratorio.getNome()+" ID: "+laboratorio.getId() );
+			System.out.println("ID do laboratorio"+maquina.getLaboratorio().getNome()+" ID: "+maquina.getLaboratorio().getId());
+			if(dao.existeSemBulir(maquina))
+			{
+				new PrintStream(cliente.getSaida()).println("Existe a maquina "+nomeMaquina);
+				if(dao.atualizaOuInsereLaboratorio(maquina)){
+					new PrintStream(cliente.getSaida()).println(nomeMaquina+" adicionada a novo laboratorio");
+				}else{
+					new PrintStream(cliente.getSaida()).println(" Um erro na hora de atualizar ou inserir");
+				}
+				if(achei)
+					caraQueSeraMexido.getMaquina().setLaboratorio(laboratorio);
+				return;
+						
+			}
+			else
+			{
+				
+				if(!achei){
+					new PrintStream(cliente.getSaida()).println("Não encontrei "+nomeMaquina);
+					return;
+				}
+				
+				if(dao.cadastra(caraQueSeraMexido.getMaquina())){
+					maquina.setId(caraQueSeraMexido.getMaquina().getId());
+					caraQueSeraMexido.getMaquina().setCadastrada(true);
+					new PrintStream(cliente.getSaida()).println("Cadastrei "+nomeMaquina);	
+					if(dao.atualizaOuInsereLaboratorio(maquina)){
+						caraQueSeraMexido.getMaquina().setLaboratorio(laboratorio);
+						new PrintStream(cliente.getSaida()).println(nomeMaquina+" adicionada a novo laboratorio");
+					}else
+						new PrintStream(cliente.getSaida()).println("E nao fiz mais nada");
+					
+					return;
+				}
+			}
+			
+			//Primeiro verificamos se esse nome ja existe no banco. 
+
+			//Se não existir nos iremos tentar cadastrar. 
+			//Logo depois inserimos um laboratorio nela que tenha esse nome, mas se o laboratorio nao existir mandamos a mensagem de erro. 
+			
+			//Se a maquina ja existir a gente verifica se ja existe laboratorio pra ela. 
+			//Se o laboratorio nao exisitr pra ela nos definimos com insert 
+			//Se o laboratorio existir nos fazemos um update 
+			
+			
+		}
 		else if(comando.equals("desligaTudo")){
 			System.out.println("Vou desligar, calma.");
 			for(Cliente daVez : listaDeClientes){

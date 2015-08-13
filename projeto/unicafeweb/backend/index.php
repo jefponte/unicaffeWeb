@@ -45,7 +45,9 @@ error_reporting(E_ALL);
  			<?php 
  			
 	 			foreach ($listaDeLaboratorios as $lab){
-	 				echo '{text: \''.$lab->getNome().'\', href: \'http://jakiestfu.com/\', target: \'_blank\'},';
+	 				echo '{text: \''.$lab->getNome().'\', action: function(e){
+						outroSeleciona(5,that.id,"'.$lab->getNome().'");
+					}},';
 	 				
 	 			}	
  			
@@ -79,7 +81,11 @@ error_reporting(E_ALL);
                     <li><a href="?pagina=laboratorios">Laboratório</a>
                         <ul class="seta-pra-cima">
                             <li><a href="?pagina=laboratorios" class="ativo">Visualização</a></li>
-                            <li><a href="?pagina=laboratorios_cadastro">Cadastro</a></li>
+                            <?php 
+                            if($sessao->getNivelAcesso() == Sessao::NIVEL_SUPER)
+                            	echo '<li><a href="?pagina=laboratorios_cadastro">Cadastro</a></li>';
+                            ?>
+                            
                         </ul>
                     </li>
                     <li><a href="?pagina=maquinas">Máquinas</a>
@@ -177,6 +183,11 @@ error_reporting(E_ALL);
            			case 'laboratorios':
            				echo '<div class="doze colunas fundo-branco">';
            				LaboratorioController::main($sessao->getNivelAcesso());
+           				echo ' </div>';
+           				break;
+           			case 'laboratorios_cadastro':
+           				echo '<div class="doze colunas fundo-branco">';
+           				LaboratorioController::mainCadastro($sessao->getNivelAcesso());
            				echo ' </div>';
            				break;
            			case 'inicio':

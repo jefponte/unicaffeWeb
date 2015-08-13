@@ -5,7 +5,7 @@ $sucesso=false;
 if(isset($_POST["formulario_cadastro"])){
     if(isset($_POST['nome']) && $_POST["nome"]!="")
             { 
-        $valida=new validacoes();
+        $valida=new Validacoes();
     /*    if(!$valida->validaCampos(3, $_POST["nome"])){
                 $msg_erro.="Nome invalido";
                 $erro=TRUE;

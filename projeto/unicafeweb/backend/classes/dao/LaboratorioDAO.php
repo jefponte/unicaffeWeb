@@ -22,5 +22,12 @@ class LaboratorioDAO extends DAO{
 		return $lista;
 	}
 	
+	public function inserir(Laboratorio $laboratorio){
+		
+		$nome= $laboratorio->getNome();
+		return $this->getConexao()->query("INSERT INTO laboratorio(nome_laboratorio) VALUES('$nome')");
+		
+		
+	}
 	
 }

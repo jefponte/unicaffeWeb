@@ -2,7 +2,9 @@
 function seleciona(comando, valor){
 	location.href='?pagina=maquinas&comando='+comando+'&maquina='+valor;
 }
-
+function outroSeleciona(comando, valor, valor2){
+	location.href='?pagina=maquinas&comando='+comando+'&maquina='+valor+'&laboratorio='+valor2;
+}
 $(document).ready(function(){
 	
 	context.init({preventDoubleContext: false});

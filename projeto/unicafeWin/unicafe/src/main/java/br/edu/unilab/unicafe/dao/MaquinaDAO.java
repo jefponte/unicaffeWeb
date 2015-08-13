@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
+import br.edu.unilab.unicafe.model.Laboratorio;
 import br.edu.unilab.unicafe.model.Maquina;
 
 public class MaquinaDAO extends DAO{
@@ -57,6 +58,55 @@ public class MaquinaDAO extends DAO{
 		}		
 	}
 
+	public boolean existeEsseLaboratorio(Laboratorio laboratorio){
+		try {
+			PreparedStatement ps = this.getConexao().prepareStatement("SELECT * FROM laboratorio WHERE nome_laboratorio = ? ");
+			ps.setString(1, laboratorio.getNome());
+			
+			System.out.println("Entrou aqui, seu..."+laboratorio.getNome());
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				laboratorio.setId(rs.getInt("id_laboratorio"));
+				return true;
+				
+				
+			}
+			return false;					
+			
+		} catch (SQLException e) {
+			return false;
+		}		
+	}
+	
+	public boolean atualizaOuInsereLaboratorio(Maquina maquina){
+		try {
+			PreparedStatement ps = this.getConexao().prepareStatement("SELECT * FROM laboratorio_maquina WHERE id_maquina = ? ");
+			ps.setInt(1, maquina.getId());
+			
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				
+				PreparedStatement ps2 = this.getConexao().prepareStatement("UPDATE laboratorio_maquina set id_laboratorio = ? WHERE id_maquina = ?");			
+				ps2.setInt(1, maquina.getLaboratorio().getId());
+				ps2.setInt(2, maquina.getId());
+				ps2.executeUpdate();
+				return true;
+			}
+			System.out.println("Nao encontrei o relacionamento, logo vou tentar inserir. ID MAQUINA: "+maquina.getId()+"ID LAB: "+maquina.getLaboratorio().getId());
+			PreparedStatement ps3 = this.getConexao().prepareStatement("INSERT into laboratorio_maquina (id_laboratorio, id_maquina) VALUES(?, ?)");			
+			ps3.setInt(1, maquina.getLaboratorio().getId());
+			ps3.setInt(2, maquina.getId());
+			ps3.executeUpdate();
+			
+			return true;
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		}	
+	}
+	
 	/**
 	 * Retorna True se a m�quina existir. Verifica a partir do atributo nome da m�quina. 
 	 * 
@@ -75,6 +125,26 @@ public class MaquinaDAO extends DAO{
 				
 				maquina.getLaboratorio().setId(rs.getInt("id_laboratorio"));
 				maquina.getLaboratorio().setNome(rs.getString("nome_laboratorio"));
+				return true;
+			}
+			return false;					
+			
+		} catch (SQLException e) {
+			return false;
+		}		
+		
+	}
+	
+	public boolean existeSemBulir(Maquina maquina){
+		try {
+			PreparedStatement ps = this.getConexao().prepareStatement("SELECT * FROM maquina LEFT JOIN laboratorio_maquina ON maquina.id_maquina = laboratorio_maquina.id_maquina LEFT JOIN laboratorio ON laboratorio.id_laboratorio = laboratorio_maquina.id_laboratorio WHERE nome_pc = ? ");
+			ps.setString(1, maquina.getNome());
+			
+			
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				maquina.setId(rs.getInt("id_maquina"));
+				
 				return true;
 			}
 			return false;					
@@ -107,6 +177,7 @@ public class MaquinaDAO extends DAO{
 			ResultSet rs2 = ps3.executeQuery();
 			while(rs2.next()){
 				maquina.setId(rs2.getInt("id_maquina"));
+				
 				
 			}
 			return true;					

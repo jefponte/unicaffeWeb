@@ -37,6 +37,13 @@ class ComandoController{
 					$unicafe = new UniCafe();
 					echo '<p>'.$unicafe->dialoga('bloqueia('.$_GET['maquina'].')').'</p>';
 					break;
+				case 5:
+					if(isset($_GET['laboratorio'])){
+						$unicafe = new UniCafe();
+						echo '<p>'.$unicafe->dialoga('alocarMaquina('.$_GET['maquina'].','.$_GET['laboratorio'].')').'</p>';
+					}
+					break;
+					
 				default:
 					echo '<p>Comando desconhecido</p>';
 					break;
