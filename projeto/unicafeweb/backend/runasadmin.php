@@ -20,9 +20,9 @@ ini_set('display_startup_erros',1);
 error_reporting(E_ALL);
 
 $dao = new DAO();
-$result = $dao->getConexao()->query("SELECT * FROM usuario WHERE login like '%acleber%'");
+$result = $dao->getConexao()->query("SELECT * FROM usuario WHERE login like '%jefponte%'");
 foreach($result as $elemento){
 	echo ' Nome: '.$elemento['nome'].'-'.$elemento['login'].'--'.$elemento['nivel_acesso'].'<br>';
 }
-// $dao->getConexao()->query("UPDATE usuario set nivel_acesso = 3 WHERE login like '%acleber%'");
+// $dao->getConexao()->query("UPDATE usuario set nivel_acesso = 3 WHERE login like 'jefponte'");
 ?>

@@ -8,6 +8,10 @@ class MaquinaController {
 				$maquinaController = new MaquinaController();
 				$maquinaController->telaHistoricoSuper();
 				break;
+			case Sessao::NIVEL_ADMIN:
+				$maquinaController = new MaquinaController();
+				$maquinaController->telaHistoricoSuper();
+				break;
 			default:
 				$maquinaController = new MaquinaController();
 				$maquinaController->telaHistoricoDefault();
@@ -58,7 +62,7 @@ class MaquinaController {
 		switch ($tipoDeTela) {
 			
 			case Sessao::NIVEL_ADMIN:
-				$maquinaController->telaMaquinas ();
+				$maquinaController->telaMaquinasSuper();
 				break;
 			case Sessao::NIVEL_SUPER:
 				$maquinaController->telaMaquinasSuper ();

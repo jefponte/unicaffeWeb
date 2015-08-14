@@ -1,12 +1,6 @@
 <?php
-
-
-class UsuarioView{
-	
-	
-	
-	public function mostraFormularioLogin($erro = false, $msg_erro = ""){
-		
+class UsuarioView {
+	public function mostraFormularioLogin($erro = false, $msg_erro = "") {
 		echo '<div class="tela fundo-cinza1">
      <div class="duas colunas no-meio">
             <div class="no-centro">
@@ -14,16 +8,16 @@ class UsuarioView{
             </div>
             <div class="linha fundo-branco com-bordas">
                 <div class="conteudo">';
-
-                    if($erro)
-                    	echo '     
+		
+		if ($erro)
+			echo '     
                     <div class="alerta-erro">
                        <div class="icone icone-fire ix16"></div>
-                       <div class="titulo-alerta">'.$msg_erro.'</div>
+                       <div class="titulo-alerta">' . $msg_erro . '</div>
                        <div class="subtitulo-alerta">Favor verificar novamente.</div>
                     </div>';
-                    
-                    echo '<form method="post" action="" class="formulario-organizado">
+		
+		echo '<form method="post" action="" class="formulario-organizado">
 
                        <label for="idTextLogin">
                            Login
@@ -41,7 +35,8 @@ class UsuarioView{
             
      </div>
 </div>';
-		
+	}
+	public function formularioGerarAdministrador($erro = false, $msg_erro = "") {
 		
 	}
 }

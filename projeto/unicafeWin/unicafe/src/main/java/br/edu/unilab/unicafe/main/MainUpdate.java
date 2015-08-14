@@ -1,80 +1,123 @@
 package br.edu.unilab.unicafe.main;
 
-
+import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.InetAddress;
+import java.net.InetSocketAddress;
 
+/**
+ * Extremely simple class to send a Magic Packet from Java for Wake-On-LAN
+ * (WOL). Only works in local non-routed subnet. Uses fixed recipient address
+ * 255.255.255.255:2304.
+ * 
+ * This code is licensed under LGPL. Use at your own risk.
+ * 
+ * @author Matthias G&auml;rtner.
+ * @version 0.1
+ * 
+ */
+public class MainUpdate
+{
 
-public class MainUpdate {
-	 
-    public static final int PORT = 9;    
-    public static void main(String[] args) {
-		
-	
+    public MainUpdate()
+    {
+        super();
+    }
 
-		
-		
+    public void wol(String MAC) throws IOException, IllegalArgumentException
+    {
+        final String HEX = "0123456789ABCDEF";
+        byte bMAC[] = new byte[6];
+        int m = 0; // string index
+        int i = 0; // MAC byte array index
+        int h = 0; // last (high) hex digit
+        MAC = MAC.toUpperCase();
+        while (m < MAC.length() && i < 2 * 6)
+        {
+            int n = HEX.indexOf(MAC.charAt(m));
+            if (n >= 0)
+            {
+                if (i % 2 == 0)
+                {
+                    h = n;
+                }
+                else
+                {
+                    bMAC[i / 2] = (byte) (h * 16 + n);
+                }
+                i++;
+            }
+            m++;
+        }
+        if (m < MAC.length())
+        {
+            throw new IllegalArgumentException(
+                    "MAC Address must be 12 Hex digits exactly");
+        }
 
-		
-//		
-//		JFrame teste = new JFrame();
-//		teste.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-//		teste.setSize(300, 400);
-//		teste.setVisible(true);
-//		Update update = new Update();
-//		update.iniciaUpdate();
-		
-		System.out.println("Teste");
-		System.out
-				.println("Usage: java WakeOnLan <broadcast-ip> <mac-address>");
-		System.out
-				.println("Example: java WakeOnLan 10.11.0.242 74:86:7A:FC:B6:53");
-		System.out
-				.println("Example: java WakeOnLan 10.11.0.242 74-86-7A-FC-B6-53");
-	        
-	        String ipStr = "10.11.0.242";
-	        String macStr = "74-86-7A-FC-B6-53";
-	        
-	        try {
-	            byte[] macBytes = getMacBytes(macStr);
-	            byte[] bytes = new byte[6 + 16 * macBytes.length];
-	            for (int i = 0; i < 6; i++) {
-	                bytes[i] = (byte) 0xff;
-	            }
-	            for (int i = 6; i < bytes.length; i += macBytes.length) {
-	                System.arraycopy(macBytes, 0, bytes, i, macBytes.length);
-	            }
-	            
-	            InetAddress address = InetAddress.getByName(ipStr);
-	            DatagramPacket packet = new DatagramPacket(bytes, bytes.length, address, PORT);
-	            DatagramSocket socket = new DatagramSocket();
-	            socket.send(packet);
-	            socket.close();
-	            
-	            System.out.println("Wake-on-LAN packet sent.");
-	        }
-	        catch (Exception e) {
-	            System.out.println("Failed to send Wake-on-LAN packet: + e");
-	            System.exit(1);
-	        }
-	        
-	    }
-	    
-	    private static byte[] getMacBytes(String macStr) throws IllegalArgumentException {
-	        byte[] bytes = new byte[6];
-	        String[] hex = macStr.split("(\\:|\\-)");
-	        if (hex.length != 6) {
-	            throw new IllegalArgumentException("Invalid MAC address.");
-	        }
-	        try {
-	            for (int i = 0; i < 6; i++) {
-	                bytes[i] = (byte) Integer.parseInt(hex[i], 16);
-	            }
-	        }
-	        catch (NumberFormatException e) {
-	            throw new IllegalArgumentException("Invalid hex digit in MAC address.");
-	        }
-	        return bytes;
-	    }
+        wol(bMAC);
+    }
+
+    public void wol(byte[] MAC) throws IOException
+    {
+        if (MAC == null || MAC.length != 6)
+        {
+            throw new IllegalArgumentException(
+                    "MAC array must be present and 6 bytes long");
+        }
+
+        // Assemble Magic Packet
+        int packetLength = 102;
+        byte packetData[] = new byte[packetLength];
+        int m = 0;
+
+        // Start off with six 0xFF values
+        packetData[m++] = (byte) 255;
+        packetData[m++] = (byte) 255;
+        packetData[m++] = (byte) 255;
+        packetData[m++] = (byte) 255;
+        packetData[m++] = (byte) 255;
+        packetData[m++] = (byte) 255;
+
+        // Append sixteen copies of MAC address
+        for (int i = 0; i < 16 * 6; i++)
+        {
+            packetData[m] = MAC[m % 6];
+            m++;
+        }
+
+        DatagramSocket socket = new DatagramSocket(1);
+        try
+        {
+            InetSocketAddress address = new InetSocketAddress(
+                    "255.255.255.255", 2304);
+            DatagramPacket datagram = new DatagramPacket(packetData,
+                    packetLength, address);
+            socket.setBroadcast(true);
+            socket.send(datagram);
+        }
+        finally
+        {
+            if (socket != null)
+            {
+                socket.close();
+            }
+        }
+        // System.out.println("Magic Packet sent.");
+    }
+
+    /**
+     * Send/broadcast WoL Magic Packet to host identified by 6-byte MAC.
+     * 
+     * @param args
+     *            MAC address in hex format. Non-hex characters are ignored.
+     *            Must end with Hex character. Example:
+     *            &quot;00-50-12-34-56-78&quot;
+     */
+    public static void main(String[] args) throws IOException
+    {
+        MainUpdate wol = new MainUpdate();
+        //e5:df
+        wol.wol("74:86:7a:FC:e5:df");
+    }
 }

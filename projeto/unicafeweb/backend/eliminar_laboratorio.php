@@ -23,4 +23,4 @@ foreach ($result as $row){
 	echo $row['id_laboratorio'].' Nome: '.$row['nome_laboratorio'].'<br>';
 }
 
-// $dao->getConexao()->query("DELETE FROM laboratorio WHERE id_laboratorio = 5");
+// $dao->getConexao()->query("DELETE FROM laboratorio WHERE id_laboratorio = 10");

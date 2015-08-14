@@ -111,7 +111,11 @@ error_reporting(E_ALL);
                     <li><a href="?pagina=gerenciamento_relatorios">Gerenciamento</a>
                         <ul class="seta-pra-cima">
                             <li><a href="?pagina=gerenciamento_relatorios">Relatorios </a></li>
-<!--                             <li><a href="?pagina=gerenciamento_usuarios">Usuarios</a></li> -->
+                            <?php 
+                            if($sessao->getNivelAcesso() == Sessao::NIVEL_SUPER)
+                            	echo '<li><a href="?pagina=gerenciamento_administrador">Administrador</a></li>';
+                            
+                            ?>
                         </ul>
                     </li>
                     <?php 
@@ -215,6 +219,12 @@ error_reporting(E_ALL);
            				MaquinaController::mainHistorico($sessao->getNivelAcesso());
            				echo ' </div>';
            				break;
+           			case 'gerenciamento_administrador':
+           				echo '<div class="doze colunas fundo-branco">';
+           				UsuarioController::gerenciaAdmin($sessao->getNivelAcesso());
+           				echo ' </div>';
+           				break;           			
+           				
            			default:
            				echo '<div id="olinda" class="doze colunas fundo-branco">';
 						echo '<h1>404 Not Found</h1>';

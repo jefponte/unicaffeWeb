@@ -3,6 +3,24 @@ class MaquinaDAO extends DAO {
 	public function MaquinaDAO($conexao = null, $tipo = self::TIPO_DEFAULT) {
 		parent::DAO ( $conexao, $tipo );
 	}
+	public function procuraPorNome(Maquina $maquina){
+		$nomeMaquina = $maquina->getNome();
+		
+		$sql = "SELECT * FROM maquina 
+		INNER JOIN laboratorio_maquina ON maquina.id_maquina = laboratorio_maquina.id_maquina 
+		INNER JOIN laboratorio ON laboratorio_maquina.id_laboratorio = laboratorio.id_laboratorio 
+		WHERE maquina.nome_pc like '$nomeMaquina' LIMIT 1;";
+		$result = $this->getConexao ()->query ( $sql );
+		foreach ( $result as $linha ) {
+			$maquina->setId ( $linha ['id_maquina'] );
+			$laboratorio = new Laboratorio();
+			$maquina->setLaboratorio($laboratorio);
+			$maquina->getLaboratorio ()->setId ( $linha ['id_laboratorio'] );
+			$maquina->getLaboratorio ()->setNome ( $linha ['nome_laboratorio'] );
+			return true;
+		}
+		return false;
+	}
 	public function retornaLista() {
 		$lista = array ();
 		$sql = "SELECT * FROM maquina LEFT JOIN laboratorio_maquina ON maquina.id_maquina = laboratorio_maquina.id_maquina LEFT JOIN laboratorio ON laboratorio_maquina.id_laboratorio = laboratorio.id_laboratorio;";
