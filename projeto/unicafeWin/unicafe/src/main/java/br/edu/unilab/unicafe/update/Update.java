@@ -58,7 +58,7 @@ public class Update {
 			setReader(new BufferedReader(isr));
 			saida.println("setStatus("+Maquina.STATUS_UPDATE+")");
 			saida.flush();
-			File f1 = new File("C:\\Program Files (x86)\\UniCafe\\UniCafeClient.exe");
+			File f1 = new File("C:\\Program Files\\UniCafe\\UniCafeClient.exe");
 			out = new FileOutputStream(f1);
 			int tamanho = 4096;
 			

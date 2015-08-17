@@ -1,41 +1,73 @@
 <?php
 class MaquinaController {
-
-	public static function mainHistorico($tipoDeTela){
-		
-		switch ($tipoDeTela){
-			case Sessao::NIVEL_SUPER:
-				$maquinaController = new MaquinaController();
-				$maquinaController->telaHistoricoSuper();
+	public static function mainHistorico($tipoDeTela) {
+		switch ($tipoDeTela) {
+			case Sessao::NIVEL_SUPER :
+				$maquinaController = new MaquinaController ();
+				$maquinaController->telaHistoricoSuper ();
 				break;
-			case Sessao::NIVEL_ADMIN:
-				$maquinaController = new MaquinaController();
-				$maquinaController->telaHistoricoSuper();
+			case Sessao::NIVEL_ADMIN :
+				$maquinaController = new MaquinaController ();
+				$maquinaController->telaHistoricoSuper ();
 				break;
-			default:
-				$maquinaController = new MaquinaController();
-				$maquinaController->telaHistoricoDefault();
-					break;
-			}
-	}
-	public function telaHistoricoSuper(){
-		$maquinaView = new MaquinaView();
-		$maquinaView->formPesquisaHistorico();
-		if(isset($_GET['usuario'])){
-
-			$maquinaDao = new MaquinaDAO();
-			$usuario = new Usuario();
-			$usuario->setLogin($_GET['usuario']);
-			$maquinaDao->pesquisaHistoricoDeUsuario($usuario);
+			default :
+				$maquinaController = new MaquinaController ();
+				$maquinaController->telaHistoricoDefault ();
+				break;
 		}
 	}
-	public function telaHistoricoDefault(){
+	public static function mainDetalhe($tipoDeTela) {
+		switch ($tipoDeTela) {
+			case Sessao::NIVEL_SUPER :
+				$maquinaController = new MaquinaController ();
+				$maquinaController->telaDetalhe ();
+				break;
+			case Sessao::NIVEL_ADMIN :
+				$maquinaController = new MaquinaController ();
+				$maquinaController->telaDetalhe ();
+				break;
+			default :
+				break;
+		}
+	}
+	/**
+	 * Faremos da mesma forma que a tela de listagem, sendo que apenas mostraremos a máquina selecionada.
+	 *
+	 * Logo, precisamos que um nome de maquina seja enviado via GET.
+	 * Caso contrario não mostraremos nenhuma.
+	 */
+	public function telaDetalhe() {
+
+		if(!isset($_GET['maquina']))
+			return;
+		$maquinaView = new MaquinaView ();
+		$maquinaDao = new MaquinaDAO ();
+		$lista = $maquinaDao->listaCompleta ();
+		foreach ( $lista as $elemento ) {
+				if (! strcmp ( strtolower ( $_GET ['maquina'] ), strtolower ( $elemento->getNome() ) )){
+					$maquina = $elemento;
+					break;
+				}
+		}
+		$maquinaView->mostraMaquinaDetalhe($maquina);
 		
-		echo 'Indisponivel no momento';
+
 		
 	}
-	
-	
+	public function telaHistoricoSuper() {
+		$maquinaView = new MaquinaView ();
+		$maquinaView->formPesquisaHistorico ();
+		if (isset ( $_GET ['usuario'] )) {
+			
+			$maquinaDao = new MaquinaDAO ();
+			$usuario = new Usuario ();
+			$usuario->setLogin ( $_GET ['usuario'] );
+			$maquinaDao->pesquisaHistoricoDeUsuario ( $usuario );
+		}
+	}
+	public function telaHistoricoDefault() {
+		echo 'Indisponivel no momento';
+	}
 	public static function main($tipoDeTela) {
 		$maquinaController = new MaquinaController ();
 		
@@ -61,14 +93,14 @@ class MaquinaController {
 		
 		switch ($tipoDeTela) {
 			
-			case Sessao::NIVEL_ADMIN:
-				$maquinaController->telaMaquinasSuper();
-				break;
-			case Sessao::NIVEL_SUPER:
+			case Sessao::NIVEL_ADMIN :
 				$maquinaController->telaMaquinasSuper ();
 				break;
-				
-			default : 
+			case Sessao::NIVEL_SUPER :
+				$maquinaController->telaMaquinasSuper ();
+				break;
+			
+			default :
 				$maquinaController->telaMaquinas ();
 				break;
 		}
@@ -77,58 +109,42 @@ class MaquinaController {
 	 * Essa tela é visível por qualquer tipo de usuário.
 	 */
 	public function telaMaquinas() {
+		$maquinaView = new MaquinaView ();
 		
-	$maquinaView = new MaquinaView();
-		
-		$maquinaDao = new MaquinaDAO();
-		$lista = $maquinaDao->listaCompleta();
-		foreach ($lista as $elemento){
-			if(isset($_GET['laboratorio'])){
-				if(!strcmp(strtolower ( $_GET['laboratorio'] ),strtolower ( $elemento->getLaboratorio()->getNome())))
-					$maquinaView->mostraMaquina($elemento, false);
-					
-			}
-			else 
-				$maquinaView->mostraMaquina($elemento, false);
-			
+		$maquinaDao = new MaquinaDAO ();
+		$lista = $maquinaDao->listaCompleta ();
+		foreach ( $lista as $elemento ) {
+			if (isset ( $_GET ['laboratorio'] )) {
+				if (! strcmp ( strtolower ( $_GET ['laboratorio'] ), strtolower ( $elemento->getLaboratorio ()->getNome () ) ))
+					$maquinaView->mostraMaquina ( $elemento, false );
+			} else
+				$maquinaView->mostraMaquina ( $elemento, false );
 		}
-		
-		
-		
 	}
 	
 	/**
 	 * Nessa é possível cadastrar a máquina ou atualizar.
 	 */
 	public function telaMaquinasSuper() {
+		$maquinaView = new MaquinaView ();
 		
-		$maquinaView = new MaquinaView();
-		
-		$maquinaDao = new MaquinaDAO();
-		$lista = $maquinaDao->listaCompleta();
-		foreach ($lista as $elemento){
-			if(isset($_GET['laboratorio'])){
-				if(!strcmp(strtolower ( $_GET['laboratorio'] ),strtolower ( $elemento->getLaboratorio()->getNome())))
-					$maquinaView->mostraMaquina($elemento);
-				if($_GET['laboratorio'] =='nao_listada' && !$elemento->getLaboratorio()->getId())
-					$maquinaView->mostraMaquina($elemento);
-					
-			}
-			else 
-				$maquinaView->mostraMaquina($elemento);
-			
+		$maquinaDao = new MaquinaDAO ();
+		$lista = $maquinaDao->listaCompleta ();
+		foreach ( $lista as $elemento ) {
+			if (isset ( $_GET ['laboratorio'] )) {
+				if (! strcmp ( strtolower ( $_GET ['laboratorio'] ), strtolower ( $elemento->getLaboratorio ()->getNome () ) ))
+					$maquinaView->mostraMaquina ( $elemento );
+				if ($_GET ['laboratorio'] == 'nao_listada' && ! $elemento->getLaboratorio ()->getId ())
+					$maquinaView->mostraMaquina ( $elemento );
+			} else
+				$maquinaView->mostraMaquina ( $elemento );
 		}
-		
-		
 	}
 	/**
 	 * Em todos os casos o usuário verá todas as máquinas, o status de cada uma e
 	 * também saberá se está ou não cadastrada.
 	 * Verá dados de acesso e formulário para pesquisar por nome de máquina.
 	 */
-	
 	public function telaMaquinasAdmin() {
-		
-		
 	}
 }

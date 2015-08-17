@@ -48,6 +48,12 @@ public class Maquina {
 
 			NetworkInterface ni = NetworkInterface.getByInetAddress(ia);
 			byte[] mac = ni.getHardwareAddress();
+			if(mac == null)
+			{
+				this.enderecoMac = "Não Informado";
+				return;
+				
+			}
 			String macAddress = "";
 			for (int i = 0; i < mac.length; i++) {
 				macAddress += (String.format("%02X-", mac[i]));
@@ -56,7 +62,7 @@ public class Maquina {
 			if(macAddress != null && macAddress.length() > 1){
 				this.enderecoMac = macAddress.substring(0, macAddress.length() - 1);
 			}
-			macAddress = "Não Informado";
+			this.enderecoMac = "Não Informado";
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (SocketException e) {

@@ -192,8 +192,10 @@ error_reporting(E_ALL);
            				echo ' </div>';
            				 
            				break;
-           			case 'usuarios':
-           				
+           			case 'detalhe':
+           				echo '<div id="olinda" class="doze colunas fundo-branco">';
+           				MaquinaController::mainDetalhe($sessao->getNivelAcesso());
+           				echo ' </div>';
            				break;
            			case 'login':
            				UsuarioController::main($sessao->getNivelAcesso());
