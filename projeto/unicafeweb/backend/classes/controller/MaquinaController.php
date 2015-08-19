@@ -127,7 +127,6 @@ class MaquinaController {
 	 */
 	public function telaMaquinasSuper() {
 		$maquinaView = new MaquinaView ();
-		
 		$maquinaDao = new MaquinaDAO ();
 		$lista = $maquinaDao->listaCompleta ();
 		foreach ( $lista as $elemento ) {

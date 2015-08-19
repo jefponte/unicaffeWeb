@@ -40,6 +40,7 @@ public class Maquina {
 	}
 	public void preencheComMaquinaLocal() 
 	{
+		this.enderecoMac = "Não Informado";
 		InetAddress ia = null;
 		try {
 			ia = InetAddress.getLocalHost();
@@ -48,24 +49,27 @@ public class Maquina {
 
 			NetworkInterface ni = NetworkInterface.getByInetAddress(ia);
 			byte[] mac = ni.getHardwareAddress();
+			System.out.println("Teste debugador. . ");
 			if(mac == null)
 			{
-				this.enderecoMac = "Não Informado";
+				System.out.println("Foi nulo o MAC adres. ");
 				return;
-				
 			}
 			String macAddress = "";
 			for (int i = 0; i < mac.length; i++) {
 				macAddress += (String.format("%02X-", mac[i]));
 			}
-			
-			if(macAddress != null && macAddress.length() > 1){
-				this.enderecoMac = macAddress.substring(0, macAddress.length() - 1);
+			System.out.println("Mac adres teste"+macAddress);
+			if(macAddress != null){
+				if(macAddress.length() > 1){
+					this.enderecoMac = macAddress.substring(0, macAddress.length() - 1);
+				}
 			}
-			this.enderecoMac = "Não Informado";
 		} catch (UnknownHostException e) {
 			e.printStackTrace();
 		} catch (SocketException e) {
+			e.printStackTrace();
+		}catch (NullPointerException e) {
 			e.printStackTrace();
 		}
 

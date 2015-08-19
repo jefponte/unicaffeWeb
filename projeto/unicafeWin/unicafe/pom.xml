@@ -118,6 +118,27 @@
                             <goal>single</goal>
                         </goals>
                     </execution>
+                     <execution>
+                        <id>build-ligador</id>
+                        <configuration>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <archive>
+                                <manifest>
+                                    <mainClass>br.edu.unilab.unicafe.ligador.Ligador</mainClass>
+                                    <addClasspath>true</addClasspath>
+                                </manifest>
+                                <addMavenDescriptor>false</addMavenDescriptor>
+                            </archive>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                            <finalName>${project.artifactId}-ligador</finalName>
+                        </configuration>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
                     <execution>
                         <id>build-servidor</id>
                         <configuration>

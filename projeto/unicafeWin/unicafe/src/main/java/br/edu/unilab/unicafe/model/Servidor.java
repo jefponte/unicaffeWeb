@@ -560,6 +560,7 @@ public class Servidor {
 					desligado.getMaquina().getAcesso().getUsuario().setNome("Livre");
 					new PrintStream(desligado.getSaida()).println("bloqueia()");
 					new PrintStream(cliente.getSaida()).println("Bloqueando o "+desligado.getMaquina().getNome());
+					
 				}
 				
 			}

@@ -90,8 +90,11 @@ class MaquinaView {
 			    	<span class="maquina-tempo maquina-tempo-total">--:--:--</span>
 			    	<span class="maquina-tempo maquina-tempo-restante">--:--:--</span>';
 			
-		echo '   	<span class="maquina-tempo maquina-tempo-restante">'.$maquina->getEnderecoMac().'</span>
-				
+		echo '   	
+				<span class="maquina-tempo maquina-tempo-total">Endereco Mac</span>
+				<span class="maquina-tempo maquina-tempo-restante">'.$maquina->getEnderecoMac().'</span>
+				<span class="maquina-tempo maquina-tempo-total">Laboratorio</span>
+				<span class="maquina-tempo maquina-tempo-restante">'.$maquina->getLaboratorio()->getNome().'</span>
 			</div>
 		</div>';
 	}
@@ -133,6 +136,9 @@ class MaquinaView {
 // 			$cor = 'vermelho';
 // 			$valor = 'online';
 // 		}
+
+		if($admin)
+			echo '<a href="?pagina=detalhe&maquina='.$maquina->getNome().'">';
 		echo ' <div id="'.$maquina->getNome().'" class="maquina maquina-'.$valor.'">
 		  	<h2 class="maquina-titulo">' . $maquina->getNome () . '</h2>
 		  	<div class="maquina-icone">
@@ -175,6 +181,8 @@ class MaquinaView {
 		echo '
 			</div>
 		</div>';
+		if($admin)
+			echo '</a>';
 	}
 	public function formPesquisaHistorico(){
 		echo '<div class="resolucao">
