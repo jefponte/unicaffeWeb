@@ -12,9 +12,7 @@ import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 import com.google.gson.Gson;
 
@@ -22,6 +20,7 @@ import br.edu.unilab.unicafe.dao.AcessoDAO;
 import br.edu.unilab.unicafe.dao.DAO;
 import br.edu.unilab.unicafe.dao.MaquinaDAO;
 import br.edu.unilab.unicafe.dao.UsuarioDAO;
+import br.edu.unilab.unicafe.ligador.Ligador;
 
 /**
  * 
@@ -156,11 +155,11 @@ public class Servidor {
 					BufferedReader in = new BufferedReader(new InputStreamReader(cliente.getEntrada()));
 
 					String mensagem = in.readLine();
-					System.out.println("Primeira Mensagem: "+mensagem);
+					//System.out.println("Primeira Mensagem: "+mensagem);
 					if(mensagem == null){
-						System.out.println("Comando recusado.");
-						System.out.println(mensagem);
-						System.out.println("Uma conexao recusada. ");
+//						System.out.println("Comando recusado.");
+//						System.out.println(mensagem);
+//						System.out.println("Uma conexao recusada. ");
 						ps.println("Eu sou o Servidor, meu chapa!");
 						conexao.close();
 						return;
@@ -238,7 +237,7 @@ public class Servidor {
 						
 						}else{
 							System.out.println("Comando recusado.");
-							System.out.println(mensagem);
+//							System.out.println(mensagem);
 							System.out.println("Uma conexao recusada. ");
 							ps.println("Eu sou o Servidor, meu chapa!");
 							conexao.close();
@@ -313,7 +312,7 @@ public class Servidor {
 	}
 	public synchronized void processaMensagemAdmin(final Cliente cliente, String mensagem) {
 
-		System.out.println(cliente.getConexao().getInetAddress()+">> Mensagem admin: "+mensagem);
+//		System.out.println(cliente.getConexao().getInetAddress()+">> Mensagem admin: "+mensagem);
 		if(mensagem == null)
 			return;
 		
@@ -331,11 +330,23 @@ public class Servidor {
 			return;
 			
 		}
-		
+		else if(mensagem.equals("ligador")){
+			new PrintStream(cliente.getSaida()).println("Vou tentar ligar o LABTI08");
+			try {
+				Ligador.ligador();
+				new PrintStream(cliente.getSaida()).println("Eu vou ligar o LABTI08");
+			} catch (IOException e) {
+				new PrintStream(cliente.getSaida()).println(e.toString());
+				System.out.println("Erro de IOException");
+				e.printStackTrace();
+			}
+			return;
+			
+		}
 		
 		//Vamos ver se veio um select. 
 		if(mensagem.toLowerCase().indexOf("select") >= 0 || mensagem.toLowerCase().indexOf("insert") >= 0 || mensagem.toLowerCase().indexOf("update") >= 0){
-			System.out.println("Veio um SQL");
+//			System.out.println("Veio um SQL");
 			String json = "";
 			
 			int h = 0;
@@ -368,16 +379,17 @@ public class Servidor {
 			return;
 		} 
 		
-		
+	
 		String parametros = "";
-		System.out.println("Segunda mensagem: "+mensagem);
+//		System.out.println("Segunda mensagem: "+mensagem);
 		String comando = mensagem.substring(0, mensagem.indexOf('('));
 		parametros = mensagem.substring((mensagem.indexOf('(') + 1),mensagem.indexOf(')'));
+		
 		
 		if(comando.equals("getMaquinas")){
 			String json = anotaJson();
 			new PrintStream(cliente.getSaida()).println(json);	
-			System.out.println("Resposta: "+json);
+//			System.out.println("Resposta: "+json);
 		}else if(comando.equals("cadastraMaquina")){
 			// A gente pesquisa uma máquina com esse nome e cadastra ela. 
 			boolean achei = false;
@@ -396,6 +408,18 @@ public class Servidor {
 			}
 			if(!achei)
 				new PrintStream(cliente.getSaida()).println("Não encontrei "+parametros);
+			return;
+			
+		}else if(comando.equals("ligador")){
+			new PrintStream(cliente.getSaida()).println("Vou tentar ligar o LABTI08");
+			try {
+				Ligador.ligador();
+				new PrintStream(cliente.getSaida()).println("Eu vou ligar o LABTI08");
+			} catch (IOException e) {
+				
+				System.out.println("Erro de IOException");
+				e.printStackTrace();
+			}
 			return;
 			
 		}
@@ -631,7 +655,7 @@ public class Servidor {
 		
 		String comando = mensagem.substring(0, mensagem.indexOf('('));
 		String parametros = mensagem.substring((mensagem.indexOf('(') + 1),mensagem.indexOf(')'));
-		System.out.println(mensagem);
+//		System.out.println(mensagem);
 		if (comando.equals("autentica")) {
 			String login = parametros.substring(0, parametros.indexOf(','));
 			String senha = parametros.substring(parametros.indexOf(',') + 1);

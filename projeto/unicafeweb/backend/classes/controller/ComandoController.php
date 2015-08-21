@@ -45,7 +45,10 @@ class ComandoController {
 						echo '<p>' . $unicafe->dialoga ( 'alocarMaquina(' . $_GET ['maquina'] . ',' . $_GET ['laboratorio'] . ')' ) . '</p>';
 					}
 					break;
-				
+				case 10 :
+					$unicafe = new UniCafe ();
+					echo '<p>' . $unicafe->dialoga ( 'ligador()' ) . '</p>';
+					break;
 				default :
 					echo '<p>Comando desconhecido</p>';
 					break;

@@ -126,6 +126,7 @@ error_reporting(E_ALL);
                             <?php 
                             if($sessao->getNivelAcesso() == Sessao::NIVEL_SUPER)
                             	echo '<li><a href="?pagina=gerenciamento_administrador">Administrador</a></li>';
+                            echo '<li><a href="?pagina=maquinas&comando=10&maquina=LABTI08">Teste Oi Ligador</a></li>';
                             
                             ?>
                         </ul>

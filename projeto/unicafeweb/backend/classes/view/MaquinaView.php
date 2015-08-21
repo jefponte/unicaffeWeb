@@ -95,6 +95,8 @@ class MaquinaView {
 				<span class="maquina-tempo maquina-tempo-restante">'.$maquina->getEnderecoMac().'</span>
 				<span class="maquina-tempo maquina-tempo-total">Laboratorio</span>
 				<span class="maquina-tempo maquina-tempo-restante">'.$maquina->getLaboratorio()->getNome().'</span>
+						<span class="maquina-tempo maquina-tempo-total">IP:</span>
+				<span class="maquina-tempo maquina-tempo-restante">'.$maquina->getAcesso()->getIp().'</span>
 			</div>
 		</div>';
 	}
