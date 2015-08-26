@@ -13,6 +13,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import com.google.gson.Gson;
 
@@ -330,14 +331,51 @@ public class Servidor {
 			return;
 			
 		}
+		else if(mensagem.equals("restart")){
+			try {
+				Process processo = Runtime.getRuntime().exec("/etc/init.d/unicafe.sh restart");
+				Scanner leitor = new Scanner(processo.getInputStream());
+				while (leitor.hasNext())
+					System.out.println(leitor.nextLine());
+				new PrintStream(cliente.getSaida()).println("Vamos restartar");
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			}
+			return;
+		}
+		else if(mensagem.equals("reboot")){
+			try {
+					Process processo = Runtime.getRuntime().exec("reboot");
+					Scanner leitor = new Scanner(processo.getInputStream());
+					while (leitor.hasNext())
+						System.out.println(leitor.nextLine());
+					new PrintStream(cliente.getSaida()).println("Vamos rebotar");
+			} catch (IOException e) {
+
+				e.printStackTrace();
+			}
+			return;
+		}
+		else if(mensagem.equals("stop")){
+			System.exit(0);
+			return;
+		}
 		else if(mensagem.equals("ligador")){
 			new PrintStream(cliente.getSaida()).println("Vou tentar ligar o LABTI08");
 			try {
 				Ligador.ligador();
 				new PrintStream(cliente.getSaida()).println("Eu vou ligar o LABTI08");
+				cliente.getConexao().close();
 			} catch (IOException e) {
 				new PrintStream(cliente.getSaida()).println(e.toString());
 				System.out.println("Erro de IOException");
+				try {
+					cliente.getConexao().close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 				e.printStackTrace();
 			}
 			return;
@@ -415,10 +453,17 @@ public class Servidor {
 			try {
 				Ligador.ligador();
 				new PrintStream(cliente.getSaida()).println("Eu vou ligar o LABTI08");
+				cliente.getConexao().close();
 			} catch (IOException e) {
 				
 				System.out.println("Erro de IOException");
 				e.printStackTrace();
+				try {
+					cliente.getConexao().close();
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
 			}
 			return;
 			

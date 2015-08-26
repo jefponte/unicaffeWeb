@@ -97,7 +97,7 @@ public class Perfil {
 	public static ArrayList<Registro> listaParaBloqueio() {
 
 		ArrayList<Registro> lista = new ArrayList<Registro>();
-
+		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", "Wallpaper", Registro.REG_SZ, "C:\\Windows\\Web\\Wallpaper\\Windows\\papel-de-parede.jpg", "C:\\Windows\\Web\\Wallpaper\\Windows\\img0.jpg" ,"definir papel de parede"));
 		lista.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer","NoControlPanel", Registro.REG_DWORD, "1", "0",	"Desabilita Painel de Controle"));
 		lista.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer","NoRun", Registro.REG_DWORD, "1", "0", "Não abrir o Executar"));
 		lista.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Programs","NoProgramsAndFeatures", Registro.REG_DWORD, "1", "0","Não exibir a lista no Add ou remover programas"));
@@ -117,7 +117,7 @@ public class Perfil {
 		lista.add(new Registro("HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System",	"DisableChangePassword", Registro.REG_DWORD, "1", "0","Remove Opção para Desligar no Ctrl+ALT+DEL"));
 		lista.add(new Registro("HKCU\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer","NoClose", Registro.REG_DWORD, "1", "0","Remove Opção de Desligar no Ctrl+Alt+del"));
 		//lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer", "NoStartMenuMFUprogramsList", Registro.REG_DWORD, "1", "0", "Sem lista de programas no Menu Iniciar"));
-		//lista.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer", "NoClose", Registro.REG_DWORD, "1", "0", "Sem o Botão de Desligar no Menu Iniciar"));
+//		lista.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer", "NoClose", Registro.REG_DWORD, "1", "0", "Sem o Botão de Desligar no Menu Iniciar"));
 		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", "DisableTaskMgr", Registro.REG_DWORD, "1", "0","Desativar Gerenciador de Tarefas"));
 		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer", "NoPropertiesMyComputer", Registro.REG_DWORD, "1", "0","Não ver Propriedades do Meu Computador"));
 		
@@ -127,9 +127,8 @@ public class Perfil {
 		lista.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\WindowsUpdate\\Auto Update", "AUOptions", Registro.REG_DWORD, "1", "4","Desativar Opções Update"));
 		lista.add(new Registro("HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU", "NoAutoUpdate", Registro.REG_DWORD, "1", "0","Desativar Update"));
 		
-		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", "Wallpaper", Registro.REG_SZ, "C:\\Windows\\Web\\Wallpaper\\Windows\\papel-de-parede.jpg", "C:\\Windows\\Web\\Wallpaper\\Windows\\img0.jpg","definir papel de parede"));
-		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", "WallpaperStyle", Registro.REG_DWORD, "2", "0","impede a alteração do plano de fundo"));
-		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\ActiveDesktop", "NoChangingWallpaper", Registro.REG_DWORD, "1", "0", "Não altera plano de fundo"));
+//		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", "WallpaperStyle", Registro.REG_DWORD, "2", "0","impede a alteração do plano de fundo"));
+//		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\ActiveDesktop", "NoChangingWallpaper", Registro.REG_DWORD, "1", "0", "Não altera plano de fundo"));
 		
 		lista.add(new Registro("HKCU\\Software\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\CurrentVersion\\TrayNotify", "PastIconsStream", Registro.REG_DWORD, "0", "0","Mostra os icones na area de notificação"));
 		lista.add(new Registro("HKCU\\Software\\Classes\\Local Settings\\Software\\Microsoft\\Windows\\CurrentVersion\\TrayNotify", "IconStreams", Registro.REG_DWORD, "0", "0","Mostra os icones na area de notificação"));
@@ -156,21 +155,46 @@ public class Perfil {
 		lista.add(new Registro("HKCU\\Control Panel\\Desktop", "ScreenSaveActive", Registro.REG_SZ, "1", "0","Ativa proteção de tela"));
 		
 		//lista.add(new Registro("HKLM\\SOFTWARE\\Classes\\Wow6432Node\\CLSID\\{323CA680-C24D-4099-B94D-446DD2D7249E}", "ShellFolder", Registro.REG_DWORD, "a9400100", "a0900100","N�o ver Propriedades do Meu Computador"));
-		
+		lista.add(new Registro("HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer", "StartMenuLogoff", Registro.REG_DWORD, "1", "0","Ativa proteção de tela"));
+
+
 		return lista;
 
 	}
 	
-	public static ArrayList<Registro> registrosTemporarios(){
+	/**
+	 * São registros que são adicionados no sistema quando o UniCafe está em execução, mas que são deletados na desativação do UNICAFE
+	 * São deletados quando o UniCafe Desativa. 
+	 * @return
+	 */
+	public static ArrayList<Registro> perfilTemporarioExecucao(){
 		
 		ArrayList<Registro> temporario = new ArrayList<Registro>();
 		
-		temporario.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", "Wallpaper", Registro.REG_SZ, "C:\\Windows\\Web\\Wallpaper\\Windows\\papel-de-parede.jpg", "C:\\Windows\\Web\\Wallpaper\\Windows\\img0.jpg" ,"definir papel de parede"));
+		
+		temporario.add(new Registro("HKU\\S-1-5-21-450030969-3659189506-2535807683-1000\\Software\\Microsoft\\Windows\\CurrentVersion\\Group Policy Objects\\{716A25C0-6B71-4F49-9187-11CA3F39AF5C}User\\Software\\Policies\\Microsoft\\Windows\\Explorer", "PowerButtonAction", Registro.REG_DWORD, "512", "" ,"muda opcao de logof do menu iniciar pra bloquear"));
+
+		temporario.add(new Registro("HKU\\S-1-5-21-450030969-3659189506-2535807683-1000\\Software\\Policies\\Microsoft\\Windows\\Explorer", "PowerButtonAction", Registro.REG_DWORD, "512", "" ,"muda opcao de logof do menu iniciar pra bloquear"));
+
+		
+		return temporario;
+	}
+
+	/**
+	 * São registros que são adicionados no sistema quando o UniCafe está em sendo desativado. Faz com que a máquina volte às configurações padrão. 
+	 * Esses registros são deletados quando o UniCafe liga. 
+	 * @return
+	 */
+	public static ArrayList<Registro> perfilTemporarioDesativado(){
+		
+		ArrayList<Registro> temporario = new ArrayList<Registro>();
+		
+		temporario.add(new Registro("HKU\\S-1-5-21-450030969-3659189506-2535807683-1000\\Software\\Microsoft\\Windows\\CurrentVersion\\Group Policy Objects\\{716A25C0-6B71-4F49-9187-11CA3F39AF5C}User\\Software\\Policies\\Microsoft\\Windows\\Explorer", "**del.PowerButtonAction", Registro.REG_EXPAND_SZ, " ", "" ,"Deixar botão de logof no menu iniciar do jeito padrão"));
 
 		return temporario;
 	}
 
-
+	
 	/**
 	 * Retorna uma lista de valores que para serem testados e documentados
 	 * 

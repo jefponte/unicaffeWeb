@@ -103,8 +103,7 @@ public class ClienteControl {
 					try {
 						getFrameTelaBloqueio().setVisible(false);
 						// System.out.println("Fechando Explorer. ");
-						Runtime.getRuntime().exec(
-								" taskkill /f /im explorer.exe");
+						Runtime.getRuntime().exec(" taskkill /f /im explorer.exe");
 						Runtime.getRuntime().exec(" attrib " + user + "\\Links\\RecentPlaces.lnk -h");//Retorna Locais em Favoritos
 						Thread.sleep(1000);
 						// System.out.println("Abrindo Explorer. ");
@@ -231,6 +230,19 @@ public class ClienteControl {
 				Perfil perfilBloqueio = new Perfil();
 				perfilBloqueio.setListaDeRegistros(Perfil.listaParaBloqueio());
 				perfilBloqueio.executar();
+				
+				Perfil perfilTemporarioExecucao = new Perfil();
+				perfilTemporarioExecucao.setListaDeRegistros(Perfil.perfilTemporarioExecucao());
+				perfilTemporarioExecucao.executar();
+				
+				
+				Perfil perfilTemporarioDesativado = new Perfil();
+				perfilTemporarioDesativado.setListaDeRegistros(Perfil.perfilTemporarioDesativado());
+				perfilTemporarioDesativado.deletar();
+				
+				
+				
+				
 
 			}
 		});
@@ -281,9 +293,14 @@ public class ClienteControl {
 				perfilBloqueio.desfazer();
 				
 				Perfil perfilTemporario = new Perfil();				
-				perfilTemporario.setListaDeRegistros(Perfil.registrosTemporarios());
-				perfilTemporario.desfazer();
+				perfilTemporario.setListaDeRegistros(Perfil.perfilTemporarioExecucao());
 				perfilTemporario.deletar();
+				
+				
+				Perfil perfilTemporarioDesativado = new Perfil();
+				perfilTemporarioDesativado.setListaDeRegistros(Perfil.perfilTemporarioDesativado());
+				perfilTemporarioDesativado.executar();
+				
 
 			}
 		});

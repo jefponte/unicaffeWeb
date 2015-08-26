@@ -200,6 +200,7 @@ function unicafeDialoga($link, $comando) {
 		$strJson .= $result;
 	}
 	return  $strJson;
+	
 }
 
 

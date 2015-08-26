@@ -1,4 +1,6 @@
-
+.pagina {
+	min-height: 100%;
+}
 .ver-laboratorio {
     display: table;
     margin: 0 auto;
@@ -37,6 +39,17 @@
     display: block;
     width: 50px;
     height: 50px;
+}
+.fundo-azul {
+	background: #91D8F6;
+}
+.fundo-marrom {
+	background: #A45E4D;
+}
+.meio {
+    position: relative;
+    margin-left: 30%;
+    margin-top: 20%;
 }
 /*
     Cores de bordas para as máquinas
