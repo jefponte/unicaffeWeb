@@ -361,26 +361,7 @@ public class Servidor {
 			System.exit(0);
 			return;
 		}
-		else if(mensagem.equals("ligador")){
-			new PrintStream(cliente.getSaida()).println("Vou tentar ligar o LABTI08");
-			try {
-				Ligador.ligador();
-				new PrintStream(cliente.getSaida()).println("Eu vou ligar o LABTI08");
-				cliente.getConexao().close();
-			} catch (IOException e) {
-				new PrintStream(cliente.getSaida()).println(e.toString());
-				System.out.println("Erro de IOException");
-				try {
-					cliente.getConexao().close();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				e.printStackTrace();
-			}
-			return;
-			
-		}
+		
 		
 		//Vamos ver se veio um select. 
 		if(mensagem.toLowerCase().indexOf("select") >= 0 || mensagem.toLowerCase().indexOf("insert") >= 0 || mensagem.toLowerCase().indexOf("update") >= 0){
@@ -449,23 +430,28 @@ public class Servidor {
 			return;
 			
 		}else if(comando.equals("ligador")){
-			new PrintStream(cliente.getSaida()).println("Vou tentar ligar o LABTI08");
-			try {
-				Ligador.ligador();
-				new PrintStream(cliente.getSaida()).println("Eu vou ligar o LABTI08");
-				cliente.getConexao().close();
-			} catch (IOException e) {
+			boolean achei = false;
+			for(Cliente daVez : listaDeClientes){
 				
-				System.out.println("Erro de IOException");
-				e.printStackTrace();
-				try {
-					cliente.getConexao().close();
-				} catch (IOException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
+				if(parametros.toLowerCase().equals(daVez.getMaquina().getEnderecoMac().toLowerCase())){
+					achei = true;
+					Ligador.ligador(parametros);
+					new PrintStream(cliente.getSaida()).println("Ligando máquina: "+daVez.getMaquina().getNome());
+					break;
 				}
 			}
+			if(!achei)
+				new PrintStream(cliente.getSaida()).println("Não encontrei "+parametros);
+			
+			try {
+				cliente.getConexao().close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return;
+			
+			
 			
 		}
 		else if(comando.equals("alocarMaquina")){

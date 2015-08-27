@@ -24,7 +24,7 @@ public class Ligador
         super();
     }
 
-    public void wol(String MAC) throws IOException, IllegalArgumentException
+    public void wol(String MAC, String brodcast) throws IOException, IllegalArgumentException
     {
         final String HEX = "0123456789ABCDEF";
         byte bMAC[] = new byte[6];
@@ -55,10 +55,10 @@ public class Ligador
                     "MAC Address must be 12 Hex digits exactly");
         }
 
-        wol(bMAC);
+        wol(bMAC, brodcast);
     }
 
-    public void wol(byte[] MAC) throws IOException
+    public void wol(byte[] MAC, String brodcast) throws IOException
     {
         if (MAC == null || MAC.length != 6)
         {
@@ -90,7 +90,7 @@ public class Ligador
         try
         {
             InetSocketAddress address = new InetSocketAddress(
-                    "10.11.0.255", 2304);
+                    brodcast, 2304);
             DatagramPacket datagram = new DatagramPacket(packetData,
                     packetLength, address);
             socket.setBroadcast(true);
@@ -114,10 +114,32 @@ public class Ligador
      *            Must end with Hex character. Example:
      *            &quot;00-50-12-34-56-78&quot;
      */
-    public static void ligador() throws IOException
+    public static void ligador(String mac, String brodcast)
     {
         Ligador wol = new Ligador();
         //e5:df
-        wol.wol("74:86:7A:FC:B6:53");
+        try {
+			wol.wol(mac, brodcast);
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+    public static void ligador(String mac)
+    {
+        Ligador wol = new Ligador();
+        //e5:df
+        try {
+			wol.wol("74:86:7A:FC:B6:53", "10.11.0.255");
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
     }
 }

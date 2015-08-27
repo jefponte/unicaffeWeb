@@ -41,31 +41,31 @@ error_reporting(E_ALL);
         <link rel="stylesheet" href="css/new_maquina.css" />
         <link rel="stylesheet" type="text/css" href="css/context.standalone.css"/>
         <script type="text/javascript">
-        var subMenu =  [
+//         var subMenu =  [
     	      			<?php 
     	      			
-    	     	 			foreach ($listaDeLaboratorios as $lab){
-    	     	 				echo '{text: \''.$lab->getNome().'\', action: function(e){
-    	     						outroSeleciona(5,that.id,"'.$lab->getNome().'");
-    	     					}},';
+//     	     	 			foreach ($listaDeLaboratorios as $lab){
+//     	     	 				echo '{text: \''.$lab->getNome().'\', action: function(e){
+//     	     						outroSeleciona(5,that.id,"'.$lab->getNome().'");
+//     	     					}},';
     	     	 				
-    	     	 			}	
+//     	     	 			}	
     	      			
     	      			
-    	      			?>
+//     	      			?>
     	     			
     	     			
-    	     		];
-        function enviaComando(comando, valor){
+//     	     		];
+//         function enviaComando(comando, valor){
 
         	
         	<?php 
-        	if(isset($_GET['laboratorio']))
-        		echo 'location.href=\'?pagina=maquinas&comando=\'+comando+\'&maquina=\'+valor+\'&laboratorio=\'+\''.$_GET['laboratorio'].'\';';
-        	else
-        		echo 'location.href=\'?pagina=maquinas&comando=\'+comando+\'&maquina=\'+valor;';
+//         	if(isset($_GET['laboratorio']))
+//         		echo 'location.href=\'?pagina=maquinas&comando=\'+comando+\'&maquina=\'+valor+\'&laboratorio=\'+\''.$_GET['laboratorio'].'\';';
+//         	else
+//         		echo 'location.href=\'?pagina=maquinas&comando=\'+comando+\'&maquina=\'+valor;';
         	?>
-        }
+//         }
         
        
 

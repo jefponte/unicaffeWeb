@@ -31,10 +31,10 @@ class MaquinaController {
 		}
 	}
 	/**
-	 * Faremos da mesma forma que a tela de listagem, sendo que apenas mostraremos a máquina selecionada.
+	 * Faremos da mesma forma que a tela de listagem, sendo que apenas mostraremos a mï¿½quina selecionada.
 	 *
 	 * Logo, precisamos que um nome de maquina seja enviado via GET.
-	 * Caso contrario não mostraremos nenhuma.
+	 * Caso contrario nï¿½o mostraremos nenhuma.
 	 */
 	public function telaDetalhe() {
 
@@ -49,6 +49,7 @@ class MaquinaController {
 					break;
 				}
 		}
+		
 		$maquinaView->mostraMaquinaDetalhe($maquina);
 		
 
@@ -72,23 +73,23 @@ class MaquinaController {
 		$maquinaController = new MaquinaController ();
 		
 		/*
-		 * Em todos os casos o usuário verá todas as máquinas, o status de cada uma e
-		 * também saberá se está ou não cadastrada.
-		 * Verá dados de acesso e formulário para pesquisar por nome de máquina.
+		 * Em todos os casos o usuï¿½rio verï¿½ todas as mï¿½quinas, o status de cada uma e
+		 * tambï¿½m saberï¿½ se estï¿½ ou nï¿½o cadastrada.
+		 * Verï¿½ dados de acesso e formulï¿½rio para pesquisar por nome de mï¿½quina.
 		 */
 		
 		/*
-		 * Se o usuário for administrador.
-		 * terá dados de usuário que está logado.
-		 * Poderá passar comandos para máquina de seu laboratório.
+		 * Se o usuï¿½rio for administrador.
+		 * terï¿½ dados de usuï¿½rio que estï¿½ logado.
+		 * Poderï¿½ passar comandos para mï¿½quina de seu laboratï¿½rio.
 		 *
-		 * Obs: o comando desativar não estará disponível para usuário administrador.
+		 * Obs: o comando desativar nï¿½o estarï¿½ disponï¿½vel para usuï¿½rio administrador.
 		 */
 		
 		/*
-		 * Se for usuário super
-		 * Além de poder ver dados de usuário poderá enviar comando de cadastro
-		 * Poderá também enviar comandos quaisquer para qualquer máquina.
+		 * Se for usuï¿½rio super
+		 * Alï¿½m de poder ver dados de usuï¿½rio poderï¿½ enviar comando de cadastro
+		 * Poderï¿½ tambï¿½m enviar comandos quaisquer para qualquer mï¿½quina.
 		 */
 		
 		switch ($tipoDeTela) {
@@ -106,7 +107,7 @@ class MaquinaController {
 		}
 	}
 	/**
-	 * Essa tela é visível por qualquer tipo de usuário.
+	 * Essa tela ï¿½ visï¿½vel por qualquer tipo de usuï¿½rio.
 	 */
 	public function telaMaquinas() {
 		$maquinaView = new MaquinaView ();
@@ -123,7 +124,7 @@ class MaquinaController {
 	}
 	
 	/**
-	 * Nessa é possível cadastrar a máquina ou atualizar.
+	 * Nessa ï¿½ possï¿½vel cadastrar a mï¿½quina ou atualizar.
 	 */
 	public function telaMaquinasSuper() {
 		$maquinaView = new MaquinaView ();
@@ -140,9 +141,9 @@ class MaquinaController {
 		}
 	}
 	/**
-	 * Em todos os casos o usuário verá todas as máquinas, o status de cada uma e
-	 * também saberá se está ou não cadastrada.
-	 * Verá dados de acesso e formulário para pesquisar por nome de máquina.
+	 * Em todos os casos o usuï¿½rio verï¿½ todas as mï¿½quinas, o status de cada uma e
+	 * tambï¿½m saberï¿½ se estï¿½ ou nï¿½o cadastrada.
+	 * Verï¿½ dados de acesso e formulï¿½rio para pesquisar por nome de mï¿½quina.
 	 */
 	public function telaMaquinasAdmin() {
 	}

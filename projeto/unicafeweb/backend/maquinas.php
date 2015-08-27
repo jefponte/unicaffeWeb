@@ -17,7 +17,4 @@ include_once 'classes/util/Sessao.php';
 $sessao = new Sessao ();
 MaquinaController::main($sessao->getNivelAcesso());
 
-
-
 ?>
-

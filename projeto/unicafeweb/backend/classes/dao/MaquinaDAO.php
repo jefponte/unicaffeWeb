@@ -42,6 +42,7 @@ class MaquinaDAO extends DAO {
 				$maquina->getAcesso ()->setIp ( $linha ['ip'] );
 				$maquina->getAcesso ()->getUsuario ()->setNome ( $linha ['nome'] );
 				$maquina->getAcesso ()->getUsuario ()->setLogin ( $linha ['login'] );
+				$maquina->getAcesso ()->getUsuario ()->setEmail($linha ['email'] );
 				$maquina->getAcesso ()->getUsuario ()->setNivelAcesso ( $linha ['nivel_acesso'] );
 			}
 			$lista [] = $maquina;
@@ -80,13 +81,13 @@ class MaquinaDAO extends DAO {
 		 *
 		 * Primeiro vou percorrer a lista do UniCaffe, verifico se existe na outra
 		 * Caso exista,
-		 * Significa que ela é cadastrada. Setamos o atributo cadastrada para true
+		 * Significa que ela ï¿½ cadastrada. Setamos o atributo cadastrada para true
 		 * e eliminamos da lista de maquinas do banco.
 		 *
-		 * Caso não exista,
-		 * Significa que não é cadastrada, então nós colocamos cadastrada para false.
+		 * Caso nï¿½o exista,
+		 * Significa que nï¿½o ï¿½ cadastrada, entï¿½o nï¿½s colocamos cadastrada para false.
 		 *
-		 * No final podemos ter alguns elementos na lista de máquinas do banco.
+		 * No final podemos ter alguns elementos na lista de mï¿½quinas do banco.
 		 * Pegamos esses e adicionamos na lista completa. E setamos o atributo status para desconectada.
 		 *
 		 */
@@ -131,6 +132,19 @@ class MaquinaDAO extends DAO {
 			}
 		} while ( $houveTroca );
 		return $listaCompleta;
+	}
+	public static function retornaUltimoIP(Maquina $maquina){
+		$idMaquina = $maquina->getId();
+		$nomeMaquina = $maquina->getNome();
+		$ip = "..";
+		$sql = "SELECT * FROM acesso INNER JOIN maquina ON maquina.id_maquina = acesso.id_maquina WHERE nome_pc = '$nomeMaquina' ORDER BY id_acesso DESC LIMIT 1";
+		$dao = new DAO();
+		$result = $dao->getConexao()->query($sql);
+		foreach ($result as $elemento){
+			$ip = $elemento['ip'];
+			break;
+		}
+		return $ip;
 	}
 	/**
 	 * Retorna 100 ultimas maquinas acessadas por um usuario. 
