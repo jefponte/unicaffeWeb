@@ -169,7 +169,8 @@ class MaquinaView {
 		if($maquina->getStatus() == Maquina::STATUS_OCUPADA)
 			echo '
 					<span class="maquina-tempo maquina-tempo-total">Hora de Entrada</span> <span
-						class="maquina-tempo maquina-tempo-restante">'.date("h:i:s",time() - $maquina->getAcesso()->getTempoUsado()).'</span> <span
+						class="maquina-tempo maquina-tempo-restante">'.date("H:i:s",intval(($maquina->getAcesso()->getHoraInicial()/1000))).'</span> 
+						<span
 						class="maquina-tempo maquina-tempo-total">Tempo Usado</span>
 					<span class="maquina-tempo maquina-tempo-restante">'.self::segundosParaHora($maquina->getAcesso()->getTempoUsado()).'</span>
 					<span class="maquina-tempo maquina-tempo-total">Tempo Restante</span>
