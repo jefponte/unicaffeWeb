@@ -66,6 +66,14 @@ class ComandoController {
 				$unicafe = new UniCafe ();
 				echo '<p>' . $unicafe->dialoga ( 'ligador('.$nomeMaquina.')' ) . '</p>';
 				break;
+			case 26:
+				$unicafe = new UniCafe ();
+				echo '<p>' . $unicafe->dialoga ( 'atualiza('.$nomeMaquina.')' ) . '</p>';
+				break;
+			case 25:
+				$unicafe = new UniCafe ();
+				echo '<p>' . $unicafe->dialoga ( 'atualizaMac('.$nomeMaquina.')' ) . '</p>';
+				break;
 			default :
 				echo '<p>Comando desconhecido</p>';
 				break;

@@ -431,11 +431,6 @@ public class PerfilBloqueio {
 				"7264"));
 		this.listaDeProcessosAceitos
 				.add(new Processo(
-						"plugin-container.exe",
-						"C:\\Program Files (x86)\\Mozilla Firefox\\plugin-container.exe",
-						"7236"));
-		this.listaDeProcessosAceitos
-				.add(new Processo(
 						"FlashPlayerPlugin_16_0_0_305.exe",
 						"C:\\Windows\\SysWOW64\\Macromed\\Flash\\FlashPlayerPlugin_16_0_0_305.exe",
 						"7288"));

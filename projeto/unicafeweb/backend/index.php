@@ -190,6 +190,7 @@ error_reporting(E_ALL);
            			echo ' </div>';
            			break;
            		case 'laboratorios_cadastro':
+           			echo '<br>';
            			echo '<div class="doze colunas fundo-branco">';
            			LaboratorioController::mainCadastro($sessao->getNivelAcesso());
            			echo ' </div>';
@@ -198,16 +199,19 @@ error_reporting(E_ALL);
 					UsuarioController::main($sessao->getNivelAcesso());
 					break;
 				case 'gerenciamento_relatorios':
+					echo '<br>';
 					echo '<div class="doze colunas fundo-branco">';
 					MaquinaController::mainHistorico($sessao->getNivelAcesso());
 					echo ' </div>';
 					break;
 				case 'gerenciamento_administrador':
+					echo '<br>';
 					echo '<div class="doze colunas fundo-branco">';
 					UsuarioController::gerenciaAdmin($sessao->getNivelAcesso());
 					echo ' </div>';
 					break;
 				default:
+					echo '<br>';
 					echo '<div id="olinda" class="doze colunas fundo-branco">';
 					echo '<h1>404 Not Found</h1>';
 					echo ' </div>';

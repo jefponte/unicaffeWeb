@@ -533,7 +533,7 @@ public class ClienteControl {
 			
 			bloqueia();
 			try {
-				Runtime.getRuntime().exec(" shutdown /s");
+				Runtime.getRuntime().exec(" shutdown /s -t 00");
 				getFrameTelaBloqueio().setVisible(true);
 				System.exit(0);
 				return;

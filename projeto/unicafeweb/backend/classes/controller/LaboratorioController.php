@@ -62,12 +62,26 @@ class LaboratorioController{
 	public function telaVisualizacao()
 	{
 		
-		
+		$maquinaDao = new MaquinaDAO();
+		$listaCompleta = $maquinaDao->listaCompleta();
 		$dao = new LaboratorioDAO();
 		$lista = $dao->retornaLaboratorios();
 		$laboratorioView = new LaboratorioView();
 		foreach($lista as $elemento){
-			$laboratorioView->mostraLaboratorio($elemento, false, 10, 20, 30, 50);
+			$livre = 0;
+			$ocupada = 0;
+			$desconectada = 0;
+			foreach ($listaCompleta as $maquina){
+				if(strtolower($maquina->getLaboratorio()->getNome()) != strtolower($elemento->getNome()))
+					continue;
+				if($maquina->getStatus() == Maquina::STATUS_DISPONIVEL)
+					$livre++;
+				if($maquina->getStatus() == Maquina::STATUS_OCUPADA)
+					$ocupada++;
+				if($maquina->getStatus() == Maquina::STATUS_DESCONECTADA)
+					$desconectada++;
+			}
+			$laboratorioView->mostraLaboratorio($elemento, false,$livre, $ocupada, $desconectada, ($livre+$ocupada+$desconectada));
 		}
 		
 		

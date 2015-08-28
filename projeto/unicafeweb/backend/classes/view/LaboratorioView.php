@@ -5,14 +5,24 @@ class LaboratorioView{
 	
 	
 	public function mostraLaboratorio(Laboratorio $laboratorio, $admin = false, $livres, $ocupadas, $desconectadas, $total) {
+		$estado = 'Fechado';
 		$cor = 'cinza';
-		if($livres > 2)
+		if($livres >= 1){
 			$cor = 'verde';
-		else
-			if($desconectadas == $total)
+			$estado = 'Aberto';
+		}else{
+			if($desconectadas == $total){
 				$cor = 'cinza';
-			else if($ocupadas == $total)
+				$estado = 'Desconectado';
+			}else if($ocupadas == $total){
+				$estado = 'Lotado';
 				$cor = 'laranja';
+			}else if($ocupadas >= 1)
+			{
+				$estado = 'Lotado';
+				$cor = 'laranja';
+			}
+		}
 		
 		
 		echo '<a href="?pagina=maquinas&laboratorio='.$laboratorio->getNome().'">
@@ -40,7 +50,7 @@ class LaboratorioView{
 				</svg>
 					</div>
 					<div class="maquina-info">
-						<span class="maquina-usuario">Aberto</span>
+						<span class="maquina-usuario">'.$estado.'</span>
 						<span class="maquina-usuario pequeno">'.$livres.' máquinas livres</span>
 						<span class="maquina-usuario pequeno">'.$ocupadas.' máquinas ocupadas</span>
 						<span class="maquina-usuario pequeno">'.$desconectadas.' máquinas desligadas</span>

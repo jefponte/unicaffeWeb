@@ -93,7 +93,7 @@
 			<div class="conteudo">
 				<div class="seis a-esquerda">
 					<p class="conteudo centralizado">
-						<img alt="logotipo Unicaffé" src="img/unicaffe_logo.png" class="imagem-responsiva" />	
+						<img alt="logotipo Unicaffé" src="img/logo1_unicaffe.png" class="imagem-responsiva" />	
 					</p>
 				</div>	
 				<div class="seis a-direita">
@@ -109,7 +109,7 @@
 				</div>	
 				<div class="seis a-direita">
 					<p class="conteudo centralizado">
-						<img alt="logotipo Unicaffé" src="img/unicaffe_logo.png" class="imagem-responsiva" />	
+						<img alt="logotipo Unicaffé" src="img/logo2_unicaffe.png" class="imagem-responsiva" />	
 					</p>
 				</div>
 			</div>
