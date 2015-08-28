@@ -4,9 +4,16 @@
 class LaboratorioView{
 	
 	
-	public function mostraLaboratorio(Laboratorio $laboratorio) {
-	
+	public function mostraLaboratorio(Laboratorio $laboratorio, $admin = false, $livres, $ocupadas, $desconectadas, $total) {
 		$cor = 'cinza';
+		if($livres > 2)
+			$cor = 'verde';
+		else
+			if($desconectadas == $total)
+				$cor = 'cinza';
+			else if($ocupadas == $total)
+				$cor = 'laranja';
+		
 		
 		echo '<a href="?pagina=maquinas&laboratorio='.$laboratorio->getNome().'">
 				<div class="maquina maquina-verde">
@@ -17,7 +24,7 @@ class LaboratorioView{
 							viewBox="0 0 464.309 464.309"
 							style="enable-background: new 0 0 464.309 464.309;"
 							xml:space="preserve">
-					<path class="fill-verde2"
+					<path class="fill-'.$cor.'2"
 								d="M453.955,71.625H268.662c-5.709,0-10.354,4.644-10.354,10.352v46.872H206V81.976c0-5.708-4.645-10.352-10.354-10.352H10.354
 						C4.644,71.625,0,76.268,0,81.976v114.961c0,5.709,4.644,10.353,10.354,10.353h63.662v5.768h-8.428
 						c-5.708,0-10.352,4.645-10.352,10.354c0,5.708,4.644,10.352,10.352,10.352h35.473v54.758c0,6.846,5.572,12.415,12.421,12.415h82.392
@@ -34,22 +41,28 @@ class LaboratorioView{
 					</div>
 					<div class="maquina-info">
 						<span class="maquina-usuario">Aberto</span>
-						<span class="maquina-usuario pequeno">05 máquinas livres</span>
-						<span class="maquina-usuario pequeno">05 máquinas ocupadas</span>
-						<span class="maquina-usuario pequeno">05 máquinas desligadas</span>
-					</div>
-					<div class="linha">
+						<span class="maquina-usuario pequeno">'.$livres.' máquinas livres</span>
+						<span class="maquina-usuario pequeno">'.$ocupadas.' máquinas ocupadas</span>
+						<span class="maquina-usuario pequeno">'.$desconectadas.' máquinas desligadas</span>
+						<span class="maquina-usuario pequeno">'.$total.' máquinas </span>
+					</div>';
+		
+		if($admin)
+			echo '
+			<div class="linha">
 						<hr />
 					</div>
+		
 
 					<div class="comando doze centralizado minimo">
-						<a href="#link" class="botao b-aviso"><span class="icone-lock"> </span>Bloquear</a>
-						<a href="#link" class="botao b-sucesso"><span class="icone-books">
-						</span>Aula</a> <a href="#link" class="botao b-erro"><span
-							class="icone-switch"> </span>Desligar</a> <a href="#link"
+						<a href="?pagina=maquinas&laboratorio='.$laboratorio->getNome().'&comando_laboratorio='.$laboratorio->getNome().'&comando='.ComandoController::COMANDO_BLOQUEIA.'" class="botao b-aviso"><span class="icone-lock"> </span>Bloquear</a>
+						<a href="?pagina=maquinas&laboratorio='.$laboratorio->getNome().'&comando_laboratorio='.$laboratorio->getNome().'&comando='.ComandoController::COMANDO_AULA.'" class="botao b-sucesso"><span class="icone-books">
+						</span>Aula</a> <a href="?pagina=maquinas&laboratorio='.$laboratorio->getNome().'&comando_laboratorio='.$laboratorio->getNome().'&comando='.ComandoController::COMANDO_DESLIGAR.'" class="botao b-erro"><span
+							class="icone-switch"> </span>Desligar</a> <a href="?pagina=maquinas&laboratorio='.$laboratorio->getNome().'&comando_laboratorio='.$laboratorio->getNome().'&comando='.ComandoController::COMANDO_LIGAR.'"
 							class="botao"><span class="icone-switch"> </span>Ligar</a>
 					</div>
-					<div class="linha"></div>
+					<div class="linha"></div>';
+		echo '
 				</div>
 			</a>';
 	}

@@ -32,7 +32,7 @@ class MaquinaDAO extends DAO {
 			
 			$maquina->getLaboratorio ()->setId ( $linha ['id_laboratorio'] );
 			$maquina->getLaboratorio ()->setNome ( $linha ['nome_laboratorio'] );
-			
+			$maquina->setEnderecoMac($linha['mac']);
 			if ($this->getTipoDeConexao () == self::TIPO_UNICAFE) {
 				$maquina->setEnderecoMac ( $linha ['mac'] );
 				$maquina->setStatus ( $linha ['status_maquina'] );

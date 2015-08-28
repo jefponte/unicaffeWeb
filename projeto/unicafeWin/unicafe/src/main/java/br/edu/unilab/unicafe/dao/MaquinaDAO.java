@@ -26,14 +26,14 @@ public class MaquinaDAO extends DAO{
 		ArrayList<Maquina>lista = new ArrayList<Maquina>();
 		PreparedStatement ps;
 		try {
-			ps = this.getConexao().prepareStatement("SELECT * FROM maquina LEFT join laboratorio ON maquina.id_laboratorio = laboratorio.id_maquina");
+			ps = this.getConexao().prepareStatement("SELECT maquina.id_maquina, maquina.nome_pc, laboratorio_maquina.id_maquina, laboratorio_maquina.id_laboratorio, laboratorio.id_laboratorio, laboratorio.nome_laboratorio FROM maquina LEFT join laboratorio_maquina ON maquina.id_maquina = laboratorio_maquina.id_maquina LEFT JOIN laboratorio ON laboratorio.id_laboratorio = laboratorio_maquina.id_laboratorio;");
 			ResultSet resultSet = ps.executeQuery();
 			while(resultSet.next()){
 				Maquina maquina = new Maquina();
 				maquina.getLaboratorio().setId(resultSet.getInt("id_laboratorio"));
 				maquina.getLaboratorio().setNome(resultSet.getString("nome_laboratorio"));
 				maquina.setNome(resultSet.getString("nome_pc"));
-				
+				maquina.setEnderecoMac(resultSet.getString("mac"));
 				maquina.setId(resultSet.getInt("id_maquina"));
 				lista.add(maquina);
 			}
@@ -113,7 +113,7 @@ public class MaquinaDAO extends DAO{
 	 * @param maquina
 	 * @return
 	 */
-	public boolean existe(Maquina maquina){
+	public boolean existe(Maquina maquina, boolean alterarMac){
 		try {
 			PreparedStatement ps = this.getConexao().prepareStatement("SELECT * FROM maquina LEFT JOIN laboratorio_maquina ON maquina.id_maquina = laboratorio_maquina.id_maquina LEFT JOIN laboratorio ON laboratorio.id_laboratorio = laboratorio_maquina.id_laboratorio WHERE nome_pc = ? ");
 			ps.setString(1, maquina.getNome());
@@ -122,6 +122,8 @@ public class MaquinaDAO extends DAO{
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
 				maquina.setId(rs.getInt("id_maquina"));
+				if(alterarMac)
+					maquina.setEnderecoMac(rs.getString("mac"));
 				
 				maquina.getLaboratorio().setId(rs.getInt("id_laboratorio"));
 				maquina.getLaboratorio().setNome(rs.getString("nome_laboratorio"));
@@ -187,6 +189,25 @@ public class MaquinaDAO extends DAO{
 			e.printStackTrace();
 			return false;
 		}		
+	}
+	/**
+	 * Vai atualizar no banco o seu MAC. Vai pesquisar pelo ID. 
+	 * @param maquina
+	 * @return
+	 */
+	public boolean atualizaMac(Maquina maquina){
+		PreparedStatement ps3;
+		try {
+			ps3 = this.getConexao().prepareStatement("UPDATE maquina set mac = ? WHERE id_maquina = ?");
+			ps3.setString(1, maquina.getEnderecoMac());
+			ps3.setInt(2, maquina.getId());
+			ps3.executeUpdate();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}			
+		
+		return true;
 	}
 
 }

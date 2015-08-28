@@ -431,18 +431,22 @@ public class Servidor {
 			
 		}else if(comando.equals("ligador")){
 			boolean achei = false;
-			for(Cliente daVez : listaDeClientes){
-				
-				if(parametros.toLowerCase().equals(daVez.getMaquina().getEnderecoMac().toLowerCase())){
-					achei = true;
-					Ligador.ligador(parametros);
-					new PrintStream(cliente.getSaida()).println("Ligando máquina: "+daVez.getMaquina().getNome());
-					break;
-				}
-			}
-			if(!achei)
-				new PrintStream(cliente.getSaida()).println("Não encontrei "+parametros);
+			MaquinaDAO maquinaDAO = new MaquinaDAO();
+			Maquina maquinaALigar = new Maquina();
+			maquinaALigar.setNome(parametros.trim());
 			
+			if(!maquinaDAO.existe(maquinaALigar, true)){
+				new PrintStream(cliente.getSaida()).println("Não encontrei no banco "+parametros);
+				try {
+					cliente.getConexao().close();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				return;
+			} 
+			Ligador.ligador(maquinaALigar.getEnderecoMac());
+			new PrintStream(cliente.getSaida()).println("Ligando máquina: "+maquinaALigar.getNome());
 			try {
 				cliente.getConexao().close();
 			} catch (IOException e) {
@@ -450,6 +454,27 @@ public class Servidor {
 				e.printStackTrace();
 			}
 			return;
+			
+			
+			
+			
+		}else if(comando.equals("atualizaMac")){
+			for(Cliente daVez : listaDeClientes){
+				if(parametros.trim().toLowerCase().equals(daVez.getMaquina().getNome().trim().toLowerCase())){
+					MaquinaDAO maquinaDAO = new MaquinaDAO();
+					Maquina maquina = new Maquina();
+					maquina.setNome(daVez.getMaquina().getNome());
+					
+					if(!maquinaDAO.existe(maquina, false)){
+						new PrintStream(cliente.getSaida()).println("Deve cadastrar antes a: "+maquina.getNome());
+						return;
+					}
+					
+					maquinaDAO.atualizaMac(daVez.getMaquina());
+					new PrintStream(cliente.getSaida()).println("Atualizei o mac de: "+maquina.getNome());
+					return;
+				}
+			}
 			
 			
 			
@@ -830,7 +855,7 @@ public class Servidor {
 			cliente.getMaquina().setNome(nome);
 			
 			MaquinaDAO maquinaDao = new MaquinaDAO();
-			if (maquinaDao.existe(cliente.getMaquina())) 
+			if (maquinaDao.existe(cliente.getMaquina(), false)) 
 				cliente.getMaquina().setCadastrada(true);
 			else
 				cliente.getMaquina().setCadastrada(false);

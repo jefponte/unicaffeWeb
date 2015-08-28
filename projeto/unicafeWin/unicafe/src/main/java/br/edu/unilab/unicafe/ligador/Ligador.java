@@ -133,7 +133,7 @@ public class Ligador
         Ligador wol = new Ligador();
         //e5:df
         try {
-			wol.wol("74:86:7A:FC:B6:53", "10.11.0.255");
+			wol.wol(mac, "10.11.0.255");
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

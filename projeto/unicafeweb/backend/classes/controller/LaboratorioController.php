@@ -6,8 +6,22 @@ class LaboratorioController{
 	
 	
 	public static function main($tipoDeTela) {
-		$laboratorioController = new LaboratorioController();
-		$laboratorioController->telaVisualizacao();
+		switch ($tipoDeTela) {
+			case Sessao::NIVEL_SUPER :
+				$laboratorioController = new LaboratorioController();
+				$laboratorioController->telaVisualizacaoAdm();
+				break;
+			case Sessao::NIVEL_ADMIN:
+				$laboratorioController = new LaboratorioController();
+				$laboratorioController->telaVisualizacaoAdm();
+				break;
+			default:
+				$laboratorioController = new LaboratorioController();
+				$laboratorioController->telaVisualizacao();
+				break;
+		}
+		
+		
 	}
 	
 	public static function mainCadastro($tipoDeTela){
@@ -47,14 +61,43 @@ class LaboratorioController{
 	}
 	public function telaVisualizacao()
 	{
+		
+		
 		$dao = new LaboratorioDAO();
 		$lista = $dao->retornaLaboratorios();
 		$laboratorioView = new LaboratorioView();
 		foreach($lista as $elemento){
-			$laboratorioView->mostraLaboratorio($elemento);
+			$laboratorioView->mostraLaboratorio($elemento, false, 10, 20, 30, 50);
 		}
 		
 		
+	}
+	public function telaVisualizacaoAdm()
+	{
+		$maquinaDao = new MaquinaDAO();
+		$listaCompleta = $maquinaDao->listaCompleta();
+		
+		$dao = new LaboratorioDAO();
+		$lista = $dao->retornaLaboratorios();
+		$laboratorioView = new LaboratorioView();
+		foreach($lista as $elemento){
+			$livre = 0;
+			$ocupada = 0;
+			$desconectada = 0;
+			foreach ($listaCompleta as $maquina){
+				if(strtolower($maquina->getLaboratorio()->getNome()) != strtolower($elemento->getNome()))
+					continue;
+				if($maquina->getStatus() == Maquina::STATUS_DISPONIVEL)
+					$livre++;
+				if($maquina->getStatus() == Maquina::STATUS_OCUPADA)
+					$ocupada++;
+				if($maquina->getStatus() == Maquina::STATUS_DESCONECTADA)
+					$desconectada++;
+			}
+			$laboratorioView->mostraLaboratorio($elemento, true, $livre, $ocupada, $desconectada, ($livre+$ocupada+$desconectada));
+		}
+	
+	
 	}
 	
 

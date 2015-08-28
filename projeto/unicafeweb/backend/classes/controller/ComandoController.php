@@ -5,6 +5,7 @@ class ComandoController {
 	const COMANDO_VISITANTE = 3;
 	const COMANDO_BLOQUEIA = 4;
 	const COMANDO_ALOCAR = 5;
+	const COMANDO_LIGAR  = 6;
 	public static function main($nivelDeAcesso) {
 		switch ($nivelDeAcesso) {
 			case Sessao::NIVEL_SUPER :
@@ -61,7 +62,7 @@ class ComandoController {
 					echo '<p>' . $unicafe->dialoga ( 'alocarMaquina(' .$nomeMaquina . ',' . $_GET ['laboratorio'] . ')' ) . '</p>';
 				}
 				break;
-			case 10 :
+			case self::COMANDO_LIGAR :
 				$unicafe = new UniCafe ();
 				echo '<p>' . $unicafe->dialoga ( 'ligador('.$nomeMaquina.')' ) . '</p>';
 				break;
@@ -124,7 +125,7 @@ class ComandoController {
 			$maquinaDao = new MaquinaDAO ();
 			$lista = $maquinaDao->listaCompleta();
 			foreach ($lista as $maquina){
-				if(!strtolower ($maquina->getLaboratorio()->getNome()) == strtolower ( $nomeLaboratorio))
+				if(!(strtolower ($maquina->getLaboratorio()->getNome()) == strtolower ( $nomeLaboratorio)))
 					continue;
 				$this->gerenciaComando($comando, $maquina->getNome());
 				
@@ -140,7 +141,7 @@ class ComandoController {
 		$maquinaDao = new MaquinaDAO ();
 		$lista = $maquinaDao->listaCompleta();
 		foreach ($lista as $maquina){
-			if(!strtolower ($maquina->getLaboratorio()->getNome()) == strtolower ( $nomeLaboratorio))
+			if(!(strtolower ($maquina->getLaboratorio()->getNome()) == strtolower ( $nomeLaboratorio)))
 				continue;
 			if (! $usuarioDao->ehAdministrador ( $usuario, $maquina->getLaboratorio () )) {
 				echo "Voce nao tem jurisdicao sobre este laboratorio";
