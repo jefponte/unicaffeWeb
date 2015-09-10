@@ -635,8 +635,7 @@ public class ClienteControl {
 				
 	}
 	public void desbloqueia(final int segundos, final String login) {
-		File diretorio = new File("C:\\arquivos"); 
-		diretorio.mkdirs();
+		
 		EventQueue.invokeLater(new Runnable() {
 			@Override
 			public void run() {
@@ -656,7 +655,7 @@ public class ClienteControl {
 			new PrintStream(getCliente().getSaida()).println("setStatus("+Maquina.STATUS_OCUPADA+")");
 		
 		
-		String caminho = "C:\\localunicafe";
+		String caminho = user+"\\localunicafe";
 		Desktop d = new Desktop(caminho, login);
 		d.alterarRegistro();
 		getCliente().getMaquina().getAcesso().getUsuario().setLogin(login);

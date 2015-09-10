@@ -157,7 +157,12 @@ public class Perfil {
 		//lista.add(new Registro("HKLM\\SOFTWARE\\Classes\\Wow6432Node\\CLSID\\{323CA680-C24D-4099-B94D-446DD2D7249E}", "ShellFolder", Registro.REG_DWORD, "a9400100", "a0900100","N�o ver Propriedades do Meu Computador"));
 		lista.add(new Registro("HKLM\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer", "StartMenuLogoff", Registro.REG_DWORD, "1", "0","Ativa proteção de tela"));
 
+		lista.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", "ConsentPromptBehaviorAdmin", Registro.REG_DWORD, "00", "00","Não perguntar se pode abrir coisas como admin"));
 
+	
+		
+		
+		
 		return lista;
 
 	}
