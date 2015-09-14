@@ -7,9 +7,9 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.channels.FileLock;
-
 import br.edu.unilab.unicafe.control.ClienteControl;
-import br.edu.unilab.unicafe.registro.model.Perfil;
+
+
 
 /**
  * 
@@ -20,10 +20,8 @@ import br.edu.unilab.unicafe.registro.model.Perfil;
 public class MainClient {
 
 	public static void main(String[] args) {
-//		
-//		
-		File f = new File(".lock");
 		
+		File f = new File(".lock");
 		FileLock lock = null;
 		try {
 			f.createNewFile();

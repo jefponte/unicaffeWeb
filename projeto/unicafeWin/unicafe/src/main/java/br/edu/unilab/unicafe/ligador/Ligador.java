@@ -134,6 +134,7 @@ public class Ligador
         //e5:df
         try {
 			wol.wol(mac, "10.11.0.255");
+			
 		} catch (IllegalArgumentException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -141,5 +142,6 @@ public class Ligador
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+        
     }
 }

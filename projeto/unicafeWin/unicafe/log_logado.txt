@@ -657,3 +657,11 @@ this.listaDeProcessosAceitos.add(new Processo("postgres.exe", "C:\Bitnami\WAPPST
 this.listaDeProcessosAceitos.add(new Processo("postgres.exe", "C:\Bitnami\WAPPST~1.39-\POSTGR~1\bin\postgres.exe", "944"));
 this.listaDeProcessosAceitos.add(new Processo("postgres.exe", "C:\Bitnami\WAPPST~1.39-\POSTGR~1\bin\postgres.exe", "944"));
 this.listaDeProcessosAceitos.add(new Processo("WinSCP.exe", "C:\Program Files (x86)\WinSCP\WinSCP.exe", "944"));
+this.listaDeProcessosAceitos.add(new Processo("HD-LogRotatorService.exe", "C:\Program Files (x86)\BlueStacks\HD-LogRotatorService.exe", "944"));
+this.listaDeProcessosAceitos.add(new Processo("HD-UpdaterService.exe", "C:\Program Files (x86)\BlueStacks\HD-UpdaterService.exe", "944"));
+this.listaDeProcessosAceitos.add(new Processo("GoogleCrashHandler.exe", "C:\Program Files (x86)\Google\Update\1.3.28.13\GoogleCrashHandler.exe", "944"));
+this.listaDeProcessosAceitos.add(new Processo("GoogleCrashHandler64.exe", "C:\Program Files (x86)\Google\Update\1.3.28.13\GoogleCrashHandler64.exe", "944"));
+this.listaDeProcessosAceitos.add(new Processo("FoxitReader.exe", "C:\PROGRAM FILES (X86)\FOXIT SOFTWARE\FOXIT READER\FOXITREADER.EXE", "944"));
+this.listaDeProcessosAceitos.add(new Processo("mscorsvw.exe", "C:\Windows\Microsoft.NET\Framework64\v4.0.30319\mscorsvw.exe", "944"));
+this.listaDeProcessosAceitos.add(new Processo("WinSCP.exe", "C:\Program Files (x86)\WinSCP\WinSCP.exe", "944"));
+this.listaDeProcessosAceitos.add(new Processo("TGitCache.exe", "C:\Program Files\TortoiseGit\bin\TGitCache.exe", "944"));
