@@ -157,10 +157,37 @@ class MaquinaDAO extends DAO {
 				LEFT JOIN laboratorio_maquina ON maquina.id_maquina = laboratorio_maquina.id_maquina 
 				LEFT JOIN laboratorio ON laboratorio_maquina.id_laboratorio = laboratorio.id_laboratorio WHERE usuario.nome like '%$login%' ORDER BY acesso.id_acesso DESC LIMIT 100;";
 		$result = $this->getConexao()->query($sql);
-		foreach($result as $elemento){
-			echo 'Hora: '.$elemento['hora_inicial'].' Nome: '.$elemento['nome'].' Tempo Usado :'.$elemento['tempo_usado'].'<br>';
-		}
 		
+		echo '<table class="tabela quadro doze">
+    <caption>Lista de acessos<br />Pesquisa de nome: '.$login.'</caption>';
+		echo '<thead>
+        <tr>
+            <th>Nome </th>
+            <th>E-mail</th>
+            <th>Máquina</th>
+			<th>Data</th>
+            <th>Hora Inicial</th>
+			<th>Hora Final</th>
+			<th>Tempo Usado</th>
+			<th>Endereço Mac</th>
+			<th>IP do acesso</th>
+					
+        </tr>
+    </thead><tbody>';
+		foreach($result as $elemento){
+			$time = strtotime($elemento['hora_inicial']);
+			$horaInicial = date("H:i:s", $time); 
+			
+			$horaFinal = date("H:i:s", $time+$elemento['tempo_usado']);
+			$data = date("d/m/Y", $time); 
+			$tempoUsado = MaquinaView::segundosParaHora($elemento['tempo_usado']);
+			
+			echo '<tr><td> '.$elemento['nome'].' </td><td> '.$elemento['email'].'</td>';
+			echo '<td> '.$elemento['nome_pc'].'</td><td>'.$data.'</td><td>'.$horaInicial.'</td><td>'.$horaFinal.'</td><td>'.$tempoUsado.'</td>';
+			echo '<td>'.$elemento['mac'].'</td><td>'.$elemento['ip'].'</td></tr>';
+			
+		}
+		echo '</tbody></table>';
 		
 	}
 }

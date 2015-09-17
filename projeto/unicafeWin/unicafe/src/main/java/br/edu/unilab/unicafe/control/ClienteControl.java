@@ -592,14 +592,28 @@ public class ClienteControl {
 				while (leitor.hasNext()) {
 					String linha = leitor.nextLine();
 				}
-				System.exit(0);
+				
 
 			} catch (IOException e) {
 
 				e.printStackTrace();
 
 			}
+			try {
+				process = Runtime
+						.getRuntime()
+						.exec(" java -jar \"C:\\Program Files\\UniCafe\\unicafe-update.jar\"");
+				leitor = new Scanner(process.getInputStream());
+				while (leitor.hasNext()) {
+					String linha = leitor.nextLine();
+				}
 
+			} catch (IOException e) {
+
+				e.printStackTrace();
+
+			}
+			System.exit(0);
 			return;
 		} else {
 			
