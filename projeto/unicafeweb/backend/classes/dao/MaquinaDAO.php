@@ -155,7 +155,7 @@ class MaquinaDAO extends DAO {
 				INNER JOIN maquina ON acesso.id_maquina = maquina.id_maquina
 				INNER JOIN usuario ON acesso.id_usuario = usuario.id_usuario
 				LEFT JOIN laboratorio_maquina ON maquina.id_maquina = laboratorio_maquina.id_maquina 
-				LEFT JOIN laboratorio ON laboratorio_maquina.id_laboratorio = laboratorio.id_laboratorio WHERE usuario.nome like '%$login%' ORDER BY acesso.id_acesso DESC LIMIT 100;";
+				LEFT JOIN laboratorio ON laboratorio_maquina.id_laboratorio = laboratorio.id_laboratorio WHERE usuario.nome like '%$login%' ORDER BY acesso.id_acesso DESC LIMIT 8000;";
 		$result = $this->getConexao()->query($sql);
 		
 		echo '<table class="tabela quadro doze">
@@ -174,6 +174,7 @@ class MaquinaDAO extends DAO {
 					
         </tr>
     </thead><tbody>';
+		$tempoTotal = 0;
 		foreach($result as $elemento){
 			$time = strtotime($elemento['hora_inicial']);
 			$horaInicial = date("H:i:s", $time); 
@@ -185,8 +186,11 @@ class MaquinaDAO extends DAO {
 			echo '<tr><td> '.$elemento['nome'].' </td><td> '.$elemento['email'].'</td>';
 			echo '<td> '.$elemento['nome_pc'].'</td><td>'.$data.'</td><td>'.$horaInicial.'</td><td>'.$horaFinal.'</td><td>'.$tempoUsado.'</td>';
 			echo '<td>'.$elemento['mac'].'</td><td>'.$elemento['ip'].'</td></tr>';
+			$tempoTotal += $elemento['tempo_usado'];
+			
 			
 		}
+		echo '<tr><td colspan="9">TOTAL: '.MaquinaView::segundosParaHora($tempoTotal).' </td></tr>';
 		echo '</tbody></table>';
 		
 	}

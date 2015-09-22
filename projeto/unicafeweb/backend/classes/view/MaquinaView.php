@@ -213,7 +213,7 @@ class MaquinaView {
 		}
 		else if ($maquina->getStatus () == Maquina::STATUS_DESCONECTADA){
 			$cor = 'cinza';
-			$maquina->getAcesso()->getUsuario()->setNome('Desligado');
+			$maquina->getAcesso()->getUsuario()->setNome('Indisponível');
 		}
 		else if ($maquina->getStatus () == Maquina::STATUS_OCUPADA){
 			$cor = 'laranja';

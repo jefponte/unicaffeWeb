@@ -23,6 +23,99 @@ class LaboratorioController{
 		
 		
 	}
+	public static function mainRelatorioGeral(){
+		$control = new LaboratorioController();
+		$control->geraRelatorioGeral();
+	}
+	public function geraRelatorioGeral(){
+		//Vamos fazer umas tabelas interessantes pra mostrar ao povo. 
+		$dao = new DAO();
+		//Vamos pegar a semana. 
+		
+		$i = 0;
+		echo '<table class="tabela quadro doze">
+    <caption>Tempo de Utilização Já Oferecido Desde O início</caption>
+    </thead><tbody>';
+		
+	
+		
+		$laboratorioDao = new LaboratorioDAO($dao->getConexao());
+		$laboratorios = $laboratorioDao->retornaLaboratorios();
+		foreach($laboratorios as $laboratorio){
+			$idDoLaboratorio = $laboratorio->getId();
+			$sql = "SELECT sum(tempo_usado) as tempo_total FROM acesso INNER JOIN maquina ON acesso.id_maquina = maquina.id_maquina INNER JOIN laboratorio_maquina ON laboratorio_maquina.id_maquina = maquina.id_maquina INNER JOIN laboratorio ON laboratorio_maquina.id_laboratorio = laboratorio.id_laboratorio WHERE laboratorio.id_laboratorio = '$idDoLaboratorio'";
+			
+			
+			foreach($dao->getConexao()->query($sql) as $linha){
+				
+				echo '<tr><th>'.$laboratorio->getNome().'</th><td>'.MaquinaView::segundosParaHora($linha['tempo_total']).'</td></tr>';
+			}
+		}
+		
+		$sql = "SELECT sum(tempo_usado) as tempo_total FROM acesso ";
+		foreach($dao->getConexao()->query($sql) as $linha){
+			echo '<tr><th>Total</th><td>'.MaquinaView::segundosParaHora($linha['tempo_total']).'</td></tr>';
+		}
+		
+		echo '</tbody></table>';
+		echo '<br><br>';
+		echo '<table class="tabela quadro doze">
+    <caption>Tempo de Utilização Este Mês</caption>
+    </thead><tbody>';
+		
+		//Pega uma variavel com o primeiro dia da semana.
+		$horaInicial = date("Y-m-01 00:00:00");
+		$horaAtual = date("Y-m-d H:i:s");
+		foreach($laboratorios as $laboratorio){
+			$idDoLaboratorio = $laboratorio->getId();
+			
+			$sql = "SELECT sum(tempo_usado) as tempo_total FROM acesso INNER JOIN maquina ON acesso.id_maquina = maquina.id_maquina INNER JOIN laboratorio_maquina ON laboratorio_maquina.id_maquina = maquina.id_maquina INNER JOIN laboratorio ON laboratorio_maquina.id_laboratorio = laboratorio.id_laboratorio WHERE laboratorio.id_laboratorio = '$idDoLaboratorio' AND (acesso.hora_inicial BETWEEN '$horaInicial' AND '$horaAtual')";
+			
+				
+			foreach($dao->getConexao()->query($sql) as $linha){
+				echo '<tr><th>'.$laboratorio->getNome().'</th><td>'.MaquinaView::segundosParaHora($linha['tempo_total']).'</td></tr>';
+			}
+		}
+		$sql = "SELECT sum(tempo_usado) as tempo_total FROM acesso INNER JOIN maquina ON acesso.id_maquina = maquina.id_maquina INNER JOIN laboratorio_maquina ON laboratorio_maquina.id_maquina = maquina.id_maquina INNER JOIN laboratorio ON laboratorio_maquina.id_laboratorio = laboratorio.id_laboratorio WHERE acesso.hora_inicial BETWEEN '$horaInicial' AND '$horaAtual'";
+			
+		
+		foreach($dao->getConexao()->query($sql) as $linha){
+			echo '<tr><th>Total</th><td>'.MaquinaView::segundosParaHora($linha['tempo_total']).'</td></tr>';
+		}
+		
+		echo '</tbody></table>';
+		echo '<br><br>';
+		echo '<table class="tabela quadro doze">
+    <caption>Tempo de Utilização Hoje</caption>
+    </thead><tbody>';
+		
+		//Pega uma variavel com o primeiro dia da semana.
+		$horaInicial = date("Y-m-d 00:00:00");
+		$horaAtual = date("Y-m-d H:i:s");
+		
+		foreach($laboratorios as $laboratorio){
+			$idDoLaboratorio = $laboratorio->getId();
+			$sql = "SELECT sum(tempo_usado) as tempo_total FROM acesso INNER JOIN maquina ON acesso.id_maquina = maquina.id_maquina INNER JOIN laboratorio_maquina ON laboratorio_maquina.id_maquina = maquina.id_maquina INNER JOIN laboratorio ON laboratorio_maquina.id_laboratorio = laboratorio.id_laboratorio WHERE laboratorio.id_laboratorio = '$idDoLaboratorio' AND (acesso.hora_inicial BETWEEN '$horaInicial' AND '$horaAtual')";
+				
+			foreach($dao->getConexao()->query($sql) as $linha){
+				echo '<tr><th>'.$laboratorio->getNome().'</th><td>'.MaquinaView::segundosParaHora($linha['tempo_total']).'</td></tr>';
+			}
+			
+		}
+		
+		$sql = "SELECT sum(tempo_usado) as tempo_total FROM acesso WHERE hora_inicial BETWEEN '$horaInicial' AND '$horaAtual'";
+		
+		foreach($dao->getConexao()->query($sql) as $linha){
+			echo '<tr><th>Total</th><td>'.MaquinaView::segundosParaHora($linha['tempo_total']).'</td></tr>';
+		}
+		
+		
+
+		echo '</tbody></table>';
+		
+		
+	}
+	
 	
 	public static function mainCadastro($tipoDeTela){
 		if($tipoDeTela != Sessao::NIVEL_SUPER)

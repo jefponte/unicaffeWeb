@@ -141,7 +141,7 @@ class ComandoController {
 			
 	}
 	public function gerenciaComandoLaboratorioAdmin($comando, $nomeLaboratorio) {
-		$usuarioDao = new UsuarioDAO ( $maquinaDao->getConexao () );
+		$usuarioDao = new UsuarioDAO ();
 		$usuario = new Usuario ();
 		$sessao = new Sessao ();
 		$usuario->setId ( $sessao->getIdUsuario () );

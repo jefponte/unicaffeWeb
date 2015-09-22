@@ -167,7 +167,9 @@ public class Perfil {
 		lista.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "DefaultPassword", Registro.REG_SZ, "unicafe@unilab", "unicafe@unilab","Senha padrão do usuario do UniCafe no SO"));
 		lista.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Winlogon", "AutoAdminLogon", Registro.REG_DWORD, "01", "01","Não perguntar se pode abrir coisas como admin"));
 
-	
+		lista.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\RunOnce", "unicafe", Registro.REG_SZ, "C:\\Program Files\\UniCafe\\UniCafeClient.exe", "C:\\Program Files\\UniCafe\\UniCafeClient.exe","inicia Unicaffe"));
+
+		
 		
 		
 		return lista;

@@ -58,7 +58,9 @@ Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"; Val
 Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"; ValueType: string; ValueName: "AutoAdminLogon"; ValueData: "1"; Flags: uninsdeletekey
 ;Inicia automaticamente
 Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "unicafe"; ValueData: "{app}\UniCafeClient.exe"; Flags: uninsdeletekey 
-;Não pergunte se pode me abrir. 
+;Não pergunte se pode me abrir.
+Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce"; ValueType: string; ValueName: "unicafe"; ValueData: "{app}\UniCafeClient.exe"; Flags: uninsdeletekey 
+;Não pergunte se pode me abrir.
 Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows\CurrentVersion\Policies\System"; ValueType: dword; ValueName: "ConsentPromptBehaviorAdmin"; ValueData: "00"; Flags: uninsdeletekey 
 ;Roda como administrador
 Root: HKLM; Subkey: "SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFlags\Layers"; ValueType: string; ValueName: "{app}\UniCafeClient.exe"; ValueData: "RUNASADMIN"; Flags: uninsdeletekey 

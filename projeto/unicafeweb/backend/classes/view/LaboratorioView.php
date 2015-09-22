@@ -13,7 +13,8 @@ class LaboratorioView{
 		}else{
 			if($desconectadas == $total){
 				$cor = 'cinza';
-				$estado = 'Desconectado';
+				$estado = 'Indisponível';
+				
 			}else if($ocupadas == $total){
 				$estado = 'Lotado';
 				$cor = 'laranja';
@@ -53,7 +54,7 @@ class LaboratorioView{
 						<span class="maquina-usuario">'.$estado.'</span>
 						<span class="maquina-usuario pequeno">'.$livres.' máquinas livres</span>
 						<span class="maquina-usuario pequeno">'.$ocupadas.' máquinas ocupadas</span>
-						<span class="maquina-usuario pequeno">'.$desconectadas.' máquinas desligadas</span>
+						<span class="maquina-usuario pequeno">'.$desconectadas.' máquinas indisponíveis</span>
 						<span class="maquina-usuario pequeno">'.$total.' máquinas </span>
 					</div>';
 		

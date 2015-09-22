@@ -66,11 +66,16 @@ error_reporting(E_ALL);
 				<li><a href="?pagina=laboratorios">Laboratório</a>
 					<ul class="seta-pra-cima">
 						<li><a href="?pagina=laboratorios" class="ativo">Visualização</a></li>
-						<li><a href="?pagina=laboratorios_cadastro">Cadastro</a></li>
+						<?php 
+						if($sessao->getNivelAcesso() == Sessao::NIVEL_SUPER)
+							echo '<li><a href="?pagina=laboratorios_cadastro">Cadastro</a></li>';
+						
+						?>
+						
 					</ul></li>
-				<li><a href="?pagina=maquinas">Máquinas</a>
+				<li><a href="?pagina=maquinas&laboratorio=LABTI01">Máquinas</a>
 					<ul class="seta-pra-cima">
-						<li><a href="?pagina=maquinas" class="ativo">Listagem</a>
+						<li><a href="?pagina=maquinas&laboratorio=LABTI01" class="ativo">Listagem</a>
 							<ul>
 								<li><a href="?pagina=maquinas&laboratorio=BIBLIBERDADE">BIBLIBERDADE</a></li>
 								<li><a href="?pagina=maquinas&laboratorio=BIBPALMARES">BIBPALMARES</a></li>
@@ -83,7 +88,16 @@ error_reporting(E_ALL);
 
 				<li><a href="?pagina=gerenciamento_relatorios">Gerenciamento</a>
 					<ul class="seta-pra-cima">
-						<li><a href="?pagina=gerenciamento_relatorios">Relatorios </a></li>
+						<li><a href="?pagina=relatorio_geral">Relatorios </a>
+						<ul>
+								<li><a href="?pagina=relatorio_geral">Geral</a></li>
+								<?php 
+									if($sessao->getNivelAcesso() == Sessao::NIVEL_ADMIN || $sessao->getNivelAcesso() == Sessao::NIVEL_SUPER)
+										echo '<li><a href="?pagina=gerenciamento_relatorios">Acessos por Usuário</a>';
+								?>
+								
+						</ul>
+						</li>
 						<li><a href="?pagina=gerenciamento_administrador">Administrador</a></li>
 
 					</ul></li>
@@ -208,6 +222,12 @@ error_reporting(E_ALL);
 					echo '<br>';
 					echo '<div class="doze colunas fundo-branco">';
 					UsuarioController::gerenciaAdmin($sessao->getNivelAcesso());
+					echo ' </div>';
+					break;
+				case 'relatorio_geral':
+					echo '<br>';
+					echo '<div class="doze colunas fundo-branco">';
+					LaboratorioController::mainRelatorioGeral();
 					echo ' </div>';
 					break;
 				default:
