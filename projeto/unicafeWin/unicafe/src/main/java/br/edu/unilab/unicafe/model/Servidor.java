@@ -810,7 +810,7 @@ public class Servidor {
 			} else {
 				try {
 					cliente.getSaida().flush();
-					new PrintStream(cliente.getSaida()).println("printc(Login e senha não conferem)");
+					new PrintStream(cliente.getSaida()).println("printc(Errou o login ou a senha)");
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
