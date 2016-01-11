@@ -1744,8 +1744,7 @@ public class PerfilBloqueio {
 						"IAStorDataMgrSvc.exe",
 						"C:\\Program Files\\Intel\\Intel(R) Rapid Storage Technology\\IAStorDataMgrSvc.exe",
 						"944"));
-		this.listaDeProcessosAceitos.add(new Processo("lms.exe",
-				"C:\\Program Files\\Intel\\AMT\\LMS.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("lms.exe", "C:\\Program Files\\Intel\\AMT\\LMS.exe", "944"));
 		this.listaDeProcessosAceitos
 				.add(new Processo(
 						"UNS.exe",
