@@ -230,6 +230,12 @@ error_reporting(E_ALL);
 					LaboratorioController::mainRelatorioGeral();
 					echo ' </div>';
 					break;
+				case 'relatorios':
+						echo '<br>';
+						echo '<div class="doze colunas fundo-branco">';
+						echo "Relatorios";
+						echo ' </div>';
+					break;
 				default:
 					echo '<br>';
 					echo '<div id="olinda" class="doze colunas fundo-branco">';
