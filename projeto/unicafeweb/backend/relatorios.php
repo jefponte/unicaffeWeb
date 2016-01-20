@@ -40,9 +40,7 @@ error_reporting(E_ALL);
 	href="http://spa.dsi.unilab.edu.br/spa/css/spa.css" />
 <link rel="stylesheet" href="css/style.css" />
 <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-		<style type="text/css">
-${demo.css}
-		</style>
+
 
 </head>
 <body>
@@ -99,7 +97,7 @@ $result = $dao->getConexao()->query("SELECT * FROM acesso
 		INNER JOIN maquina ON acesso.id_maquina = maquina.id_maquina
 		INNER JOIN laboratorio_maquina ON laboratorio_maquina.id_maquina = maquina.id_maquina
 		INNER JOIN laboratorio ON laboratorio_maquina.id_laboratorio = laboratorio.id_laboratorio
-		 WHERE (hora_inicial BETWEEN '2016-01-18 01:00:00' AND '2016-01-18 23:59:59')
+		 WHERE (hora_inicial BETWEEN '2015-10-01 01:00:00' AND '2015-12-31 23:59:59')
 		AND laboratorio.id_laboratorio = 1
 		;");
 $i = 0;
@@ -291,46 +289,7 @@ $(function () {
 		<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
 		
 		
-		<br />
-		<table class="tabela quadro doze">
-			<caption>
-				Exemplo do tipo quadro<br />Tabela Tiobe 2015.
-			</caption>
-			<thead>
-				<tr>
-					<th>#</th>
-					<th>Linguagem</th>
-					<th>Plataforma</th>
-					<th>Percentual</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>1</td>
-					<td>C</td>
-					<td>Desktop</td>
-					<td>16.703%</td>
-				</tr>
-				<tr>
-					<td>2</td>
-					<td>Java</td>
-					<td>Desktop/Web</td>
-					<td>15.528%</td>
-				</tr>
-				<tr>
-					<td>6</td>
-					<td>PHP</td>
-					<td>Web</td>
-					<td>3.784%</td>
-				</tr>
-				<tr>
-					<td>7</td>
-					<td>JavaScript</td>
-					<td>Web</td>
-					<td>3.274%</td>
-				</tr>
-			</tbody>
-		</table>
+		
 		
 		
 		

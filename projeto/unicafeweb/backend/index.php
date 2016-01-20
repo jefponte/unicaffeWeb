@@ -91,6 +91,7 @@ error_reporting(E_ALL);
 						<li><a href="?pagina=relatorio_geral">Relatorios </a>
 						<ul>
 								<li><a href="?pagina=relatorio_geral">Geral</a></li>
+<!-- 								<li><a href="?pagina=relatorios">Estatísticas</a></li> -->
 								<?php 
 									if($sessao->getNivelAcesso() == Sessao::NIVEL_ADMIN || $sessao->getNivelAcesso() == Sessao::NIVEL_SUPER)
 										echo '<li><a href="?pagina=gerenciamento_relatorios">Acessos por Usuário</a>';
@@ -98,7 +99,6 @@ error_reporting(E_ALL);
 								
 						</ul>
 						</li>
-						<li><a href="?pagina=gerenciamento_administrador">Administrador</a></li>
 
 					</ul></li>
 					<?php 
@@ -233,7 +233,7 @@ error_reporting(E_ALL);
 				case 'relatorios':
 						echo '<br>';
 						echo '<div class="doze colunas fundo-branco">';
-						echo "Relatorios";
+						RelatorioController::main();
 						echo ' </div>';
 					break;
 				default:
