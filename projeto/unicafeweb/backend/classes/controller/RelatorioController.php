@@ -38,64 +38,212 @@ class RelatorioController{
 
 		
 		
-		echo '<div class="doze colunas conteudo">';
-			echo '<div class="seis colunas">';
-				
-				echo '<div class="doze colunas conteudo">';
-					echo '<div class="seis colunas">';
-					echo 'Aqui';
-					echo '</div>';
-					echo '<div class="seis colunas">';
-					echo 'Aqui';
-					echo '</div>';
-				echo '</div>';
-				
-				
-			echo '</div>';
-			echo '<div class="seis colunas">';
-				
-				
-				echo '<div class="doze colunas conteudo">';
-				echo '<div class="seis colunas">';
-				echo 'Aqui';
-				echo '</div>';
-				echo '<div class="seis colunas">';
-				echo 'Aqui';
-				echo '</div>';
-				echo '</div>';
-					
+		
 			
-			echo '</div>';
+			
+			
+			
+
+			
 
 			
 			
 			
 			
-			
-		echo '</div>';
+	
 		
 		
-		echo '<hr>';
-		///
 		
 		
-		echo '<div class="doze colunas conteudo">
-				
-				';
 		
+		
+		echo '<div class="doze colunas conteudo">';
 		$this->histogramaTurno($data1, $data2);
-		echo '</div>';
 		
 		foreach ($listaDeLaboratorios as $laboratorio){
-			echo '<div class="doze colunas conteudo">';
 			
 			$this->histogramaTurno($data1, $data2, $laboratorio);
-			echo '</div>';
 		}
 		
 		
-		echo '';
 		
+		
+		
+		
+		
+		$matriz['utilizadores']['total'] = 0;
+		//Laboratórios de Liberdade
+		$matriz['utilizadores']['LABTI01'] = 0;
+		
+		$matriz['utilizadores']['LABTI02'] = 0;
+		$matriz['utilizadores']['LABTI03'] = 0;
+		$matriz['utilizadores']['LABTI04'] = 0;
+		
+		
+		
+		$resultado = $this->dao->getConexao()->query("SELECT id_usuario FROM acesso
+				
+				INNER JOIN maquina ON acesso.id_maquina = maquina.id_maquina
+				INNER JOIN laboratorio_maquina ON laboratorio_maquina.id_maquina = maquina.id_maquina
+				INNER JOIN laboratorio ON laboratorio_maquina.id_laboratorio = laboratorio.id_laboratorio
+				WHERE (hora_inicial BETWEEN '$data1' AND '$data2') AND laboratorio.id_laboratorio = 1
+				GROUP BY id_usuario
+				");
+		
+		foreach ($resultado as $linha){
+			$matriz['utilizadores']['LABTI01']++;
+		}
+		$resultado = $this->dao->getConexao()->query("SELECT id_usuario FROM acesso
+		
+				INNER JOIN maquina ON acesso.id_maquina = maquina.id_maquina
+				INNER JOIN laboratorio_maquina ON laboratorio_maquina.id_maquina = maquina.id_maquina
+				INNER JOIN laboratorio ON laboratorio_maquina.id_laboratorio = laboratorio.id_laboratorio
+				WHERE (hora_inicial BETWEEN '$data1' AND '$data2') AND laboratorio.id_laboratorio = 2
+				GROUP BY id_usuario
+				");
+		
+		foreach ($resultado as $linha){
+			$matriz['utilizadores']['LABTI02']++;
+		}
+		$resultado = $this->dao->getConexao()->query("SELECT id_usuario FROM acesso
+		
+				INNER JOIN maquina ON acesso.id_maquina = maquina.id_maquina
+				INNER JOIN laboratorio_maquina ON laboratorio_maquina.id_maquina = maquina.id_maquina
+				INNER JOIN laboratorio ON laboratorio_maquina.id_laboratorio = laboratorio.id_laboratorio
+				WHERE (hora_inicial BETWEEN '$data1' AND '$data2') AND laboratorio.id_laboratorio = 3
+				GROUP BY id_usuario
+				");
+		
+		foreach ($resultado as $linha){
+			$matriz['utilizadores']['LABTI03']++;
+		}
+		$resultado = $this->dao->getConexao()->query("SELECT id_usuario FROM acesso
+		
+				INNER JOIN maquina ON acesso.id_maquina = maquina.id_maquina
+				INNER JOIN laboratorio_maquina ON laboratorio_maquina.id_maquina = maquina.id_maquina
+				INNER JOIN laboratorio ON laboratorio_maquina.id_laboratorio = laboratorio.id_laboratorio
+				WHERE (hora_inicial BETWEEN '$data1' AND '$data2') AND laboratorio.id_laboratorio = 9
+				GROUP BY id_usuario
+				");
+		
+		foreach ($resultado as $linha){
+			$matriz['utilizadores']['LABTI04']++;
+		}
+		
+		$matriz['utilizadores']['total'] = $matriz['utilizadores']['LABTI01']+$matriz['utilizadores']['LABTI02']+$matriz['utilizadores']['LABTI03']+$matriz['utilizadores']['LABTI04'];
+		
+		
+		$matriz['tempo_utilizacao']['total'] = 0;
+		$matriz['tempo_utilizacao']['LABTI01'] = 0;
+		$matriz['tempo_utilizacao']['LABTI02'] = 0;
+		$matriz['tempo_utilizacao']['LABTI03'] = 0;
+		$matriz['tempo_utilizacao']['LABTI04'] = 0;
+		
+		$resultado = $this->dao->getConexao()->query("SELECT  tempo_usado
+				FROM acesso
+				INNER JOIN maquina ON acesso.id_maquina = maquina.id_maquina
+				INNER JOIN laboratorio_maquina ON laboratorio_maquina.id_maquina = maquina.id_maquina
+				INNER JOIN laboratorio ON laboratorio_maquina.id_laboratorio = laboratorio.id_laboratorio
+				WHERE (hora_inicial BETWEEN '$data1' AND '$data2') AND 
+				laboratorio.id_laboratorio = 1
+				");
+		
+		foreach ($resultado as $linha){
+			$matriz['tempo_utilizacao']['LABTI01'] += $linha['tempo_usado'];
+		}
+		$resultado = $this->dao->getConexao()->query("SELECT  tempo_usado
+				FROM acesso
+				INNER JOIN maquina ON acesso.id_maquina = maquina.id_maquina
+				INNER JOIN laboratorio_maquina ON laboratorio_maquina.id_maquina = maquina.id_maquina
+				INNER JOIN laboratorio ON laboratorio_maquina.id_laboratorio = laboratorio.id_laboratorio
+				WHERE (hora_inicial BETWEEN '$data1' AND '$data2') AND
+				laboratorio.id_laboratorio = 2
+				");
+		
+		foreach ($resultado as $linha){
+			$matriz['tempo_utilizacao']['LABTI02'] += $linha['tempo_usado'];
+		}
+		$resultado = $this->dao->getConexao()->query("SELECT  tempo_usado
+				FROM acesso
+				INNER JOIN maquina ON acesso.id_maquina = maquina.id_maquina
+				INNER JOIN laboratorio_maquina ON laboratorio_maquina.id_maquina = maquina.id_maquina
+				INNER JOIN laboratorio ON laboratorio_maquina.id_laboratorio = laboratorio.id_laboratorio
+				WHERE (hora_inicial BETWEEN '$data1' AND '$data2') AND
+				laboratorio.id_laboratorio = 3
+				");
+		
+		foreach ($resultado as $linha){
+			$matriz['tempo_utilizacao']['LABTI03'] += $linha['tempo_usado'];
+		}
+		$resultado = $this->dao->getConexao()->query("SELECT  tempo_usado
+				FROM acesso
+				INNER JOIN maquina ON acesso.id_maquina = maquina.id_maquina
+				INNER JOIN laboratorio_maquina ON laboratorio_maquina.id_maquina = maquina.id_maquina
+				INNER JOIN laboratorio ON laboratorio_maquina.id_laboratorio = laboratorio.id_laboratorio
+				WHERE (hora_inicial BETWEEN '$data1' AND '$data2') AND
+				laboratorio.id_laboratorio = 9
+				");
+		
+		foreach ($resultado as $linha){
+			$matriz['tempo_utilizacao']['LABTI04'] += $linha['tempo_usado'];
+		}
+		$matriz['tempo_utilizacao']['total'] = $matriz['tempo_utilizacao']['LABTI01']+$matriz['tempo_utilizacao']['LABTI02']+$matriz['tempo_utilizacao']['LABTI03']+$matriz['tempo_utilizacao']['LABTI04'];
+		$tabela = '<table class="tabela quadro doze">
+						<caption>
+							Outros dados Importantes
+						</caption>
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>LABTI01</th>
+								<th>LABTI02</th>
+								<th>LABTI03</th>
+								<th>LABTI04</th>
+								<th>Total</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>Quantidade De Utilizadores</td>
+								<td>'.$matriz['utilizadores']['LABTI01'] .'</td>
+								<td>'.$matriz['utilizadores']['LABTI02'].'</td>
+								<td>'.$matriz['utilizadores']['LABTI03'].'</td>
+								<td>'.$matriz['utilizadores']['LABTI04'].'</td>
+								<td>'.$matriz['utilizadores']['total'] .'</td>
+							</tr>
+							<tr>
+								<td>Tempo De Utilização</td>
+								<td>'.self::segundosParaHoras($matriz['tempo_utilizacao']['LABTI01']).'</td>
+								<td>'.self::segundosParaHoras($matriz['tempo_utilizacao']['LABTI02']).'</td>
+								<td>'.self::segundosParaHoras($matriz['tempo_utilizacao']['LABTI03']).'</td>
+								<td>'.self::segundosParaHoras($matriz['tempo_utilizacao']['LABTI04']).'</td>
+								<td>'.self::segundosParaHoras($matriz['tempo_utilizacao']['total']).'</td>
+							</tr>
+							<tr>
+								<td>Tempo Médio Por Utilizador</td>
+								<td>'.self::segundosParaHoras(($matriz['tempo_utilizacao']['LABTI01']/$matriz['utilizadores']['LABTI01'])).'</td>
+								<td>'.self::segundosParaHoras(($matriz['tempo_utilizacao']['LABTI02']/$matriz['utilizadores']['LABTI02'])).'</td>
+								<td>'.self::segundosParaHoras(($matriz['tempo_utilizacao']['LABTI03']/$matriz['utilizadores']['LABTI03'])).'</td>
+								<td>'.self::segundosParaHoras(($matriz['tempo_utilizacao']['LABTI04']/$matriz['utilizadores']['LABTI04'])).'</td>
+								<td>'.self::segundosParaHoras(($matriz['tempo_utilizacao']['total']/$matriz['utilizadores']['total'])).'</td>
+							</tr>
+			
+						</tbody>
+					</table>';
+		
+		
+		echo '<div class="seis colunas relatorio">';
+		echo $tabela;
+		
+		echo '</div>';
+		
+		
+		
+		
+		
+		echo '</div>';
+		
+		echo '<hr><br><br>';
 		
 		
 		
@@ -295,10 +443,10 @@ class RelatorioController{
 							</tr>
 							<tr>
 								<td>Horas</td>
-								<td>'.$horasManha.':'.$minutosManha.':'.$segundosManha.'</td>
-								<td>'.$tempoAtarde.'</td>
-								<td>'.$tempoDeNoite.'</td>
-								<td>'.$total.'</td>
+								<td>'.self::segundosParaHoras($tempoDeManha).'</td>
+								<td>'.self::segundosParaHoras($tempoAtarde).'</td>
+								<td>'.self::segundosParaHoras($tempoDeNoite).'</td>
+								<td>'.self::segundosParaHoras($total).'</td>
 							</tr>
 
 						</tbody>
@@ -306,26 +454,51 @@ class RelatorioController{
 		
 		
 		
-		echo '
+		echo '<div class="seis colunas relatorio">';
+		
+		echo '<div class="doze colunas">';
+		echo '<div class="seis colunas">';
+		echo '<div id="'.$strIdContainer.'" style="min-width: 310px; height: 400px; margin: 0 auto"></div>';
+		echo '</div>';
+		echo '<div class="seis colunas">';
+		echo $tabela;
+		echo '</div>';
+		echo '</div>';
 		
 		
-				
-						<div class="seis colunas relatorio">
-							<div id="'.$strIdContainer.'" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
-						</div>
-						<div class="seis colunas relatorio">
-							'.$tabela.'
-						</div>
+		echo '</div>';
+			
+// 		echo '<div class="seis colunas relatorio">
+// 							
+// 						</div>
+// 						<div class="seis colunas relatorio">
+// 							'..'
+// 						</div>
 					
 				
 				
 				
 				
-		';		
+// 		';		
 		
 		
 		
 		
+		
+	}
+	
+	public static function segundosParaHoras($segundos){
+		$segundos = intval($segundos);
+		
+		$horasManha = 0;
+		$segundosManha = 0;
+		$minutosManha = 0;
+		
+		$horasManha = intval($segundos/3600);
+		$segundosManha = $segundos%3600;
+		$minutosManha = intval($segundosManha/60);
+		$segundosManha = $segundosManha%60;
+		return $horasManha.':'.$minutosManha.':'.$segundosManha;
 		
 	}
 	
