@@ -74,6 +74,11 @@ class ComandoController {
 				$unicafe = new UniCafe ();
 				echo '<p>' . $unicafe->dialoga ( 'atualizaMac('.$nomeMaquina.')' ) . '</p>';
 				break;
+			case 300:
+				$unicafe = new UniCafe ();
+				echo '<p>' . $unicafe->dialoga ( 'desativar('.$nomeMaquina.')' ) . '</p>';
+				break;
+
 			default :
 				echo '<p>Comando desconhecido</p>';
 				break;
@@ -120,7 +125,11 @@ class ComandoController {
 					echo '<p>' . $unicafe->dialoga ( 'alocarMaquina(' .$nomeMaquina . ',' . $_GET ['laboratorio'] . ')' ) . '</p>';
 				}
 				break;
-			
+			case 300:
+				$unicafe = new UniCafe ();
+				echo '<p>' . $unicafe->dialoga ( 'desativar('.$nomeMaquina.')' ) . '</p>';
+				break;
+
 			default :
 				echo '<p>Comando desconhecido</p>';
 				break;
