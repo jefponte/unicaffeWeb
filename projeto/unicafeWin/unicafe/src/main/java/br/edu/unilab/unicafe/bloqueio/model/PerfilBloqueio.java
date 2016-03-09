@@ -39,6 +39,7 @@ public class PerfilBloqueio {
 	}
 
 	public void buscaAceitos() {
+		this.listaDeProcessosAceitos.add(new Processo("PrintIsolationHost.exe", "C:\\Windows\\system32\\PrintIsolationHost.exe", "944"));
 		this.listaDeProcessosAceitos = new ArrayList<Processo>();
 		this.listaDeProcessosAceitos.add(new Processo("eclipse.exe",
 				"C:\\Program Files (x86)\\eclipse_php\\eclipse.exe", "944"));
