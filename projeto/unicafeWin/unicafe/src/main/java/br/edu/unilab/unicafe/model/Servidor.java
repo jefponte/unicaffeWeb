@@ -662,6 +662,12 @@ public class Servidor {
 		}
 		else if (comando.equals("limpar")) {
 			limpezaDeMemoria();
+			try {
+				cliente.getConexao().close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			return;
 		}
 		else if(comando.equals("exec")){

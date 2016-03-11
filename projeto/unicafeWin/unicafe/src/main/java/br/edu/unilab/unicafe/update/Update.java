@@ -49,7 +49,7 @@ public class Update {
 
 		try {
 			System.out.println("La vai");
-			conexao = new Socket("10.5.1.8", 27289);
+			conexao = new Socket("200.129.19.40", 27289);
 			PrintStream saida = new PrintStream(conexao.getOutputStream());
 			
 			//ObjectOutputStream saida = new ObjectOutputStream(conexao.getOutputStream());

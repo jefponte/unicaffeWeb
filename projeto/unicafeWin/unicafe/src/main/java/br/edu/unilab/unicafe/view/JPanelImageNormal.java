@@ -44,7 +44,7 @@ public class JPanelImageNormal extends JPanel {
 	public void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g.create();
 		try {
-			// A Imagem é carregada através da classe ImageIO
+			// A Imagem carregada atraves da classe ImageIO
 			BufferedImage buffer = ImageIO.read(getClass().getResource(pathImage));
 		    TexturePaint p = new TexturePaint(buffer,rect);
 			g2d.drawImage(buffer, null, 0, 0); // desenha a imagem

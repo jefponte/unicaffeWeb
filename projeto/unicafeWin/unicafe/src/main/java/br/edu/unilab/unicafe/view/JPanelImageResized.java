@@ -44,11 +44,11 @@ public class JPanelImageResized extends JPanel {
 	public void paintComponent(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g.create();
 		try {
-			// A Imagem é carregada através da classe ImageIO
+			// A Imagem  carregada atraves da classe ImageIO
 			BufferedImage buffer = ImageIO.read(getClass().getResource(pathImage));
 			
 			/*
-             * Para imagem fique do tamanho da tela, caso não queira é so comentar
+             * Para imagem fique do tamanho da tela, caso nao queira  so comentar
              */
 			rect = new Rectangle(0,0,this.getWidth(),this.getHeight());
 

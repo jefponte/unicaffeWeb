@@ -365,9 +365,9 @@ public class ClienteControl {
 							}
 							Socket socket;
 							if(j <= 5)
-								socket = new Socket("200.129.19.40", 27289);
+								socket = new Socket("200.128.19.10", 27289);
 							else
-								socket = new Socket("10.5.1.8", 27289);
+								socket = new Socket("200.129.19.40", 27289);
 							getCliente().setConexao(socket);
 							getCliente().setEntrada(socket.getInputStream());
 							getCliente().setSaida(socket.getOutputStream());
