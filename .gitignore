@@ -1,0 +1,13 @@
+*.class
+*.exe
+*.metadata
+*.recommenders
+*.jar
+*.classpath
+*.lock
+*.project
+*.settings
+**/target/*
+/projeto/unicafeWin/unicafe/log_logado.txt
+/projeto/unicafeWin/unicafe/banco.db
+*.buildpath
