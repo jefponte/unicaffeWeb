@@ -11,3 +11,5 @@
 *.buildpath
 *.metadata
 *.recommenders
+*.java
+*.exe
