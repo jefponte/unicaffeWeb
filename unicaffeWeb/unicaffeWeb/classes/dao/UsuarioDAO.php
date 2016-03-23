@@ -70,6 +70,17 @@ class UsuarioDAO extends DAO {
 		}
 		return false;
 	}
+	public function alteraNivelAdministrador(Usuario $usuario){
+		$novoNivel = Sessao::NIVEL_ADMIN;
+		$idUsuario = $usuario->getId();		
+		$sqlUpdate = "UPDATE usuario set nivel_acesso = $novoNivel WHERE id_usuario = $idUsuario";
+
+		if($this->getConexao()->query($sqlUpdate)){
+				return true;
+		}
+		return false;
+		
+	}
 	public function adicionaAdministrador(Usuario $usuario, Laboratorio $laboratorio){
 		$novoNivel = Sessao::NIVEL_ADMIN;
 		$idUsuario = $usuario->getId();

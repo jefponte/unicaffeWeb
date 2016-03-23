@@ -79,6 +79,8 @@ class UsuarioController{
 					echo "Laboratorio Inexistente";
 					return;
 				}
+				if($usuarioDao->alteraNivelAdministrador($usuario))
+					echo 'Nivel alterado';
 				
 				if($usuarioDao->ehAdministrador($usuario, $laboratorio)){
 					echo "Ele ja era administrador";

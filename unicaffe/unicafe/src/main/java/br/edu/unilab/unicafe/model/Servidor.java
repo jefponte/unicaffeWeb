@@ -792,9 +792,10 @@ public class Servidor {
 				}
 				AcessoDAO acessoDao = new AcessoDAO();
 				int tempo = acessoDao.retornaTempoUsadoHoje(usuario);
-//				System.out.println("Usou: " + tempo);
-				if (tempo <= AcessoDAO.COTA) {
-//					System.out.println("Pode acessar durante "+ ((AcessoDAO.COTA) - (tempo)) + " segundos");
+				
+				if(cliente.getMaquina().getLaboratorio().getNome().trim().toLowerCase().equals("labteste")){
+					new PrintStream(cliente.getSaida()).println("desbloqueia(" + login + ", "+43200+ ")");
+				}else if (tempo <= AcessoDAO.COTA) {
 					new PrintStream(cliente.getSaida()).println("desbloqueia(" + login + ", "+ ((AcessoDAO.COTA) - (tempo)) + ")");
 					cliente.getMaquina().getAcesso().setUsuario(usuario);
 					cliente.getMaquina().getAcesso().setTempoDisponibilizado(((AcessoDAO.COTA) - (tempo)));
@@ -817,11 +818,18 @@ public class Servidor {
 					try {
 						cliente.getSaida().flush();
 						new PrintStream(cliente.getSaida()).println("printc(Seu tempo acabou)");
+						return;
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 				}
+				try {
+					dao.getConexao().close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+				return;
 
 			} else {
 				try {
@@ -838,7 +846,7 @@ public class Servidor {
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
-			
+			return;
 		}
 		else if (comando.equals("meDaBonus")) {
 			int disponiveis = 0;

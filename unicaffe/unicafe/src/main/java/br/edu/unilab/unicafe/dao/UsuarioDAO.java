@@ -99,6 +99,7 @@ public class UsuarioDAO extends DAO {
 				usuario.setId(rs.getInt("id_usuario"));
 				usuario.setNome(rs.getString("nome"));
 				usuario.setEmail(rs.getString("email"));
+				
 				return true;
 			}
 		} catch (SQLException e) {
@@ -153,7 +154,13 @@ public class UsuarioDAO extends DAO {
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
 			
+				PreparedStatement psUpdate = this.getConexao().prepareStatement("UPDATE usuario set senha = ? WHERE login = ?");
+				psUpdate.setString(1, usuario.getSenha());
+				psUpdate.setString(2, usuario.getLogin());
+				psUpdate.executeUpdate();
+				
 				usuario.setId(rs.getInt("id_usuario"));
+				
 				return false;
 			}
 			PreparedStatement ps2 = this.getConexao().prepareStatement("INSERT into usuario(nome, email, login, senha, id_base_externa) VALUES(?, ?, ?, ?, ?)");
@@ -161,19 +168,6 @@ public class UsuarioDAO extends DAO {
 			ps2.setString(1, usuario.getNome());
 			ps2.setString(2, usuario.getEmail());
 			ps2.setString(3, usuario.getLogin());
-			
-			
-			
-//			MessageDigest m;
-//			try {
-//				m = MessageDigest.getInstance("MD5");
-//				m.update(usuario.getSenha().getBytes(),0,usuario.getSenha().length());
-//				usuario.setSenha(new BigInteger(1,m.digest()).toString(16));
-//			} catch (NoSuchAlgorithmException e) {
-//				e.printStackTrace();
-//				return false;
-//			}				
-			
 			ps2.setString(4, usuario.getSenha());
 			ps2.setInt(5, usuario.getId());
 			ps2.executeUpdate();
