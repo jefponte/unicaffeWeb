@@ -1,0 +1,210 @@
+/dados:
+total 12
+drwxr-xr-x 3 root     root     4096 May 12 10:36 bd
+drwxr-xr-x 4 www-data www-data 4096 May 12 15:40 sites
+drwxr-xr-x 2 jefponte root     4096 Oct 27 23:47 unicafe
+
+/dados/bd:
+total 4
+drwxr-xr-x 3 postgres postgres 4096 May  4 15:21 postgresql
+
+/dados/bd/postgresql:
+total 4
+drwxr-xr-x 3 postgres postgres 4096 May  4 15:21 9.1
+
+/dados/bd/postgresql/9.1:
+total 4
+drwx------ 13 postgres postgres 4096 Oct  1 09:06 main
+
+/dados/sites:
+total 8
+drwxr-xr-x 3 www-data www-data 4096 May 15 14:23 adm
+-rw-r--r-- 1 www-data www-data    0 May  4 16:35 index.htm
+-rw-r--r-- 1 www-data www-data    0 May  4 16:35 index.html
+-rw-r--r-- 1 www-data www-data    0 May  4 16:35 index.php
+drwxr-xr-x 2 www-data www-data 4096 May  4 16:35 pub
+
+/dados/sites/adm:
+total 8
+-rw-r--r--  1 www-data www-data    0 May  4 16:35 index.htm
+-rw-r--r--  1 www-data www-data    0 May  4 16:35 index.html
+-rw-r--r--  1 www-data www-data    0 May  4 16:35 index.php
+-rw-rw-r--  1 www-data www-data   22 May 12 10:50 teste.php
+drwxr-xr-x 13 jefponte root     4096 Oct 27 16:43 unicafe
+
+/dados/sites/adm/unicafe:
+total 6916
+-rw-r--r-- 1 jefponte jefponte    2001 Sep 28 22:59 backup.php
+drwxr-xr-x 3 jefponte jefponte    4096 Oct 16 21:57 bloquinhos
+-rw-r--r-- 1 jefponte jefponte   76513 Aug  4 21:44 cards.php
+drwxr-xr-x 7 jefponte jefponte    4096 Aug 27 10:26 classes
+drwxr-xr-x 2 jefponte jefponte    4096 Aug 27 10:26 css
+drwxr-xr-x 2 jefponte jefponte    4096 Oct 27 16:43 downloads
+drwxr-xr-x 2 jefponte jefponte    4096 Oct  6 16:38 escala
+-rw-r--r-- 1 jefponte jefponte    3400 Aug  3 21:51 header.php
+drwxr-xr-x 2 jefponte jefponte    4096 Aug 28 19:23 img
+-rw-r--r-- 1 jefponte jefponte   10795 Aug 27 09:44 index_antigo.php
+-rw-r--r-- 1 jefponte jefponte    9544 Oct  9 19:54 index.php
+drwxr-xr-x 2 jefponte jefponte    4096 Aug 28 12:21 js
+drwxr-xr-x 5 jefponte jefponte    4096 Oct  9 22:35 katraka_teste
+-rw-r--r-- 1 jefponte jefponte   12252 Aug 25 22:19 lab.php
+-rw-r--r-- 1 jefponte jefponte 6884617 Sep  1 15:01 ligador.jar
+-rw-r--r-- 1 jefponte jefponte    1214 Sep 28 22:49 listaUsuarios.php
+-rw-r--r-- 1 jefponte jefponte   11640 Aug 27 09:13 maquina.php
+-rw-r--r-- 1 jefponte jefponte     696 Aug 27 10:18 maquinas.php
+-rw-r--r-- 1 jefponte jefponte    1765 Sep 28 22:28 mostrarBanco.php
+-rw-r--r-- 1 jefponte jefponte    4736 Aug 25 22:30 relatorios.php
+-rw-r--r-- 1 jefponte jefponte    1014 Oct 28 15:43 runasadmin.php
+drwxr-xr-x 2 jefponte jefponte    4096 Oct  7 13:51 teste
+
+/dados/sites/adm/unicafe/bloquinhos:
+total 0
+
+/dados/sites/adm/unicafe/classes:
+total 20
+drwxr-xr-x 2 jefponte jefponte 4096 Aug 27 10:26 controller
+drwxr-xr-x 2 jefponte jefponte 4096 Sep 21 21:01 dao
+drwxr-xr-x 2 jefponte jefponte 4096 Aug 27 10:26 model
+drwxr-xr-x 2 jefponte jefponte 4096 Aug 27 10:26 util
+drwxr-xr-x 3 jefponte jefponte 4096 Aug 27 10:26 view
+
+/dados/sites/adm/unicafe/classes/controller:
+total 36
+-rw-r--r-- 1 jefponte jefponte   55 Aug 11 18:04 AcessoController.php
+-rw-r--r-- 1 jefponte jefponte 5624 Oct 22 16:58 ComandoController.php
+-rw-r--r-- 1 jefponte jefponte 7440 Oct 27 14:54 LaboratorioController.php
+-rw-r--r-- 1 jefponte jefponte 4666 Aug 27 11:00 MaquinaController.php
+-rw-r--r-- 1 jefponte jefponte  132 Aug 10 10:31 MenuController.php
+-rw-r--r-- 1 jefponte jefponte 3414 Aug 13 17:35 UsuarioController.php
+
+/dados/sites/adm/unicafe/classes/dao:
+total 40
+-rw-r--r-- 1 jefponte jefponte  165 Sep 21 21:00 AcessoDAO.php
+-rw-r--r-- 1 jefponte jefponte 2010 Sep 28 22:55 DAO.php
+-rw-r--r-- 1 jefponte jefponte  787 Aug 12 20:22 LaboratorioDAO.php
+-rw-r--r-- 1 jefponte jefponte 7407 Sep 15 08:02 MaquinaDAO3.php
+-rw-r--r-- 1 jefponte jefponte 7574 Sep 21 20:44 MaquinaDAO.php
+-rw-r--r-- 1 jefponte jefponte 4706 Aug 21 08:32 UniCafe.php
+-rw-r--r-- 1 jefponte jefponte 3125 Aug 13 19:00 UsuarioDAO.php
+
+/dados/sites/adm/unicafe/classes/model:
+total 16
+-rw-r--r-- 1 jefponte jefponte 1782 Jul 29 13:02 Acesso.php
+-rw-r--r-- 1 jefponte jefponte  316 Jul 28 20:04 Laboratorio.php
+-rw-r--r-- 1 jefponte jefponte 2226 Jul 30 20:23 Maquina.php
+-rw-r--r-- 1 jefponte jefponte 1379 Aug 13 12:00 Usuario.php
+
+/dados/sites/adm/unicafe/classes/util:
+total 16
+-rw-r--r-- 1 jefponte jefponte  2503 Aug 13 17:42 Sessao.php
+-rw-r--r-- 1 jefponte jefponte 10808 Aug 12 20:08 Validacoes.php
+
+/dados/sites/adm/unicafe/classes/view:
+total 40
+-rw-r--r-- 1 jefponte jefponte  5627 Oct  2 21:50 HomeView.php
+-rw-r--r-- 1 jefponte jefponte  5748 Sep 21 20:23 LaboratorioView.php
+-rw-r--r-- 1 jefponte jefponte 14319 Oct 22 11:39 MaquinaView.php
+drwxr-xr-x 2 jefponte jefponte  4096 Oct 27 16:43 paginas
+-rw-r--r-- 1 jefponte jefponte  1863 Aug 13 16:02 UsuarioView.php
+
+/dados/sites/adm/unicafe/classes/view/paginas:
+total 116
+-rw-r--r-- 1 jefponte jefponte 116631 Aug  3 19:22 lab_visualizacao.php
+
+/dados/sites/adm/unicafe/css:
+total 32
+-rw-r--r-- 1 jefponte jefponte  436 Aug 27 10:26 botao_direito.css
+-rw-r--r-- 1 jefponte jefponte 5847 Aug 27 10:26 context.standalone.css
+-rw-r--r-- 1 jefponte jefponte 4730 Aug 25 22:29 maquina.css
+-rw-r--r-- 1 jefponte jefponte 1668 Aug 25 21:47 new_maquina.css
+-rw-r--r-- 1 jefponte jefponte 4797 Aug 25 20:51 style.css
+
+/dados/sites/adm/unicafe/downloads:
+total 27476
+-rw-r--r-- 1 jefponte jefponte     306 Oct 20 15:19 index.php
+-rw-r--r-- 1 jefponte jefponte 6971056 Sep 14 16:37 setupUniCafe32Bits.exe
+-rw-r--r-- 1 jefponte jefponte 6973292 Oct 27 14:05 setupUniCafe64.exe
+-rw-r--r-- 1 jefponte jefponte 7291534 Oct 20 13:41 UniCafeClient.exe
+-rw-r--r-- 1 jefponte jefponte 6885518 Oct 20 13:41 unicafe-update_64.jar
+
+/dados/sites/adm/unicafe/escala:
+total 4
+-rw-r--r-- 1 jefponte jefponte 178 Oct  6 16:38 index.php
+
+/dados/sites/adm/unicafe/img:
+total 240
+-rw-r--r-- 1 jefponte jefponte 38440 Aug 28 19:21 logo1_unicaffe.png
+-rw-r--r-- 1 jefponte jefponte 36221 Aug 28 19:21 logo2_unicaffe.png
+-rw-r--r-- 1 jefponte jefponte 47695 Jul 28 19:34 logo_unicaffe.png
+-rw-r--r-- 1 jefponte jefponte 66130 Jul 28 19:37 logo_unilab.png
+-rw-r--r-- 1 jefponte jefponte 11178 Aug 27 10:34 unicafe-logo-p.png
+-rw-r--r-- 1 jefponte jefponte 33236 May  8 19:59 unicaffe_logo.png
+
+/dados/sites/adm/unicafe/js:
+total 112
+-rw-r--r-- 1 jefponte jefponte  1843 Aug  5 21:51 botao_direito.js
+-rw-r--r-- 1 jefponte jefponte  4156 Aug  6 20:53 context.js
+-rw-r--r-- 1 jefponte jefponte 92556 Aug  5 22:01 jquery.min.js
+-rw-r--r-- 1 jefponte jefponte  1434 Aug  3 21:19 menudireito.js
+-rw-r--r-- 1 jefponte jefponte  1423 Aug 20 16:02 unicaffe_context_menu.js
+
+/dados/sites/adm/unicafe/katraka_teste:
+total 16
+drwxr-xr-x 7 jefponte jefponte 4096 Oct  9 21:49 classes
+drwxr-xr-x 2 jefponte jefponte 4096 Oct  9 21:49 css
+-rw-r--r-- 1 jefponte jefponte 5642 Oct  9 20:51 index.php
+
+/dados/sites/adm/unicafe/katraka_teste/classes:
+total 20
+drwxr-xr-x 2 jefponte jefponte 4096 Oct  9 21:49 controller
+drwxr-xr-x 2 jefponte jefponte 4096 Oct  9 22:12 dao
+drwxr-xr-x 2 jefponte jefponte 4096 Oct  9 21:49 model
+drwxr-xr-x 2 jefponte jefponte 4096 Oct  9 21:49 util
+drwxr-xr-x 2 jefponte jefponte 4096 Oct  9 22:08 view
+
+/dados/sites/adm/unicafe/katraka_teste/classes/controller:
+total 4
+-rw-r--r-- 1 jefponte jefponte 3414 Oct  9 19:47 UsuarioController.php
+
+/dados/sites/adm/unicafe/katraka_teste/classes/dao:
+total 8
+-rw-r--r-- 1 jefponte jefponte 2007 Oct  9 20:21 DAO.php
+-rw-r--r-- 1 jefponte jefponte 3125 Oct  9 20:21 UsuarioDAO.php
+
+/dados/sites/adm/unicafe/katraka_teste/classes/model:
+total 4
+-rw-r--r-- 1 jefponte jefponte 1379 Oct  9 19:47 Usuario.php
+
+/dados/sites/adm/unicafe/katraka_teste/classes/util:
+total 16
+-rw-r--r-- 1 jefponte jefponte  2503 Oct  9 19:46 Sessao.php
+-rw-r--r-- 1 jefponte jefponte 10808 Oct  9 19:46 Validacoes.php
+
+/dados/sites/adm/unicafe/katraka_teste/classes/view:
+total 4
+-rw-r--r-- 1 jefponte jefponte 1877 Oct  9 20:20 UsuarioView.php
+
+/dados/sites/adm/unicafe/katraka_teste/css:
+total 8
+-rw-r--r-- 1 jefponte jefponte 4797 Oct  9 19:53 style.css
+
+/dados/sites/adm/unicafe/teste:
+total 4
+-rw-r--r-- 1 jefponte jefponte 1148 Oct  7 13:58 index.php
+
+/dados/sites/pub:
+total 0
+-rw-r--r-- 1 www-data www-data 0 May  4 16:35 index.htm
+-rw-r--r-- 1 www-data www-data 0 May  4 16:35 index.html
+-rw-r--r-- 1 www-data www-data 0 May  4 16:35 index.php
+
+/dados/unicafe:
+total 47232
+-rw-r--r-- 1 jefponte jefponte       5 Jun 22 20:54 qualquerbesteira.txt
+-rw-r--r-- 1 jefponte jefponte 6864436 Jul 24 12:18 teste.jar
+-rw-r--r-- 1 jefponte jefponte 6712412 Jun  1 22:19 unicafe-admin.jar
+-rw-r--r-- 1 jefponte jefponte 7273121 Aug  6 10:43 UniCafeClient.exe
+-rwxrwxrwx 1 jefponte jefponte 6870497 Aug 20 14:44 unicafe-ligador_10_11_0_255.jar
+-rw-r--r-- 1 jefponte jefponte 6870487 Aug 20 15:07 unicafe-ligador_com_ffff_ffff_ffff.jar
+-rw-r--r-- 1 jefponte jefponte 6870828 Aug 20 16:12 unicafe-ligador.jar
+-rw-r--r-- 1 jefponte jefponte 6887699 Oct 27 21:58 unicafe-servidor.jar

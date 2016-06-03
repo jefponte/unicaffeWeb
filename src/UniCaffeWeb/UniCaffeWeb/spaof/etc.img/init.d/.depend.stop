@@ -1,0 +1,13 @@
+TARGETS = apache2 atd exim4 saned urandom postgresql sendsigs rsyslog umountnfs.sh rpcbind nfs-common hwclock.sh networking umountfs umountroot halt reboot
+postgresql: exim4
+sendsigs: postgresql exim4 saned apache2 atd
+rsyslog: postgresql exim4 saned apache2 sendsigs atd
+umountnfs.sh: postgresql exim4 saned apache2 rsyslog sendsigs atd
+rpcbind: umountnfs.sh
+nfs-common: umountnfs.sh
+hwclock.sh: postgresql nfs-common rsyslog atd
+networking: umountnfs.sh postgresql exim4 apache2 rpcbind
+umountfs: umountnfs.sh urandom postgresql exim4 networking saned apache2 rpcbind hwclock.sh atd
+umountroot: umountfs
+halt: umountroot
+reboot: umountroot

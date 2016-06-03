@@ -32,25 +32,30 @@ if (isset ( $_GET ["sair"] )) {
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-<meta charset="UTF-8">
-<title>UniCaffeWeb</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<!-- meta tag para responsividade em Windows e Linux -->
-<link rel="stylesheet"
-	href="http://spa.dsi.unilab.edu.br/spa/css/spa.css" />
-<link rel="stylesheet" href="css/style.css" />
-<link rel="stylesheet" href="css/maquina.css" />
-<link rel="stylesheet" href="css/new_maquina.css" />
-<link rel="stylesheet" type="text/css" href="css/context.standalone.css" />
-
+	<meta charset="UTF-8">
+	<title>UniCaffeWeb</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<!-- meta tag para responsividade em Windows e Linux -->
+	<link rel="stylesheet"
+		href="http://spa.dsi.unilab.edu.br/spa/css/spa.css" />
+	<link rel="stylesheet" href="css/style.css" />
+	<link rel="stylesheet" href="css/maquina.css" />
+	<link rel="stylesheet" href="css/new_maquina.css" />
+	<link rel="stylesheet" type="text/css" href="css/context.standalone.css" />
+	<link rel="stylesheet" type="text/css" media="all" href="<?php if ($_COOKIE['contraste']=='true') {echo '/css/contraste.css';}?>" id="css" />
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/cookie.js"></script>
+	<script type="text/javascript" src="js/contraste.js"></script>
 </head>
 <body>
 	<div class="pagina doze colunas">
+	<?php echo file_get_contents("http://spa.dsi.unilab.edu.br/temas/padrao_antigo_acessivel/barra-acessibilidade.php"); ?>
+	<?php echo file_get_contents("http://spa.dsi.unilab.edu.br/temas/barra-governo.php"); ?>
 		<div class="topo doze linha fundo-branco">
 			<div class="conteudo">
 				<div id="logo-unicaffe">
-					<a href="#"> <img alt="logotipo do Unicaff�"
-						src="img/logo_unicaffe.png" title="Ir para Unicaff�">
+					<a href="#"> <img alt="logotipo do Unicaffé"
+						src="img/logo_unicaffe.png" title="Ir para Unicaffé">
 					</a>
 				</div>
 				<div id="logo-universidade">
@@ -60,7 +65,7 @@ if (isset ( $_GET ["sair"] )) {
 				</div>
 			</div>
 		</div>
-		<div class="unicaffe-menu">
+		<div class="unicaffe-menu" id="menu">
 			<ol>
 				<li><a href="?pagina=inicio">Inicio</a></li>
 				<li><a href="?pagina=laboratorios">Laboratório</a>
@@ -113,7 +118,7 @@ if (isset ( $_GET ["sair"] )) {
 
 
 		
-		
+		<a name="conteudo"></a>
 		<?php 
 		ComandoController::main($sessao->getNivelAcesso());
 		if(isset($_GET['pagina'])){
@@ -143,7 +148,6 @@ if (isset ( $_GET ["sair"] )) {
 			                </div>
 			            </div>';
 					echo '	<!-- 	Menu Click Esquerdo - Aparece na pagina de maquinas e laboratorios.  -->
-							<script type="text/javascript" src="js/jquery.min.js"></script>
 							<script type="text/javascript" src="js/context.js"></script>
 							<script type="text/javascript" src="js/unicaffe_context_menu.js" charset="UTF-8"></script>';
 					
@@ -256,7 +260,7 @@ if (isset ( $_GET ["sair"] )) {
 		
 	</div>
 
-	<div class="linha doze colunas fundo-marrom">
+	<div class="linha doze colunas fundo-marrom" id="rodape">
 		<div class="conteudo">
 			<p class="medio centralizado conteudo texto-branco">Desenvolvido pela Divisão de Suporte (DISUP) © 2015 - DTI / Unilab</p>
 		</div>

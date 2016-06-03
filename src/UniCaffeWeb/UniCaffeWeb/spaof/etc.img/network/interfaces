@@ -1,0 +1,19 @@
+auto lo
+iface lo inet loopback
+
+auto eth0
+iface eth0 inet static
+       address 200.129.19.40
+       netmask 255.255.255.0
+       network 200.129.19.128
+       broadcast 200.129.19.255
+       gateway 200.129.19.1
+       dns-nameservers 200.129.19.130 200.129.19.2
+       dns-search unilab.edu.br
+
+auto eth1
+iface eth1 inet static
+ address 10.11.0.3
+ netmask 255.255.255.0
+ network 10.11.0.0
+ broadcast 10.11.0.255

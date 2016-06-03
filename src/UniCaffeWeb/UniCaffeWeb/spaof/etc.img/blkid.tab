@@ -1,0 +1,3 @@
+<device DEVNO="0xca05" TIME="1429730872.870537" UUID="9df995ac-cd29-4846-975b-1b7c0bfacfd8" TYPE="swap">/dev/xvda5</device>
+<device DEVNO="0xca31" TIME="1430762267.913355" LABEL="Debian 7.1.0 amd64 1" TYPE="iso9660">/dev/xvdd1</device>
+<device DEVNO="0xca32" TIME="1430762268.217691" SEC_TYPE="msdos" UUID="3A4E-3E34" TYPE="vfat">/dev/xvdd2</device>

@@ -6,7 +6,7 @@ CORES
         AZUL1: ;
         AZUL2: #6DAFDB rgb(109,175,219);
 */
-
+.acessibilidade{top:0px;padding-top:48px;margin-bottom:0px;}
 .topo {
     border: none;
     /* border-top: 4px solid #6DAFDB; */
