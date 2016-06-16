@@ -37,11 +37,11 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 [Files]
 Source: "C:\projetos\unicafe\Build\UniCafeClient.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\projetos\unicafe\projeto\unicafeWin\unicafe\src\main\resources\images\papel-de-parede.jpg"; DestDir:"C:\Windows\Web\Wallpaper\Windows"; Flags: ignoreversion;
-Source: "C:\projetos\unicafe\projeto\unicafeWin\unicafe\target\unicafe-update.jar"; DestDir: "{app}"; Flags: ignoreversion
+Source: "C:\projetos\unicafe\src\UniCaffe\unicafe\src\main\resources\images\papel-de-parede.jpg"; DestDir:"C:\Windows\Web\Wallpaper\Windows"; Flags: ignoreversion;
+Source: "C:\projetos\unicafe\src\UniCaffe\unicafe\target\unicafe-update.jar"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "C:\arquivos\jefponte\Documents\workspace\unicafe\config.ini"; DestDir: "{app}"; Flags: ignoreversion
 ;Source: "C:\arquivos\jefponte\Documents\workspace\unicafe\liberados.txt"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\projetos\unicafe\Build\install.bat"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "C:\projetos\unicafe\build\install.bat"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
@@ -53,7 +53,7 @@ Name: "{commondesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: 
 ;loga com essa senha
 Root: HKLM64; Subkey: "SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"; ValueType: string; ValueName: "DefaultUserName"; ValueData: ".\unicafe"; Flags: uninsdeletekey
 ;Loga com esse usuario
-Root: HKLM64; Subkey: "SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"; ValueType: string; ValueName: "DefaultPassword"; ValueData: "unicafe@unilab"; Flags: uninsdeletekey
+Root: HKLM64; Subkey: "SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"; ValueType: string; ValueName: "DefaultPassword"; ValueData: ""; Flags: uninsdeletekey
 ;Loga automatico
 Root: HKLM64; Subkey: "SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon"; ValueType: string; ValueName: "AutoAdminLogon"; ValueData: "1"; Flags: uninsdeletekey
 ;Inicia automaticamente
