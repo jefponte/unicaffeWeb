@@ -11,7 +11,6 @@
 *.buildpath
 *.metadata
 *.recommenders
-*.java
 *.zip
 *.exe
 log_logado.txt
