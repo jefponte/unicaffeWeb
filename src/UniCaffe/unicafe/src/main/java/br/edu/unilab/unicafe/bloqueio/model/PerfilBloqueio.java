@@ -62,6 +62,33 @@ public class PerfilBloqueio {
 		
 		
 		
+
+		this.listaDeProcessosAceitos.add(new Processo("antirun.exe", "C:\\Program Files (x86)\\Antirun\\antirun.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("winvnc.exe", "C:\\Program Files (x86)\\UltraVNC\\winvnc.exe", "944"));
+		
+		this.listaDeProcessosAceitos.add(new Processo("soffice.exe", "C:\\Program Files\\LibreOffice 5\\program\\soffice.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("soffice.bin", "C:\\Program Files\\LibreOffice 5\\program\\soffice.bin", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("scalc.exe", "C:\\Program Files\\LibreOffice 5\\program\\scalc.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("soffice.exe", "C:\\Program Files\\LibreOffice 5\\program\\soffice.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("soffice.bin", "C:\\Program Files\\LibreOffice 5\\program\\soffice.bin", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("swriter.exe", "C:\\Program Files\\LibreOffice 5\\program\\swriter.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("soffice.exe", "C:\\Program Files\\LibreOffice 5\\program\\soffice.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("soffice.bin", "C:\\Program Files\\LibreOffice 5\\program\\soffice.bin", "944"));
+		
+		this.listaDeProcessosAceitos.add(new Processo("simpress.exe", "C:\\Program Files\\LibreOffice 5\\program\\simpress.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("soffice.exe", "C:\\Program Files\\LibreOffice 5\\program\\soffice.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("soffice.bin", "C:\\Program Files\\LibreOffice 5\\program\\soffice.bin", "944"));
+		
+		this.listaDeProcessosAceitos.add(new Processo("codeblocks.exe", "C:\\Program Files (x86)\\CodeBlocks\\codeblocks.exe", "944"));
+		
+		this.listaDeProcessosAceitos.add(new Processo("CbLauncher.exe", "C:\\Program Files (x86)\\CodeBlocks\\CbLauncher.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("mingw32-gcc.exe", "C:\\Program Files (x86)\\CodeBlocks\\MinGW\\bin\\mingw32-gcc.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("mingw32-g++.exe", "C:\\Program Files (x86)\\CodeBlocks\\MinGW\\bin\\mingw32-g++.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("mingw32-gcc.exe", "C:\\Program Files (x86)\\CodeBlocks\\MinGW\\bin\\mingw32-gcc.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("mingw32-gcc.exe", "C:\\Program Files (x86)\\CodeBlocks\\MinGW\\bin\\mingw32-gcc.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("as.exe", "C:\\Program Files (x86)\\CodeBlocks\\MinGW\bin\\..\\lib\\gcc\\mingw32\\4.9.2\\..\\..\\..\\..\\mingw32\\bin\\as.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("cb_console_runner.exe", "C:\\Program Files (x86)\\CodeBlocks\\cb_console_runner.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("cc1.exe", "", "944"));
 		
 		this.listaDeProcessosAceitos.add(new Processo("MSOHTMED.EXE", "", "944"));
 		this.listaDeProcessosAceitos.add(new Processo("Foxit Reader.exe", "C:\\Program Files (x86)\\Foxit Software\\Foxit Reader\\Foxit Reader.exe", "944"));

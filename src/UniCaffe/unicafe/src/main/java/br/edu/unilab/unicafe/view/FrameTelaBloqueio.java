@@ -314,7 +314,7 @@ public class FrameTelaBloqueio extends JFrame {
 		labelIconeStatus.setBounds(0, 0, 45, 43);
 		panelStatusIcone.add(labelIconeStatus);
 		
-		JLabel label = new JLabel("1.00001");
+		JLabel label = new JLabel("1.000021");
 		label.setForeground(Color.WHITE);
 		label.setBounds(233, 41, 46, 14);
 		panelTopo.add(label);
