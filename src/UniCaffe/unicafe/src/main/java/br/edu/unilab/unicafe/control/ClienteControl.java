@@ -81,9 +81,6 @@ public class ClienteControl {
 	public void iniciaCliente() {
 		iniciaSplash();
 		tentaConexoes();
-		
-		
-
 	}
 	public void tentarLogar(){
 		//Saida de emergência
@@ -108,7 +105,7 @@ public class ClienteControl {
 						// System.out.println("Abrindo Explorer. ");
 						Runtime.getRuntime().exec("explorer.exe");
 						System.exit(0);
-
+						
 					} catch (InterruptedException | IOException e) {
 						e.printStackTrace();
 					}
@@ -532,7 +529,8 @@ public class ClienteControl {
 		            e.printStackTrace();
 		        }
 			return;
-		}	
+		}
+		
 		else if (comando.equals("desligar")) {
 			
 			bloqueia();
@@ -546,6 +544,7 @@ public class ClienteControl {
 			}
 			
 			return;
+			
 		}else if (comando.equals("printc")) {
 
 			Thread t = new Thread(new Runnable() {
@@ -563,6 +562,30 @@ public class ClienteControl {
 			});
 			t.start();
 			return;
+		}else if (comando.equals("ieeeeeiiiiii")) {
+			Thread t = new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					try {
+						Runtime.getRuntime().exec("netsh advfirewall firewall add rule name=\"LIBCE\" enable=yes remoteip=200.129.19.0/24 action=allow protocol=TCP dir=out");
+						Runtime.getRuntime().exec("netsh advfirewall firewall add rule name=\"LIBSFC\" enable=yes remoteip=200.128.19.0/24 action=allow protocol=TCP dir=out");
+						Runtime.getRuntime().exec("netsh advfirewall firewall add rule name=\"LIBINT\" enable=yes remoteip=10.0.0.0/8 action=allow protocol=TCP dir=out");
+						Runtime.getRuntime().exec("netsh advfirewall set currentprofile firewallpolicy blockinbound,blockoutbound");						
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+
+				}
+			});
+			t.start();
+			return;
+				
+		}
+		else if (comando.equals("aeeeeeeee")) {
+			
+			return;
+				
 		}else if (comando.equals("venha")) {
 			servidorPrimario = parametros;
 			

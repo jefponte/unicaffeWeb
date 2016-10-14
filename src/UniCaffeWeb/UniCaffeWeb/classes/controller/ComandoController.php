@@ -6,6 +6,8 @@ class ComandoController {
 	const COMANDO_BLOQUEIA = 4;
 	const COMANDO_ALOCAR = 5;
 	const COMANDO_LIGAR  = 6;
+	const COMANDO_SEM_INTERNET = 9;
+	const COMANDO_COM_INTERNET = 10;
 	public static function main($nivelDeAcesso) {
 		switch ($nivelDeAcesso) {
 			case Sessao::NIVEL_SUPER :
@@ -42,41 +44,114 @@ class ComandoController {
 			case self::COMANDO_DESLIGAR :
 				$unicafe = new UniCafe ();
 				echo '<p>' . $unicafe->dialoga ( 'desliga(' . $nomeMaquina . ')' ) . '</p>';
-				
+				$unicafe->close();
 				break;
 			case self::COMANDO_AULA :
 				$unicafe = new UniCafe ();
 				echo '<p>' . $unicafe->dialoga ( 'aula(' . $nomeMaquina . ')' ) . '</p>';
+				$unicafe->close();
 				break;
 			case self::COMANDO_VISITANTE :
 				$unicafe = new UniCafe ();
 				echo '<p>' . $unicafe->dialoga ( 'visitante(' . $nomeMaquina . ')' ) . '</p>';
+				$unicafe->close();
 				break;
+			case self::COMANDO_SEM_INTERNET:
+				$unicafe = new UniCafe ();
+				echo '<p>' . $unicafe->dialoga ( 'exec(' . $nomeMaquina . ',netsh advfirewall set  allprofiles state on)' ) . '</p>';
+				$unicafe->close();
+				$unicafe = new UniCafe ();
+				echo '<p>' . $unicafe->dialoga ( 'exec(' . $nomeMaquina . ',netsh advfirewall firewall add rule name="LIBCE" enable=yes remoteip=200.129.19.0/24 action=allow protocol=TCP dir=out )' ) . '</p>';
+				$unicafe->close();
+				$unicafe = new UniCafe ();
+				echo '<p>' . $unicafe->dialoga ( 'exec(' . $nomeMaquina . ', netsh advfirewall firewall add rule name="LIBSFC" enable=yes remoteip=200.128.19.0/24 action=allow protocol=TCP dir=out)' ) . '</p>';
+				$unicafe->close();
+				$unicafe = new UniCafe ();
+				echo '<p>' . $unicafe->dialoga ( 'exec(' . $nomeMaquina . ',netsh advfirewall firewall add rule name="LIBINT" enable=yes remoteip=10.0.0.0/8 action=allow protocol=TCP dir=out )' ) . '</p>';
+				$unicafe->close();
+				$unicafe = new UniCafe ();
+				echo '<p>' . $unicafe->dialoga ( 'exec(' . $nomeMaquina . ',netsh advfirewall set currentprofile firewallpolicy blockinbound,blockoutbound)' ) . '</p>';
+				$unicafe->close();
+				break;
+				
+			case self::COMANDO_COM_INTERNET:
+				$unicafe = new UniCafe ();
+				echo '<p>' . $unicafe->dialoga ( 'exec(' . $nomeMaquina . ',netsh advfirewall firewall delete rule name="LIBCE")' ) . '</p>';
+				$unicafe->close();
+				$unicafe = new UniCafe ();
+				echo '<p>' . $unicafe->dialoga ( 'exec(' . $nomeMaquina . ', netsh advfirewall firewall delete rule name="LIBSFC")' ) . '</p>';
+				$unicafe->close();
+				$unicafe = new UniCafe ();
+				echo '<p>' . $unicafe->dialoga ( 'exec(' . $nomeMaquina . ',netsh advfirewall firewall delete rule name="LIBINT")' ) . '</p>';
+				$unicafe->close();
+				$unicafe = new UniCafe ();
+				echo '<p>' . $unicafe->dialoga ( 'exec(' . $nomeMaquina . ',netsh advfirewall set currentprofile firewallpolicy blockinbound,allowoutbound)' ) . '</p>';
+				$unicafe->close();
+				break;
+				
 			case self::COMANDO_BLOQUEIA :
 				$unicafe = new UniCafe ();
 				echo '<p>' . $unicafe->dialoga ( 'bloqueia(' . $nomeMaquina . ')' ) . '</p>';
+				$unicafe->close();
 				break;
 			case self::COMANDO_ALOCAR :
 				if (isset ( $_GET ['laboratorio'] )) {
 					$unicafe = new UniCafe ();
 					echo '<p>' . $unicafe->dialoga ( 'alocarMaquina(' .$nomeMaquina . ',' . $_GET ['laboratorio'] . ')' ) . '</p>';
 				}
+				$unicafe->close();
 				break;
 			case self::COMANDO_LIGAR :
 				$unicafe = new UniCafe ();
 				echo '<p>' . $unicafe->dialoga ( 'ligador('.$nomeMaquina.')' ) . '</p>';
+				$unicafe->close();
+				break;
+			case self::COMANDO_SEM_INTERNET:
+				$unicafe = new UniCafe ();
+				echo '<p>' . $unicafe->dialoga ( 'exec(' . $nomeMaquina . ',netsh advfirewall set  allprofiles state on)' ) . '</p>';
+				$unicafe->close();
+				$unicafe = new UniCafe ();
+				echo '<p>' . $unicafe->dialoga ( 'exec(' . $nomeMaquina . ',netsh advfirewall firewall add rule name="LIBCE" enable=yes remoteip=200.129.19.0/24 action=allow protocol=TCP dir=out )' ) . '</p>';
+				$unicafe->close();
+				$unicafe = new UniCafe ();
+				echo '<p>' . $unicafe->dialoga ( 'exec(' . $nomeMaquina . ', netsh advfirewall firewall add rule name="LIBSFC" enable=yes remoteip=200.128.19.0/24 action=allow protocol=TCP dir=out)' ) . '</p>';
+				$unicafe->close();
+				$unicafe = new UniCafe ();
+				echo '<p>' . $unicafe->dialoga ( 'exec(' . $nomeMaquina . ',netsh advfirewall firewall add rule name="LIBINT" enable=yes remoteip=10.0.0.0/8 action=allow protocol=TCP dir=out )' ) . '</p>';
+				$unicafe->close();
+				$unicafe = new UniCafe ();
+				echo '<p>' . $unicafe->dialoga ( 'exec(' . $nomeMaquina . ',netsh advfirewall set currentprofile firewallpolicy blockinbound,blockoutbound)' ) . '</p>';
+				$unicafe->close();
+				break;
+			
+			case self::COMANDO_COM_INTERNET:
+				$unicafe = new UniCafe ();
+				echo '<p>' . $unicafe->dialoga ( 'exec(' . $nomeMaquina . ',netsh advfirewall firewall delete rule name="LIBCE")' ) . '</p>';
+				$unicafe->close();
+				$unicafe = new UniCafe ();
+				echo '<p>' . $unicafe->dialoga ( 'exec(' . $nomeMaquina . ', netsh advfirewall firewall delete rule name="LIBSFC")' ) . '</p>';
+				$unicafe->close();
+				$unicafe = new UniCafe ();
+				echo '<p>' . $unicafe->dialoga ( 'exec(' . $nomeMaquina . ',netsh advfirewall firewall delete rule name="LIBINT")' ) . '</p>';
+				$unicafe->close();
+				$unicafe = new UniCafe ();
+				echo '<p>' . $unicafe->dialoga ( 'exec(' . $nomeMaquina . ',netsh advfirewall set currentprofile firewallpolicy blockinbound,allowoutbound)' ) . '</p>';
+				$unicafe->close();
 				break;
 			case 26:
 				$unicafe = new UniCafe ();
 				echo '<p>' . $unicafe->dialoga ( 'atualiza('.$nomeMaquina.')' ) . '</p>';
+				$unicafe->close();
 				break;
 			case 25:
 				$unicafe = new UniCafe ();
 				echo '<p>' . $unicafe->dialoga ( 'atualizaMac('.$nomeMaquina.')' ) . '</p>';
+				$unicafe->close();
 				break;
 			case 300:
 				$unicafe = new UniCafe ();
 				echo '<p>' . $unicafe->dialoga ( 'desativar('.$nomeMaquina.')' ) . '</p>';
+				$unicafe->close();
 				break;
 
 			default :
@@ -105,29 +180,66 @@ class ComandoController {
 			case self::COMANDO_DESLIGAR :
 				$unicafe = new UniCafe ();
 				echo '<p>' . $unicafe->dialoga ( 'desliga(' . $nomeMaquina. ')' ) . '</p>';
-				
+				$unicafe->close();
 				break;
 			case self::COMANDO_AULA :
 				$unicafe = new UniCafe ();
 				echo '<p>' . $unicafe->dialoga ( 'aula(' .$nomeMaquina . ')' ) . '</p>';
+				$unicafe->close();
 				break;
 			case self::COMANDO_VISITANTE :
 				$unicafe = new UniCafe ();
 				echo '<p>' . $unicafe->dialoga ( 'visitante(' .$nomeMaquina. ')' ) . '</p>';
+				$unicafe->close();
 				break;
+				case self::COMANDO_SEM_INTERNET:
+					$unicafe = new UniCafe ();
+					echo '<p>' . $unicafe->dialoga ( 'exec(' . $nomeMaquina . ',netsh advfirewall set  allprofiles state on)' ) . '</p>';
+					$unicafe->close();
+					$unicafe = new UniCafe ();
+					echo '<p>' . $unicafe->dialoga ( 'exec(' . $nomeMaquina . ',netsh advfirewall firewall add rule name="LIBCE" enable=yes remoteip=200.129.19.0/24 action=allow protocol=TCP dir=out )' ) . '</p>';
+					$unicafe->close();
+					$unicafe = new UniCafe ();
+					echo '<p>' . $unicafe->dialoga ( 'exec(' . $nomeMaquina . ', netsh advfirewall firewall add rule name="LIBSFC" enable=yes remoteip=200.128.19.0/24 action=allow protocol=TCP dir=out)' ) . '</p>';
+					$unicafe->close();
+					$unicafe = new UniCafe ();
+					echo '<p>' . $unicafe->dialoga ( 'exec(' . $nomeMaquina . ',netsh advfirewall firewall add rule name="LIBINT" enable=yes remoteip=10.0.0.0/8 action=allow protocol=TCP dir=out )' ) . '</p>';
+					$unicafe->close();
+					$unicafe = new UniCafe ();
+					echo '<p>' . $unicafe->dialoga ( 'exec(' . $nomeMaquina . ',netsh advfirewall set currentprofile firewallpolicy blockinbound,blockoutbound)' ) . '</p>';
+					$unicafe->close();
+					break;
+				
+				case self::COMANDO_COM_INTERNET:
+					$unicafe = new UniCafe ();
+					echo '<p>' . $unicafe->dialoga ( 'exec(' . $nomeMaquina . ',netsh advfirewall firewall delete rule name="LIBCE")' ) . '</p>';
+					$unicafe->close();
+					$unicafe = new UniCafe ();
+					echo '<p>' . $unicafe->dialoga ( 'exec(' . $nomeMaquina . ', netsh advfirewall firewall delete rule name="LIBSFC")' ) . '</p>';
+					$unicafe->close();
+					$unicafe = new UniCafe ();
+					echo '<p>' . $unicafe->dialoga ( 'exec(' . $nomeMaquina . ',netsh advfirewall firewall delete rule name="LIBINT")' ) . '</p>';
+					$unicafe->close();
+					$unicafe = new UniCafe ();
+					echo '<p>' . $unicafe->dialoga ( 'exec(' . $nomeMaquina . ',netsh advfirewall set currentprofile firewallpolicy blockinbound,allowoutbound)' ) . '</p>';
+					$unicafe->close();
+					break;
 			case self::COMANDO_BLOQUEIA :
 				$unicafe = new UniCafe ();
 				echo '<p>' . $unicafe->dialoga ( 'bloqueia(' . $nomeMaquina . ')' ) . '</p>';
+				$unicafe->close();
 				break;
 			case self::COMANDO_ALOCAR :
 				if (isset ( $_GET ['laboratorio'] )) {
 					$unicafe = new UniCafe ();
 					echo '<p>' . $unicafe->dialoga ( 'alocarMaquina(' .$nomeMaquina . ',' . $_GET ['laboratorio'] . ')' ) . '</p>';
 				}
+				$unicafe->close();
 				break;
 			case 300:
 				$unicafe = new UniCafe ();
 				echo '<p>' . $unicafe->dialoga ( 'desativar('.$nomeMaquina.')' ) . '</p>';
+				$unicafe->close();
 				break;
 
 			default :

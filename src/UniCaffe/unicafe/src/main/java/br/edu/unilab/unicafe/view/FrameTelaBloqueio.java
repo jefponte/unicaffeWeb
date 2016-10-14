@@ -61,6 +61,9 @@ public class FrameTelaBloqueio extends JFrame {
 		Toolkit tk = Toolkit.getDefaultToolkit();  
 	    Dimension d = tk.getScreenSize();  
 		setSize(d.width, d.height);
+		
+		
+		
 		JPanel contentPane = new JPanel();
 		contentPane.setBackground(new Color(145, 216, 247));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -314,9 +317,9 @@ public class FrameTelaBloqueio extends JFrame {
 		labelIconeStatus.setBounds(0, 0, 45, 43);
 		panelStatusIcone.add(labelIconeStatus);
 		
-		JLabel label = new JLabel("1.000021");
+		JLabel label = new JLabel("1.00004");
 		label.setForeground(Color.WHITE);
-		label.setBounds(233, 41, 46, 14);
+		label.setBounds(233, 41, 63, 14);
 		panelTopo.add(label);
 		addWindowListener(new WindowListener() {
 

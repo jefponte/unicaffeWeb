@@ -39,7 +39,6 @@ public class Acesso {
 	}
 	public void pararDeContar(){
 		this.status = STATUS_DISPONIVEL;
-		
 	}
 	
 	public int getId() {

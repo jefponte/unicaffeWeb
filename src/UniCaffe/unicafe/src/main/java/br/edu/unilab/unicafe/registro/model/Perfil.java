@@ -51,6 +51,8 @@ public class Perfil {
 
 				@SuppressWarnings("unused")
 				Process process = Runtime.getRuntime().exec(registro.toString());
+				System.out.println(registro.toString());
+				
 
 			} catch (IOException e) {
 				
@@ -65,7 +67,7 @@ public class Perfil {
 			try {
 
 				process = Runtime.getRuntime().exec(registro.toStringDeletar());
-
+				System.out.println(registro.toStringDeletar());
 			} catch (IOException e) {
 				
 			}

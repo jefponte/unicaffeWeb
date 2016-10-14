@@ -163,14 +163,7 @@ public class Registro {
 	public static final int REG_EXPAND_SZ = 2;
 	
 	
-	
-	
-	
-	
-	
-	
-	//REG add HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\System /v HideFastUserSwitching /t REG_DWORD /d 0 /f
-	//HKLM\
+
 	
 	
 	@Override
@@ -194,7 +187,6 @@ public class Registro {
 		switch (this.tipo) {
 		case REG_DWORD:
 			break;
-
 		case REG_SZ:
 			this.valor = "\""+this.valor+"\"";
 			break;
@@ -206,13 +198,10 @@ public class Registro {
 		}
 		return this.valor;
 	}
-	
-	
 	public String valorPadraoToString(){
 		switch (this.tipo) {
 		case REG_DWORD:
 			break;
-
 		case REG_SZ:
 			this.valorPadrao = "\""+this.valorPadrao+"\"";
 			break;
@@ -225,17 +214,14 @@ public class Registro {
 		return this.valorPadrao;
 	}
 	public String tipoToString(){
-
 		String strTipo = "";
 		switch (this.tipo) {
 		case REG_DWORD:
 			strTipo = "REG_DWORD";
 			break;
-
 		case REG_EXPAND_SZ:
 			strTipo = "REG_EXPAND_SZ";
-			break;
-			
+			break;	
 		case REG_SZ:
 			strTipo = "REG_SZ";
 			break;
@@ -243,14 +229,7 @@ public class Registro {
 			strTipo = "REG_DWORD";
 			break;
 		}
-		return strTipo;
-		
+		return strTipo;	
 	}
-	
-	
-	
-	
-
-
 
 }

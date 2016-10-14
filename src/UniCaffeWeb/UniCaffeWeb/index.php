@@ -37,7 +37,7 @@ if (isset ( $_GET ["sair"] )) {
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 	<!-- meta tag para responsividade em Windows e Linux -->
 	<link rel="stylesheet"
-		href="http://spa.dsi.unilab.edu.br/spa/css/spa.css" />
+		href="css_spa/spa.css" />
 	<link rel="stylesheet" href="css/style.css" />
 	<link rel="stylesheet" href="css/maquina.css" />
 	<link rel="stylesheet" href="css/new_maquina.css" />
@@ -49,9 +49,7 @@ if (isset ( $_GET ["sair"] )) {
 </head>
 <body>
 	<div class="pagina doze colunas">
-	<?php echo file_get_contents("http://spa.dsi.unilab.edu.br/temas/padrao_antigo_acessivel/barra-acessibilidade.php"); ?>
-	<?php echo file_get_contents("http://spa.dsi.unilab.edu.br/temas/barra-governo.php"); ?>
-		<div class="topo doze linha fundo-branco">
+			<div class="topo doze linha fundo-branco">
 			<div class="conteudo">
 				<div id="logo-unicaffe">
 					<a href="#"> <img alt="logotipo do Unicaffé"

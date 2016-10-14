@@ -36,6 +36,17 @@ public class PerfilBloqueio {
 
 	public void buscaAceitos() {
 		this.listaDeProcessosAceitos = new ArrayList<Processo>();
+		
+		this.listaDeProcessosAceitos.add(new Processo("netbeans64.exe", "C:\\Program Files\\NetBeans 8.1\\bin\\netbeans64.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("CVH.EXE", "C:\\Program Files (x86)\\Common Files\\microsoft shared\\Virtualization Handler\\CVH.EXE", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("sftvsa.exe", "C:\\Program Files (x86)\\Microsoft Application Virtualization Client\\sftvsa.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("sftlist.exe", "C:\\Program Files (x86)\\Microsoft Application Virtualization Client\\sftlist.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("PPTVIEW.EXE", "C:\\Program Files (x86)\\Microsoft Office\\Office14\\PPTVIEW.EXE", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("POWERPNT.EXE", "C:\\Program Files (x86)\\Microsoft Office\\Office15\\POWERPNT.EXE", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("zotero.exe", "C:\\Program Files (x86)\\Zotero Standalone\\zotero.exe", "944"));
+
+		this.listaDeProcessosAceitos.add(new Processo("netbeans.exe", "C:\\Program Files\\NetBeans 8.1\\bin\\netbeans.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("psppire.exe", "C:\\Program Files\\PSPP\\bin\\psppire.exe", "944"));
 		this.listaDeProcessosAceitos.add(new Processo("javaw.exe", "C:\\Program Files (x86)\\Java\\jdk1.8.0_73\\bin\\javaw.exe", "944"));
 		this.listaDeProcessosAceitos.add(new Processo("GoogleCrashHandler.exe", "C:\\Program Files (x86)\\Google\\Update\\1.3.29.5\\GoogleCrashHandler.exe", "944"));
 		this.listaDeProcessosAceitos.add(new Processo("GoogleCrashHandler64.exe", "C:\\Program Files (x86)\\Google\\Update\\1.3.29.5\\GoogleCrashHandler64.exe", "944"));
