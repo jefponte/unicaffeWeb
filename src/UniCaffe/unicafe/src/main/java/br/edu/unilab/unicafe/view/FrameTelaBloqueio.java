@@ -50,7 +50,10 @@ public class FrameTelaBloqueio extends JFrame {
 	private JLabel labelStatus;
 	private JPanel panelStatusIcone;
 	private JLabel labelIconeStatus;
-
+	private JPanel panelTopo;
+	
+	
+	
 	/**
 	 * Create the frame.
 	 */
@@ -229,7 +232,7 @@ public class FrameTelaBloqueio extends JFrame {
 			}
 		});
 		
-		JPanel panelTopo = new JPanel();
+		panelTopo = new JPanel();
 		panelTopo.setBackground(new Color(0, 158, 216));
 		panelTopo.setBounds(0, 0, getWidth(), 68);
 		contentPane.add(panelTopo);
@@ -317,7 +320,7 @@ public class FrameTelaBloqueio extends JFrame {
 		labelIconeStatus.setBounds(0, 0, 45, 43);
 		panelStatusIcone.add(labelIconeStatus);
 		
-		JLabel label = new JLabel("1.00004");
+		JLabel label = new JLabel("1.00061");
 		label.setForeground(Color.WHITE);
 		label.setBounds(233, 41, 63, 14);
 		panelTopo.add(label);

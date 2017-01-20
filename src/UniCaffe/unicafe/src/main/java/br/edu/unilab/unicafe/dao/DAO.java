@@ -50,7 +50,6 @@ public class DAO {
 				Class.forName(DRIVER_POSTGRES);
 				this.conexao = DriverManager.getConnection(JDBC_BANCO_POSTGRES+ "//" + HOST_PG_TESTE+ "/" + BANCO_PG_TESTE,USUARIO_PG_TESTE, SENHA_PG_TESTE);
 				break;
-				
 			case TIPO_PG_SIMULACAO_SIGAA:
 				Class.forName(DRIVER_POSTGRES);
 				this.conexao = DriverManager.getConnection(JDBC_BANCO_POSTGRES+ "//" + HOST_PG_SIMULACAO_SIGAA+ "/" + BANCO_PG_SIMULACAO_SIGAA,USUARIO_PG_SIMULACAO_SIGAA, SENHA_PG_SIMULACAO_SIGAA);

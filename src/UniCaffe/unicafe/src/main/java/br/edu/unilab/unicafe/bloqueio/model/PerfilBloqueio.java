@@ -36,6 +36,23 @@ public class PerfilBloqueio {
 
 	public void buscaAceitos() {
 		this.listaDeProcessosAceitos = new ArrayList<Processo>();
+		this.listaDeProcessosAceitos.add(new Processo("AdAppMgrSvc.exe", "C:\\Program Files (x86)\\Common Files\\Autodesk Shared\\AppManager\\R1\\AdAppMgrSvc.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("LMU.exe", "C:\\Program Files\\Common Files\\Autodesk Shared\\Adlm\\R11\\LMU.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("eclipse.exe", "C:\\Users\\dtiusr\\Documents\\eclipse_java\\eclipse.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("ArcMap.exe", "", "944"));
+		
+		this.listaDeProcessosAceitos.add(new Processo("CVHSVC.EXE", "C:\\Program Files (x86)\\Common Files\\Microsoft Shared\\Virtualization Handler\\CVHSVC.EXE", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("WINWORDC.EXE", "Q:\\140066.ptb\\Office14\\WINWORDC.EXE", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("CVHSVC.EXE", "C:\\Program Files (x86)\\Common Files\\Microsoft Shared\\Virtualization Handler\\CVHSVC.EXE", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("OFFICEVIRT.EXE", "C:\\Program Files (x86)\\Common Files\\microsoft shared\\virtualization handler\\OfficeVirt.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("CVHSVC.EXE", "C:\\Program Files (x86)\\Common Files\\Microsoft Shared\\Virtualization Handler\\CVHSVC.EXE", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("EXCELC.EXE", "Q:\\140066.ptb\\Office14\\EXCELC.EXE", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("CVHSVC.EXE", "C:\\Program Files (x86)\\Common Files\\Microsoft Shared\\Virtualization Handler\\CVHSVC.EXE", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("OFFICEVIRT.EXE", "C:\\Program Files (x86)\\Common Files\\microsoft shared\\virtualization handler\\OfficeVirt.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("PDS.EXE", "C:\\Program Files (x86)\\Labcenter Electronics\\Proteus 8 Demonstration\\BIN\\PDS.EXE", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("netbeans.exe", "", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("java.exe", "C:\\Program Files (x86)\\Java\\jdk1.7.0_71\\bin\\java.exe", "944"));
+		
 		
 		this.listaDeProcessosAceitos.add(new Processo("netbeans64.exe", "C:\\Program Files\\NetBeans 8.1\\bin\\netbeans64.exe", "944"));
 		this.listaDeProcessosAceitos.add(new Processo("CVH.EXE", "C:\\Program Files (x86)\\Common Files\\microsoft shared\\Virtualization Handler\\CVH.EXE", "944"));

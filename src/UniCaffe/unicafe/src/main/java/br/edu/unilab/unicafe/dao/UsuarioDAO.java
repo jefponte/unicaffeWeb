@@ -109,8 +109,7 @@ public class UsuarioDAO extends DAO {
 		}
 		
 		return false;
-		
-		
+
 	}
 	
 	public Usuario logado(String login) {

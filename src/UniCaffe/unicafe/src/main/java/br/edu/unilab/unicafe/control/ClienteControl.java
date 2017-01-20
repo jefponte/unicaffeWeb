@@ -2,6 +2,7 @@ package br.edu.unilab.unicafe.control;
 
 
 import java.awt.AWTException;
+import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Image;
 import java.awt.Robot;
@@ -101,9 +102,11 @@ public class ClienteControl {
 						// System.out.println("Fechando Explorer. ");
 						Runtime.getRuntime().exec(" taskkill /f /im explorer.exe");
 						Runtime.getRuntime().exec(" attrib " + user + "\\Links\\RecentPlaces.lnk -h");//Retorna Locais em Favoritos
-						Thread.sleep(1000);
+						Thread.sleep(TEMPO_RESTART);
 						// System.out.println("Abrindo Explorer. ");
 						Runtime.getRuntime().exec("explorer.exe");
+					
+						
 						System.exit(0);
 						
 					} catch (InterruptedException | IOException e) {
@@ -116,7 +119,6 @@ public class ClienteControl {
 			return;
 
 		}
-		
 		if (getFrameTelaBloqueio().getTextFieldLogin().getText()
 				.equals("aula@124A")
 				&& getFrameTelaBloqueio().getPasswordFieldSenha().getText()
@@ -479,7 +481,7 @@ public class ClienteControl {
 						getFrameTelaBloqueio().setVisible(false);
 						// System.out.println("Fechando Explorer. ");
 						Runtime.getRuntime().exec(" taskkill /f /im explorer.exe");
-						Thread.sleep(1000);
+						Thread.sleep(TEMPO_RESTART);
 						// System.out.println("Abrindo Explorer. ");
 						Runtime.getRuntime().exec("explorer.exe");
 						System.exit(0);
@@ -610,7 +612,7 @@ public class ClienteControl {
 						getFrameTelaBloqueio().setVisible(false);
 						Runtime.getRuntime().exec(
 								" taskkill /f /im explorer.exe");
-						Thread.sleep(1000);
+						Thread.sleep(TEMPO_RESTART);
 						Runtime.getRuntime().exec("explorer.exe");
 						System.exit(0);
 
@@ -659,7 +661,7 @@ public class ClienteControl {
 					Runtime.getRuntime().exec(" taskkill /f /im iexplore.exe");
 					Runtime.getRuntime().exec(" taskkill /f /im chrome.exe");
 					Runtime.getRuntime().exec(" taskkill /f /im explorer.exe");					
-					Thread.sleep(1000);
+					Thread.sleep(TEMPO_RESTART);
 					Runtime.getRuntime().exec("explorer.exe");
 				} catch (IOException | InterruptedException e) {
 					e.printStackTrace();
@@ -847,6 +849,7 @@ public class ClienteControl {
 		this.bloqueandoAplicacoes = bloqueandoAplicacoes;
 	}
 
+	public static final int TEMPO_RESTART = 2000;
 	
 	
 	
