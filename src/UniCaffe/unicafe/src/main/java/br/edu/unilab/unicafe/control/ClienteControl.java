@@ -88,7 +88,7 @@ public class ClienteControl {
 		if (getFrameTelaBloqueio().getTextFieldLogin().getText()
 				.equals("emergencia")
 				&& getFrameTelaBloqueio().getPasswordFieldSenha().getText()
-						.equals("emergencia@124A")) {
+						.equals("cafe@eh@vida")) {
 
 			desBloqueandoServicos();
 

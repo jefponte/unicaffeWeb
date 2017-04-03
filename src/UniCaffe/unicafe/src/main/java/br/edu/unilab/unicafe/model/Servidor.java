@@ -756,7 +756,7 @@ public class Servidor {
 				
 			}
 			
-			if(login.equals("visitante") && senha.equals(UsuarioDAO.getMD5("123456"))){
+			if(login.equals("visitante") && senha.equals(UsuarioDAO.getMD5("654321"))){
 				
 
 				//Verificar se existem 20 por centod e maquinas conectadas livres.
