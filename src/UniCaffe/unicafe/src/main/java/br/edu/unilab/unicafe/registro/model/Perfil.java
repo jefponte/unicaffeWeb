@@ -99,6 +99,8 @@ public class Perfil {
 	public static ArrayList<Registro> listaParaBloqueio() {
 
 		ArrayList<Registro> lista = new ArrayList<Registro>();
+		
+		
 		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", "Wallpaper", Registro.REG_SZ, "C:\\Windows\\Web\\Wallpaper\\Windows\\papel-de-parede.jpg", "C:\\Windows\\Web\\Wallpaper\\Windows\\img0.jpg" ,"definir papel de parede"));
 		lista.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer","NoControlPanel", Registro.REG_DWORD, "1", "0",	"Desabilita Painel de Controle"));
 		lista.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer","NoRun", Registro.REG_DWORD, "1", "0", "Não abrir o Executar"));

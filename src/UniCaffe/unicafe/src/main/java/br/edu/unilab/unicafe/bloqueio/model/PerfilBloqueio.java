@@ -37,6 +37,54 @@ public class PerfilBloqueio {
 	public void buscaAceitos() {
 		this.listaDeProcessosAceitos = new ArrayList<Processo>();
 		
+		this.listaDeProcessosAceitos.add(new Processo("nvda_slave.exe", "C:\\Program Files (x86)\\NVDA\\nvda_slave.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("nvda.exe", "C:\\Program Files (x86)\\NVDA\\nvda.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("javaw.exe", "C:\\Program Files (x86)\\GeoGebra 5.0\\jre\\bin\\javaw.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("qgis-bin.exe", "C:\\PROGRA~1\\QGIS2~1.18\\bin\\qgis-bin.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("python.exe", "C:\\PROGRA~1\\QGIS2~1.18\\bin\\python.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("designer.exe", "C:\\PROGRA~1\\QGIS2~1.18\\bin\\designer.exe", "944"));
+
+
+		this.listaDeProcessosAceitos.add(new Processo("SearchIndexer.exe", "", "944"));
+		
+		this.listaDeProcessosAceitos.add(new Processo("qgis-browser-bin.exe", "C:\\PROGRA~1\\QGIS2~1.18\\bin\\qgis-browser-bin.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("Connect.Service.ContentService.exe", "C:\\Program Files\\Autodesk\\Content Service\\Connect.Service.ContentService.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("sftdde.exe", "C:\\Program Files (x86)\\Microsoft Application Virtualization Client\\sftdde.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("ArcMap.exe", "", "944"));
+		
+		this.listaDeProcessosAceitos.add(new Processo("EXCEL.EXE", "", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("EXCEL.EXE", "C:\\Program Files\\Microsoft Office\\Office14\\EXCEL.EXE", "944"));
+		
+		this.listaDeProcessosAceitos.add(new Processo("POWERPNT.EXE", "C:\\Program Files\\Microsoft Office\\Office14\\POWERPNT.EXE", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("WINWORD.EXE", "C:\\Program Files\\Microsoft Office\\Office14\\WINWORD.EXE", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("POWERPNT.EXE", "C:\\Program Files\\Microsoft Office\\Office14\\POWERPNT.EXE", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("WINWORD.EXE", "C:\\Program Files\\Microsoft Office\\Office14\\WINWORD.EXE", "944"));
+		
+		
+		this.listaDeProcessosAceitos.add(new Processo("wsqmcons.exe", "", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("w.exe", "C:\\Windows\\System32\\W.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("w.exe", "", "944"));
+		
+		this.listaDeProcessosAceitos.add(new Processo("octave-gui.exe", "C:\\Octave\\Octave-4.2.0\\bin\\octave-gui.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("octave-gui.exe", "C:\\Octave\\Octave-4.2.0\\bin\\octave-gui.exe", "944"));
+		
+		this.listaDeProcessosAceitos.add(new Processo("AddInUtil.exe", "C:\\Windows\\Microsoft.NET\\Framework64\\v3.5\\addinutil.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("ngen.exe", "", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("mscorsvw.exe", "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\mscorsvw.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("ngen.exe", "C:\\Windows\\Microsoft.NET\\Framework\\v4.0.30319\\ngen.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("ngen.exe", "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\ngen.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("mscorsvw.exe", "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\mscorsvw.exe", "944"));
+		
+		this.listaDeProcessosAceitos.add(new Processo("vstor_redist.exe", "C:\\Windows\\SoftwareDistribution\\Download\\Install\\vstor_redist.exe", "944"));
+
+		
+		this.listaDeProcessosAceitos.add(new Processo("mscorsvw.exe", "C:\\Windows\\Microsoft.NET\\Framework64\\v4.0.30319\\mscorsvw.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("Silverlight_x64.exe", "C:\\Windows\\SoftwareDistribution\\Download\\Install\\Silverlight_x64.exe", "944"));
+		
+		
+		this.listaDeProcessosAceitos.add(new Processo("googleearth.exe", "C:\\Program Files (x86)\\Google\\Google Earth Pro\\client\\googleearth.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("reg.exe", "", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("reg.exe", "C:\\Windows\\SysWOW64\\REG.exe", "944"));
 		this.listaDeProcessosAceitos.add(new Processo("JASP.exe", "C:\\Program Files\\JASP 0.8.0.1\\JASP.exe", "944"));
 		this.listaDeProcessosAceitos.add(new Processo("devcpp.exe", "C:\\Program Files (x86)\\Dev-Cpp\\devcpp.exe", "944"));
 		this.listaDeProcessosAceitos.add(new Processo("cpp.exe", "C:\\Program Files (x86)\\Dev-Cpp\\MinGW64\\bin\\cpp.exe", "944"));

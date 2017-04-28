@@ -99,11 +99,11 @@ public class ClienteControl {
 
 					try {
 						getFrameTelaBloqueio().setVisible(false);
-						// System.out.println("Fechando Explorer. ");
+						 System.out.println("Fechando Explorer. ");
 						Runtime.getRuntime().exec(" taskkill /f /im explorer.exe");
 						Runtime.getRuntime().exec(" attrib " + user + "\\Links\\RecentPlaces.lnk -h");//Retorna Locais em Favoritos
 						Thread.sleep(TEMPO_RESTART);
-						// System.out.println("Abrindo Explorer. ");
+						 System.out.println("Abrindo Explorer. ");
 						Runtime.getRuntime().exec("explorer.exe");
 					
 						
@@ -849,7 +849,7 @@ public class ClienteControl {
 		this.bloqueandoAplicacoes = bloqueandoAplicacoes;
 	}
 
-	public static final int TEMPO_RESTART = 2000;
+	public static final int TEMPO_RESTART = 3000;
 	
 	
 	
