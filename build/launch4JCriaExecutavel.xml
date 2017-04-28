@@ -2,8 +2,8 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>C:\projetos\unicafe\src\UniCaffe\unicafe\target\unicafe-cliente.jar</jar>
-  <outfile>C:\projetos\unicafe\build\UniCafeClient.exe</outfile>
+  <jar>..\src\UniCaffe\unicafe\target\unicafe-cliente.jar</jar>
+  <outfile>.\UniCafeClient.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
   <chdir>.</chdir>
@@ -13,7 +13,7 @@
   <stayAlive>false</stayAlive>
   <restartOnCrash>false</restartOnCrash>
   <manifest></manifest>
-  <icon>C:\projetos\unicafe\doc\cafe.ico</icon>
+  <icon>..\doc\cafe.ico</icon>
   <jre>
     <path></path>
     <bundledJre64Bit>false</bundledJre64Bit>

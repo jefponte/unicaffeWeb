@@ -7,7 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.RandomAccessFile;
 import java.nio.channels.FileLock;
-import br.edu.unilab.unicafe.control.ClienteControl;
+import br.edu.unilab.unicafe.controller.ClienteController;
 
 
 
@@ -35,7 +35,7 @@ public class MainClient {
 		}
 
 		if (lock != null) {
-			ClienteControl controle = new ClienteControl();
+			ClienteController controle = new ClienteController();
 			controle.iniciaCliente();
 			try {
 				Thread.sleep(10000);

@@ -54,7 +54,7 @@ public class Servidor {
 		try {
 
 
-			this.serverSocket = new ServerSocket(porta, 100);
+			this.serverSocket = new ServerSocket(porta, 500);
 			esperaConexoes();
 		} catch (IOException e) {
 			System.out.println("Não consegui utilizar a porta: "+porta+".");
@@ -169,7 +169,7 @@ public class Servidor {
 					
 
 					if(mensagem.indexOf("GET / HTTP/1.1") != -1){
-						ps.println("<html>"
+						ps.println("<!DOCTYPE html><html>"
 								+ "<header><style>"
 								+ "body{background-color:#FF9999;}"
 								+ ""
@@ -614,6 +614,21 @@ public class Servidor {
 				
 			}
 			
+			return;
+			
+		}
+		else if (comando.equals("limparDados")) {
+			
+			System.out.println("Desligando "+parametros);
+			for(Cliente clienteALimpar : listaDeClientes){
+				if(clienteALimpar.getMaquina().getNome().toLowerCase().equals(parametros.toLowerCase())){
+					new PrintStream(clienteALimpar.getSaida()).println("limparDados()");
+					new PrintStream(cliente.getSaida()).println("Limpei o "+clienteALimpar.getMaquina().getNome());
+				}
+				
+			}
+			
+			return;
 			
 		}
 		else if (comando.equals("aula")) {

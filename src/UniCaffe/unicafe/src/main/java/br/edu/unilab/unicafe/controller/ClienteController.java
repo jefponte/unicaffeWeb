@@ -1,4 +1,4 @@
-package br.edu.unilab.unicafe.control;
+package br.edu.unilab.unicafe.controller;
 
 
 import java.awt.AWTException;
@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
@@ -42,7 +43,7 @@ import br.edu.unilab.unicafe.view.FrameTelaBloqueio;
  * @author jefponte
  *
  */
-public class ClienteControl {
+public class ClienteController {
 
 	/**
 	 * View
@@ -67,7 +68,7 @@ public class ClienteControl {
 	 */
 	private Cliente cliente;
 
-	public ClienteControl() {
+	public ClienteController() {
 		this.semaforo = new Semaphore(1);
 		this.cliente = new Cliente();
 		this.getCliente().getMaquina().preencheComMaquinaLocal();
@@ -547,7 +548,16 @@ public class ClienteControl {
 			
 			return;
 			
-		}else if (comando.equals("printc")) {
+		}else if (comando.equals("limparDados")) {
+			String caminho = user+"\\localunicafe";
+			
+			apagarDados(new File(caminho));
+			return;
+			
+		}
+		
+		
+		else if (comando.equals("printc")) {
 
 			Thread t = new Thread(new Runnable() {
 
@@ -776,7 +786,7 @@ public class ClienteControl {
 	
 		
 	protected static Image createImage(String path, String description) {
-		URL imageURL = ClienteControl.class.getResource(path);		        
+		URL imageURL = ClienteController.class.getResource(path);		        
 		if (imageURL == null) {
 			System.err.println("Caminho não encontrado: " + path);
 			return null;
@@ -851,6 +861,23 @@ public class ClienteControl {
 
 	public static final int TEMPO_RESTART = 3000;
 	
+	
+	public void apagarDados(File arquivo){
+		String login = getCliente().getMaquina().getAcesso().getUsuario().getLogin();
+		
+		if(arquivo.isDirectory()){
+			
+			File[] listaDeArquivos = arquivo.listFiles();
+			for(File outroArquivo : listaDeArquivos){
+				if(!((outroArquivo.getName().toLowerCase().trim().equals(login.toLowerCase().trim()))||outroArquivo.getName().toLowerCase().trim().equals("public"))){
+					apagarDados(outroArquivo);	
+				}
+				
+			}
+		}
+		
+		arquivo.delete();
+	}
 	
 	
 	
