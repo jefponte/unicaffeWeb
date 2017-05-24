@@ -149,8 +149,7 @@ public class Servidor {
 				try {
 
 					cliente.setSaida(conexao.getOutputStream());
-					cliente.setEntrada(conexao.getInputStream());
-
+					cliente.setEntrada(conexao.getInputStream());					
 					cliente.getMaquina().setIp(cliente.getConexao().getInetAddress().toString().substring(1));
 					PrintStream ps = new PrintStream(cliente.getSaida());
 					BufferedReader in = new BufferedReader(new InputStreamReader(cliente.getEntrada()));
