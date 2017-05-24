@@ -46,6 +46,10 @@ public class DAO {
 				Class.forName(DRIVER_POSTGRES);
 				this.conexao = DriverManager.getConnection(JDBC_BANCO_POSTGRES+ "//" + HOST_PG_SIGAA + "/" + BANCO_PG_SIGAA,USUARIO_PG_SIGAA, SENHA_PG_SIGAA);
 				break;
+			case TIPO_PG_SIGAA2:
+				Class.forName(DRIVER_POSTGRES);
+				this.conexao = DriverManager.getConnection(JDBC_BANCO_POSTGRES+ "//" + HOST_PG_SIGAA + "/" + BANCO_PG_SIGAA2,USUARIO_PG_SIGAA, SENHA_PG_SIGAA);
+				break;
 			case TIPO_PG_TESTE:
 				Class.forName(DRIVER_POSTGRES);
 				this.conexao = DriverManager.getConnection(JDBC_BANCO_POSTGRES+ "//" + HOST_PG_TESTE+ "/" + BANCO_PG_TESTE,USUARIO_PG_TESTE, SENHA_PG_TESTE);
@@ -54,6 +58,7 @@ public class DAO {
 				Class.forName(DRIVER_POSTGRES);
 				this.conexao = DriverManager.getConnection(JDBC_BANCO_POSTGRES+ "//" + HOST_PG_SIMULACAO_SIGAA+ "/" + BANCO_PG_SIMULACAO_SIGAA,USUARIO_PG_SIMULACAO_SIGAA, SENHA_PG_SIMULACAO_SIGAA);
 				break;
+				
 			case TIPO_MYSQL:
 				Class.forName(DRIVER_MYSQL);
 				this.conexao=DriverManager.getConnection(JDBC_BANCO_MYSQL+"//"+IP_MYSQL+"/"+BANCO_MYSQL,USUARIO_MYSQL,SENHA_MYSQL);
@@ -100,6 +105,7 @@ public class DAO {
 	public  static final String HOST_PG_SIMULACAO_SIGAA = "10.5.1.8:5432";
 	
 	public  static final String BANCO_PG_SIGAA = "sistemas_comum";
+	public  static final String BANCO_PG_SIGAA2 = "sigaa";
 	public  static final String BANCO_PG_TESTE = "unicafe";
 	public  static final String BANCO_PG_SIMULACAO_SIGAA = "sistemas_comum";
 	public  static final String BANCO_PG_PRODUCAO = "unicafe";
@@ -129,6 +135,7 @@ public class DAO {
 	public static final int TIPO_MYSQL = 1;
 	public static final int TIPO_POSTGRESQL = 2;
 	public static final int TIPO_PG_SIGAA = 4;
+	public static final int TIPO_PG_SIGAA2 = 8;
 	public static final int TIPO_PG_TESTE = 5;
 	public static final int TIPO_PG_SIMULACAO_SIGAA = 6;
 	

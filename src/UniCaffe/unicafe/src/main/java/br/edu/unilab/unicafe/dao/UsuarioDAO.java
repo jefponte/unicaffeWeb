@@ -55,6 +55,10 @@ public class UsuarioDAO extends DAO {
 		
 	}
 	
+	public String nivelDiscente(Usuario usuario){
+		return "";
+	}
+	
 	public  boolean autentica(Usuario usuario){
 		if(this.autenticaLocal(usuario))
 			return true;

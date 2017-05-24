@@ -808,6 +808,8 @@ public class Servidor {
 				int tempo = acessoDao.retornaTempoUsadoHoje(usuario);
 				
 				if(cliente.getMaquina().getLaboratorio().getNome().trim().toLowerCase().equals("labteste")){
+					
+					
 					new PrintStream(cliente.getSaida()).println("desbloqueia(" + login + ", "+43200+ ")");
 				}else if (tempo <= AcessoDAO.COTA) {
 					new PrintStream(cliente.getSaida()).println("desbloqueia(" + login + ", "+ ((AcessoDAO.COTA) - (tempo)) + ")");
