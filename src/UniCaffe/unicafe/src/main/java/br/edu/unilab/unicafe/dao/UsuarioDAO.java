@@ -59,7 +59,7 @@ public class UsuarioDAO extends DAO {
 	public boolean seuNivelEhGraduacao(Usuario usuario){
 	try {
 			
-			PreparedStatement ps = this.getConexao().prepareStatement("SELECT * FROM usuarios_unicafe id_usuario ?");
+			PreparedStatement ps = this.getConexao().prepareStatement("SELECT * FROM usuarios_unicafe WHERE id_usuario = ?");
 			ps.setInt(1, usuario.getIdBaseExterna());
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){

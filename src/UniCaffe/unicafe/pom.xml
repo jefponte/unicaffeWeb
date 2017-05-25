@@ -160,6 +160,27 @@
                             <goal>single</goal>
                         </goals>
                     </execution>
+                    <execution>
+                        <id>build-teste</id>
+                        <configuration>
+                            <appendAssemblyId>false</appendAssemblyId>
+                            <archive>
+                                <manifest>
+                                    <mainClass>br.edu.unilab.unicafe.main.MainTeste</mainClass>
+                                    <addClasspath>true</addClasspath>
+                                </manifest>
+                                <addMavenDescriptor>false</addMavenDescriptor>
+                            </archive>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                            <finalName>${project.artifactId}-teste</finalName>
+                        </configuration>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
                       <execution>
                         <id>build-exportador</id>
                         <configuration>

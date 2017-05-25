@@ -810,7 +810,7 @@ public class Servidor {
 				if(cliente.getMaquina().getLaboratorio().getNome().trim().toLowerCase().equals("labteste")){
 					UsuarioDAO daoGraduacao = new UsuarioDAO(DAO.TIPO_PG_SIGAA2);
 					if(daoGraduacao.seuNivelEhGraduacao(usuario)){
-						new PrintStream(cliente.getSaida()).println("printc(Acesso bloqueado para alunos de graduação.)");												
+						new PrintStream(cliente.getSaida()).println("printc(Bloqueado para alunos de graduação.)");												
 					}else{
 						new PrintStream(cliente.getSaida()).println("desbloqueia(" + login + ", "+43200+ ")");
 						

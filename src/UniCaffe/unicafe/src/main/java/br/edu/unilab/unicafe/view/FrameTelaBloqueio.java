@@ -160,7 +160,7 @@ public class FrameTelaBloqueio extends JFrame {
 		
 		labelMensagem = new JLabel("", JLabel.CENTER);
 		labelMensagem.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		labelMensagem.setBounds(33, 238, 256, 37);
+		labelMensagem.setBounds(33, 238, 279, 37);
 		panelForm2.add(labelMensagem);
 		
 		textFieldLogin = new JTextField();
