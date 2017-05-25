@@ -736,7 +736,7 @@ public class Servidor {
 		}
 		
 	}
-	
+	private UsuarioDAO daoGraduacao;
 	public synchronized void processaMensagem(final Cliente cliente, String mensagem) {
 		if(mensagem.indexOf('(') == -1 || mensagem.indexOf(')') == -1){
 			return;
@@ -808,7 +808,7 @@ public class Servidor {
 				int tempo = acessoDao.retornaTempoUsadoHoje(usuario);
 				
 				if(cliente.getMaquina().getLaboratorio().getNome().trim().toLowerCase().equals("labteste")){
-					UsuarioDAO daoGraduacao = new UsuarioDAO(DAO.TIPO_PG_SIGAA2);
+					daoGraduacao = new UsuarioDAO(DAO.TIPO_PG_SIGAA2);
 					if(daoGraduacao.seuNivelEhGraduacao(usuario)){
 						new PrintStream(cliente.getSaida()).println("printc(Bloqueado para alunos de graduação.)");												
 					}else{

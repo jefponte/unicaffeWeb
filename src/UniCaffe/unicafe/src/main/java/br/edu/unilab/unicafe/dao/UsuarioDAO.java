@@ -64,15 +64,19 @@ public class UsuarioDAO extends DAO {
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
 				if(rs.getString("nivel_discente") == null){
+					this.getConexao().close();
 					return false;
 				}
-				if(! (rs.getString("nivel_discente").substring(0, 1).equals("G")) ){	
+				if(! (rs.getString("nivel_discente").substring(0, 1).equals("G")) ){
+					this.getConexao().close();
 					return false;
 				}
 			}
+			this.getConexao().close();
 		} catch (SQLException e) {
 			
 			e.printStackTrace();
+			
 			return true;
 		}
 		
