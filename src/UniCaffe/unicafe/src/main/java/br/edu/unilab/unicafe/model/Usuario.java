@@ -13,6 +13,7 @@ public class Usuario {
 	private String login;
 	private String senha;
 	private int nivelAcesso;
+	private int idBaseExterna;
 	private String cpf;
 
 
@@ -109,6 +110,14 @@ public class Usuario {
 	public String toString() {
 		// return "Usuario: id=" + id + "\n" + "nome=" + nome + "\n" + "email=" + email + "\n" + "login=" + login + "\n" + "senha=" + senha + "\n" + "nivelAcesso=" + nivelAcesso + "\n" + "cpf=" + cpf;
 		return login;
+	}
+
+	public int getIdBaseExterna() {
+		return idBaseExterna;
+	}
+
+	public void setIdBaseExterna(int idBaseExterna) {
+		this.idBaseExterna = idBaseExterna;
 	}
 
 }

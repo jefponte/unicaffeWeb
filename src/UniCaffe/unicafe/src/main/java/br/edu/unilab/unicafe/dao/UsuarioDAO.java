@@ -42,6 +42,7 @@ public class UsuarioDAO extends DAO {
 				usuario.setId(rs.getInt("id_usuario"));
 				usuario.setNome(rs.getString("nome"));
 				usuario.setEmail(rs.getString("email"));
+				usuario.setIdBaseExterna(rs.getInt("id_base_externa"));
 				return true;
 			}
 		} catch (SQLException e) {
@@ -55,8 +56,29 @@ public class UsuarioDAO extends DAO {
 		
 	}
 	
-	public String nivelDiscente(Usuario usuario){
-		return "";
+	public boolean seuNivelEhGraduacao(Usuario usuario){
+	try {
+			
+			PreparedStatement ps = this.getConexao().prepareStatement("SELECT * FROM usuarios_unicafe id_usuario ?");
+			ps.setInt(1, usuario.getIdBaseExterna());
+			ResultSet rs = ps.executeQuery();
+			while(rs.next()){
+				if(rs.getString("nivel_discente") == null){
+					return false;
+				}
+				if(! (rs.getString("nivel_discente").substring(0, 1).equals("G")) ){	
+					return false;
+				}
+			}
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+			return true;
+		}
+		
+		return true;
+		
+		
 	}
 	
 	public  boolean autentica(Usuario usuario){
@@ -64,8 +86,7 @@ public class UsuarioDAO extends DAO {
 			return true;
 		//A gente fecha conexao local?
 		Connection conexaoLocal = this.getConexao();
-		this.setTipoDeConexao(DAO.TIPO_CONEXAO_AUTENTICACAO);
-		this.novaConexao();
+		  
 		if(this.autenticaRemoto(usuario))
 		{
 			try {
@@ -100,6 +121,7 @@ public class UsuarioDAO extends DAO {
 			ps.setString(2, usuario.getSenha());
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
+				usuario.setIdBaseExterna(rs.getInt("id_usuario"));
 				usuario.setId(rs.getInt("id_usuario"));
 				usuario.setNome(rs.getString("nome"));
 				usuario.setEmail(rs.getString("email"));

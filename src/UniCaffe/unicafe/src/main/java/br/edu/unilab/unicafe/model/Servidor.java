@@ -808,9 +808,15 @@ public class Servidor {
 				int tempo = acessoDao.retornaTempoUsadoHoje(usuario);
 				
 				if(cliente.getMaquina().getLaboratorio().getNome().trim().toLowerCase().equals("labteste")){
+					UsuarioDAO daoGraduacao = new UsuarioDAO(DAO.TIPO_PG_SIGAA2);
+					if(daoGraduacao.seuNivelEhGraduacao(usuario)){
+						new PrintStream(cliente.getSaida()).println("printc(Acesso bloqueado para alunos de graduação.)");												
+					}else{
+						new PrintStream(cliente.getSaida()).println("desbloqueia(" + login + ", "+43200+ ")");
+						
+					}
 					
-					
-					new PrintStream(cliente.getSaida()).println("desbloqueia(" + login + ", "+43200+ ")");
+
 				}else if (tempo <= AcessoDAO.COTA) {
 					new PrintStream(cliente.getSaida()).println("desbloqueia(" + login + ", "+ ((AcessoDAO.COTA) - (tempo)) + ")");
 					cliente.getMaquina().getAcesso().setUsuario(usuario);
