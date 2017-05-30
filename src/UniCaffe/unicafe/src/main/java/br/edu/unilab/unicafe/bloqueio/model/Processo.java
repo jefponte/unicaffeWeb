@@ -35,7 +35,7 @@ public class Processo {
 	
 	@Override
 	public String toString() {
-		return this.executablePath+","+this.imagem+",0";
+		return this.executablePath+","+this.imagem+","+this.processId;
 	}
 
 	public String getExecutablePath() {

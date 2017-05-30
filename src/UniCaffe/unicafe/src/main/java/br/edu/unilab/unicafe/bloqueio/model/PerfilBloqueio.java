@@ -8,13 +8,17 @@ import br.edu.unilab.unicafe.util.Log;
 
 public class PerfilBloqueio {
 	private ArrayList<Processo> listaDeProcessosAceitos;
+	private ArrayList<Processo> processosAtivos;
+	
+	
+	
 	public String user = System.getProperty("user.home");
 
 	public ArrayList<Processo> getListaDeAceitos() {
 		return this.listaDeProcessosAceitos;
 	}
 
-	private ArrayList<Processo> processosAtivos;
+
 
 	public ArrayList<Processo> getProcessosAtivos() {
 		return this.processosAtivos;
@@ -3561,6 +3565,8 @@ public class PerfilBloqueio {
 		this.listaDeProcessosAceitos.add(new Processo("WINWORD.EXE", "C:\\Program Files\\Microsoft Office\\Office14\\WINWORD.EXE", "944"));
 		this.listaDeProcessosAceitos.add(new Processo("googleearth.exe", "C:\\Program Files (x86)\\Google\\Google Earth Pro\\client\\googleearth.exe", "944"));
 			
+		this.listaDeProcessosAceitos.add(new Processo("javaw.exe", "C:\\Windows\\system32\\javaw.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("wuauclt.exe", "", "944"));
 		
 	}
 
@@ -3576,24 +3582,19 @@ public class PerfilBloqueio {
 					.getRuntime()
 					.exec(" wmic process  get ProcessID, Name, ExecutablePath /FORMAT:CSV");
 			leitor = new Scanner(process.getInputStream());
-
-			int i = 0;
+			
 			while (leitor.hasNext()) {
 				String linha = leitor.nextLine();
-				i++;
-				if (i < 4) {
-					continue;
-				}
-				if ((i >= 4) && (i % 2 == 0)) {
+				if(linha.equals("")){
 					continue;
 				}
 
-				// System.out.println(linha);
+				//System.out.println(linha);
 				String[] vDados = linha.split("[,]");
 				this.processosAtivos.add(new Processo(vDados[2], vDados[1],
 						vDados[3]));
 
-				// System.out.println("ID: "+vDados[3]+", Imagem: "+vDados[2]+", pasta: "+vDados[1].replace("","").toString());
+//				System.out.println("ID: "+vDados[3]+", Imagem: "+vDados[2]+", pasta: "+vDados[1].replace("","").toString());
 
 			}
 
@@ -3632,16 +3633,6 @@ public class PerfilBloqueio {
 			if (!existeNaLista) {
 
 				try {
-
-					// System.out.println(processoAtivo.getImagem()
-					// + " N�o existe na lista. Deletaaar.");
-					// JOptionPane.showMessageDialog(null,
-					// "Meu Amor, não pode executar "+
-					// processoAtivo.getImagem()+" - "+processoAtivo.getExecutablePath());
-					// System.out.println("Meu Amor, não pode executar "+
-					// processoAtivo.getImagem()+" - "+processoAtivo.getExecutablePath());
-					// new
-					// Log("Matei Um processo \n"+processoAtivo.getExecutablePath()+","+processoAtivo.getImagem());
 					Runtime.getRuntime().exec(
 							" taskkill /PID \"" + processoAtivo.getProcessId()
 									+ "\" /F");
