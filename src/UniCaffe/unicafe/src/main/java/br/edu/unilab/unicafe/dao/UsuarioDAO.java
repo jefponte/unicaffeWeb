@@ -77,7 +77,7 @@ public class UsuarioDAO extends DAO {
 			
 			e.printStackTrace();
 			
-			return true;
+			return false;
 		}
 		
 		return true;

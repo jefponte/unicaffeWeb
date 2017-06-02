@@ -813,6 +813,12 @@ public class Servidor {
 						new PrintStream(cliente.getSaida()).println("printc(Bloqueado para alunos de graduação.)");												
 					}else{
 						new PrintStream(cliente.getSaida()).println("desbloqueia(" + login + ", "+43200+ ")");
+						cliente.getMaquina().getAcesso().setUsuario(usuario);
+						cliente.getMaquina().getAcesso().setTempoDisponibilizado(43200);
+						cliente.getMaquina().getAcesso().setTempoUsado(0);
+						cliente.getMaquina().setIp(cliente.getConexao().getInetAddress().toString().substring(1));
+						cliente.getMaquina().getAcesso().contar();
+						cliente.getMaquina().getAcesso().setHoraInicial(System.currentTimeMillis());
 						
 					}
 					
