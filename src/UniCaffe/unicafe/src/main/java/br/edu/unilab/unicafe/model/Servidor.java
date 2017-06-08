@@ -848,7 +848,8 @@ public class Servidor {
 						new PrintStream(cliente.getSaida()).println("printc(Seu tempo acabou)");
 						return;
 					} catch (IOException e) {
-						// TODO Auto-generated catch block
+						
+						
 						e.printStackTrace();
 					}
 				}

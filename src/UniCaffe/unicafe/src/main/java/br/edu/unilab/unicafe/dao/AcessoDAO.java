@@ -131,7 +131,7 @@ public class AcessoDAO extends DAO {
 	 * @return
 	 */
 	public ArrayList<Acesso> retornaLista(Usuario usuario, String data, String data2) {
-		System.out.println("Tentar executar esta sql: "+"SELECT * FROM acesso WHERE id_usuario = ? AND hora_inicial BETWEEN \""+data+"\" AND \""+data2+"\"");
+//		System.out.println("Tentar executar esta sql: "+"SELECT * FROM acesso WHERE id_usuario = ? AND hora_inicial BETWEEN \""+data+"\" AND \""+data2+"\"");
 		
 		ArrayList<Acesso> lista = new ArrayList<Acesso>();
 
@@ -236,7 +236,7 @@ public class AcessoDAO extends DAO {
 //			System.out.println("Subtraido: "+new Timestamp(dataDeEntrada));
 			
 			ps2.setTimestamp(3, new Timestamp(acesso.getHoraInicial()));
-			System.out.println(maquina.toString());
+//			System.out.println(maquina.toString());
 			ps2.setInt(4, maquina.getId());
 			ps2.setInt(5, acesso.getTempoDisponibilizado());
 			ps2.setString(6, maquina.getIp());

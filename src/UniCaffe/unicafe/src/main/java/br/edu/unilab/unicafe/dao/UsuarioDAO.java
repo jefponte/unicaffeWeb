@@ -89,8 +89,12 @@ public class UsuarioDAO extends DAO {
 		if(this.autenticaLocal(usuario))
 			return true;
 		//A gente fecha conexao local?
+		
 		Connection conexaoLocal = this.getConexao();
-		  
+		this.setTipoDeConexao(TIPO_PG_SIGAA);
+		this.novaConexao();
+		
+		
 		if(this.autenticaRemoto(usuario))
 		{
 			try {
@@ -99,9 +103,23 @@ public class UsuarioDAO extends DAO {
 				System.out.println("Erro ao tentar fechar conexao com O SIGAA.");
 				e.printStackTrace();
 			}
+			
 			this.setConexao(conexaoLocal);
 			this.cadastra(usuario);
+			try {
+				this.getConexao().close();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
 			return true;
+		}
+		try {
+			this.getConexao().close();
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 		
 		return false;
@@ -116,6 +134,9 @@ public class UsuarioDAO extends DAO {
 	 */
 	public  boolean autenticaRemoto(Usuario usuario){
 		
+		
+		
+		this.setTipoDeConexao(TIPO_PG_SIGAA);
 		
 		
 		try {
