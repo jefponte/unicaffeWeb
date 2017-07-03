@@ -3567,6 +3567,11 @@ public class PerfilBloqueio {
 			
 		this.listaDeProcessosAceitos.add(new Processo("javaw.exe", "C:\\Windows\\system32\\javaw.exe", "944"));
 		this.listaDeProcessosAceitos.add(new Processo("wuauclt.exe", "", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("studio64.exe", "C:\\Program Files\\Android\\Android Studio\\bin\\studio64.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("fsnotifier64.exe", "C:\\Program Files\\Android\\Android Studio\\bin\\fsnotifier64.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("jucheck.exe", "", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("java.exe", "C:\\Program Files\\Android\\Android Studio\\jre\\bin\\java.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("SearchIndexer.exe", "", "944"));
 		
 	}
 
