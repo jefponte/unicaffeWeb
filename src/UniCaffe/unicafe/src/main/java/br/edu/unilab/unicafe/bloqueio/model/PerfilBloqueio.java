@@ -3638,9 +3638,9 @@ public class PerfilBloqueio {
 			if (!existeNaLista) {
 
 				try {
-					Runtime.getRuntime().exec(
-							" taskkill /PID \"" + processoAtivo.getProcessId()
-									+ "\" /F");
+//					Runtime.getRuntime().exec(
+//							" taskkill /PID \"" + processoAtivo.getProcessId()
+//									+ "\" /F");
 
 					// System.out.println("Processo Bloqueado: "+processoAtivo.getExecutablePath()+","+processoAtivo.getImagem()+",123");
 

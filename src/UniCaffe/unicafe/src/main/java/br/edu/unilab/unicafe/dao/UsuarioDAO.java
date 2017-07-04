@@ -86,11 +86,22 @@ public class UsuarioDAO extends DAO {
 	}
 	
 	public  boolean autentica(Usuario usuario){
-		if(this.autenticaLocal(usuario))
+		if(this.autenticaLocal(usuario)){
+			
+			System.out.println("Eu estou na base local");
 			return true;
+			
+		}
+		System.out.println("Passou direto");
 		//A gente fecha conexao local?
 		
-		Connection conexaoLocal = this.getConexao();
+		try {
+			this.getConexao().close();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
 		this.setTipoDeConexao(TIPO_PG_SIGAA);
 		this.novaConexao();
 		
@@ -103,8 +114,8 @@ public class UsuarioDAO extends DAO {
 				System.out.println("Erro ao tentar fechar conexao com O SIGAA.");
 				e.printStackTrace();
 			}
-			
-			this.setConexao(conexaoLocal);
+			this.setTipoDeConexao(TIPO_CONEXAO_DEFAULT);
+			this.novaConexao();
 			this.cadastra(usuario);
 			try {
 				this.getConexao().close();
@@ -198,12 +209,13 @@ public class UsuarioDAO extends DAO {
 	 */
 	public boolean cadastra(Usuario usuario){
 		try {
-			PreparedStatement ps = this.getConexao().prepareStatement("SELECT * FROM usuario WHERE login = ? OR email = ?");
+			PreparedStatement ps = this.getConexao().prepareStatement("SELECT * FROM usuario WHERE login = ? ");
+			
 			ps.setString(1, usuario.getLogin());
-			ps.setString(2, usuario.getEmail());
 			ResultSet rs = ps.executeQuery();
 			while(rs.next()){
-			
+				System.out.println(usuario.getLogin()+" Retornou linha");
+				System.out.println("O usuario ja existe, mane");
 				PreparedStatement psUpdate = this.getConexao().prepareStatement("UPDATE usuario set senha = ? WHERE login = ?");
 				psUpdate.setString(1, usuario.getSenha());
 				psUpdate.setString(2, usuario.getLogin());
@@ -213,13 +225,16 @@ public class UsuarioDAO extends DAO {
 				
 				return false;
 			}
-			PreparedStatement ps2 = this.getConexao().prepareStatement("INSERT into usuario(nome, email, login, senha, id_base_externa) VALUES(?, ?, ?, ?, ?)");
+			System.out.println("O usuario nao existe vamos tentar inserir");
+			//nome	email	login	senha	nivel_acesso	
+			PreparedStatement ps2 = this.getConexao().prepareStatement("INSERT into usuario(nome, email, login, senha, id_base_externa, nivel_acesso) VALUES(?, ?, ?, ?, ?, ?)");
 			
 			ps2.setString(1, usuario.getNome());
 			ps2.setString(2, usuario.getEmail());
 			ps2.setString(3, usuario.getLogin());
 			ps2.setString(4, usuario.getSenha());
 			ps2.setInt(5, usuario.getId());
+			ps2.setInt(6, 1);
 			ps2.executeUpdate();
 			cadastra(usuario);
 			return true;
