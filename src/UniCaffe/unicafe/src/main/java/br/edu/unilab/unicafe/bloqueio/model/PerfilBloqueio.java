@@ -41,6 +41,10 @@ public class PerfilBloqueio {
 	public void buscaAceitos() {
 		this.listaDeProcessosAceitos = new ArrayList<Processo>();
 		
+		
+		this.listaDeProcessosAceitos.add(new Processo("VirtualBox.exe", "C:\\Program Files\\Oracle\\VirtualBox\\VirtualBox.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("VBoxSVC.exe", "C:\\Program Files\\Oracle\\VirtualBox\\VBoxSVC.exe", "944"));
+		
 		this.listaDeProcessosAceitos.add(new Processo("nvda_slave.exe", "C:\\Program Files (x86)\\NVDA\\nvda_slave.exe", "944"));
 		this.listaDeProcessosAceitos.add(new Processo("nvda.exe", "C:\\Program Files (x86)\\NVDA\\nvda.exe", "944"));
 		this.listaDeProcessosAceitos.add(new Processo("javaw.exe", "C:\\Program Files (x86)\\GeoGebra 5.0\\jre\\bin\\javaw.exe", "944"));
@@ -3638,9 +3642,9 @@ public class PerfilBloqueio {
 			if (!existeNaLista) {
 
 				try {
-//					Runtime.getRuntime().exec(
-//							" taskkill /PID \"" + processoAtivo.getProcessId()
-//									+ "\" /F");
+					Runtime.getRuntime().exec(
+							" taskkill /PID \"" + processoAtivo.getProcessId()
+									+ "\" /F");
 
 					// System.out.println("Processo Bloqueado: "+processoAtivo.getExecutablePath()+","+processoAtivo.getImagem()+",123");
 

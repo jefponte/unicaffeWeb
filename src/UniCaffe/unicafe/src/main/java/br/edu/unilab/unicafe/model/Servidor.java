@@ -639,7 +639,7 @@ public class Servidor {
 				if(desligado.getMaquina().getNome().toLowerCase().equals(parametros.toLowerCase())){
 					desligado.getMaquina().getAcesso().getUsuario().setNome("Aula");
 					
-					new PrintStream(desligado.getSaida()).println("desbloqueia(aula, "+18000+ ")");
+					new PrintStream(desligado.getSaida()).println("desbloqueia(aula, "+21600+ ")");
 					new PrintStream(cliente.getSaida()).println("Liberado pra aula o "+desligado.getMaquina().getNome());
 				}
 				
