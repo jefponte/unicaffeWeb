@@ -3576,6 +3576,7 @@ public class PerfilBloqueio {
 		this.listaDeProcessosAceitos.add(new Processo("jucheck.exe", "", "944"));
 		this.listaDeProcessosAceitos.add(new Processo("java.exe", "C:\\Program Files\\Android\\Android Studio\\jre\\bin\\java.exe", "944"));
 		this.listaDeProcessosAceitos.add(new Processo("SearchIndexer.exe", "", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("BizagiModeler.exe", "C:\\Program Files\\Bizagi\\Bizagi Modeler\\Modeler\\BizagiModeler.exe", "944"));
 		
 	}
 

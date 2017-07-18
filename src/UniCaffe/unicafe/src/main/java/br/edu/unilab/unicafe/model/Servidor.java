@@ -54,6 +54,7 @@ public class Servidor {
 		try {
 
 
+			
 			this.serverSocket = new ServerSocket(porta, 500);
 			esperaConexoes();
 		} catch (IOException e) {
