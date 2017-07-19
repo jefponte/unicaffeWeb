@@ -164,10 +164,13 @@ class MaquinaDAO extends DAO {
         <tr>
             <th>Nome </th>
             <th>E-mail</th>
+		<th>lOGIN</th>
+
             <th>Máquina</th>
 			<th>Data</th>
             <th>Hora Inicial</th>
 			<th>Hora Final</th>
+
 			<th>Tempo Usado</th>
 			<th>Endereço Mac</th>
 			<th>IP do acesso</th>
@@ -184,6 +187,8 @@ class MaquinaDAO extends DAO {
 			$tempoUsado = MaquinaView::segundosParaHora($elemento['tempo_usado']);
 			
 			echo '<tr><td> '.$elemento['nome'].' </td><td> '.$elemento['email'].'</td>';
+			echo '<td> '.$elemento['login'].'</td>';
+		
 			echo '<td> '.$elemento['nome_pc'].'</td><td>'.$data.'</td><td>'.$horaInicial.'</td><td>'.$horaFinal.'</td><td>'.$tempoUsado.'</td>';
 			echo '<td>'.$elemento['mac'].'</td><td>'.$elemento['ip'].'</td></tr>';
 			$tempoTotal += $elemento['tempo_usado'];

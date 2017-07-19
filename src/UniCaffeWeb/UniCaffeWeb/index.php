@@ -1,6 +1,6 @@
 <?php 
 
-$sessao = new Sessao ();
+
 
 function __autoload($classe) {
 	if (file_exists ( 'classes/dao/' . $classe . '.php' ))
@@ -16,7 +16,7 @@ function __autoload($classe) {
 	
 	
 }
-
+$sessao = new Sessao ();
 $laboratorioDao = new LaboratorioDAO();
 $listaDeLaboratorios = $laboratorioDao->retornaLaboratorios();
 if (isset ( $_GET ["sair"] )) {

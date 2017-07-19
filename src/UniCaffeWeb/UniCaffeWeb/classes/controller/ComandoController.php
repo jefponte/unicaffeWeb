@@ -8,6 +8,9 @@ class ComandoController {
 	const COMANDO_LIGAR  = 6;
 	const COMANDO_SEM_INTERNET = 9;
 	const COMANDO_COM_INTERNET = 10;
+	const COMANDO_APAGAR = 99;
+	
+
 	public static function main($nivelDeAcesso) {
 		switch ($nivelDeAcesso) {
 			case Sessao::NIVEL_SUPER :
@@ -38,9 +41,15 @@ class ComandoController {
 				break;
 		}
 	}
+	
 	public function gerenciaComando($comando, $nomeMaquina) {
 	
 		switch ($comando) {
+			case self::COMANDO_APAGAR:
+				$unicafe = new UniCafe ();
+				echo '<p>' . $unicafe->dialoga ( 'limparDados(' . $nomeMaquina . ')' ) . '</p>';
+				$unicafe->close();
+				break;
 			case self::COMANDO_DESLIGAR :
 				$unicafe = new UniCafe ();
 				echo '<p>' . $unicafe->dialoga ( 'desliga(' . $nomeMaquina . ')' ) . '</p>';
@@ -177,6 +186,11 @@ class ComandoController {
 		}
 		
 		switch ($comando) {
+			case self::COMANDO_APAGAR:
+				$unicafe = new UniCafe ();
+				echo '<p>' . $unicafe->dialoga ( 'limparDados(' . $nomeMaquina . ')' ) . '</p>';
+				$unicafe->close();
+				break;
 			case self::COMANDO_DESLIGAR :
 				$unicafe = new UniCafe ();
 				echo '<p>' . $unicafe->dialoga ( 'desliga(' . $nomeMaquina. ')' ) . '</p>';
@@ -236,6 +250,12 @@ class ComandoController {
 				}
 				$unicafe->close();
 				break;
+			case 26:
+				$unicafe = new UniCafe ();
+				echo '<p>' . $unicafe->dialoga ( 'atualiza('.$nomeMaquina.')' ) . '</p>';
+				$unicafe->close();
+				break;
+
 			case 300:
 				$unicafe = new UniCafe ();
 				echo '<p>' . $unicafe->dialoga ( 'desativar('.$nomeMaquina.')' ) . '</p>';
