@@ -1,20 +1,20 @@
 package br.edu.unilab.unicafe.main;
 
-import br.edu.unilab.unicafe.bloqueio.model.PerfilBloqueio;
-import br.edu.unilab.unicafe.bloqueio.model.Processo;
+
+import br.edu.unilab.unicafe.controller.ClienteController;
 
 public class MainTeste {
 
 	public static void main(String[] args) {
-	
-		PerfilBloqueio perfil = new PerfilBloqueio();
-//		perfil.buscaAceitos();
 
-		perfil.buscaAtivos();
 		
-		for(Processo p : perfil.getProcessosAtivos()){
-			System.out.println(p);
-		}
+		ClienteController controller = new ClienteController();
+		
+	
+		
+		controller.restartNoExplorer();
+		
+
 		
 	}
 

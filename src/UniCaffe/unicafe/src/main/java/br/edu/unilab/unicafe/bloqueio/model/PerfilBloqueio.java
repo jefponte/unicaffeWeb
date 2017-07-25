@@ -3577,7 +3577,11 @@ public class PerfilBloqueio {
 		this.listaDeProcessosAceitos.add(new Processo("java.exe", "C:\\Program Files\\Android\\Android Studio\\jre\\bin\\java.exe", "944"));
 		this.listaDeProcessosAceitos.add(new Processo("SearchIndexer.exe", "", "944"));
 		this.listaDeProcessosAceitos.add(new Processo("BizagiModeler.exe", "C:\\Program Files\\Bizagi\\Bizagi Modeler\\Modeler\\BizagiModeler.exe", "944"));
-		
+		this.listaDeProcessosAceitos.add(new Processo("wsffcmgr.exe", "C:\\Program Files\\Diebold\\Warsaw\\wsffcmgr.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("core.exe", "C:\\Program Files\\Diebold\\Warsaw\\core.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("Name", "ExecutablePath", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("CefSharp.BrowserSubprocess.exe", "C:\\Program Files\\Bizagi\\Bizagi Modeler\\Modeler\\CefSharp.BrowserSubprocess.exe", "944"));
+
 	}
 
 	public void buscaAtivos() {

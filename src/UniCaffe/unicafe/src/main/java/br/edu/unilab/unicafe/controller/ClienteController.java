@@ -51,7 +51,6 @@ public class ClienteController {
 	 */
 	public SystemTray tray;
 	public TrayIcon trayIcon;
-	public String user = System.getProperty("user.home");
 	private FrameTelaAcesso frameTelaAcesso;
 	private FrameSplash frameSplash;
 	private FrameTelaBloqueio frameTelaBloqueio;
@@ -102,7 +101,7 @@ public class ClienteController {
 						getFrameTelaBloqueio().setVisible(false);
 						 System.out.println("Fechando Explorer. ");
 						Runtime.getRuntime().exec(" taskkill /f /im explorer.exe");
-						Runtime.getRuntime().exec(" attrib " + user + "\\Links\\RecentPlaces.lnk -h");//Retorna Locais em Favoritos
+						Runtime.getRuntime().exec(" attrib " + System.getProperty("user.home") + "\\Links\\RecentPlaces.lnk -h");//Retorna Locais em Favoritos
 						Thread.sleep(TEMPO_RESTART);
 						 System.out.println("Abrindo Explorer. ");
 						Runtime.getRuntime().exec("explorer.exe");
@@ -211,7 +210,7 @@ public class ClienteController {
 			}
 		});
 		
-		iniciaEscInfinito();
+//		iniciaEscInfinito();
 		bloqueiaServicos();
 		bloqueandoAplicacoes();
 		restartNoExplorer();
@@ -549,7 +548,7 @@ public class ClienteController {
 			return;
 			
 		}else if (comando.equals("limparDados")) {
-			String caminho = user+"\\localunicafe";
+			String caminho = System.getProperty("user.home")+"\\localunicafe";
 			
 			apagarDados(new File(caminho));
 			return;
@@ -666,7 +665,7 @@ public class ClienteController {
 			public void run() {
 		
 				try {
-					Runtime.getRuntime().exec(" attrib " + user + "\\Links\\RecentPlaces.lnk +h");//Oculta Locais em Favoritos
+					Runtime.getRuntime().exec(" attrib " + System.getProperty("user.home") + "\\Links\\RecentPlaces.lnk +h");//Oculta Locais em Favoritos
 					Runtime.getRuntime().exec(" taskkill /f /im firefox.exe");
 					Runtime.getRuntime().exec(" taskkill /f /im iexplore.exe");
 					Runtime.getRuntime().exec(" taskkill /f /im chrome.exe");
@@ -704,7 +703,7 @@ public class ClienteController {
 			new PrintStream(getCliente().getSaida()).println("setStatus("+Maquina.STATUS_OCUPADA+")");
 		
 		
-		String caminho = user+"\\localunicafe";
+		String caminho = System.getProperty("user.home")+"\\localunicafe";
 		Desktop d = new Desktop(caminho, login);
 		d.alterarRegistro();
 		getCliente().getMaquina().getAcesso().getUsuario().setLogin(login);

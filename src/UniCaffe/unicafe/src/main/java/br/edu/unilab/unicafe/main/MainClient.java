@@ -33,7 +33,6 @@ public class MainClient {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		if (lock != null) {
 			ClienteController controle = new ClienteController();
 			controle.iniciaCliente();

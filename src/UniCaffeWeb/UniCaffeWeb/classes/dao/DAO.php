@@ -29,6 +29,9 @@ class DAO {
 			case self::TIPO_PG_PRODUCAO_BAHIA :
 				$this->conexao = new PDO ( "pgsql:host=200.128.19.10 dbname=unicafe user=unicafe password=unicafe" );
 				break;
+			case self::TIPO_PG_PRODUCAO_CEARA :
+				$this->conexao = new PDO ( "pgsql:host=200.129.19.40 dbname=unicafe user=unicafe password=unicafe" );
+				break;
 			case self::TIPO_PG_SIGAA :
 				$this->conexao = new PDO ( "pgsql:host=200.129.19.80 dbname=sistemas_comum user=unicafe password=unicafe" );
 				break;
@@ -63,6 +66,7 @@ class DAO {
 	const TIPO_PG_PRODUCAO = 4;
 	const TIPO_PG_SIGAA = 5;
 	const TIPO_PG_PRODUCAO_BAHIA = 8;
+	const TIPO_PG_PRODUCAO_CEARA = 9;
 	const TIPO_PG_SIGAA2 = 7;
 	const TIPO_PG_SIMULACAO_SIGAA = 6;
 	
