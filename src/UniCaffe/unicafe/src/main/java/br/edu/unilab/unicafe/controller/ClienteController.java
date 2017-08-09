@@ -210,7 +210,7 @@ public class ClienteController {
 			}
 		});
 		
-//		iniciaEscInfinito();
+		iniciaEscInfinito();
 		bloqueiaServicos();
 		bloqueandoAplicacoes();
 		restartNoExplorer();
@@ -322,13 +322,13 @@ public class ClienteController {
 				setBloqueado(true);
 				
 				while (isBloqueado()) {
-					Robot robo;
+//					Robot robo;
 					try {
 						Thread.sleep(250);
-						robo = new Robot();
-						robo.keyPress(KeyEvent.VK_ESCAPE);
+//						robo = new Robot();
+//						robo.keyPress(KeyEvent.VK_ESCAPE);
 
-					} catch (AWTException | InterruptedException e) {
+					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
 
