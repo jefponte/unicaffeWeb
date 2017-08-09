@@ -824,7 +824,17 @@ public class Servidor {
 					}
 					
 
-				}else if (tempo <= AcessoDAO.COTA) {
+				}else if(cliente.getMaquina().getLaboratorio().getNome().trim().toLowerCase().equals("labproex")){
+					new PrintStream(cliente.getSaida()).println("desbloqueia(" + login + ", "+43200+ ")");
+					cliente.getMaquina().getAcesso().setUsuario(usuario);
+					cliente.getMaquina().getAcesso().setTempoDisponibilizado(43200);
+					cliente.getMaquina().getAcesso().setTempoUsado(0);
+					cliente.getMaquina().setIp(cliente.getConexao().getInetAddress().toString().substring(1));
+					cliente.getMaquina().getAcesso().contar();
+					cliente.getMaquina().getAcesso().setHoraInicial(System.currentTimeMillis());
+
+				}
+				else if (tempo <= AcessoDAO.COTA) {
 					new PrintStream(cliente.getSaida()).println("desbloqueia(" + login + ", "+ ((AcessoDAO.COTA) - (tempo)) + ")");
 					cliente.getMaquina().getAcesso().setUsuario(usuario);
 					cliente.getMaquina().getAcesso().setTempoDisponibilizado(((AcessoDAO.COTA) - (tempo)));
