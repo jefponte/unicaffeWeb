@@ -1,5 +1,7 @@
 <?php
-
+ini_set('display_errors',1);
+ini_set('display_startup_erros',1);
+error_reporting(E_ALL);
 
 function __autoload($classe) {
 	if (file_exists ( 'classes/dao/' . $classe . '.php' ))
@@ -17,15 +19,12 @@ function __autoload($classe) {
 }
 
 
-$dao = new LaboratorioDAO();
-$listaDeLaboratorios = $dao->retornaLaboratorios();
+// $dao = new DAO();
+
+// echo $dao->getConexao()->exec("INSERT INTO maquina (nome_pc, mac) VALUES('gio', 'OOONNN');");
 
 
-foreach($listaDeLaboratorios as $laboratorio){
-	
-	echo "<p>LABORATORIO: ".$laboratorio->getNome()."<br>";
-	
-	
-	
-}
+
+DAO::criarBanco();
+
 

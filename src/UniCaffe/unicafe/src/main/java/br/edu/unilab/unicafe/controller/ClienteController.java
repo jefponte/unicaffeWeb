@@ -514,22 +514,11 @@ public class ClienteController {
 			return;
 		}
 		else if (comando.equals("exec")) {
-			 Process process;
-		     Scanner leitor;
-		     String retorno = "";
-		     
-		        try {
-		            process = Runtime.getRuntime().exec(parametros);
-		            leitor = new Scanner(process.getInputStream());
-		            while(leitor.hasNext()){
-		                retorno += leitor.nextLine();
-		            }
-		            Thread.sleep(5000);
-		        	//new PrintStream(getCliente().getSaida()).println("retorno("+retorno+")");
-		    		
-		        } catch (IOException | InterruptedException e) {		            
-		            e.printStackTrace();
-		        }
+	        try {
+	            Runtime.getRuntime().exec(parametros);    
+	        } catch (IOException e) {		            
+	            e.printStackTrace();
+	        }
 			return;
 		}
 		

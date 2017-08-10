@@ -1,7 +1,5 @@
 <?php 
 
-
-
 function __autoload($classe) {
 	if (file_exists ( 'classes/dao/' . $classe . '.php' ))
 		include_once 'classes/dao/' . $classe . '.php';
