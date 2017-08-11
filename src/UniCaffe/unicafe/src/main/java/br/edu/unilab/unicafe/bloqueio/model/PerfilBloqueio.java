@@ -40,7 +40,9 @@ public class PerfilBloqueio {
 
 	public void buscaAceitos() {
 		this.listaDeProcessosAceitos = new ArrayList<Processo>();
-		
+		this.listaDeProcessosAceitos.add(new Processo("eclipse.exe", "C:\\eclipse_php\\eclipse.exe", "944"));
+		this.listaDeProcessosAceitos.add(new Processo("eclipse.exe", "C:\\eclipse_java\\eclipse.exe", "944"));
+
 		
 		this.listaDeProcessosAceitos.add(new Processo("VirtualBox.exe", "C:\\Program Files\\Oracle\\VirtualBox\\VirtualBox.exe", "944"));
 		this.listaDeProcessosAceitos.add(new Processo("VBoxSVC.exe", "C:\\Program Files\\Oracle\\VirtualBox\\VBoxSVC.exe", "944"));

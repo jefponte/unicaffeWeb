@@ -1,24 +1,27 @@
-<?php 
+<?php
 
 function __autoload($classe) {
-	if (file_exists ( 'classes/dao/' . $classe . '.php' ))
+	if (file_exists ( 'classes/dao/' . $classe . '.php' )) {
 		include_once 'classes/dao/' . $classe . '.php';
-	if (file_exists ( 'classes/model/' . $classe . '.php' ))
+	}
+	if (file_exists ( 'classes/model/' . $classe . '.php' )) {
 		include_once 'classes/model/' . $classe . '.php';
-	if (file_exists ( 'classes/controller/' . $classe . '.php' ))
+	}
+	if (file_exists ( 'classes/controller/' . $classe . '.php' )) {
 		include_once 'classes/controller/' . $classe . '.php';
-	if (file_exists ( 'classes/util/' . $classe . '.php' ))
+	}
+	if (file_exists ( 'classes/util/' . $classe . '.php' )) {
 		include_once 'classes/util/' . $classe . '.php';
-	if (file_exists ( 'classes/view/' . $classe . '.php' ))
+	}
+	if (file_exists ( 'classes/view/' . $classe . '.php' )) {
 		include_once 'classes/view/' . $classe . '.php';
-	
-	
+	}
 }
 $sessao = new Sessao ();
-$laboratorioDao = new LaboratorioDAO();
-$listaDeLaboratorios = $laboratorioDao->retornaLaboratorios();
+$laboratorioDao = new LaboratorioDAO ();
+$listaDeLaboratorios = $laboratorioDao->retornaLaboratorios ();
 if (isset ( $_GET ["sair"] )) {
-
+	
 	$sessao->mataSessao ();
 	header ( "Location: index.php" );
 }
@@ -30,24 +33,25 @@ if (isset ( $_GET ["sair"] )) {
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-	<meta charset="UTF-8">
-	<title>UniCaffeWeb</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1" />
-	<!-- meta tag para responsividade em Windows e Linux -->
-	<link rel="stylesheet"
-		href="css_spa/spa.css" />
-	<link rel="stylesheet" href="css/style.css" />
-	<link rel="stylesheet" href="css/maquina.css" />
-	<link rel="stylesheet" href="css/new_maquina.css" />
-	<link rel="stylesheet" type="text/css" href="css/context.standalone.css" />
-	<link rel="stylesheet" type="text/css" media="all" href="<?php if ($_COOKIE['contraste']=='true') {echo '/css/contraste.css';}?>" id="css" />
-	<script type="text/javascript" src="js/jquery.min.js"></script>
-	<script type="text/javascript" src="js/cookie.js"></script>
-	<script type="text/javascript" src="js/contraste.js"></script>
+<meta charset="UTF-8">
+<title>UniCaffeWeb</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- meta tag para responsividade em Windows e Linux -->
+<link rel="stylesheet" href="css_spa/spa.css" />
+<link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/maquina.css" />
+<link rel="stylesheet" href="css/new_maquina.css" />
+<link rel="stylesheet" type="text/css" href="css/context.standalone.css" />
+<link rel="stylesheet" type="text/css" media="all"
+	href="<?php if ($_COOKIE['contraste']=='true') {echo '/css/contraste.css';}?>"
+	id="css" />
+<script type="text/javascript" src="js/jquery.min.js"></script>
+<script type="text/javascript" src="js/cookie.js"></script>
+<script type="text/javascript" src="js/contraste.js"></script>
 </head>
 <body>
 	<div class="pagina doze colunas">
-			<div class="topo doze linha fundo-branco">
+		<div class="topo doze linha fundo-branco">
 			<div class="conteudo">
 				<div id="logo-unicaffe">
 					<a href="#"> <img alt="logotipo do Unicaffé"
@@ -67,8 +71,8 @@ if (isset ( $_GET ["sair"] )) {
 				<li><a href="?pagina=laboratorios">Laboratório</a>
 					<ul class="seta-pra-cima">
 						<li><a href="?pagina=laboratorios" class="ativo">Visualização</a></li>
-						<?php 
-						if($sessao->getNivelAcesso() == Sessao::NIVEL_SUPER)
+						<?php
+						if ($sessao->getNivelAcesso () == Sessao::NIVEL_SUPER)
 							echo '<li><a href="?pagina=laboratorios_cadastro">Cadastro</a></li>';
 						
 						?>
@@ -90,40 +94,39 @@ if (isset ( $_GET ["sair"] )) {
 				<li><a href="?pagina=gerenciamento_relatorios">Gerenciamento</a>
 					<ul class="seta-pra-cima">
 						<li><a href="?pagina=relatorio_geral">Relatorios </a>
-						<ul>
+							<ul>
 								<li><a href="?pagina=relatorio_geral">Geral</a></li>
-<!-- 								<li><a href="?pagina=relatorios">Estatísticas</a></li> -->
-								<?php 
-									if($sessao->getNivelAcesso() == Sessao::NIVEL_ADMIN || $sessao->getNivelAcesso() == Sessao::NIVEL_SUPER)
-										echo '<li><a href="?pagina=gerenciamento_relatorios">Acessos por Usuário</a>';
+								<!-- 								<li><a href="?pagina=relatorios">Estatísticas</a></li> -->
+								<?php
+								if ($sessao->getNivelAcesso () == Sessao::NIVEL_ADMIN || $sessao->getNivelAcesso () == Sessao::NIVEL_SUPER)
+									echo '<li><a href="?pagina=gerenciamento_relatorios">Acessos por Usuário</a>';
 								?>
 								
-						</ul>
-						</li>
+						</ul></li>
 
 					</ul></li>
-					<?php 
-                    	if($sessao->getNivelAcesso() == Sessao::NIVEL_DESLOGADO)
-                    		echo '<li class="a-direita"><a href="?pagina=login" class="ativo">Login</a></li>';
-                    	else 
-                    		echo '<li class="a-direita"><a href="?sair=daqui" class="ativo">Sair</a></li>';                  
-                    ?>
+					<?php
+					if ($sessao->getNivelAcesso () == Sessao::NIVEL_DESLOGADO)
+						echo '<li class="a-direita"><a href="?pagina=login" class="ativo">Login</a></li>';
+					else
+						echo '<li class="a-direita"><a href="?sair=daqui" class="ativo">Sair</a></li>';
+					?>
 			</ol>
 		</div>
 
 
 
-		
+
 		<a name="conteudo"></a>
-		<?php 
-		ComandoController::main($sessao->getNivelAcesso());
-		if(isset($_GET['pagina'])){
-			switch ($_GET['pagina']){
+		<?php
+		ComandoController::main ( $sessao->getNivelAcesso () );
+		if (isset ( $_GET ['pagina'] )) {
+			switch ($_GET ['pagina']) {
 				
-				case 'inicio':
-					HomeView::main();
+				case 'inicio' :
+					HomeView::main ();
 					break;
-				case 'maquinas':
+				case 'maquinas' :
 					echo '<div class="linha doze colunas fundo-azul1" >
 			                <div class="conteudo">
 			                    <div class="linha doze">
@@ -149,26 +152,25 @@ if (isset ( $_GET ["sair"] )) {
 					
 					echo '<script type="text/javascript">
 							        var subMenu =  [';
-													foreach ($listaDeLaboratorios as $lab){
-														echo '{text: \''.$lab->getNome().'\', action: function(e){
-								    	     						outroSeleciona(5,that.id,"'.$lab->getNome().'");
+					foreach ( $listaDeLaboratorios as $lab ) {
+						echo '{text: \'' . $lab->getNome () . '\', action: function(e){
+								    	     						outroSeleciona(5,that.id,"' . $lab->getNome () . '");
 								    	     					}},';
-													
-													}
+					}
 					
-							    	     echo '];
+					echo '];
 							        function enviaComando(comando, valor){';
-									if(isset($_GET['laboratorio']))
-										echo 'location.href=\'?pagina=maquinas&comando=\'+comando+\'&maquina=\'+valor+\'&laboratorio=\'+\''.$_GET['laboratorio'].'\';';
-									else
-										echo 'location.href=\'?pagina=maquinas&comando=\'+comando+\'&maquina=\'+valor;';
-												
-									echo '} </script>';
-					if(isset($_GET['laboratorio']))
+					if (isset ( $_GET ['laboratorio'] ))
+						echo 'location.href=\'?pagina=maquinas&comando=\'+comando+\'&maquina=\'+valor+\'&laboratorio=\'+\'' . $_GET ['laboratorio'] . '\';';
+					else
+						echo 'location.href=\'?pagina=maquinas&comando=\'+comando+\'&maquina=\'+valor;';
+					
+					echo '} </script>';
+					if (isset ( $_GET ['laboratorio'] ))
 						echo '<script>
 							var auto_refresh = setInterval (function () {
 							$.ajax({
-							url: \'maquinas.php?laboratorio='.$_GET['laboratorio'].'\',
+							url: \'maquinas.php?laboratorio=' . $_GET ['laboratorio'] . '\',
 							success: function (response) {
 							$(\'#olinda\').html(response);
 							}
@@ -189,65 +191,63 @@ if (isset ( $_GET ["sair"] )) {
 							</script>
 							';
 					echo '<div id="olinda" class="doze colunas fundo-branco">';
-					MaquinaController::main($sessao->getNivelAcesso());
+					MaquinaController::main ( $sessao->getNivelAcesso () );
 					echo ' </div>';
 					
 					break;
-				case 'maquina':
-           				echo '<br><br><div id="olinda" class="doze colunas fundo-branco">';
-           				MaquinaController::mainDetalhe($sessao->getNivelAcesso());
-           				echo ' </div>';
-           				break;
-           		case 'laboratorios':
-           			echo '<br><div class="doze colunas fundo-branco">';
-           			LaboratorioController::main($sessao->getNivelAcesso());
-           			echo ' </div>';
-           			break;
-           		case 'laboratorios_cadastro':
-           			echo '<br>';
-           			echo '<div class="doze colunas fundo-branco">';
-           			LaboratorioController::mainCadastro($sessao->getNivelAcesso());
-           			echo ' </div>';
-           			break;
-				case 'login':
-					UsuarioController::main($sessao->getNivelAcesso());
-					break;
-				case 'gerenciamento_relatorios':
-					echo '<br>';
-					echo '<div class="doze colunas fundo-branco">';
-					MaquinaController::mainHistorico($sessao->getNivelAcesso());
+				case 'maquina' :
+					echo '<br><br><div id="olinda" class="doze colunas fundo-branco">';
+					MaquinaController::mainDetalhe ( $sessao->getNivelAcesso () );
 					echo ' </div>';
 					break;
-				case 'gerenciamento_administrador':
-					echo '<br>';
-					echo '<div class="doze colunas fundo-branco">';
-					UsuarioController::gerenciaAdmin($sessao->getNivelAcesso());
+				case 'laboratorios' :
+					echo '<br><div class="doze colunas fundo-branco">';
+					LaboratorioController::main ( $sessao->getNivelAcesso () );
 					echo ' </div>';
 					break;
-				case 'relatorio_geral':
+				case 'laboratorios_cadastro' :
 					echo '<br>';
 					echo '<div class="doze colunas fundo-branco">';
-					LaboratorioController::mainRelatorioGeral();
+					LaboratorioController::mainCadastro ( $sessao->getNivelAcesso () );
 					echo ' </div>';
 					break;
-				case 'relatorios':
-						echo '<br>';
-						echo '<div class="doze colunas fundo-branco">';
-						RelatorioController::main();
-						echo ' </div>';
+				case 'login' :
+					UsuarioController::main ( $sessao->getNivelAcesso () );
 					break;
-				default:
+				case 'gerenciamento_relatorios' :
+					echo '<br>';
+					echo '<div class="doze colunas fundo-branco">';
+					MaquinaController::mainHistorico ( $sessao->getNivelAcesso () );
+					echo ' </div>';
+					break;
+				case 'gerenciamento_administrador' :
+					echo '<br>';
+					echo '<div class="doze colunas fundo-branco">';
+					UsuarioController::gerenciaAdmin ( $sessao->getNivelAcesso () );
+					echo ' </div>';
+					break;
+				case 'relatorio_geral' :
+					echo '<br>';
+					echo '<div class="doze colunas fundo-branco">';
+					LaboratorioController::mainRelatorioGeral ();
+					echo ' </div>';
+					break;
+				case 'relatorios' :
+					echo '<br>';
+					echo '<div class="doze colunas fundo-branco">';
+					RelatorioController::main ();
+					echo ' </div>';
+					break;
+				default :
 					echo '<br>';
 					echo '<div id="olinda" class="doze colunas fundo-branco">';
 					echo '<h1>404 Not Found</h1>';
 					echo ' </div>';
 					break;
-		
 			}
-		}else{
-			HomeView::main();
+		} else {
+			HomeView::main ();
 		}
-			
 		
 		?>
 		
@@ -258,7 +258,8 @@ if (isset ( $_GET ["sair"] )) {
 
 	<div class="linha doze colunas fundo-marrom" id="rodape">
 		<div class="conteudo">
-			<p class="medio centralizado conteudo texto-branco">Desenvolvido pela Divisão de Suporte (DISUP) © 2015 - DTI / Unilab</p>
+			<p class="medio centralizado conteudo texto-branco">Desenvolvido pela
+				Divisão de Suporte (DISUP) © 2015 - DTI / Unilab</p>
 		</div>
 	</div>
 

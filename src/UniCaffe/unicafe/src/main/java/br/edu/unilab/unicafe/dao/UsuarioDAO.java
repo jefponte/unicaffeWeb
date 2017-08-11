@@ -102,8 +102,8 @@ public class UsuarioDAO extends DAO {
 			e1.printStackTrace();
 		}
 		
-		this.setTipoDeConexao(TIPO_PG_SIGAA);
-		this.novaConexao();
+		this.setTipoDeConexao(TIPO_AUTENTICACAO);
+		this.fazerConexao();
 		
 		
 		if(this.autenticaRemoto(usuario))
@@ -114,8 +114,8 @@ public class UsuarioDAO extends DAO {
 				System.out.println("Erro ao tentar fechar conexao com O SIGAA.");
 				e.printStackTrace();
 			}
-			this.setTipoDeConexao(TIPO_CONEXAO_DEFAULT);
-			this.novaConexao();
+			this.setTipoDeConexao(TIPO_DEFAULT);
+			this.fazerConexao();
 			this.cadastra(usuario);
 			try {
 				this.getConexao().close();
@@ -147,7 +147,7 @@ public class UsuarioDAO extends DAO {
 		
 		
 		
-		this.setTipoDeConexao(TIPO_PG_SIGAA);
+		this.setTipoDeConexao(TIPO_AUTENTICACAO);
 		
 		
 		try {

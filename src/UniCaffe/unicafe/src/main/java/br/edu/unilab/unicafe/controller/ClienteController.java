@@ -543,8 +543,6 @@ public class ClienteController {
 			return;
 			
 		}
-		
-		
 		else if (comando.equals("printc")) {
 
 			Thread t = new Thread(new Runnable() {
@@ -562,30 +560,6 @@ public class ClienteController {
 			});
 			t.start();
 			return;
-		}else if (comando.equals("ieeeeeiiiiii")) {
-			Thread t = new Thread(new Runnable() {
-
-				@Override
-				public void run() {
-					try {
-						Runtime.getRuntime().exec("netsh advfirewall firewall add rule name=\"LIBCE\" enable=yes remoteip=200.129.19.0/24 action=allow protocol=TCP dir=out");
-						Runtime.getRuntime().exec("netsh advfirewall firewall add rule name=\"LIBSFC\" enable=yes remoteip=200.128.19.0/24 action=allow protocol=TCP dir=out");
-						Runtime.getRuntime().exec("netsh advfirewall firewall add rule name=\"LIBINT\" enable=yes remoteip=10.0.0.0/8 action=allow protocol=TCP dir=out");
-						Runtime.getRuntime().exec("netsh advfirewall set currentprofile firewallpolicy blockinbound,blockoutbound");						
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-
-				}
-			});
-			t.start();
-			return;
-				
-		}
-		else if (comando.equals("aeeeeeeee")) {
-			
-			return;
-				
 		}else if (comando.equals("venha")) {
 			servidorPrimario = parametros;
 			
@@ -651,8 +625,9 @@ public class ClienteController {
 		Thread restartando = new Thread(new Runnable() {
 			
 			@Override
-			public void run() {
-		
+			public void run() {		
+				
+				
 				try {
 					Runtime.getRuntime().exec(" attrib " + System.getProperty("user.home") + "\\Links\\RecentPlaces.lnk +h");//Oculta Locais em Favoritos
 					Runtime.getRuntime().exec(" taskkill /f /im firefox.exe");
@@ -661,6 +636,8 @@ public class ClienteController {
 					Runtime.getRuntime().exec(" taskkill /f /im explorer.exe");					
 					Thread.sleep(TEMPO_RESTART);
 					Runtime.getRuntime().exec("explorer.exe");
+					Thread.sleep(5000);
+					Runtime.getRuntime().exec("\"/Program Files (x86)/Google/Chrome/Application/chrome.exe\" http://www-periodicos-capes-gov-br.ez373.periodicos.capes.gov.br/");
 				} catch (IOException | InterruptedException e) {
 					e.printStackTrace();
 				}
@@ -699,6 +676,7 @@ public class ClienteController {
 		getCliente().getMaquina().getAcesso().setTempoDisponibilizado(segundos);
 		getCliente().getMaquina().getAcesso().setTempoUsado(0);
 		setBloqueado(false);
+		
 		Thread sessao = new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -733,7 +711,7 @@ public class ClienteController {
 							semaforo.release();
 						}
 						
-							
+						
 						if(tempo == 300 || tempo == 120 || tempo == 20){
 								getFrameAviso().setVisible(true);
 								getFrameTelaAcesso().setVisible(true);
@@ -770,6 +748,8 @@ public class ClienteController {
 			}
 		});
 		sessao.start();		
+		
+		
 	}
 	
 		

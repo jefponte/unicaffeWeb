@@ -1,7 +1,9 @@
 <?php
 class MaquinaView {
+	
+	
 	public static function segundosParaHora($intTempo) {
-
+		
 		if($intTempo < 0){
 			$intTempo = 0;
 		}

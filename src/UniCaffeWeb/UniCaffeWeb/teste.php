@@ -25,6 +25,6 @@ function __autoload($classe) {
 
 
 
-DAO::criarBanco();
+// DAO::criarBanco();
 
 

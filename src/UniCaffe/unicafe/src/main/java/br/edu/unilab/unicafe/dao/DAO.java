@@ -1,8 +1,12 @@
 package br.edu.unilab.unicafe.dao;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 /**
  * 
@@ -10,76 +14,95 @@ import java.sql.SQLException;
  *
  */
 public class DAO {
-	
+
+	public static final String ARQUIVO_CONFIGURACAO = "/dados/unicaffe/config_bd.ini";
+
+	public static final int TIPO_DEFAULT = 0;
+	public static final int TIPO_USUARIOS = 1;
+	public static final int TIPO_AUTENTICACAO = 2;
+
+	public static final String DRIVER_SQLITE = "org.sqlite.JDBC";
+	public static final String JDBC_BANCO_SQLITE = "jdbc:sqlite:banco.db";
+
 	private int tipoDeConexao;
-	public void setTipoDeConexao(int tipoDeConexao){
-		this.tipoDeConexao = tipoDeConexao;
-	}
-	
+	private String sgdb;
+	private String entidade;
+	private Connection conexao;
+
 	public DAO(int tipoDeConexao) {
 		this.tipoDeConexao = tipoDeConexao;
-		novaConexao();
+		fazerConexao();
 	}
 
 	public DAO() {
-		this.tipoDeConexao = TIPO_CONEXAO_DEFAULT;
-		novaConexao();
+		this.tipoDeConexao = TIPO_DEFAULT;
+		fazerConexao();
 	}
 
 	public DAO(Connection conexao) {
 		this.conexao = conexao;
 	}
 
-	public void novaConexao(){
+	public void fazerConexao() {
 		this.conexao = null;
 		try {
+			Properties config = new Properties();
+			FileInputStream file;
+			file = new FileInputStream(ARQUIVO_CONFIGURACAO);
+			config.load(file);
+			String[] bd = new String[6];
 			switch (tipoDeConexao) {
-			case TIPO_POSTGRESQL:
-				Class.forName(DRIVER_POSTGRES);
-				this.conexao = DriverManager.getConnection(JDBC_BANCO_POSTGRES+ "//" + HOST_POSTGRES + "/" + BANCO_POSTGRES,USUARIO_POSTGRES, SENHA_POSTGRES);
+			case TIPO_USUARIOS:
+				bd[0] = config.getProperty("usuarios_sgdb");
+				bd[1] = config.getProperty("usuarios_host");
+				bd[2] = config.getProperty("usuarios_porta");
+				bd[3] = config.getProperty("usuarios_bd_nome");
+				bd[4] = config.getProperty("usuarios_usuario");
+				bd[5] = config.getProperty("usuarios_senha");
+				this.entidade = config.getProperty("usuarios_entidade");
 				break;
-			case TIPO_PG_PRODUCAO:
-				Class.forName(DRIVER_POSTGRES);
-				this.conexao = DriverManager.getConnection(JDBC_BANCO_POSTGRES+ "//" + HOST_PG_PRODUCAO + "/" + BANCO_PG_PRODUCAO,USUARIO_PG_PRODUCAO, SENHA_PG_PRODUCAO);
-				break;
-			case TIPO_PG_SIGAA:
-				Class.forName(DRIVER_POSTGRES);
-				this.conexao = DriverManager.getConnection(JDBC_BANCO_POSTGRES+ "//" + HOST_PG_SIGAA + "/" + BANCO_PG_SIGAA,USUARIO_PG_SIGAA, SENHA_PG_SIGAA);
-				break;
-			case TIPO_PG_SIGAA2:
-				Class.forName(DRIVER_POSTGRES);
-				this.conexao = DriverManager.getConnection(JDBC_BANCO_POSTGRES+ "//" + HOST_PG_SIGAA + "/" + BANCO_PG_SIGAA2,USUARIO_PG_SIGAA, SENHA_PG_SIGAA);
-				break;
-			case TIPO_PG_TESTE:
-				Class.forName(DRIVER_POSTGRES);
-				this.conexao = DriverManager.getConnection(JDBC_BANCO_POSTGRES+ "//" + HOST_PG_TESTE+ "/" + BANCO_PG_TESTE,USUARIO_PG_TESTE, SENHA_PG_TESTE);
-				break;
-			case TIPO_PG_SIMULACAO_SIGAA:
-				Class.forName(DRIVER_POSTGRES);
-				this.conexao = DriverManager.getConnection(JDBC_BANCO_POSTGRES+ "//" + HOST_PG_SIMULACAO_SIGAA+ "/" + BANCO_PG_SIMULACAO_SIGAA,USUARIO_PG_SIMULACAO_SIGAA, SENHA_PG_SIMULACAO_SIGAA);
-				break;
-				
-			case TIPO_MYSQL:
-				Class.forName(DRIVER_MYSQL);
-				this.conexao=DriverManager.getConnection(JDBC_BANCO_MYSQL+"//"+IP_MYSQL+"/"+BANCO_MYSQL,USUARIO_MYSQL,SENHA_MYSQL);
-				break;
-			case TIPO_SQLITE:
-				Class.forName(DRIVER_SQLITE);
-				this.conexao = DriverManager.getConnection(JDBC_BANCO_SQLITE);
+			case TIPO_AUTENTICACAO:
+				bd[0] = config.getProperty("autenticacao_sgdb");
+				bd[1] = config.getProperty("autenticacao_bd_nome");
+				bd[2] = config.getProperty("autenticacao_porta");
+				bd[3] = config.getProperty("autenticacao_bd_nome");
+				bd[4] = config.getProperty("autenticacao_usuario");
+				bd[5] = config.getProperty("autenticacao_senha");
+				this.entidade = config.getProperty("autenticacao_entidade");
 				break;
 			default:
-				Class.forName(DRIVER_SQLITE);
-				this.conexao = DriverManager.getConnection(JDBC_BANCO_SQLITE);
+				bd[0] = config.getProperty("default_sgdb");
+				bd[1] = config.getProperty("default_host");
+				bd[2] = config.getProperty("default_porta");
+				bd[3] = config.getProperty("default_bd_nome");
+				bd[4] = config.getProperty("default_usuario");
+				bd[5] = config.getProperty("default_senha");
 				break;
 			}
+
+			if (bd[0].equals("postgres")) {
+				Class.forName(DRIVER_POSTGRES);
+				this.conexao = DriverManager
+						.getConnection(JDBC_BANCO_POSTGRES + "//" + bd[1] + ":" + bd[2] + "/" + bd[3], bd[4], bd[5]);
+			} else if (bd[0].equals("sqlite")) {
+				Class.forName(DRIVER_SQLITE);
+				this.conexao = DriverManager.getConnection(JDBC_BANCO_SQLITE);
+
+			} else if (bd[0].equals("mysql")) {
+				Class.forName(DRIVER_MYSQL);
+				this.conexao = DriverManager.getConnection(JDBC_BANCO_MYSQL + "//" + bd[1] + "/" + bd[3], bd[4], bd[5]);
+			}
+
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
 		}
 	}
-	
-	private Connection conexao;
 
 	public Connection getConexao() {
 		return conexao;
@@ -89,61 +112,42 @@ public class DAO {
 		this.conexao = conexao;
 	}
 
-	
+	public void setTipoDeConexao(int tipoDeConexao) {
+		this.tipoDeConexao = tipoDeConexao;
+	}
 
-	public static final String USUARIO_POSTGRES = "postgres";
-	public static final String USUARIO_PG_SIGAA = "unicafe";
-	public  static final String USUARIO_PG_TESTE = "unicafe";
-	public  static final String SENHA_PG_SIGAA = "unicafe";
-	public  static final String SENHA_PG_SIMULACAO_SIGAA = "unicafe@unilab";
-	public static final String USUARIO_PG_SIMULACAO_SIGAA = "unicafe";
-	public static final String USUARIO_PG_PRODUCAO = "unicafe";
-	public  static final String HOST_POSTGRES = "localhost:5432";
-	public  static final String HOST_PG_PRODUCAO = "localhost:5432";
-	public  static final String HOST_PG_SIGAA = "200.129.19.80";
-	public  static final String HOST_PG_TESTE = "10.5.1.8";
-	public  static final String HOST_PG_SIMULACAO_SIGAA = "10.5.1.8:5432";
-	
-	public  static final String BANCO_PG_SIGAA = "sistemas_comum";
-	public  static final String BANCO_PG_SIGAA2 = "sigaa";
-	public  static final String BANCO_PG_TESTE = "unicafe";
-	public  static final String BANCO_PG_SIMULACAO_SIGAA = "sistemas_comum";
-	public  static final String BANCO_PG_PRODUCAO = "unicafe";
-	
-	public  static final String SENHA_POSTGRES = "cti@unilab2012";
-	public  static final String SENHA_PG_PRODUCAO = "unicafe";
-	public  static final String SENHA_PG_TESTE= "unicafe@unilab";
+	/**
+	 * @return the entidade
+	 */
+	public String getEntidade() {
+		return entidade;
+	}
 
-	public  static final String BANCO_POSTGRES = "unicafe";
-	public  static final String DRIVER_POSTGRES = "org.postgresql.Driver";
-	public  static final String JDBC_BANCO_POSTGRES = "jdbc:postgresql:";
+	/**
+	 * @param entidade
+	 *            the entidade to set
+	 */
+	public void setEntidade(String entidade) {
+		this.entidade = entidade;
+	}
 
-	public static final String DRIVER_SQLITE = "org.sqlite.JDBC";
-	public static final String JDBC_BANCO_SQLITE = "jdbc:sqlite:banco.db";
+	/**
+	 * @return the sgdb
+	 */
+	public String getSgdb() {
+		return sgdb;
+	}
 
-	
-	public static final String USUARIO_MYSQL = "root";
-	public static final String SENHA_MYSQL = "cocacola@12";
-	public static final String IP_MYSQL = "127.0.0.1";
-	public static final String BANCO_MYSQL = "banco_sigaa";
+	/**
+	 * @param sgdb
+	 * the sgdb to set
+	 */
+	public void setSgdb(String sgdb) {
+		this.sgdb = sgdb;
+	}
+	public static final String JDBC_BANCO_POSTGRES = "jdbc:postgresql:";
+	public static final String DRIVER_POSTGRES = "org.postgresql.Driver";
+	public static final String JDBC_BANCO_MYSQL = "jdbc:mysql:";	
 	public static final String DRIVER_MYSQL = "com.mysql.jdbc.Driver";
-	public static final String JDBC_BANCO_MYSQL = "jdbc:mysql:";
-	
-	
-	
-	public static final int TIPO_SQLITE = 0;
-	public static final int TIPO_MYSQL = 1;
-	public static final int TIPO_POSTGRESQL = 2;
-	public static final int TIPO_PG_SIGAA = 4;
-	public static final int TIPO_PG_SIGAA2 = 8;
-	public static final int TIPO_PG_TESTE = 5;
-	public static final int TIPO_PG_SIMULACAO_SIGAA = 6;
-	
-	public static final int TIPO_PG_PRODUCAO = 7;
-	
-	public static final int TIPO_CONEXAO_DEFAULT = TIPO_PG_PRODUCAO;
-	public static final int TIPO_CONEXAO_AUTENTICACAO = TIPO_PG_SIGAA;
-	
-	
 
 }

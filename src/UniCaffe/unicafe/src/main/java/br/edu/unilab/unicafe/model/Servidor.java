@@ -99,7 +99,7 @@ public class Servidor {
 
 			@Override
 			public void run() {
-				System.out.println("Servidor iniciado! \n Wait for Client...");
+				System.out.println("Servidor iniciado! \n Aguardando conexões...");
 				while (true) {
 					
 					Socket conexao;
@@ -809,7 +809,7 @@ public class Servidor {
 				int tempo = acessoDao.retornaTempoUsadoHoje(usuario);
 				
 				if(cliente.getMaquina().getLaboratorio().getNome().trim().toLowerCase().equals("labteste")){
-					daoGraduacao = new UsuarioDAO(DAO.TIPO_PG_SIGAA2);
+					daoGraduacao = new UsuarioDAO(DAO.TIPO_USUARIOS);
 					if(daoGraduacao.seuNivelEhGraduacao(usuario)){
 						new PrintStream(cliente.getSaida()).println("printc(Bloqueado para alunos de graduação.)");												
 					}else{

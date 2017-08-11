@@ -144,7 +144,7 @@ class UniCafeResult {
  */
 function unicafeConnect($servidor = null, $usuario = null, $senha = null) {
 	$host = "localhost";
-	$port = 27289;
+	$port = 8080;
 	$message = "setStatus(3)\n";
 	
 	$socket = socket_create ( AF_INET, SOCK_STREAM, 0 );

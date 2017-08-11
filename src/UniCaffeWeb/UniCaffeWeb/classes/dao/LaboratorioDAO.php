@@ -7,7 +7,7 @@ class LaboratorioDAO extends DAO{
 	
 	
 	public function LaboratorioDAO($conexao = null, $tipo = self::TIPO_DEFAULT) {
-		parent::DAO($conexao, $tipo);
+		parent::__construct($conexao, $tipo);
 	}
 	
 	public function retornaLaboratorios(){
