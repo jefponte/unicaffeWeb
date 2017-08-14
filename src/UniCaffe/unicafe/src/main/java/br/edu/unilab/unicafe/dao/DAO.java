@@ -50,7 +50,7 @@ public class DAO {
 				bdNome = config.getProperty("usuarios_bd_nome");
 				usuario = config.getProperty("usuarios_usuario");
 				senha = config.getProperty("usuarios_senha");
-				this.entidade = config.getProperty("usuarios_entidade");
+				this.entidade = config.getProperty("usuarios_entidade_nome");
 				break;
 			case TIPO_AUTENTICACAO:
 				sgdb = config.getProperty("autenticacao_sgdb");
@@ -59,7 +59,7 @@ public class DAO {
 				bdNome = config.getProperty("autenticacao_bd_nome");
 				usuario = config.getProperty("autenticacao_usuario");
 				senha = config.getProperty("autenticacao_senha");
-				this.entidade = config.getProperty("autenticacao_entidade");
+				this.entidade = config.getProperty("autenticacao_entidade_nome");
 				break;
 			default:
 				sgdb = config.getProperty("default_sgdb");
@@ -70,21 +70,19 @@ public class DAO {
 				senha = config.getProperty("default_senha");
 				break;
 			}
-
-			System.out.println(
-					JDBC_BANCO_POSTGRES + "//" + host + ":" + porta + "/" + bdNome + ", " + usuario + "," + senha);
-
+			file.close();
 			if (sgdb.equals("postgres")) {
 				Class.forName(DRIVER_POSTGRES);
-				this.conexao = DriverManager.getConnection(JDBC_BANCO_POSTGRES+ "//" + host + "/" + bdNome,usuario, senha);
-
+				this.conexao = DriverManager.getConnection(JDBC_BANCO_POSTGRES+ "//" + host + "/" + bdNome, usuario, senha);
+				
 			} else if (sgdb.equals("sqlite")) {
 				Class.forName(DRIVER_SQLITE);
-				this.conexao = DriverManager.getConnection(JDBC_BANCO_SQLITE);
+				this.conexao = DriverManager.getConnection(JDBC_BANCO_SQLITE+bdNome);
 			} else if (sgdb.equals("mysql")) {
 				Class.forName(DRIVER_MYSQL);
 				this.conexao = DriverManager.getConnection(JDBC_BANCO_MYSQL + "//" + host + "/" + bdNome, usuario, senha);
 			}
+
 
 		} catch (ClassNotFoundException e1) {
 			e1.printStackTrace();
@@ -146,7 +144,7 @@ public class DAO {
 	public static final int TIPO_AUTENTICACAO = 2;
 
 	public static final String DRIVER_SQLITE = "org.sqlite.JDBC";
-	public static final String JDBC_BANCO_SQLITE = "jdbc:sqlite:banco.db";
+	public static final String JDBC_BANCO_SQLITE = "jdbc:sqlite:";
 
 	public static final String JDBC_BANCO_POSTGRES = "jdbc:postgresql:";
 	public static final String DRIVER_POSTGRES = "org.postgresql.Driver";

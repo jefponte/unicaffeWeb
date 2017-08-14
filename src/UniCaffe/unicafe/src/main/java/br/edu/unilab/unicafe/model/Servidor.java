@@ -13,10 +13,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Scanner;
-
+import java.util.Properties;
 import com.google.gson.Gson;
-
 import br.edu.unilab.unicafe.dao.AcessoDAO;
 import br.edu.unilab.unicafe.dao.DAO;
 import br.edu.unilab.unicafe.dao.MaquinaDAO;
@@ -47,20 +45,25 @@ public class Servidor {
 
 	
 
+	public static final String ARQUIVO_CONFIGURACAO = "/dados/unicaffe/config_unicaffe.ini";
 	public void iniciaServico() {
-	
 		
-		int porta = 27289;
+		int porta;		
 		try {
-
-
-			
+			Properties config = new Properties();
+			FileInputStream file = new FileInputStream(ARQUIVO_CONFIGURACAO);
+			config.load(file);
+			porta = Integer.parseInt(config.getProperty("porta"));
+			file.close();
 			this.serverSocket = new ServerSocket(porta, 500);
 			esperaConexoes();
-		} catch (IOException e) {
-			System.out.println("Não consegui utilizar a porta: "+porta+".");
-			
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
 		}
+		
+
+
 		
 	}
 	public void atualizaTodos(){
@@ -88,24 +91,21 @@ public class Servidor {
 			}else{
 				json = json+"|"+geson.toJson(c.getMaquina());
 			}
-			//printd(json);
 		}
 		return json;
-		
 	}
-
 	public void esperaConexoes() {
 		Thread recebendoConexao = new Thread(new Runnable() {
 
 			@Override
 			public void run() {
-				System.out.println("Servidor iniciado! \n Aguardando conexões...");
+				System.out.println("Servidor iniciado!");
+				System.out.println("Aguardando conexões...");
 				while (true) {
 					
 					Socket conexao;
 					try {
 						conexao = serverSocket.accept();
-						//printd("Nova conexão! "	+ conexao.getInetAddress().toString());
 						processaConexao(conexao);
 					} catch (IOException e) {
 						System.out.println("Tentativa de conexão frustrada! ");
@@ -154,20 +154,13 @@ public class Servidor {
 					cliente.getMaquina().setIp(cliente.getConexao().getInetAddress().toString().substring(1));
 					PrintStream ps = new PrintStream(cliente.getSaida());
 					BufferedReader in = new BufferedReader(new InputStreamReader(cliente.getEntrada()));
-
 					String mensagem = in.readLine();
-					//System.out.println("Primeira Mensagem: "+mensagem);
+					
 					if(mensagem == null){
-//						System.out.println("Comando recusado.");
-//						System.out.println(mensagem);
-//						System.out.println("Uma conexao recusada. ");
-						ps.println("Eu sou o Servidor, meu chapa!");
+						ps.println("Estamos conectados!");
 						conexao.close();
 						return;
 					}
-						
-					
-
 					if(mensagem.indexOf("GET / HTTP/1.1") != -1){
 						ps.println("<!DOCTYPE html><html>"
 								+ "<header><style>"
@@ -238,7 +231,6 @@ public class Servidor {
 						
 						}else{
 							System.out.println("Comando recusado.");
-//							System.out.println(mensagem);
 							System.out.println("Uma conexao recusada. ");
 							ps.println("Eu sou o Servidor, meu chapa!");
 							conexao.close();
@@ -264,7 +256,7 @@ public class Servidor {
 						}
 					}
 					listaDeClientes.remove(cliente);
-					System.out.println("Uma maquina desconectou.");
+					
 					
 					
 				}
@@ -283,10 +275,6 @@ public class Servidor {
 						System.out.println("Erro de SQLEXception.");
 					}
 				}
-
-				
-				
-
 			}
 		});
 
@@ -311,9 +299,9 @@ public class Servidor {
 		}
 		return false;
 	}
+
 	public synchronized void processaMensagemAdmin(final Cliente cliente, String mensagem) {
 
-//		System.out.println(cliente.getConexao().getInetAddress()+">> Mensagem admin: "+mensagem);
 		if(mensagem == null)
 			return;
 		
@@ -324,8 +312,6 @@ public class Servidor {
 			return;
 		}
 		
-		//Primeiro verificamos a possibilidade de uma mensagem sem parametros. 
-		
 		if(mensagem.equals("ajuda")){
 			new PrintStream(cliente.getSaida()).println(getAjuda());
 			return;
@@ -333,10 +319,7 @@ public class Servidor {
 		}
 		else if(mensagem.equals("restart")){
 			try {
-				Process processo = Runtime.getRuntime().exec("/etc/init.d/unicafe.sh restart");
-				Scanner leitor = new Scanner(processo.getInputStream());
-				while (leitor.hasNext())
-					System.out.println(leitor.nextLine());
+				Runtime.getRuntime().exec("/etc/init.d/unicafe.sh restart");
 				new PrintStream(cliente.getSaida()).println("Vamos restartar");
 			} catch (IOException e) {
 
@@ -346,10 +329,7 @@ public class Servidor {
 		}
 		else if(mensagem.equals("reboot")){
 			try {
-					Process processo = Runtime.getRuntime().exec("reboot");
-					Scanner leitor = new Scanner(processo.getInputStream());
-					while (leitor.hasNext())
-						System.out.println(leitor.nextLine());
+					Runtime.getRuntime().exec("reboot");
 					new PrintStream(cliente.getSaida()).println("Vamos rebotar");
 			} catch (IOException e) {
 
@@ -361,22 +341,11 @@ public class Servidor {
 			System.exit(0);
 			return;
 		}
-		
-		
-		//Vamos ver se veio um select. 
 		if(mensagem.toLowerCase().indexOf("select") >= 0 || mensagem.toLowerCase().indexOf("insert") >= 0 || mensagem.toLowerCase().indexOf("update") >= 0){
-//			System.out.println("Veio um SQL");
 			String json = "";
-			
 			int h = 0;
-			
 			for(Cliente daVez:this.getListaDeClientes()){
-				
-				
-				
-				
 				String dados = "|{\"id_maquina\":"+daVez.getMaquina().getId()+",\"nome_pc\":\""+daVez.getMaquina().getNome()+"\",\"mac\":\""+daVez.getMaquina().getEnderecoMac()+"\",\"id_acesso\":"+daVez.getMaquina().getAcesso().getId()+",\"hora_inicial\":\""+daVez.getMaquina().getAcesso().getHoraInicial()+"\",\"tempo_oferecido\":"+daVez.getMaquina().getAcesso().getTempoDisponibilizado()+",\"tempo_usado\":"+daVez.getMaquina().getAcesso().getTempoUsado()+",\"ip\":\""+daVez.getConexao().getInetAddress().toString()+"\",\"id_usuario\":"+daVez.getMaquina().getAcesso().getUsuario().getId()+",\"id_laboratorio\":"+daVez.getMaquina().getLaboratorio().getId()+",\"nome_laboratorio\":\""+daVez.getMaquina().getLaboratorio().getNome()+"\",\"nome\":\""+daVez.getMaquina().getAcesso().getUsuario().getNome()+"\",\"email\":\""+daVez.getMaquina().getAcesso().getUsuario().getEmail()+"\",\"login\":\""+daVez.getMaquina().getAcesso().getUsuario().getLogin()+"\",\"senha\":\""+daVez.getMaquina().getAcesso().getUsuario().getSenha()+"\",\"status_maquina\":"+daVez.getMaquina().getStatus()+",\"status_acesso\":"+daVez.getMaquina().getAcesso().getStatus()+",\"nivel_acesso\":\""+daVez.getMaquina().getAcesso().getUsuario().getNivelAcesso()+"\""+"}";
-				
 				if(h == 0){
 					
 					json = dados;
@@ -391,8 +360,7 @@ public class Servidor {
 			return;
 		}
 		
-		//Depois uma mensagem com parametros. 
-		
+
 		if(mensagem.indexOf('(') == -1 || mensagem.indexOf(')') == -1){
 			new PrintStream(cliente.getSaida()).println("Mensagem não encontrada. Digite ajuda para obter ajuda. ");	
 			return;
@@ -400,7 +368,6 @@ public class Servidor {
 		
 	
 		String parametros = "";
-//		System.out.println("Segunda mensagem: "+mensagem);
 		String comando = mensagem.substring(0, mensagem.indexOf('('));
 		parametros = mensagem.substring((mensagem.indexOf('(') + 1),mensagem.indexOf(')'));
 		
@@ -408,9 +375,7 @@ public class Servidor {
 		if(comando.equals("getMaquinas")){
 			String json = anotaJson();
 			new PrintStream(cliente.getSaida()).println(json);	
-//			System.out.println("Resposta: "+json);
 		}else if(comando.equals("cadastraMaquina")){
-			// A gente pesquisa uma máquina com esse nome e cadastra ela. 
 			boolean achei = false;
 			for(Cliente daVez : listaDeClientes){
 				
@@ -430,7 +395,6 @@ public class Servidor {
 			return;
 			
 		}else if(comando.equals("ligador")){
-			boolean achei = false;
 			MaquinaDAO maquinaDAO = new MaquinaDAO();
 			Maquina maquinaALigar = new Maquina();
 			maquinaALigar.setNome(parametros.trim());
@@ -474,10 +438,7 @@ public class Servidor {
 					new PrintStream(cliente.getSaida()).println("Atualizei o mac de: "+maquina.getNome());
 					return;
 				}
-			}
-			
-			
-			
+			}			
 		}
 		else if(comando.equals("alocarMaquina")){
 			String nomeMaquina = parametros.substring(0, parametros.indexOf(','));
@@ -496,9 +457,6 @@ public class Servidor {
 				}
 			}
 			
-			
-			
-			
 			MaquinaDAO dao = new MaquinaDAO();
 			Maquina maquina = new Maquina();
 			maquina.setNome(nomeMaquina);
@@ -511,9 +469,6 @@ public class Servidor {
 			}
 			
 			
-			
-			System.out.println("ID do laboratorio"+laboratorio.getNome()+" ID: "+laboratorio.getId() );
-			System.out.println("ID do laboratorio"+maquina.getLaboratorio().getNome()+" ID: "+maquina.getLaboratorio().getId());
 			if(dao.existeSemBulir(maquina))
 			{
 				new PrintStream(cliente.getSaida()).println("Existe a maquina "+nomeMaquina);
@@ -549,14 +504,7 @@ public class Servidor {
 				}
 			}
 			
-			//Primeiro verificamos se esse nome ja existe no banco. 
-
-			//Se não existir nos iremos tentar cadastrar. 
-			//Logo depois inserimos um laboratorio nela que tenha esse nome, mas se o laboratorio nao existir mandamos a mensagem de erro. 
 			
-			//Se a maquina ja existir a gente verifica se ja existe laboratorio pra ela. 
-			//Se o laboratorio nao exisitr pra ela nos definimos com insert 
-			//Se o laboratorio existir nos fazemos um update 
 			
 			
 		}
@@ -569,39 +517,26 @@ public class Servidor {
 		}else if(comando.equals("atualizaTudo")){
 			System.out.println("Vou atualizar, calma.");
 			for(Cliente daVez : listaDeClientes){
-				
 				new PrintStream(daVez.getSaida()).println("atualizar()");
 				new PrintStream(cliente.getSaida()).println("Atualizando Tudo....");
-				
 				
 			}
 			return;
 		}else if(comando.equals("desativaTudo")){
 			System.out.println("Vou desativar, calma.");
 			for(Cliente daVez : listaDeClientes){
-				
 				new PrintStream(daVez.getSaida()).println("desativar()");
 				new PrintStream(cliente.getSaida()).println("desativando Tudo....");
-				
-				
-				
 			}
 			return;
-			
 		}
-		
 		else if(comando.equals("aulaEmTudo")){
 			System.out.println("Vou desativar, calma.");
-			for(Cliente daVez : listaDeClientes){
-				
+			for(Cliente daVez : listaDeClientes){		
 				new PrintStream(daVez.getSaida()).println("desbloqueia(aula, "+18000+ ")");
 				new PrintStream(cliente.getSaida()).println("aula em Tudo....");
-				
-				
-				
 			}
 			return;
-			
 		}
 		else if (comando.equals("desliga")) {
 			
@@ -625,18 +560,11 @@ public class Servidor {
 					new PrintStream(clienteALimpar.getSaida()).println("limparDados()");
 					new PrintStream(cliente.getSaida()).println("Limpei o "+clienteALimpar.getMaquina().getNome());
 				}
-				
 			}
-			
 			return;
-			
 		}
 		else if (comando.equals("aula")) {
-			
-			System.out.println("Dar aula "+parametros);
 			for(Cliente desligado : listaDeClientes){
-				
-				
 				if(desligado.getMaquina().getNome().toLowerCase().equals(parametros.toLowerCase())){
 					desligado.getMaquina().getAcesso().getUsuario().setNome("Aula");
 					
@@ -648,8 +576,6 @@ public class Servidor {
 			
 			
 		}else if (comando.equals("bloqueia")) {
-			
-			System.out.println("Bloquear "+parametros);
 			for(Cliente desligado : listaDeClientes){
 				if(desligado.getMaquina().getNome().toLowerCase().equals(parametros.toLowerCase())){
 					desligado.getMaquina().getAcesso().getUsuario().setNome("Livre");
@@ -663,8 +589,6 @@ public class Servidor {
 			
 		}
 		else if (comando.equals("desativar")) {
-			
-			System.out.println("Desativar "+parametros);
 			for(Cliente desligado : listaDeClientes){
 				if(desligado.getMaquina().getNome().toLowerCase().equals(parametros.toLowerCase())){
 					new PrintStream(desligado.getSaida()).println("desativar()");
@@ -747,34 +671,27 @@ public class Servidor {
 		
 		String comando = mensagem.substring(0, mensagem.indexOf('('));
 		String parametros = mensagem.substring((mensagem.indexOf('(') + 1),mensagem.indexOf(')'));
-//		System.out.println(mensagem);
 		if (comando.equals("autentica")) {
 			String login = parametros.substring(0, parametros.indexOf(','));
 			String senha = parametros.substring(parametros.indexOf(',') + 1);
 			Usuario usuario = new Usuario();
 			usuario.setLogin(login.toLowerCase());
 			usuario.setSenha(senha);
-			//Contar clientes e contar visitantes. 
-			//Visitante também vai levar em consideração apenas máquinas no mesmo laboratório. 
+			
 			int idLaboratorio = cliente.getMaquina().getLaboratorio().getId();
 			
-			int numeroDeClientes = 0;
 			int numeroDeVisitantes = 0;
 			int numeroDeMaquinasLivres = 0;
 			for(Cliente oDaVez : listaDeClientes){
 				if(oDaVez.getMaquina().getAcesso().getUsuario().getLogin().equals("visitante") && oDaVez.getMaquina().getLaboratorio().getId() == idLaboratorio)
 					numeroDeVisitantes++;
-				if(oDaVez.getMaquina().getLaboratorio().getId() == idLaboratorio)
-					numeroDeClientes++;
 				if(oDaVez.getMaquina().getAcesso().getStatus() == Acesso.STATUS_DISPONIVEL && oDaVez.getMaquina().getLaboratorio().getId() == idLaboratorio)
 					numeroDeMaquinasLivres++;
 				
 			}
 			
 			if(login.equals("visitante") && senha.equals(UsuarioDAO.getMD5("654321"))){
-				
 
-				//Verificar se existem 20 por centod e maquinas conectadas livres.
 				if(numeroDeMaquinasLivres <= 2){
 					new PrintStream(cliente.getSaida()).println("printc(Laboratório Lotado!)");
 					return;
@@ -1007,40 +924,25 @@ public class Servidor {
 					break;
 			}
 			
-			
-			
-			
-			System.out.println(cliente.getMaquina().getNome() + ">> Mudou o Status para "+ Maquina.statusString(status));
-		} else {
-			System.out.println(cliente.getMaquina().getNome() + ">>"+ " Comando não encontrado. "+mensagem);
 		}
 
-
 	}
-
 	public String getIp() {
 		return ip;
 	}
-
 	public void setIp(String ip) {
 		this.ip = ip;
 	}
-
 	public ServerSocket getServerSocket() {
 		return serverSocket;
 	}
-
 	public void setServerSocket(ServerSocket serverSocket) {
 		this.serverSocket = serverSocket;
 	}
-
 	public ArrayList<Cliente> getListaDeClientes() {
 		return listaDeClientes;
 	}
-
 	public void setListaDeClientes(ArrayList<Cliente> listaDeClientes) {
 		this.listaDeClientes = listaDeClientes;
 	}
-
-
 }

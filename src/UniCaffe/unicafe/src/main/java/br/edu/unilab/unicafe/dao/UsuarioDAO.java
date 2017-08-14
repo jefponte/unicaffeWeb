@@ -12,33 +12,33 @@ import br.edu.unilab.unicafe.model.Usuario;
 
 public class UsuarioDAO extends DAO {
 
-	public UsuarioDAO(){
+	public UsuarioDAO() {
 		super();
 	}
-	public UsuarioDAO(int tipoDeConexao){
+
+	public UsuarioDAO(int tipoDeConexao) {
 		super(tipoDeConexao);
-		
+
 	}
-	public UsuarioDAO(Connection conexao){
+
+	public UsuarioDAO(Connection conexao) {
 		super(conexao);
 	}
-	
-	
-	
 
 	/**
 	 * 
 	 * @param usuario
 	 * @return
 	 */
-	public  boolean autenticaLocal(Usuario usuario){
+	public boolean autenticaLocal(Usuario usuario) {
 		try {
-			
-			PreparedStatement ps = this.getConexao().prepareStatement("SELECT * FROM usuario WHERE login = ? AND senha = ?");
+
+			PreparedStatement ps = this.getConexao()
+					.prepareStatement("SELECT * FROM usuario WHERE login = ? AND senha = ?");
 			ps.setString(1, usuario.getLogin());
 			ps.setString(2, usuario.getSenha());
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()){
+			while (rs.next()) {
 				usuario.setId(rs.getInt("id_usuario"));
 				usuario.setNome(rs.getString("nome"));
 				usuario.setEmail(rs.getString("email"));
@@ -46,68 +46,56 @@ public class UsuarioDAO extends DAO {
 				return true;
 			}
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
 			return false;
 		}
-		
+
 		return false;
-		
-		
+
 	}
-	
-	public boolean seuNivelEhGraduacao(Usuario usuario){
-	try {
-			
-			PreparedStatement ps = this.getConexao().prepareStatement("SELECT * FROM vw_usuarios_unicafe WHERE id_usuario = ?");
+
+	public boolean seuNivelEhGraduacao(Usuario usuario) {
+		try {
+
+			PreparedStatement ps = this.getConexao()
+					.prepareStatement("SELECT * FROM vw_usuarios_unicafe WHERE id_usuario = ?");
 			ps.setInt(1, usuario.getIdBaseExterna());
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()){
-				if(rs.getString("nivel_discente") == null){
+			while (rs.next()) {
+				if (rs.getString("nivel_discente") == null) {
 					this.getConexao().close();
 					return false;
 				}
-				if(! (rs.getString("nivel_discente").substring(0, 1).equals("G")) ){
+				if (!(rs.getString("nivel_discente").substring(0, 1).equals("G"))) {
 					this.getConexao().close();
 					return false;
 				}
 			}
 			this.getConexao().close();
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
-			
+
 			return false;
 		}
-		
+
 		return true;
-		
-		
+
 	}
-	
-	public  boolean autentica(Usuario usuario){
-		if(this.autenticaLocal(usuario)){
-			
-			System.out.println("Eu estou na base local");
+
+	public boolean autentica(Usuario usuario) {
+		if (this.autenticaLocal(usuario)) {
 			return true;
-			
 		}
-		System.out.println("Passou direto");
-		//A gente fecha conexao local?
-		
 		try {
 			this.getConexao().close();
 		} catch (SQLException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		
 		this.setTipoDeConexao(TIPO_AUTENTICACAO);
 		this.fazerConexao();
-		
-		
-		if(this.autenticaRemoto(usuario))
-		{
+		if (this.autenticaRemoto(usuario)) {
 			try {
 				this.getConexao().close();
 			} catch (SQLException e) {
@@ -120,60 +108,51 @@ public class UsuarioDAO extends DAO {
 			try {
 				this.getConexao().close();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			
+
 			return true;
 		}
 		try {
 			this.getConexao().close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return false;
-		
-		
+
 	}
-	
+
 	/**
 	 * 
 	 * @param usuario
 	 * @return
 	 */
-	public  boolean autenticaRemoto(Usuario usuario){
-		
-		
-		
+	public boolean autenticaRemoto(Usuario usuario) {
+
 		this.setTipoDeConexao(TIPO_AUTENTICACAO);
-		
-		
+
 		try {
-			
-			PreparedStatement ps = this.getConexao().prepareStatement("SELECT * FROM usuarios_unicafe WHERE login = ? AND senha = ?");
+			PreparedStatement ps = this.getConexao()
+					.prepareStatement("SELECT * FROM usuarios_unicafe WHERE login = ? AND senha = ?");
 			ps.setString(1, usuario.getLogin());
 			ps.setString(2, usuario.getSenha());
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()){
+			while (rs.next()) {
 				usuario.setIdBaseExterna(rs.getInt("id_usuario"));
 				usuario.setId(rs.getInt("id_usuario"));
 				usuario.setNome(rs.getString("nome"));
 				usuario.setEmail(rs.getString("email"));
-				
 				return true;
 			}
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
 			return false;
 		}
-		
 		return false;
-
 	}
-	
+
 	public Usuario logado(String login) {
 		Usuario usuario = new Usuario();
 		PreparedStatement ps;
@@ -188,47 +167,49 @@ public class UsuarioDAO extends DAO {
 				usuario.setId(resultSet.getInt("id_usuario"));
 				usuario.setCpf(resultSet.getString("cpf"));
 				usuario.setSenha(resultSet.getString("senha"));
-				usuario.setNivelAcesso(resultSet.getInt("nivel_acesso"));	
+				usuario.setNivelAcesso(resultSet.getInt("nivel_acesso"));
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		return usuario;
 	}
-	
+
 	/**
-	 * Ele vai retornar verdadeiro caso o cadastro tenha dado certo e falso se o cadastro tiver dado errado. 
-	 * O cadastro pode dar errado pelos seguintes motivos: 
-	 * 1. O login n�o pode ser nenhum j� cadastrado no banco. 
-	 * 2. O email tamb�m n�o pode se repetir. 
-	 * 3. Pode ter dado um erro de SQLException. 
+	 * Ele vai retornar verdadeiro caso o cadastro tenha dado certo e falso se o
+	 * cadastro tiver dado errado. O cadastro pode dar errado pelos seguintes
+	 * motivos: 1. O login n�o pode ser nenhum j� cadastrado no banco. 2. O
+	 * email tamb�m n�o pode se repetir. 3. Pode ter dado um erro de
+	 * SQLException.
+	 * 
 	 * @param usuario
 	 * @return
 	 */
-	public boolean cadastra(Usuario usuario){
+	public boolean cadastra(Usuario usuario) {
 		try {
 			PreparedStatement ps = this.getConexao().prepareStatement("SELECT * FROM usuario WHERE login = ? ");
-			
+
 			ps.setString(1, usuario.getLogin());
 			ResultSet rs = ps.executeQuery();
-			while(rs.next()){
-				System.out.println(usuario.getLogin()+" Retornou linha");
+			while (rs.next()) {
+				System.out.println(usuario.getLogin() + " Retornou linha");
 				System.out.println("O usuario ja existe, mane");
-				PreparedStatement psUpdate = this.getConexao().prepareStatement("UPDATE usuario set senha = ? WHERE login = ?");
+				PreparedStatement psUpdate = this.getConexao()
+						.prepareStatement("UPDATE usuario set senha = ? WHERE login = ?");
 				psUpdate.setString(1, usuario.getSenha());
 				psUpdate.setString(2, usuario.getLogin());
 				psUpdate.executeUpdate();
-				
+
 				usuario.setId(rs.getInt("id_usuario"));
-				
+
 				return false;
 			}
 			System.out.println("O usuario nao existe vamos tentar inserir");
-			//nome	email	login	senha	nivel_acesso	
-			PreparedStatement ps2 = this.getConexao().prepareStatement("INSERT into usuario(nome, email, login, senha, id_base_externa, nivel_acesso) VALUES(?, ?, ?, ?, ?, ?)");
-			
+			// nome email login senha nivel_acesso
+			PreparedStatement ps2 = this.getConexao().prepareStatement(
+					"INSERT into usuario(nome, email, login, senha, id_base_externa, nivel_acesso) VALUES(?, ?, ?, ?, ?, ?)");
+
 			ps2.setString(1, usuario.getNome());
 			ps2.setString(2, usuario.getEmail());
 			ps2.setString(3, usuario.getLogin());
@@ -238,21 +219,20 @@ public class UsuarioDAO extends DAO {
 			ps2.executeUpdate();
 			cadastra(usuario);
 			return true;
-					
-			
+
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
-		}		
+		}
 	}
 
-	public ArrayList<Usuario> retornaLista() throws SQLException{
-	
+	public ArrayList<Usuario> retornaLista() throws SQLException {
+
 		ArrayList<Usuario> lista = new ArrayList<Usuario>();
 		PreparedStatement ps = this.getConexao().prepareStatement("SELECT * FROM usuario");
 		ResultSet resultSet = ps.executeQuery();
-		while(resultSet.next()){
+		while (resultSet.next()) {
 			Usuario usuario = new Usuario();
 
 			usuario.setLogin(resultSet.getString("login"));
@@ -264,47 +244,44 @@ public class UsuarioDAO extends DAO {
 		}
 		return lista;
 	}
-	
-	
+
 	/**
-	 * Esse m�todo vai determinar como ser� a cota. 
-	 * Antes de criar regras mais din�micas iremos deixar
+	 * Esse m�todo vai determinar como ser� a cota. Antes de criar regras mais
+	 * din�micas iremos deixar
+	 * 
 	 * @param usuario
 	 * @return
 	 */
-	public int retornaCota(Usuario usuario){
+	public int retornaCota(Usuario usuario) {
 		return 216000;
 	}
-	
-	
+
 	public static String getMD5(String input) {
-        byte[] source;
-        try {
-            //Get byte according by specified coding.
-            source = input.getBytes("UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            source = input.getBytes();
-        }
-        String result = null;
-        char hexDigits[] = {'0', '1', '2', '3', '4', '5', '6', '7',
-                '8', '9', 'a', 'b', 'c', 'd', 'e', 'f'};
-        try {
-            MessageDigest md = MessageDigest.getInstance("MD5");
-            md.update(source);
-            //The result should be one 128 integer
-            byte temp[] = md.digest();
-            char str[] = new char[16 * 2];
-            int k = 0;
-            for (int i = 0; i < 16; i++) {
-                byte byte0 = temp[i];
-                str[k++] = hexDigits[byte0 >>> 4 & 0xf];
-                str[k++] = hexDigits[byte0 & 0xf];
-            }
-            result = new String(str);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return result;
-    }
-	
+		byte[] source;
+		try {
+			source = input.getBytes("UTF-8");
+		} catch (UnsupportedEncodingException e) {
+			source = input.getBytes();
+		}
+		String result = null;
+		char hexDigits[] = { '0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'a', 'b', 'c', 'd', 'e', 'f' };
+		try {
+			MessageDigest md = MessageDigest.getInstance("MD5");
+			md.update(source);
+			// The result should be one 128 integer
+			byte temp[] = md.digest();
+			char str[] = new char[16 * 2];
+			int k = 0;
+			for (int i = 0; i < 16; i++) {
+				byte byte0 = temp[i];
+				str[k++] = hexDigits[byte0 >>> 4 & 0xf];
+				str[k++] = hexDigits[byte0 & 0xf];
+			}
+			result = new String(str);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
+	}
+
 }
