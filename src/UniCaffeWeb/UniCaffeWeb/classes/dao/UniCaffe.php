@@ -12,40 +12,30 @@ class UniCaffeException extends Exception {
 		$this->message = $previous;
 	}
 }
-
-
 class UniCaffeStatement implements Iterator {
-	
 	private $position = 0;
 	private $array;
-
 	public function __construct() {
 		$this->position = 0;
-		$this->array = array();
+		$this->array = array ();
 	}
-	public function setArray($matriz){
+	public function setArray($matriz) {
 		$this->array = $matriz;
 	}
-	
-
 	function rewind() {
 		$this->position = 0;
 	}
-
 	function current() {
-		return $this->array[$this->position];
+		return $this->array [$this->position];
 	}
-
 	function key() {
 		return $this->position;
 	}
-
 	function next() {
-		++$this->position;
+		++ $this->position;
 	}
-
 	function valid() {
-		return isset($this->array[$this->position]);
+		return isset ( $this->array [$this->position] );
 	}
 }
 
@@ -63,55 +53,51 @@ class UniCaffe {
 		unicaffeExec ( $this->socket, $comando );
 	}
 	
-	
 	/**
-	 * Executa uma instru��o SQL, retornando um objeto UniCaffeStatement como resultado. 
+	 * Executa uma instru��o SQL, retornando um objeto UniCaffeStatement como resultado.
+	 *
 	 * @return UniCaffeStatement UniCaffe::query retorna um objeto UniCaffeStatement, ou falto se der erro.
 	 */
 	public function query($statement) {
-
-		//Eu tenho que fazer ele reunir uma matriz com linhas de vetores para entrarem no Statement. 
-		//Isso vai vir do JSON convertido. :) 
-		$listaJSON = $this->dialoga($statement);
 		
-		//Essa lista a� eu espero que seja um JSON. 
-		//Tenho que pegar ela e separar e matriz. 
-
-		$arrJson = explode('|', $listaJSON);
-		$lista = array();
-		if(count($arrJson) <= 1){
-			return array();
+		// Eu tenho que fazer ele reunir uma matriz com linhas de vetores para entrarem no Statement.
+		// Isso vai vir do JSON convertido. :)
+		$listaJSON = $this->dialoga ( $statement );
+		
+		// Essa lista a� eu espero que seja um JSON.
+		// Tenho que pegar ela e separar e matriz.
+		
+		$arrJson = explode ( '|', $listaJSON );
+		$lista = array ();
+		if (count ( $arrJson ) <= 1) {
+			return array ();
 		}
 		$i = 0;
-		foreach($arrJson as $json){
+		foreach ( $arrJson as $json ) {
 			
-			if($i == 0){
-				$i++;
+			if ($i == 0) {
+				$i ++;
 				continue;
 			}
-			$objeto = json_decode($json, true);
-			//echo $json;
-			$lista[] = $objeto;
+			$objeto = json_decode ( $json, true );
+			// echo $json;
+			$lista [] = $objeto;
 		}
-		$stmt = new UniCaffeStatement();
-		if($i != 0){
-			$stmt->setArray($lista);
+		$stmt = new UniCaffeStatement ();
+		if ($i != 0) {
+			$stmt->setArray ( $lista );
 			
 			return $stmt;
-		}else{
-			return array();
+		} else {
+			return array ();
 		}
-		
-		
-		
-		
 	}
 	
 	/**
 	 * Passar comandos diretamente para o servidor.
 	 *
 	 * capturando a resposta e retornando do jeito que ele manda.
-	 * 
+	 *
 	 * @param string $comando        	
 	 */
 	public function dialoga($comando) {
@@ -194,15 +180,13 @@ function unicaffeQuery($link, $query) {
  * @param string $query        	
  */
 function unicaffeDialoga($link, $comando) {
-	socket_write ( $link,$comando."\n", strlen ( $comando."\n" ) ) or die ( "Could not send data to server\n" );
+	socket_write ( $link, $comando . "\n", strlen ( $comando . "\n" ) ) or die ( "Could not send data to server\n" );
 	$strJson = "";
 	while ( $result = socket_read ( $link, 1024 ) ) {
 		$strJson .= $result;
 	}
-	return  $strJson;
-	
+	return $strJson;
 }
-
 
 /**
  *
@@ -212,11 +196,11 @@ function unicaffeFetchAssoc(UniCaffeResult $result) {
 }
 /**
  * Fecha uma conexão com o UniCaffe.
- * 
+ *
  * @param resource $link        	
  */
 function unicaffeClose($link) {
-	socket_close($link);
+	socket_close ( $link );
 }
 
 ?>
