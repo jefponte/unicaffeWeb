@@ -10,7 +10,6 @@ class ComandoController {
 	const COMANDO_COM_INTERNET = 10;
 	const COMANDO_APAGAR = 99;
 	
-
 	public static function main($nivelDeAcesso) {
 		switch ($nivelDeAcesso) {
 			case Sessao::NIVEL_SUPER :
