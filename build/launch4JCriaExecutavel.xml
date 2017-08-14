@@ -2,8 +2,8 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>..\src\UniCaffe\unicafe\target\unicafe-cliente.jar</jar>
-  <outfile>.\UniCaffeCliente.exe</outfile>
+  <jar>..\src\UniCaffe\unicaffe\target\unicaffe-cliente.jar</jar>
+  <outfile>.\UniCaffeClient.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
   <chdir>.</chdir>
