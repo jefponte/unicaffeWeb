@@ -19,12 +19,16 @@ function __autoload($classe) {
 }
 
 
-// $dao = new DAO();
+// $dao = new DAO(null, DAO::TIPO_USUARIOS);
 
-// echo $dao->getConexao()->exec("INSERT INTO maquina (nome_pc, mac) VALUES('gio', 'OOONNN');");
+// $sql = "SELECT * FROM ".$dao->getEntidade()." LIMIT 2;";
 
 
+// $result = $dao->getConexao()->query($sql);
 
-// DAO::criarBanco();
+// foreach($result as $linha){
+// 	print_r($linha);
+// }
+
 
 

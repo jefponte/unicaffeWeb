@@ -21,12 +21,15 @@ class DAO {
 	private $sgbb;
 	private $entidade;
 	
-	public function __construct($conexao = null, $tipo = self::TIPO_DEFAULT) {
+	public function getEntidade(){
+		return $this->entidade;
+	}
+	
+	public function __construct(PDO $conexao = null, $tipo = self::TIPO_DEFAULT) {
 		$this->tipoDeConexao = $tipo;
 		if ($conexao != null) {
 			$this->conexao = $conexao;
 		} else {
-			
 			$this->fazerConexao ();
 		}
 	}

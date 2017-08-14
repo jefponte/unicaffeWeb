@@ -41,50 +41,49 @@ public class DAO {
 			FileInputStream file;
 			file = new FileInputStream(ARQUIVO_CONFIGURACAO);
 			config.load(file);
-			String[] bd = new String[6];
+			String sgdb, host, porta, bdNome, usuario, senha;
 			switch (tipoDeConexao) {
 			case TIPO_USUARIOS:
-				bd[0] = config.getProperty("usuarios_sgdb");
-				bd[1] = config.getProperty("usuarios_host");
-				bd[2] = config.getProperty("usuarios_porta");
-				bd[3] = config.getProperty("usuarios_bd_nome");
-				bd[4] = config.getProperty("usuarios_usuario");
-				bd[5] = config.getProperty("usuarios_senha");
+				sgdb = config.getProperty("usuarios_sgdb");
+				host = config.getProperty("usuarios_host");
+				porta = config.getProperty("usuarios_porta");
+				bdNome = config.getProperty("usuarios_bd_nome");
+				usuario = config.getProperty("usuarios_usuario");
+				senha = config.getProperty("usuarios_senha");
 				this.entidade = config.getProperty("usuarios_entidade");
 				break;
 			case TIPO_AUTENTICACAO:
-				bd[0] = config.getProperty("autenticacao_sgdb");
-				bd[1] = config.getProperty("autenticacao_bd_nome");
-				bd[2] = config.getProperty("autenticacao_porta");
-				bd[3] = config.getProperty("autenticacao_bd_nome");
-				bd[4] = config.getProperty("autenticacao_usuario");
-				bd[5] = config.getProperty("autenticacao_senha");
+				sgdb = config.getProperty("autenticacao_sgdb");
+				host = config.getProperty("autenticacao_host");
+				porta = config.getProperty("autenticacao_porta");
+				bdNome = config.getProperty("autenticacao_bd_nome");
+				usuario = config.getProperty("autenticacao_usuario");
+				senha = config.getProperty("autenticacao_senha");
 				this.entidade = config.getProperty("autenticacao_entidade");
 				break;
 			default:
-				bd[0] = config.getProperty("default_sgdb");
-				bd[1] = config.getProperty("default_host");
-				bd[2] = config.getProperty("default_porta");
-				bd[3] = config.getProperty("default_bd_nome");
-				bd[4] = config.getProperty("default_usuario");
-				bd[5] = config.getProperty("default_senha");
+				sgdb = config.getProperty("default_sgdb");
+				host = config.getProperty("default_host");
+				porta = config.getProperty("default_porta");
+				bdNome = config.getProperty("default_bd_nome");
+				usuario = config.getProperty("default_usuario");
+				senha = config.getProperty("default_senha");
 				break;
 			}
 
 			System.out.println(
-					JDBC_BANCO_POSTGRES + "//" + bd[1] + ":" + bd[2] + "/" + bd[3] + ", " + bd[4] + "," + bd[5]);
+					JDBC_BANCO_POSTGRES + "//" + host + ":" + porta + "/" + bdNome + ", " + usuario + "," + senha);
 
-			if (bd[0].equals("postgres")) {
+			if (sgdb.equals("postgres")) {
 				Class.forName(DRIVER_POSTGRES);
-				this.conexao = DriverManager
-						.getConnection(JDBC_BANCO_POSTGRES + "//" + bd[1] + ":" + bd[2] + "/" + bd[3], bd[4], bd[5]);
-			} else if (bd[0].equals("sqlite")) {
+				this.conexao = DriverManager.getConnection(JDBC_BANCO_POSTGRES+ "//" + host + "/" + bdNome,usuario, senha);
+
+			} else if (sgdb.equals("sqlite")) {
 				Class.forName(DRIVER_SQLITE);
 				this.conexao = DriverManager.getConnection(JDBC_BANCO_SQLITE);
-
-			} else if (bd[0].equals("mysql")) {
+			} else if (sgdb.equals("mysql")) {
 				Class.forName(DRIVER_MYSQL);
-				this.conexao = DriverManager.getConnection(JDBC_BANCO_MYSQL + "//" + bd[1] + "/" + bd[3], bd[4], bd[5]);
+				this.conexao = DriverManager.getConnection(JDBC_BANCO_MYSQL + "//" + host + "/" + bdNome, usuario, senha);
 			}
 
 		} catch (ClassNotFoundException e1) {
