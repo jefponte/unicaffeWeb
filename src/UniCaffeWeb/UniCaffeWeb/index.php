@@ -1,4 +1,7 @@
 <?php
+ini_set('display_errors',1);
+ini_set('display_startup_erros',1);
+error_reporting(E_ALL);
 
 function __autoload($classe) {
 	if (file_exists ( 'classes/dao/' . $classe . '.php' )) {
@@ -25,9 +28,6 @@ if (isset ( $_GET ["sair"] )) {
 	$sessao->mataSessao ();
 	header ( "Location: index.php" );
 }
-ini_set('display_errors',1);
-ini_set('display_startup_erros',1);
-error_reporting(E_ALL);
 
 ?>
 <!DOCTYPE html>
@@ -60,7 +60,7 @@ error_reporting(E_ALL);
 				</div>
 				<div id="logo-universidade">
 					<a href="#"> <img alt="logotipo da Unilab"
-						src="img/logo_unilab.png" title="Ir para Unilab">
+						src="img/logo_labpati.png" title="Ir para Unilab">
 					</a>
 				</div>
 			</div>

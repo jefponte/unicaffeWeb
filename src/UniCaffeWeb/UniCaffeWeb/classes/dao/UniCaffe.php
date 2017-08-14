@@ -46,8 +46,20 @@ class UniCaffeStatement implements Iterator {
  */
 class UniCaffe {
 	private $socket;
+	private $porta;
+	private $host;
+	private $usuario;
+	private $senha;
+	
 	public function __construct($host = null, $porta = null, $usuario = null, $senha = null) {
-		$this->socket = unicaffeConnect ( $host, $porta, $usuario, $senha );
+		$this->host = $host;
+		$this->porta = $porta;
+		$this->usuario = $usuario;
+		$this->senha = $senha;
+		$this->connect();
+	}
+	public function connect(){
+		$this->socket = unicaffeConnect ( $this->host, $this->porta, $this->usuario, $this->senha );
 	}
 	public function exec($comando) {
 		unicaffeExec ( $this->socket, $comando );
@@ -60,13 +72,7 @@ class UniCaffe {
 	 */
 	public function query($statement) {
 		
-		// Eu tenho que fazer ele reunir uma matriz com linhas de vetores para entrarem no Statement.
-		// Isso vai vir do JSON convertido. :)
 		$listaJSON = $this->dialoga ( $statement );
-		
-		// Essa lista a� eu espero que seja um JSON.
-		// Tenho que pegar ela e separar e matriz.
-		
 		$arrJson = explode ( '|', $listaJSON );
 		$lista = array ();
 		if (count ( $arrJson ) <= 1) {
@@ -74,19 +80,16 @@ class UniCaffe {
 		}
 		$i = 0;
 		foreach ( $arrJson as $json ) {
-			
 			if ($i == 0) {
 				$i ++;
 				continue;
 			}
 			$objeto = json_decode ( $json, true );
-			// echo $json;
 			$lista [] = $objeto;
 		}
 		$stmt = new UniCaffeStatement ();
 		if ($i != 0) {
 			$stmt->setArray ( $lista );
-			
 			return $stmt;
 		} else {
 			return array ();
@@ -129,16 +132,17 @@ class UniCaffeResult {
  * @return boolean|resource
  */
 function unicaffeConnect($host = null, $porta = null, $usuario = null, $senha = null) {
-	
-	$host = "localhost";
-	if($porta == null){
-		$port = 27289;
+	if($host == null){
+		$host = "localhost";
 	}
-	$message = "setStatus(3)\n";
+	if($porta == null){
+		$porta = 27289;
+	}
 	
+	$message = "setStatus(3)\n";
 	$socket = socket_create ( AF_INET, SOCK_STREAM, 0 );
 	
-	if (false == ($result = @socket_connect ( $socket, $host, $port ))) {
+	if (false == ($result = @socket_connect ( $socket, $host, $porta ))) {
 		throw new UniCaffeException ( "Erro de conexão!" );
 		return false;
 	}
@@ -205,5 +209,4 @@ function unicaffeFetchAssoc(UniCaffeResult $result) {
 function unicaffeClose($link) {
 	socket_close ( $link );
 }
-
 ?>

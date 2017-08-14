@@ -43,10 +43,10 @@ if($_SESSION['USUARIO_NIVEL'] != 3){
 
 
 if(isset($_POST['comando'])){
-	$unicafe = new UniCafe();
+	$unicaffe = new UniCaffe();
 	echo $_POST['comando'].'<br>';
-	echo $unicafe->dialoga($_POST['comando']);
-	$unicafe->close();
+	echo $unicaffe->dialoga($_POST['comando']);
+	$unicaffe->close();
 	
 }
 

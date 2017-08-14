@@ -1,101 +1,92 @@
 <?php
-
-
-class Maquina{
-	
+class Maquina {
 	private $id;
 	private $nome;
 	private $enderecoMac;
 	/**
-	 * Esse atributo não existe como campo no banco de dados, só no UniCaffeServer.
+	 * Esse atributo nï¿½o existe como campo no banco de dados, sï¿½ no UniCaffeServer.
+	 * 
 	 * @var integer
 	 */
 	private $status;
 	private $acesso;
-	private $laboratorio; 
+	private $laboratorio;
 	private $cadastrada;
-	public function setCadastrada($cadastrada){
-		
-			$this->cadastrada = $cadastrada;
+	public function setCadastrada($cadastrada) {
+		$this->cadastrada = $cadastrada;
 	}
-	public function isCadastrada(){
+	public function isCadastrada() {
 		return $this->cadastrada;
 	}
-	public function Maquina(){
-		$this->laboratorio = new Laboratorio();
-		$this->acesso = new Acesso();
-		
+	public function __construct() {
+		$this->laboratorio = new Laboratorio ();
+		$this->acesso = new Acesso ();
 	}
-	public function setId($id){
+	public function setId($id) {
 		$this->id = $id;
 	}
-	public function getId(){
+	public function getId() {
 		return $this->id;
 	}
-	public function setNome($nome){
+	public function setNome($nome) {
 		$this->nome = $nome;
 	}
-	public function getNome(){
+	public function getNome() {
 		return $this->nome;
 	}
-	public function setEnderecoMac($enderecoMac){
+	public function setEnderecoMac($enderecoMac) {
 		$this->enderecoMac = $enderecoMac;
 	}
-	public function getEnderecoMac(){
+	public function getEnderecoMac() {
 		return $this->enderecoMac;
 	}
-	public function setStatus($status){
+	public function setStatus($status) {
 		$this->status = $status;
 	}
-	public function getStatus(){
+	public function getStatus() {
 		return $this->status;
 	}
-	public function setAcesso(Acesso $acesso){
+	public function setAcesso(Acesso $acesso) {
 		$this->acesso = $acesso;
 	}
-	public function getAcesso(){
+	public function getAcesso() {
 		return $this->acesso;
 	}
-	public function setLaboratorio(Laboratorio $laboratorio){
+	public function setLaboratorio(Laboratorio $laboratorio) {
 		$this->laboratorio = $laboratorio;
 	}
-	public function getLaboratorio(){
+	public function getLaboratorio() {
 		return $this->laboratorio;
 	}
-	
-	public function __toString(){
+	public function __toString() {
+		$strMaquina = $this->nome . ' MAC: ' . $this->enderecoMac;
 		
-		$strMaquina = $this->nome.' MAC: '.$this->enderecoMac;
-		
-		
-		if($this->isCadastrada()){
+		if ($this->isCadastrada ()) {
 			$strMaquina .= ' Cadatrada';
-		}else{
+		} else {
 			$strMaquina .= ' Nao cadastrada';
 		}
 		
-		if($this->getStatus() == self::STATUS_DESCONECTADA)
+		if ($this->getStatus () == self::STATUS_DESCONECTADA)
 			$strMaquina .= ' Desconectada';
-		if($this->getStatus() == self::STATUS_DISPONIVEL)
+		if ($this->getStatus () == self::STATUS_DISPONIVEL)
 			$strMaquina .= ' Disponivel ';
-		if($this->getStatus() == self::STATUS_OCUPADA){
+		if ($this->getStatus () == self::STATUS_OCUPADA) {
 			$strMaquina .= ' Ocupada ';
-			
 		}
-		if($this->getLaboratorio()->getNome() != null)
-			$strMaquina .= 'Laboratorio: '.$this->getLaboratorio()->getNome();
+		if ($this->getLaboratorio ()->getNome () != null)
+			$strMaquina .= 'Laboratorio: ' . $this->getLaboratorio ()->getNome ();
 		
 		return $strMaquina;
 	}
 	
-	
 	/**
-	 * Esta máquina está sendo atualizada
+	 * Esta mï¿½quina estï¿½ sendo atualizada
+	 * 
 	 * @var integer
 	 */
 	const STATUS_UPDATE = 4;
 	const STATUS_DISPONIVEL = 0;
 	const STATUS_OCUPADA = 1;
 	const STATUS_DESCONECTADA = 2;
-	
 }

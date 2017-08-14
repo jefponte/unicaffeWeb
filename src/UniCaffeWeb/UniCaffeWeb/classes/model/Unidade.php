@@ -12,20 +12,14 @@ class Unidade {
 	private $nome;
 	private $turnosValidos;
 	private $catracas;
-	public function Unidade() {
-		$this->turnosValidos = array();
-		
+	public function __construct() {
+		$this->turnosValidos = array ();
 	}
-	
-
-	
 	public function getTurnosValidos() {
 		return $this->turnosValidos;
 	}
-	
-
-	public function adicionaTurno(Turno $turno){
-		$this->turnosValidos[] = $turno;
+	public function adicionaTurno(Turno $turno) {
+		$this->turnosValidos [] = $turno;
 	}
 	public function setId($id) {
 		$this->id = intval ( $id );

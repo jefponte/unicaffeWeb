@@ -1,7 +1,7 @@
 <?php
 class MaquinaDAO extends DAO {
-	public function MaquinaDAO($conexao = null, $tipo = self::TIPO_DEFAULT) {
-		parent::DAO ( $conexao, $tipo );
+	public function __construct($conexao = null, $tipo = self::TIPO_DEFAULT) {
+		parent::__construct( $conexao, $tipo );
 	}
 	public function procuraPorNome(Maquina $maquina){
 		$nomeMaquina = $maquina->getNome();
@@ -33,7 +33,7 @@ class MaquinaDAO extends DAO {
 			$maquina->getLaboratorio ()->setId ( $linha ['id_laboratorio'] );
 			$maquina->getLaboratorio ()->setNome ( $linha ['nome_laboratorio'] );
 			$maquina->setEnderecoMac($linha['mac']);
-			if ($this->getTipoDeConexao () == self::TIPO_UNICAFE) {
+			if ($this->getTipoDeConexao () == self::TIPO_UNICAFFE) {
 				$maquina->setEnderecoMac ( $linha ['mac'] );
 				$maquina->setStatus ( $linha ['status_maquina'] );
 				$maquina->getAcesso ()->setHoraInicial ( $linha ['hora_inicial'] );

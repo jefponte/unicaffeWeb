@@ -1,9 +1,5 @@
 <?php
-
-
-
-class Acesso{
-	
+class Acesso {
 	private $id;
 	private $horaInicial;
 	private $tempoUsado;
@@ -12,67 +8,61 @@ class Acesso{
 	private $usuario;
 	
 	/**
-	 * Esse atributo não existe como campo no banco de dados, só no UniCaffeServer. 
+	 * Esse atributo nï¿½o existe como campo no banco de dados, sï¿½ no UniCaffeServer.
+	 *
 	 * @var integer
 	 */
 	private $status;
-	
-	
-	public function Acesso(){
-		$this->usuario = new Usuario();
+	public function __construct() {
+		$this->usuario = new Usuario ();
 	}
-
-	public function setId($id){
+	public function setId($id) {
 		$this->id = $id;
-	
 	}
-	public function getId(){
+	public function getId() {
 		return $this->id;
-	
 	}
-	
-	public function setHoraInicial($horaInicial){
+	public function setHoraInicial($horaInicial) {
 		$this->horaInicial = $horaInicial;
 	}
-	public function getHoraInicial(){
+	public function getHoraInicial() {
 		return $this->horaInicial;
 	}
-	public function setTempoUsado($tempoUsado){
+	public function setTempoUsado($tempoUsado) {
 		$this->tempoUsado = $tempoUsado;
 	}
-	public function getTempoUsado(){
+	public function getTempoUsado() {
 		return $this->tempoUsado;
 	}
-	public function setTempoDisponibilizado($tempoDisponibilizado){
+	public function setTempoDisponibilizado($tempoDisponibilizado) {
 		$this->tempoDisponibilizado = $tempoDisponibilizado;
 	}
-	public function getTempoDisponibilizado(){
+	public function getTempoDisponibilizado() {
 		return $this->tempoDisponibilizado;
 	}
-	public function setIp($ip){
+	public function setIp($ip) {
 		$this->ip = $ip;
 	}
-	public function getIp(){
+	public function getIp() {
 		return $this->ip;
 	}
-	public function setUsuario(Usuario $usuario){
+	public function setUsuario(Usuario $usuario) {
 		$this->usuario = $usuario;
 	}
-	public function getUsuario(){
+	public function getUsuario() {
 		return $this->usuario;
 	}
-	public function __toString(){
-		$strAcesso = 'Hora Inicial: '.$this->horaInicial;
-		$strAcesso .= ' Tempo Disponibilizado: '.$this->tempoDisponibilizado;
-		$strAcesso .= ' Tempo Usado '.$this->tempoUsado.' IP '.$this->ip;
-		if($this->status == self::STATUS_DISPONIVEL){
+	public function __toString() {
+		$strAcesso = 'Hora Inicial: ' . $this->horaInicial;
+		$strAcesso .= ' Tempo Disponibilizado: ' . $this->tempoDisponibilizado;
+		$strAcesso .= ' Tempo Usado ' . $this->tempoUsado . ' IP ' . $this->ip;
+		if ($this->status == self::STATUS_DISPONIVEL) {
 			$strAcesso .= ' Status: Encerrado';
 		}
-		if($this->status == self::STATUS_EM_UTILIZACAO){
+		if ($this->status == self::STATUS_EM_UTILIZACAO) {
 			$strAcesso .= ' Status: Em andamento ';
 		}
 		return $strAcesso;
-		
 	}
 	const STATUS_EM_UTILIZACAO = 0;
 	const STATUS_DISPONIVEL = 1;

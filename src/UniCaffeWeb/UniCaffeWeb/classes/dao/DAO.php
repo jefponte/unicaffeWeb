@@ -11,10 +11,12 @@
   *    Jefferson Uchôa Ponte - initial API and implementation and/or initial documentation
   *********/
 class DAO {
-	const ARQUIVO_CONFIGURACAO = "/dados/unicaffe/config_bd.ini";
-	const TIPO_DEFAULT = 0;
-	const TIPO_USUARIOS = 1;
-	const TIPO_AUTENTICACAO = 2;
+	const ARQUIVO_CONFIGURACAO = "/dados/unicaffe/config.ini";
+	const TIPO_UNICAFFE = 0;
+	const TIPO_DEFAULT = 1;
+	const TIPO_USUARIOS = 2;
+	const TIPO_AUTENTICACAO = 3;
+	
 	
 	protected $conexao;
 	private $tipoDeConexao;
@@ -24,8 +26,11 @@ class DAO {
 	public function getEntidade(){
 		return $this->entidade;
 	}
-	
-	public function __construct(PDO $conexao = null, $tipo = self::TIPO_DEFAULT) {
+	/**
+	 * @param unknown $conexao // Pode ser PDO ou UniCaffe. 
+	 * @param unknown $tipo
+	 */
+	public function __construct($conexao = null, $tipo = self::TIPO_DEFAULT) {
 		$this->tipoDeConexao = $tipo;
 		if ($conexao != null) {
 			$this->conexao = $conexao;
@@ -37,6 +42,11 @@ class DAO {
 		$config = parse_ini_file ( self::ARQUIVO_CONFIGURACAO );
 		
 		switch ($this->tipoDeConexao) {
+			case self::TIPO_UNICAFFE:
+				$bd ['sgdb'] = "unicaffe";
+				$bd ['host'] = $config ['unicaffe_host'];
+				$bd ['porta'] = $config ['unicaffe_porta'];
+				break;
 			case self::TIPO_USUARIOS :
 				$bd ['sgdb'] = $config ['usuarios_sgdb'];
 				$bd ['nome'] = $config ['usuarios_bd_nome'];
@@ -70,6 +80,9 @@ class DAO {
 			$this->conexao = new PDO ( 'dblib:host=' . $bd ['host'] . ';dbname=' . $bd ['nome'], $bd ['usuario'], $bd ['senha'] );
 		} else if ($bd ['sgdb'] == "sqlite") {
 			$this->conexao = new PDO ( 'sqlite:' . $bd ['nome'] );
+			
+		}else if($bd['sgdb'] == "unicaffe"){
+			$this->conexao = new UniCaffe($bd['host'], $bd['porta']);
 		}
 		$this->sgdb = $bd ['sgdb'];
 	}

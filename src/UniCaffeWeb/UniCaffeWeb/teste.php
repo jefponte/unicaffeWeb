@@ -19,16 +19,7 @@ function __autoload($classe) {
 }
 
 
-// $dao = new DAO(null, DAO::TIPO_USUARIOS);
 
-// $sql = "SELECT * FROM ".$dao->getEntidade()." LIMIT 2;";
-
-
-// $result = $dao->getConexao()->query($sql);
-
-// foreach($result as $linha){
-// 	print_r($linha);
-// }
-
-
+$unicaffe = new UniCaffe();
+echo $unicaffe->dialoga("select");
 
