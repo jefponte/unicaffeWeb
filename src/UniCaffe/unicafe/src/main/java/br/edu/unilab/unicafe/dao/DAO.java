@@ -15,15 +15,6 @@ import java.util.Properties;
  */
 public class DAO {
 
-	public static final String ARQUIVO_CONFIGURACAO = "/dados/unicaffe/config_bd.ini";
-
-	public static final int TIPO_DEFAULT = 0;
-	public static final int TIPO_USUARIOS = 1;
-	public static final int TIPO_AUTENTICACAO = 2;
-
-	public static final String DRIVER_SQLITE = "org.sqlite.JDBC";
-	public static final String JDBC_BANCO_SQLITE = "jdbc:sqlite:banco.db";
-
 	private int tipoDeConexao;
 	private String sgdb;
 	private String entidade;
@@ -79,6 +70,9 @@ public class DAO {
 				bd[5] = config.getProperty("default_senha");
 				break;
 			}
+
+			System.out.println(
+					JDBC_BANCO_POSTGRES + "//" + bd[1] + ":" + bd[2] + "/" + bd[3] + ", " + bd[4] + "," + bd[5]);
 
 			if (bd[0].equals("postgres")) {
 				Class.forName(DRIVER_POSTGRES);
@@ -140,14 +134,24 @@ public class DAO {
 
 	/**
 	 * @param sgdb
-	 * the sgdb to set
+	 *            the sgdb to set
 	 */
 	public void setSgdb(String sgdb) {
 		this.sgdb = sgdb;
 	}
+
+	public static final String ARQUIVO_CONFIGURACAO = "/dados/unicaffe/config_bd.ini";
+
+	public static final int TIPO_DEFAULT = 0;
+	public static final int TIPO_USUARIOS = 1;
+	public static final int TIPO_AUTENTICACAO = 2;
+
+	public static final String DRIVER_SQLITE = "org.sqlite.JDBC";
+	public static final String JDBC_BANCO_SQLITE = "jdbc:sqlite:banco.db";
+
 	public static final String JDBC_BANCO_POSTGRES = "jdbc:postgresql:";
 	public static final String DRIVER_POSTGRES = "org.postgresql.Driver";
-	public static final String JDBC_BANCO_MYSQL = "jdbc:mysql:";	
+	public static final String JDBC_BANCO_MYSQL = "jdbc:mysql:";
 	public static final String DRIVER_MYSQL = "com.mysql.jdbc.Driver";
 
 }
