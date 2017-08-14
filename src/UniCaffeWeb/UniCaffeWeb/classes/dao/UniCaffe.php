@@ -46,8 +46,8 @@ class UniCaffeStatement implements Iterator {
  */
 class UniCaffe {
 	private $socket;
-	public function __construct($servidor = null, $usuario = null, $senha = null) {
-		$this->socket = unicaffeConnect ( $servidor, $usuario, $senha );
+	public function __construct($host = null, $porta = null, $usuario = null, $senha = null) {
+		$this->socket = unicaffeConnect ( $host, $porta, $usuario, $senha );
 	}
 	public function exec($comando) {
 		unicaffeExec ( $this->socket, $comando );
@@ -128,9 +128,12 @@ class UniCaffeResult {
  * @throws UniCaffeException
  * @return boolean|resource
  */
-function unicaffeConnect($servidor = null, $usuario = null, $senha = null) {
+function unicaffeConnect($host = null, $porta = null, $usuario = null, $senha = null) {
+	
 	$host = "localhost";
-	$port = 8080;
+	if($porta == null){
+		$port = 27289;
+	}
 	$message = "setStatus(3)\n";
 	
 	$socket = socket_create ( AF_INET, SOCK_STREAM, 0 );
