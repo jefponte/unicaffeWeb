@@ -68,7 +68,7 @@ if (isset ( $_GET ["sair"] )) {
 		<div class="unicaffe-menu" id="menu">
 			<ol>
 				<li><a href="?pagina=inicio">Inicio</a></li>
-				<li><a href="?pagina=laboratorios">Laboratório</a>
+				<li><a href="?pagina=laboratorios">Laboratórios</a>
 					<ul class="seta-pra-cima">
 						<li><a href="?pagina=laboratorios" class="ativo">Visualização</a></li>
 						<?php
@@ -118,9 +118,6 @@ if (isset ( $_GET ["sair"] )) {
 		</div>
 
 
-
-
-		<a name="conteudo"></a>
 		<?php
 		ComandoController::main ( $sessao->getNivelAcesso () );
 		if (isset ( $_GET ['pagina'] )) {
@@ -138,8 +135,15 @@ if (isset ( $_GET ["sair"] )) {
 			                            <form method="get" action="?pagina=maquinas" class="formulario doze">
 			                                <label class="dez" style="display: inline;">
 			                                    <span class="texto-branco negrito">Visualizar laborat&oacute;rio: </span>
-			                                    <select name="laboratorio">
-			                                    <option value="BIBLIBERDADE">BIBLIBERDADE</option><option value="BIBPALMARES">BIBPALMARES</option><option value="LABTI01">LABTI01</option><option value="LABTI02">LABTI02</option><option value="LABTI03">LABTI03</option><option value="LABTI04">LABTI04</option> <option value="nao_listada">Sem Laboratorio</option>                                        
+			                                    <select name="laboratorio">';
+					
+					foreach($listaDeLaboratorios as $laboratorio){
+							echo '
+													<option value="'.$laboratorio->getNome().'">'.$laboratorio->getNome().'</option>';
+					}
+					
+					echo '
+													<option value="nao_listada">Sem Laboratorio</option>
 			                                    </select>
 			                                    <input type="hidden" name="pagina" value="maquinas">
 			                                </label>

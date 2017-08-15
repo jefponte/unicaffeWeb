@@ -3,7 +3,7 @@
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
   <jar>..\src\UniCaffe\unicaffe\target\unicaffe-cliente.jar</jar>
-  <outfile>.\UniCaffeClient.exe</outfile>
+  <outfile>.\UniCafeClient.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
   <chdir>.</chdir>

@@ -1,0 +1,4 @@
+C:\Program Files\FileZilla FTP Client\filezilla.exe,filezilla.exe
+C:\Program Files\FileZilla FTP Client\filezilla.exe,filezilla.exe
+C:\Program Files\FileZilla FTP Client\filezilla.exe,filezilla.exe
+C:\Program Files\FileZilla FTP Client\filezilla.exe,filezilla.exe

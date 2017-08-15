@@ -24,6 +24,12 @@ public class Processo {
 		setProcessId(processId);
 		
 	}
+	public Processo(String imagem, String executablePath){
+		setImagem(imagem);
+		setExecutablePath(executablePath);
+		setProcessId("0");
+		
+	}
 	
 	public String getImagem() {
 		return imagem;

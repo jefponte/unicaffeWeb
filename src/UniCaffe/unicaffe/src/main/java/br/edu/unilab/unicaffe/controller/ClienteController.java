@@ -1,25 +1,22 @@
 package br.edu.unilab.unicaffe.controller;
 
-
-import java.awt.AWTException;
-import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Image;
-import java.awt.Robot;
 import java.awt.SystemTray;
 import java.awt.TrayIcon;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.Socket;
 import java.net.URL;
 import java.net.UnknownHostException;
+import java.util.Properties;
 import java.util.Scanner;
 import java.util.concurrent.Semaphore;
 
@@ -339,10 +336,34 @@ public class ClienteController {
 		escInfinito.start();
 
 	}
-	public static String servidorPrimario = "200.129.19.41";
+	public static String servidorPrimario = "200.129.19.40";
 	public static String servidorSecundario = "200.128.19.10";
+	public static int portaServidorPrimario = 27289;
+	public static int portaServidorSecundario = 27289;
+	
 	
 	public void tentaConexoes(){
+		
+
+		File arquivo = new File("config.ini");
+		if(arquivo.exists()){
+			Properties config = new Properties();
+			FileInputStream file;
+			try {
+				file = new FileInputStream(arquivo);
+				config.load(file);
+				servidorPrimario = config.getProperty("host_servidor_primario");
+				servidorSecundario = config.getProperty("host_servidor_secundario");
+				portaServidorPrimario = Integer.parseInt(config.getProperty("porta_servidor_primario"));
+				portaServidorPrimario = Integer.parseInt(config.getProperty("porta_servidor_secundario"));
+				
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+
+		}
 		Thread tentandoConexoes = new Thread(new Runnable() {
 			
 			@Override
@@ -452,7 +473,6 @@ public class ClienteController {
 	 * 
 	 * @param mensagem
 	 */
-	@SuppressWarnings("resource")
 	public synchronized void processaMensagem(String mensagem) {
 		if(mensagem.indexOf('(') == -1 || mensagem.indexOf(')') == -1){
 			return;
@@ -595,16 +615,9 @@ public class ClienteController {
 				}
 			});
 			t.start();
-			Process process;
-			Scanner leitor;
 			try {
-				process = Runtime
-						.getRuntime()
-						.exec(" java -jar \"C:\\Program Files (x86)\\UniCafe\\unicafe-update.jar\"");
-				leitor = new Scanner(process.getInputStream());
-				while (leitor.hasNext()) {
-					String linha = leitor.nextLine();
-				}
+				Runtime.getRuntime().exec(" java -jar \"C:\\Program Files (x86)\\UniCafe\\unicafe-update.jar\"");
+				
 				
 
 			} catch (IOException e) {
@@ -639,8 +652,6 @@ public class ClienteController {
 				} catch (IOException | InterruptedException e) {
 					e.printStackTrace();
 				}
-
-				
 			}
 		});
 		restartando.start();

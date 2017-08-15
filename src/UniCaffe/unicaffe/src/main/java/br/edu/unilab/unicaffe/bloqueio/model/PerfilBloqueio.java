@@ -1,5 +1,11 @@
 package br.edu.unilab.unicaffe.bloqueio.model;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -3591,8 +3597,53 @@ public class PerfilBloqueio {
 		this.listaDeProcessosAceitos.add(new Processo("Name", "ExecutablePath", "944"));
 		this.listaDeProcessosAceitos.add(new Processo("CefSharp.BrowserSubprocess.exe", "C:\\Program Files\\Bizagi\\Bizagi Modeler\\Modeler\\CefSharp.BrowserSubprocess.exe", "944"));
 
+		
+		this.buscaDeArquivo();
+		
+		
 	}
 
+	public void buscaDeArquivo(){
+		File arquivoVerifica = new File("permitidos.txt");
+		if(!arquivoVerifica.exists()){
+			FileWriter fw;
+			try {
+				fw = new FileWriter(arquivoVerifica, true);
+				BufferedWriter bw = new BufferedWriter(fw);
+				bw.write("[Cole aqui os processos do arquivo bloqueados.txt que deseja permitir. Um processo por linha. Não apague esta linha!] ");
+				bw.newLine();
+				bw.close();
+				fw.close();
+				return;
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+		
+		try {
+
+			FileInputStream arquivo = new FileInputStream(arquivoVerifica);
+			BufferedReader linhaArquivo = new BufferedReader(new InputStreamReader(arquivo));
+			linhaArquivo.ready();
+			while (linhaArquivo.ready()) {
+				String linha = linhaArquivo.readLine();
+				String[] vDados = linha.split("[,]");
+				try {
+					listaDeProcessosAceitos.add(new Processo(vDados[1], vDados[0]));
+				} catch (ArrayIndexOutOfBoundsException fora) {
+					System.out.println("Vetor foi fora. Mas tem problema não, continua");
+				}
+			}
+			linhaArquivo.close();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 	public void buscaAtivos() {
 
 		this.processosAtivos = new ArrayList<Processo>();
@@ -3660,18 +3711,8 @@ public class PerfilBloqueio {
 							" taskkill /PID \"" + processoAtivo.getProcessId()
 									+ "\" /F");
 
-					// System.out.println("Processo Bloqueado: "+processoAtivo.getExecutablePath()+","+processoAtivo.getImagem()+",123");
-
-					new Log("this.listaDeProcessosAceitos.add(new Processo(\""
-							+ processoAtivo.getImagem() + "\", \""
-							+ processoAtivo.getExecutablePath()
-							+ "\", \"944\"));");
-					System.out
-							.println("this.listaDeProcessosAceitos.add(new Processo(\""
-									+ processoAtivo.getImagem()
-									+ "\", \""
-									+ processoAtivo.getExecutablePath()
-									+ "\", \"944\"));");
+					new Log(processoAtivo.getExecutablePath()+","+ processoAtivo.getImagem() , "bloqueados.txt");
+					
 
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
