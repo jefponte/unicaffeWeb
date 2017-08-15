@@ -18,10 +18,10 @@ function __autoload($classe) {
 }
 
 
-if($_SESSION['USUARIO_NIVEL'] != 3){
-	echo 'Nao autorizado';
-	exit(0);
-}
+// if($_SESSION['USUARIO_NIVEL'] != 3){
+// 	echo 'Nao autorizado';
+// 	exit(0);
+// }
 
 ?>
 
@@ -43,7 +43,10 @@ if($_SESSION['USUARIO_NIVEL'] != 3){
 
 
 if(isset($_POST['comando'])){
-	$unicaffe = new UniCaffe();
+	$config = parse_ini_file ( DAO::ARQUIVO_CONFIGURACAO );
+	echo $config ['unicaffe_host'];
+	
+	$unicaffe = new UniCaffe($config ['unicaffe_host'], $config ['unicaffe_porta']);
 	echo $_POST['comando'].'<br>';
 	echo $unicaffe->dialoga($_POST['comando']);
 	$unicaffe->close();

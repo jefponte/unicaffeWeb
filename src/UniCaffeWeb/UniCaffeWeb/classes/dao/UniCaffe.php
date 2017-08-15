@@ -52,6 +52,7 @@ class UniCaffe {
 	private $senha;
 	
 	public function __construct($host = null, $porta = null, $usuario = null, $senha = null) {
+		
 		$this->host = $host;
 		$this->porta = $porta;
 		$this->usuario = $usuario;

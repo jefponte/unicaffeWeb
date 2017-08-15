@@ -355,7 +355,7 @@ public class ClienteController {
 				servidorPrimario = config.getProperty("host_servidor_primario");
 				servidorSecundario = config.getProperty("host_servidor_secundario");
 				portaServidorPrimario = Integer.parseInt(config.getProperty("porta_servidor_primario"));
-				portaServidorPrimario = Integer.parseInt(config.getProperty("porta_servidor_secundario"));
+				portaServidorSecundario = Integer.parseInt(config.getProperty("porta_servidor_secundario"));
 				
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
@@ -372,14 +372,11 @@ public class ClienteController {
 				int j = 0;
 				for(int i = 0; true; i++)
 				{
-					
-					
 					try {
 						Thread.sleep(5000);
 					} catch (InterruptedException e1) {
 						e1.printStackTrace();
 					}
-				
 					try {
 						try {
 							j++;
@@ -388,9 +385,9 @@ public class ClienteController {
 							}
 							Socket socket;
 							if(j <= 5)
-								socket = new Socket(servidorPrimario, 27289);
+								socket = new Socket(servidorPrimario, portaServidorPrimario);
 							else
-								socket = new Socket(servidorSecundario, 27289);
+								socket = new Socket(servidorSecundario, portaServidorSecundario);
 							getCliente().setConexao(socket);
 							getCliente().setEntrada(socket.getInputStream());
 							getCliente().setSaida(socket.getOutputStream());
@@ -404,12 +401,10 @@ public class ClienteController {
 							else
 								System.out.println("Erro na tentativa de conectar no: "+servidorSecundario);
 						} catch (IOException e) {
-//							System.out.println("Erro de IO Exception. Deve ter desligado o Servidor.");
 							getFrameTelaBloqueio().getLabelStatus().setText("Erro no Servidor. Tentativa: "+i);
 						}
 						Thread.sleep(100);
 					} catch (InterruptedException e) {
-//						System.out.println("Não consegui esperar 5 segundos. Esse erro não dá muito problema. ");
 						getFrameTelaBloqueio().getLabelStatus().setText("Thread Não dormiu. Tentativa: "+i);
 					}
 					

@@ -55,7 +55,9 @@ public class Servidor {
 			FileInputStream file = new FileInputStream(ARQUIVO_CONFIGURACAO);
 			config.load(file);
 			porta = Integer.parseInt(config.getProperty("unicaffe_porta"));
+			
 			file.close();
+			System.out.println("Servico na porta "+porta);
 			this.serverSocket = new ServerSocket(porta, 500);
 			esperaConexoes();
 		} catch (IOException e1) {

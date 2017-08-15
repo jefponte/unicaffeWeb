@@ -44,8 +44,6 @@ class DAO {
 		switch ($this->tipoDeConexao) {
 			case self::TIPO_UNICAFFE:
 				$bd ['sgdb'] = "unicaffe";
-				$bd ['host'] = $config ['unicaffe_host'];
-				$bd ['porta'] = $config ['unicaffe_porta'];
 				break;
 			case self::TIPO_USUARIOS :
 				$bd ['sgdb'] = $config ['usuarios_sgdb'];
@@ -82,7 +80,7 @@ class DAO {
 			$this->conexao = new PDO ( 'sqlite:' . $bd ['nome'] );
 			
 		}else if($bd['sgdb'] == "unicaffe"){
-			$this->conexao = new UniCaffe($bd['host'], $bd['porta']);
+			$this->conexao = new UniCaffe($config ['unicaffe_host'], $config ['unicaffe_porta']);
 		}
 		$this->sgdb = $bd ['sgdb'];
 	}

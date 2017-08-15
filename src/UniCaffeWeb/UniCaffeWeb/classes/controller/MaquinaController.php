@@ -114,6 +114,7 @@ class MaquinaController {
 		
 		$maquinaDao = new MaquinaDAO ();
 		$lista = $maquinaDao->listaCompleta ();
+		
 		foreach ( $lista as $elemento ) {
 			if (isset ( $_GET ['laboratorio'] )) {
 				if (! strcmp ( strtolower ( $_GET ['laboratorio'] ), strtolower ( $elemento->getLaboratorio ()->getNome () ) ))

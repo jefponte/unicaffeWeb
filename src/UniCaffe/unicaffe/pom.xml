@@ -111,7 +111,7 @@
                             <descriptorRefs>
                                 <descriptorRef>jar-with-dependencies</descriptorRef>
                             </descriptorRefs>
-                            <finalName>${project.artifactId}-update</finalName>
+                            <finalName>unicafe-update</finalName>
                         </configuration>
                         <phase>package</phase>
                         <goals>

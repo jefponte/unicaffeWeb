@@ -25,7 +25,9 @@ class MaquinaDAO extends DAO {
 		$lista = array ();
 		$sql = "SELECT * FROM maquina LEFT JOIN laboratorio_maquina ON maquina.id_maquina = laboratorio_maquina.id_maquina LEFT JOIN laboratorio ON laboratorio_maquina.id_laboratorio = laboratorio.id_laboratorio;";
 		$result = $this->getConexao ()->query ( $sql );
+	
 		foreach ( $result as $linha ) {
+			
 			$maquina = new Maquina ();
 			$maquina->setNome ( $linha ['nome_pc'] );
 			$maquina->setId ( $linha ['id_maquina'] );
@@ -51,8 +53,10 @@ class MaquinaDAO extends DAO {
 		return $lista;
 	}
 	public function listaCompleta() {
-		$daoUniCafe = new MaquinaDAO ( null, 0 );
+		$daoUniCafe = new MaquinaDAO ( null, DAO::TIPO_UNICAFFE );
+		
 		$listaDeMaquinasUniCafe = $daoUniCafe->retornaLista ();
+		
 		// Antes de continuar vamos remover as repeticoes na lista do UniCafe
 		foreach ( $listaDeMaquinasUniCafe as $chave => $elementoRepeticao ) {
 			$quantidade = 0;
