@@ -116,7 +116,7 @@ class UniCaffe {
  * @author jefponte
  *        
  */
-class UniCaffeResult {
+class UniCaffeResult{
 	public $current_field;
 	public $field_count;
 	public $lengths;

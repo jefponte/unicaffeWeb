@@ -82,16 +82,19 @@ if (isset ( $_GET ["sair"] )) {
 					<ul class="seta-pra-cima">
 						<li><a href="?pagina=maquinas&laboratorio=LABTI01" class="ativo">Listagem</a>
 							<ul>
-								<li><a href="?pagina=maquinas&laboratorio=BIBLIBERDADE">BIBLIBERDADE</a></li>
-								<li><a href="?pagina=maquinas&laboratorio=BIBPALMARES">BIBPALMARES</a></li>
-								<li><a href="?pagina=maquinas&laboratorio=LABTI01">LABTI01</a></li>
-								<li><a href="?pagina=maquinas&laboratorio=LABTI02">LABTI02</a></li>
-								<li><a href="?pagina=maquinas&laboratorio=LABTI03">LABTI03</a></li>
-								<li><a href="?pagina=maquinas&laboratorio=LABTI04">LABTI04</a></li>
-							</ul></li>
-					</ul></li>
+							<?php 
+							foreach($listaDeLaboratorios as $laboratorio){
+								echo '<li><a href="?pagina=maquinas&laboratorio='.$laboratorio->getNome().'">'.$laboratorio->getNome().'</a></li>';
+							}
+							
+							?>
+								
+							</ul>
+							</li>
+					</ul>
+					</li>
 
-				<li><a href="?pagina=gerenciamento_relatorios">Gerenciamento</a>
+				<li><a href="?pagina=relatorio_geral">Gerenciamento</a>
 					<ul class="seta-pra-cima">
 						<li><a href="?pagina=relatorio_geral">Relatorios </a>
 							<ul>

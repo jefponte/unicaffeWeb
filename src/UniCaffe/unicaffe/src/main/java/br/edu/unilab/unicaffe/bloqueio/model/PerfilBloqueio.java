@@ -37,6 +37,8 @@ public class PerfilBloqueio {
 		this.listaDeProcessosAceitos = processos;
 	}
 
+	
+	
 	public void buscaAceitos() {
 		this.listaDeProcessosAceitos = new ArrayList<Processo>();
 		this.listaDeProcessosAceitos.add(new Processo("javaw.exe", "C:\\Program Files\\Java\\jre1.8.0_73\\bin\\javaw.exe", "944"));
