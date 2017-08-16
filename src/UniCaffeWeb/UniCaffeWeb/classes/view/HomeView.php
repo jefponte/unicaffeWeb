@@ -8,7 +8,7 @@ class HomeView{
 		$homeView->mostraPaginaInicial();
 	}
 	public function mostraPaginaInicial(){
-		echo '		<div class="linha doze colunas fundo-azul linha-inicio">
+		echo '<div class="linha doze colunas fundo-azul linha-inicio">
 			<div class="conteudo">
 				<div class="seis a-esquerda">
 					<p class="conteudo centralizado">
@@ -33,16 +33,18 @@ class HomeView{
 				</div>
 			</div>
 		</div>
-		
 		<div class="linha doze colunas fundo-azul linha-inicio">
 			<div class="conteudo">
 				<div class="seis a-esquerda">
-					<h2 class="conteudo meio">
-						<a class="botao b-sucesso" href="#link-para-download">Baixar Unicaffé</a>
-					</h2>
+					<p class="conteudo centralizado">
+						<img alt="logotipo Unicaffé" width="600" src="img/logo_labpati2.png" class="imagem-responsiva" />	
+						<img alt="logotipo DTI" width="250"  src="img/logo_h-site.png" /> &nbsp; &nbsp;
+						<img alt="logotipo UNILAB" width="300"  src="img/logo_unilab.png"  /> 
+					</p>
 				</div>	
 				<div class="seis a-direita">
-					<p class="justificado texto-branco maximo conteudo">Sistema que integra alguns softwares e serve para controle de utilização de PCs em laboratórios de informática no contexto de uma universidade. Além de possibilitar uma maior transparência e isonomia na forma como os acessos são controlados; oferece aos usuários maior aproveitamento possível das máquinas, por exigir rotatividade apenas quando houver lotação; e mantém um registro de todos os acessos de cada usuário, possibilitando auditorias ou relatórios para a sociedade.</p>
+					<p class="justificado texto-branco maximo conteudo">
+				Sistema que integra alguns softwares e serve para controle de utilização de PCs em laboratórios de informática no contexto de uma universidade. Além de possibilitar uma maior transparência e isonomia na forma como os acessos são controlados; oferece aos usuários maior aproveitamento possível das máquinas, por exigir rotatividade apenas quando houver lotação; e mantém um registro de todos os acessos de cada usuário, possibilitando auditorias ou relatórios para a sociedade.</p>
 				</div>
 			</div>
 		</div>';

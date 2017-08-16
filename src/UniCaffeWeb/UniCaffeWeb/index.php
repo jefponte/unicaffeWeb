@@ -66,55 +66,57 @@ if (isset ( $_GET ["sair"] )) {
 			</div>
 		</div>
 		<div class="unicaffe-menu" id="menu">
-			<ol>
-				<li><a href="?pagina=inicio">Inicio</a></li>
-				<li><a href="?pagina=laboratorios">Laboratórios</a>
+		
+		<?php 
+		//Menu
+		echo '<ol>';
+		echo '<li><a href="?pagina=inicio">Inicio</a></li>';
+		echo '		<li><a href="?pagina=laboratorios">Laboratórios</a>';
+		echo '			<ul class="seta-pra-cima">';
+		echo '<li><a href="?pagina=laboratorios" class="ativo">Visualização</a></li>';
+		if ($sessao->getNivelAcesso () == Sessao::NIVEL_SUPER){
+			echo '<li><a href="?pagina=laboratorios_cadastro">Cadastro</a></li>';
+		}
+		echo '</ul></li>';
+		echo '
+				<li><a href="?pagina=maquinas&laboratorio='.$listaDeLaboratorios[0]->getNome().'">Máquinas</a>
 					<ul class="seta-pra-cima">
-						<li><a href="?pagina=laboratorios" class="ativo">Visualização</a></li>
-						<?php
-						if ($sessao->getNivelAcesso () == Sessao::NIVEL_SUPER)
-							echo '<li><a href="?pagina=laboratorios_cadastro">Cadastro</a></li>';
-						
-						?>
-						
-					</ul></li>
-				<li><a href="?pagina=maquinas&laboratorio=LABTI01">Máquinas</a>
-					<ul class="seta-pra-cima">
-						<li><a href="?pagina=maquinas&laboratorio=LABTI01" class="ativo">Listagem</a>
-							<ul>
-							<?php 
-							foreach($listaDeLaboratorios as $laboratorio){
-								echo '<li><a href="?pagina=maquinas&laboratorio='.$laboratorio->getNome().'">'.$laboratorio->getNome().'</a></li>';
-							}
-							
-							?>
-								
+						<li><a href="?pagina=maquinas&laboratorio='.$listaDeLaboratorios[0]->getNome().'" class="ativo">Listagem</a>
+							<ul>';
+		foreach($listaDeLaboratorios as $laboratorio){
+			echo '<li><a href="?pagina=maquinas&laboratorio='.$laboratorio->getNome().'">'.$laboratorio->getNome().'</a></li>';
+		}
+		echo '						
 							</ul>
 							</li>
 					</ul>
-					</li>
+					</li>';
+		echo '
 
-				<li><a href="?pagina=relatorio_geral">Gerenciamento</a>
-					<ul class="seta-pra-cima">
-						<li><a href="?pagina=relatorio_geral">Relatorios </a>
-							<ul>
-								<li><a href="?pagina=relatorio_geral">Geral</a></li>
-								<!-- 								<li><a href="?pagina=relatorios">Estatísticas</a></li> -->
-								<?php
-								if ($sessao->getNivelAcesso () == Sessao::NIVEL_ADMIN || $sessao->getNivelAcesso () == Sessao::NIVEL_SUPER)
-									echo '<li><a href="?pagina=gerenciamento_relatorios">Acessos por Usuário</a>';
-								?>
+				<li><a href="?pagina=relatorio_geral">Relatórios</a>';
+		
+// 		echo '<ul class="seta-pra-cima">
+// 						<li><a href="?pagina=relatorio_geral">Relatorios </a>
+// 							<ul>
+// 								<li><a href="?pagina=relatorio_geral">Geral</a></li>
+// 								';
+// 								if ($sessao->getNivelAcesso () == Sessao::NIVEL_ADMIN || $sessao->getNivelAcesso () == Sessao::NIVEL_SUPER)
+// 									echo '<li><a href="?pagina=gerenciamento_relatorios">Acessos por Usuário</a>';
+// 								echo '						</ul></li>
+		
+// 					</ul>';
 								
-						</ul></li>
+		echo '			</li>
+					';
+								
 
-					</ul></li>
-					<?php
 					if ($sessao->getNivelAcesso () == Sessao::NIVEL_DESLOGADO)
 						echo '<li class="a-direita"><a href="?pagina=login" class="ativo">Login</a></li>';
 					else
 						echo '<li class="a-direita"><a href="?sair=daqui" class="ativo">Sair</a></li>';
-					?>
-			</ol>
+			
+			echo '</ol>';
+			?>
 		</div>
 
 
@@ -265,8 +267,8 @@ if (isset ( $_GET ["sair"] )) {
 
 	<div class="linha doze colunas fundo-marrom" id="rodape">
 		<div class="conteudo">
-			<p class="medio centralizado conteudo texto-branco">Desenvolvido pela
-				Divisão de Suporte (DISUP) © 2015 - DTI / Unilab</p>
+			<p class="medio centralizado conteudo texto-branco">Desenvolvido pelo
+				Laboratório de Projetos de Automação e Tecnologias Inovadoras (LABPATI) © 2015 - DTI / Unilab</p>
 		</div>
 	</div>
 

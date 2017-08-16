@@ -94,7 +94,7 @@ public class FrameTelaBloqueio extends JFrame {
 		
 		
 		JLabel labelLogo2 = new JLabel("");
-		labelLogo2.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "unicafe-logo-p.png")));
+		labelLogo2.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "logo_unicaffe_p.png")));
 		labelLogo2.setBounds(33, 10, 256, 55);
 		panelForm2.add(labelLogo2);
 		
@@ -240,7 +240,7 @@ public class FrameTelaBloqueio extends JFrame {
 		
 		JLabel labelLogo = new JLabel("");
 		
-		labelLogo.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "unicafe-logo-p-b.png")));
+		labelLogo.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "logo_labpati4.png")));
 		labelLogo.setBounds(20, 12, 203, 43);
 		panelTopo.add(labelLogo);
 		
@@ -319,11 +319,6 @@ public class FrameTelaBloqueio extends JFrame {
 		labelIconeStatus.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		labelIconeStatus.setBounds(0, 0, 45, 43);
 		panelStatusIcone.add(labelIconeStatus);
-		
-		JLabel label = new JLabel("1.00061");
-		label.setForeground(Color.WHITE);
-		label.setBounds(233, 41, 63, 14);
-		panelTopo.add(label);
 		addWindowListener(new WindowListener() {
 
 			@Override

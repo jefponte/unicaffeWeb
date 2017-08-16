@@ -7,3 +7,5 @@ C:\Program Files (x86)\Inno Setup 5\Compil32.exe,Compil32.exe
 C:\Windows\SysWOW64\attrib.exe,attrib.exe
 C:\Windows\SysWOW64\attrib.exe,attrib.exe
 C:\Windows\SysWOW64\attrib.exe,attrib.exe
+C:\Windows\system32\taskmgr.exe,taskmgr.exe
+C:\Program Files (x86)\Common Files\Adobe\CS6ServiceManager\CS6ServiceManager.exe,CS6ServiceManager.exe

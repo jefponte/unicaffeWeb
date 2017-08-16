@@ -80,7 +80,7 @@ public class FrameTelaAcesso extends JFrame {
 		JLabel label = new JLabel("");
 		
 		
-		label.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "unicafe-logo-pp-b.png")));
+		label.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "unicaffe_logo_branca2.png")));
 		label.setBounds(10, 5, 213, 35);
 		contentPane.add(label);
 		
