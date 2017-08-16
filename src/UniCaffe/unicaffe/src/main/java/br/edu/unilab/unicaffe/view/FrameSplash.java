@@ -31,7 +31,7 @@ public class FrameSplash extends JFrame {
 		this.setIconImage(iconeTitulo);
 		
 		JLabel label = new JLabel("");
-		label.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "unicafe-logo.png")));
+		label.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "unicaffe-logo.png")));
 		label.setBounds(100, 107, 600, 136);
 		contentPane.add(label);
 		setLocationRelativeTo(null);  

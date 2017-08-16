@@ -1,18 +1,10 @@
 package br.edu.unilab.unicaffe.main;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.net.Socket;
-import java.net.UnknownHostException;
-import java.util.ArrayList;
 import java.util.Properties;
 
-import br.edu.unilab.unicaffe.bloqueio.model.Processo;
-import br.edu.unilab.unicaffe.controller.ClienteController;
 
 public class MainTeste {
 

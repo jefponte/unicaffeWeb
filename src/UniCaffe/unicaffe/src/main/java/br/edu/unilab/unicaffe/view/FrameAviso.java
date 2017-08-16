@@ -62,7 +62,7 @@ public class FrameAviso extends JFrame {
 		labelAviso2.setBackground(Color.WHITE);
 		labelAviso2.setForeground(Color.BLACK);
 		labelAviso2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		labelAviso2.setBounds(0, 180,getWidth(), 29);
+		labelAviso2.setBounds(-21, 180,getWidth(), 29);
 		contentPane.add(labelAviso2);
 		
 		
@@ -77,7 +77,7 @@ public class FrameAviso extends JFrame {
 		contentPane.add(labelAviso);
 		
 		label_3 = new JLabel("", JLabel.CENTER);
-		label_3.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "unicafe-logo-p.png")));
+		label_3.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "logo_unicaffe_p.png")));
 		label_3.setBounds(0 , 55, getWidth(), 55);
 		contentPane.add(label_3);
 		setLocationRelativeTo(null);
