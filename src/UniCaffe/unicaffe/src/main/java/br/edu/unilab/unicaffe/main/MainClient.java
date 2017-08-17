@@ -20,18 +20,19 @@ import br.edu.unilab.unicaffe.controller.ClienteController;
 
 public class MainClient {
 
+	private static RandomAccessFile randomAccessFile;
+
 	public static void main(String[] args) {
 		
 		File f = new File(".lock");
 		FileLock lock = null;
 		try {
 			f.createNewFile();
-			lock = new RandomAccessFile(f, "rw").getChannel().tryLock();
+			randomAccessFile = new RandomAccessFile(f, "rw");
+			lock = randomAccessFile.getChannel().tryLock();
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		if (lock != null) {
@@ -40,11 +41,8 @@ public class MainClient {
 			try {
 				Thread.sleep(10000);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		} else {
-			System.out.println("Ja ha uma instancia rodando");
 		}
 		
 			

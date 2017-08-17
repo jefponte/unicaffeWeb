@@ -207,7 +207,7 @@ public class Servidor {
 							System.out.println("Vamos Atualizar esse cara.");
 							cliente.getMaquina().setStatus(status);
 							try {
-								File f = new File("/dados/unicafe/UniCafeClient.exe");
+								File f = new File("/dados/unicaffe/UniCafeClient.exe");
 								@SuppressWarnings("resource")
 								FileInputStream in1 = new FileInputStream(f);
 								OutputStream out = cliente.getConexao().getOutputStream(); 
@@ -410,7 +410,7 @@ public class Servidor {
 				return;
 			} 
 			Ligador.ligador(maquinaALigar.getEnderecoMac());
-			new PrintStream(cliente.getSaida()).println("Ligando máquina: "+maquinaALigar.getNome());
+			new PrintStream(cliente.getSaida()).println("Ligando: "+maquinaALigar.getNome());
 			try {
 				cliente.getConexao().close();
 			} catch (IOException e) {

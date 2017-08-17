@@ -125,14 +125,12 @@ public class Perfil {
 		lista.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer", "NoClose", Registro.REG_DWORD, "1", "0", "Sem o Botão de Desligar no Menu Iniciar"));
 		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", "DisableTaskMgr", Registro.REG_DWORD, "1", "0","Desativar Gerenciador de Tarefas"));
 		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer", "NoPropertiesMyComputer", Registro.REG_DWORD, "1", "0","Não ver Propriedades do Meu Computador"));
-//		
 		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\Explorer", "NoFolderOptions", Registro.REG_DWORD, "1", "0","Remove Opções de Pastas"));
 
 		lista.add(new Registro("HKCU\\Software\\Policies\\Microsoft\\Windows\\System", "DisableCMD", Registro.REG_DWORD, "1", "0","Desativar prompt"));
 		
 		lista.add(new Registro("HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\WindowsUpdate\\Auto Update", "AUOptions", Registro.REG_DWORD, "1", "4","Desativar Opções Update"));
 		lista.add(new Registro("HKLM\\SOFTWARE\\Policies\\Microsoft\\Windows\\WindowsUpdate\\AU", "NoAutoUpdate", Registro.REG_DWORD, "1", "0","Desativar Update"));
-//		
 		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\System", "WallpaperStyle", Registro.REG_DWORD, "2", "0","impede a alteração do plano de fundo"));
 		lista.add(new Registro("HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Policies\\ActiveDesktop", "NoChangingWallpaper", Registro.REG_DWORD, "1", "0", "Não altera plano de fundo"));
 		

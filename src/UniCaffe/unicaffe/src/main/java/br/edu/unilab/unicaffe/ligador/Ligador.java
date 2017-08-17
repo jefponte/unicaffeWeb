@@ -3,6 +3,7 @@ package br.edu.unilab.unicaffe.ligador;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.InetSocketAddress;
 
 /**
@@ -133,12 +134,10 @@ public class Ligador
         Ligador wol = new Ligador();
         //e5:df
         try {
-        	//Brodcast do LABTI01
-			wol.wol(mac, "10.11.0.255");
-			//Brodcast do LABTI02
-			wol.wol(mac, "10.5.7.255");
-			//Brodcast do LABTI03
-			wol.wol(mac, "10.11.20.255");
+        	
+			wol.wol(mac, "255.255.255.255");
+
+			
 			
 			
 		} catch (IllegalArgumentException e) {
