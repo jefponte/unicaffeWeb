@@ -20,7 +20,9 @@ function __autoload($classe) {
 }
 
 
-$dao = new DAO();
-$conexao = $dao->getConexao();
-AdminPG::main($conexao);
+$conexao = new PDO ( 'pgsql:host=200.17.41.118 dbname=ponto_sigaa user=unicaffe password=UN!Caphf3' );
+
+
+
+
 ?>

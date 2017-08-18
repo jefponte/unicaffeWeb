@@ -71,8 +71,10 @@ class DAO {
 				$bd ['usuario'] = $config ['default_usuario'];
 				$bd ['senha'] = $config ['default_senha'];
 		}
-		
+	
+
 		if ($bd ['sgdb'] == "postgres") {
+			
 			$this->conexao = new PDO ( 'pgsql:host=' . $bd ['host'] . ' dbname=' . $bd ['nome'] . ' user=' . $bd ['usuario'] . ' password=' . $bd ['senha'] );
 		} else if ($bd ['sgdb'] == "mssql") {
 			$this->conexao = new PDO ( 'dblib:host=' . $bd ['host'] . ';dbname=' . $bd ['nome'], $bd ['usuario'], $bd ['senha'] );

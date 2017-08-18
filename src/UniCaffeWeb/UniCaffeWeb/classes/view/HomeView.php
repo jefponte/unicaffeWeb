@@ -27,7 +27,7 @@ permite que os laboratórios de informática tornem-se autogerenciados na medida
 de um atendente. 
 
 			
-Qualquer membro da comunidade poderá ter acesso a um PC com UniCaffé com suas 
+Qualquer membro da comunidade poderá ter acesso a um PC com UniCaffé através de suas 
 credenciais do sistema acadêmico da universidade, recebendo inicialmente uma hora de acesso. 
 Ao findar essa hora de acesso o tempo é automaticamente estendido enquanto o 
 laboratório não estiver lotado, permitindo uma maximização do potencial de
@@ -80,7 +80,7 @@ O LABPATI - Laboratório de Projetos de Automação e Tecnologias Inovadoras sur
 da necessidade em desenvolver soluções de hardware e software para a UNILAB, Universidade 
 da Integração Internacional da Lusofonia Afro-Brasileira. 
 O laboratório é composto por uma equipe de técnicos em laboratório de 
-informática lotados na DISUP/DTI, tendo como objetivo à realização de projetos de 
+informática lotados na DISUP/DTI, tendo como objetivo a realização de projetos de 
 inovação, pesquisa e extensão voltados às áreas de T.I, com ênfase na sustentabilidade,  
 baixo custo de produção e suporte.
 				
