@@ -59,6 +59,7 @@ public class DAO {
 				bdNome = config.getProperty("autenticacao_bd_nome");
 				usuario = config.getProperty("autenticacao_usuario");
 				senha = config.getProperty("autenticacao_senha");
+				senha = senha.replace("\"", "");
 				this.entidade = config.getProperty("autenticacao_entidade_nome");
 				break;
 			default:

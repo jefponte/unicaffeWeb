@@ -93,6 +93,7 @@ public class UsuarioDAO extends DAO {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
+		System.out.println("Cheguei aqui");
 		this.setTipoDeConexao(TIPO_AUTENTICACAO);
 		this.fazerConexao();
 		if (this.autenticaRemoto(usuario)) {

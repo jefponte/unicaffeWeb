@@ -224,3 +224,26 @@ CORES
 	
 	
 }
+
+
+a:LINK{
+	color: #FFFFFF;
+	text-decoration: underline;
+	
+}
+a{
+	color: #FFFFFF;
+	text-decoration: underline;
+	
+}
+
+a:HOVER {
+	color: #FFFFFF;
+	text-decoration: none;
+		
+}
+a:VISITED {
+	color: #FFFFFF;
+	text-decoration: underline;
+	
+}
