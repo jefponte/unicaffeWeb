@@ -13,6 +13,7 @@ import java.awt.Font;
 
 import java.awt.Color;
 
+import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 
 public class FrameAviso extends JFrame {
@@ -25,7 +26,7 @@ public class FrameAviso extends JFrame {
 	private JLabel labelAviso3;
 	private JLabel labelAviso2;
 	private JLabel labelAviso;
-	private JLabel label_3;
+
 	
 	
 	public FrameAviso() {
@@ -43,7 +44,7 @@ public class FrameAviso extends JFrame {
 				setVisible(false);
 			}
 		});
-		contentPane.setBorder(new EmptyBorder(1, 1, 1, 1));
+		contentPane.setBorder(BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
@@ -53,7 +54,7 @@ public class FrameAviso extends JFrame {
 		labelAviso3.setBackground(Color.WHITE);
 		labelAviso3.setForeground(Color.BLACK);
 		labelAviso3.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		labelAviso3.setBounds(0, 220, getWidth(), 29);
+		labelAviso3.setBounds(69, 220, 298, 29);
 		contentPane.add(labelAviso3);
 		
 		labelAviso2 = new JLabel("Bu tempu pertu kaba. ", JLabel.CENTER);
@@ -62,7 +63,7 @@ public class FrameAviso extends JFrame {
 		labelAviso2.setBackground(Color.WHITE);
 		labelAviso2.setForeground(Color.BLACK);
 		labelAviso2.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		labelAviso2.setBounds(-21, 180,getWidth(), 29);
+		labelAviso2.setBounds(39, 180,316, 29);
 		contentPane.add(labelAviso2);
 		
 		
@@ -72,11 +73,11 @@ public class FrameAviso extends JFrame {
 		labelAviso.setForeground(Color.BLACK);
 		labelAviso.setBackground(Color.WHITE);
 		labelAviso.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		labelAviso.setBounds(0, 140, getWidth(), 29);
+		labelAviso.setBounds(30, 140, 380, 29);
 		labelAviso.setOpaque(true);
 		contentPane.add(labelAviso);
 		
-		label_3 = new JLabel("", JLabel.CENTER);
+		JLabel label_3 = new JLabel("", JLabel.CENTER);
 		label_3.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "logo_unicaffe_p.png")));
 		label_3.setBounds(0 , 55, getWidth(), 55);
 		contentPane.add(label_3);

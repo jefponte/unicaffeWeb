@@ -1,6 +1,10 @@
 <?php
 
-
+/**
+ * 
+ * @author Jefferson Uchôa Ponte
+ *
+ */
 class RelatorioController{
 	
 	
@@ -35,39 +39,13 @@ class RelatorioController{
 		<script src="https://code.highcharts.com/modules/data.js"></script>
 		<script src="https://code.highcharts.com/modules/drilldown.js"></script>';
 		
-
-		
-		
-		
-			
-			
-			
-			
-
-			
-
-			
-			
-			
-			
-	
-		
-		
-		
-		
-		
-		
 		echo '<div class="doze colunas conteudo">';
 		$this->histogramaTurno($data1, $data2);
-		
+
 		foreach ($listaDeLaboratorios as $laboratorio){
 			
 			$this->histogramaTurno($data1, $data2, $laboratorio);
 		}
-		
-		
-		
-		
 		
 		
 		
@@ -188,54 +166,6 @@ class RelatorioController{
 			$matriz['tempo_utilizacao']['LABTI04'] += $linha['tempo_usado'];
 		}
 		$matriz['tempo_utilizacao']['total'] = $matriz['tempo_utilizacao']['LABTI01']+$matriz['tempo_utilizacao']['LABTI02']+$matriz['tempo_utilizacao']['LABTI03']+$matriz['tempo_utilizacao']['LABTI04'];
-		$tabela = '<table class="tabela quadro doze">
-						<caption>
-							Outros dados Importantes
-						</caption>
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>LABTI01</th>
-								<th>LABTI02</th>
-								<th>LABTI03</th>
-								<th>LABTI04</th>
-								<th>Total</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>Quantidade De Utilizadores</td>
-								<td>'.$matriz['utilizadores']['LABTI01'] .'</td>
-								<td>'.$matriz['utilizadores']['LABTI02'].'</td>
-								<td>'.$matriz['utilizadores']['LABTI03'].'</td>
-								<td>'.$matriz['utilizadores']['LABTI04'].'</td>
-								<td>'.$matriz['utilizadores']['total'] .'</td>
-							</tr>
-							<tr>
-								<td>Tempo De Utilização</td>
-								<td>'.self::segundosParaHoras($matriz['tempo_utilizacao']['LABTI01']).'</td>
-								<td>'.self::segundosParaHoras($matriz['tempo_utilizacao']['LABTI02']).'</td>
-								<td>'.self::segundosParaHoras($matriz['tempo_utilizacao']['LABTI03']).'</td>
-								<td>'.self::segundosParaHoras($matriz['tempo_utilizacao']['LABTI04']).'</td>
-								<td>'.self::segundosParaHoras($matriz['tempo_utilizacao']['total']).'</td>
-							</tr>
-							<tr>
-								<td>Tempo Médio Por Utilizador</td>
-								<td>'.self::segundosParaHoras(($matriz['tempo_utilizacao']['LABTI01']/$matriz['utilizadores']['LABTI01'])).'</td>
-								<td>'.self::segundosParaHoras(($matriz['tempo_utilizacao']['LABTI02']/$matriz['utilizadores']['LABTI02'])).'</td>
-								<td>'.self::segundosParaHoras(($matriz['tempo_utilizacao']['LABTI03']/$matriz['utilizadores']['LABTI03'])).'</td>
-								<td>'.self::segundosParaHoras(($matriz['tempo_utilizacao']['LABTI04']/$matriz['utilizadores']['LABTI04'])).'</td>
-								<td>'.self::segundosParaHoras(($matriz['tempo_utilizacao']['total']/$matriz['utilizadores']['total'])).'</td>
-							</tr>
-			
-						</tbody>
-					</table>';
-		
-		
-		echo '<div class="seis colunas relatorio">';
-		echo $tabela;
-		
-		echo '</div>';
 		
 		
 		

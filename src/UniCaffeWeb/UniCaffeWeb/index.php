@@ -54,13 +54,14 @@ if (isset ( $_GET ["sair"] )) {
 		<div class="topo doze linha fundo-branco">
 			<div class="conteudo">
 				<div id="logo-unicaffe">
-					<a href="#"> <img alt="logotipo do Unicaffé"
-						src="img/logo_unicaffe.png" title="Ir para Unicaffé">
-					</a>
+					<a href="#"> <img alt="logotipo da Unilab"
+							src="img/logo_ufc.png" title="Ir para Unilab">
+						</a>
+					
 				</div>
 				<div id="logo-universidade">
-					<a href="#"> <img alt="logotipo da Unilab"
-						src="img/logo_labpati.png" title="Ir para Unilab">
+					<a href="#"> <img alt="logotipo do Unicaffé"
+						src="img/logo_labpati.png" title="Ir para Unicaffé">
 					</a>
 				</div>
 			</div>
@@ -93,18 +94,26 @@ if (isset ( $_GET ["sair"] )) {
 					</li>';
 		echo '
 
-				<li><a href="?pagina=relatorio_geral">Relatórios</a>';
+				<li><a href="?pagina=relatorio_geral">Gerenciamento</a>';
+		if($sessao->getNivelAcesso() == Sessao::NIVEL_ADMIN || $sessao->getNivelAcesso() == Sessao::NIVEL_SUPER){
+			echo '<ul class="seta-pra-cima">';
+			echo '<li><a href="?pagina=gerenciamento_relatorios">Acessos por Usuário</a></li>';
+			echo '<li><a href="?pagina=gerenciamento_administrador">Cadastro de Administrador</a></li>';
+			echo '<li><a href="?pagina=relatorios">Utilização Por Turno</a></li>';
+			echo '</ul>';
+			
+		}
 		
-// 		echo '<ul class="seta-pra-cima">
+// 		
 // 						<li><a href="?pagina=relatorio_geral">Relatorios </a>
 // 							<ul>
 // 								<li><a href="?pagina=relatorio_geral">Geral</a></li>
 // 								';
 // 								if ($sessao->getNivelAcesso () == Sessao::NIVEL_ADMIN || $sessao->getNivelAcesso () == Sessao::NIVEL_SUPER)
-// 									echo '<li><a href="?pagina=gerenciamento_relatorios">Acessos por Usuário</a>';
+// 									
 // 								echo '						</ul></li>
 		
-// 					</ul>';
+
 								
 		echo '			</li>
 					';

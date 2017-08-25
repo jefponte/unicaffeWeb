@@ -21,11 +21,9 @@ class HomeView{
 				
 
 O UniCaffé (Sistema de Controle de Acesso de Laboratórios de Universidade), 
-é um conjunto de softwares de autoria do servidor Jefferson Uchôa Ponte, mantido 
-pelo <a href="#LABPATI">LABPATI - Laboratório de Projetos de Automação e Tecnologias Inovadoras</a>, 
-permite que os laboratórios de informática tornem-se autogerenciados na medida em que dispensa necessidade
-de um atendente. 
-
+é um conjunto de softwares que permite que os laboratórios de informática 
+tornem-se autogerenciados na medida em que dispensa necessidade de um 
+ atendente. 
 			
 Qualquer membro da comunidade poderá ter acesso a um PC com UniCaffé através de suas 
 credenciais do sistema acadêmico da universidade, recebendo inicialmente uma hora de acesso. 
@@ -35,6 +33,8 @@ utilização de acesso das máquinas do laboratório de informática.
 
 
 					</p>
+				
+					
 				</div>
 			</div>
 		</div>
