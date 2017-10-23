@@ -395,6 +395,7 @@ public class Servidor {
 			return;
 			
 		}else if(comando.equals("ligador")){
+			
 			MaquinaDAO maquinaDAO = new MaquinaDAO();
 			Maquina maquinaALigar = new Maquina();
 			maquinaALigar.setNome(parametros.trim());
@@ -409,37 +410,44 @@ public class Servidor {
 				}
 				return;
 			} 
-			Ligador.ligador(maquinaALigar.getEnderecoMac());
-			new PrintStream(cliente.getSaida()).println("Ligando: "+maquinaALigar.getNome());
+			System.out.println("Ligando " + maquinaALigar.getNome());//msg no terminal do servidor
+			for(Cliente sirene : listaDeClientes){//percorre a lista de clientes sirenes
+				if(sirene.getMaquina().getLaboratorio().getNome().equals(maquinaALigar.getLaboratorio().getNome())){//manda comando apenas para o laboratório alvo
+					new PrintStream(sirene.getSaida()).println("sirene(" + maquinaALigar.getEnderecoMac() + ")");//enviando comando+mac a ser ligado 
+					//no lado do cliente será recebido e depois separado o comando do mac		
+				}
+					
+			new PrintStream(cliente.getSaida()).println("Ligando: "+maquinaALigar.getNome());//msg pro web
 			try {
 				cliente.getConexao().close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			return;
+														
+			}			
 			
+			return;				
 			
-			
-			
-		}else if(comando.equals("atualizaMac")){
-			for(Cliente daVez : listaDeClientes){
-				if(parametros.trim().toLowerCase().equals(daVez.getMaquina().getNome().trim().toLowerCase())){
-					MaquinaDAO maquinaDAO = new MaquinaDAO();
-					Maquina maquina = new Maquina();
-					maquina.setNome(daVez.getMaquina().getNome());
+		} else if(comando.equals("atualizaMac")){
+			for(Cliente daVez : listaDeClientes){//percorre a lista de clientes
+				if(parametros.trim().toLowerCase().equals(daVez.getMaquina().getNome().trim().toLowerCase())){//se for igual ao parametro passado ele entra no if
+					MaquinaDAO maquinaDAO = new MaquinaDAO();//cria uma consulta ao banco de dados
+					Maquina maquina = new Maquina();//cria uma maquina
+					maquina.setNome(daVez.getMaquina().getNome());//coloca o nome da maquina
 					
-					if(!maquinaDAO.existe(maquina, false)){
+					if(!maquinaDAO.existe(maquina, false)){//se a maquina não existir ele manda a msg para cadastrar
 						new PrintStream(cliente.getSaida()).println("Deve cadastrar antes a: "+maquina.getNome());
 						return;
 					}
 					
-					maquinaDAO.atualizaMac(daVez.getMaquina());
-					new PrintStream(cliente.getSaida()).println("Atualizei o mac de: "+maquina.getNome());
+					maquinaDAO.atualizaMac(daVez.getMaquina());//atualiza o mac no banco de dados
+					new PrintStream(cliente.getSaida()).println("Atualizei o mac de: "+maquina.getNome());//envia msg avisando da atualização do mac
 					return;
 				}
 			}			
 		}
+		
 		else if(comando.equals("alocarMaquina")){
 			String nomeMaquina = parametros.substring(0, parametros.indexOf(','));
 			String nomeLaboratorio = parametros.substring(parametros.indexOf(',') + 1);
