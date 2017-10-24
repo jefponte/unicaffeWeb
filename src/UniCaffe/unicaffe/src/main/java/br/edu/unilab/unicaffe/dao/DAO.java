@@ -138,7 +138,7 @@ public class DAO {
 		this.sgdb = sgdb;
 	}
 
-	public static final String ARQUIVO_CONFIGURACAO = "/dados/unicaffe/config.ini";
+	public static final String ARQUIVO_CONFIGURACAO = "/dados/unicaffe/config_bd.ini";
 
 	public static final int TIPO_DEFAULT = 0;
 	public static final int TIPO_USUARIOS = 1;
