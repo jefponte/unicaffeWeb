@@ -3,6 +3,13 @@ ini_set('display_errors',1);
 ini_set('display_startup_erros',1);
 error_reporting(E_ALL);
 
+
+define ( "CONFIG_UNICAFFE", "/dados/unicaffe/unicaffe.ini" );
+$config = parse_ini_file ( CONFIG_UNICAFFE );
+define ( "NOME_INSTITUICAO", $config ['nome_instituicao'] );
+define ( "PAGINA_INSTITUICAO", $config ['pagina_instituicao'] );
+
+
 function __autoload($classe) {
 	if (file_exists ( 'classes/dao/' . $classe . '.php' )) {
 		include_once 'classes/dao/' . $classe . '.php';
@@ -74,9 +81,15 @@ if (isset ( $_GET ["sair"] )) {
 		<div class="topo doze linha fundo-branco">
 			<div class="conteudo">
 				<div id="logo-unicaffe">
-					<a href="#"> <img alt="logotipo da Unilab"
-							src="img/logo_ufc.png" title="Ir para Unilab">
-						</a>
+					
+					<?php 
+					
+					echo '<a href="'.PAGINA_INSTITUICAO.'"> <img alt="logotipo da Unilab"
+							src="img/logo_'.NOME_INSTITUICAO.'.png" title="Ir para Unilab">
+						</a>';
+					
+					?>
+					
 					
 				</div>
 				<div id="logo-universidade">

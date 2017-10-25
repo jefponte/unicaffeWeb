@@ -240,7 +240,7 @@ public class FrameTelaBloqueio extends JFrame {
 		
 		JLabel labelLogo = new JLabel("");
 		
-		labelLogo.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "logo_labpati4.png")));
+		labelLogo.setIcon(new ImageIcon(getClass().getResource(UtilFrames.BASE_PATH_IMAGES + "logo_labpati3.png")));
 		labelLogo.setBounds(20, 12, 203, 43);
 		panelTopo.add(labelLogo);
 		

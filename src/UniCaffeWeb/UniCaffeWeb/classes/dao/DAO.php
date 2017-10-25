@@ -11,7 +11,7 @@
   *    Jefferson Uchôa Ponte - initial API and implementation and/or initial documentation
   *********/
 class DAO {
-	const ARQUIVO_CONFIGURACAO = "/dados/unicaffe/config.ini";
+	const ARQUIVO_CONFIGURACAO = "/dados/unicaffe/unicaffe_bd.ini";
 	const TIPO_UNICAFFE = 0;
 	const TIPO_DEFAULT = 1;
 	const TIPO_USUARIOS = 2;

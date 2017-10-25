@@ -46,7 +46,7 @@ public class Servidor {
 
 	
 
-	public static final String ARQUIVO_CONFIGURACAO = "/dados/unicaffe/config_unicaffe.ini";
+	public static final String ARQUIVO_CONFIGURACAO = "/dados/unicaffe/unicaffe_bd.ini";
 	public void iniciaServico() {
 		
 		int porta;		
