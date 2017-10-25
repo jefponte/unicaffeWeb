@@ -1,0 +1,6 @@
+C:\Program Files\TortoiseGit\bin\TortoiseGitProc.exe,TortoiseGitProc.exe
+C:\Program Files (x86)\TeamViewer\TeamViewer.exe,TeamViewer.exe
+C:\Program Files (x86)\TeamViewer\tv_w32.exe,tv_w32.exe
+C:\Program Files (x86)\TeamViewer\tv_x64.exe,tv_x64.exe
+C:\Windows\system32\taskmgr.exe,taskmgr.exe
+C:\Program Files (x86)\Common Files\Adobe\CS6ServiceManager\CS6ServiceManager.exe,CS6ServiceManager.exe
