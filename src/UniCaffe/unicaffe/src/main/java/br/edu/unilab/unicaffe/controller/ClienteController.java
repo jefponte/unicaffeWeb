@@ -534,12 +534,11 @@ public class ClienteController {
 
 			return;
 
-		} else if (comando.equals("sirene")) {//
-			//selecionando as 6 primeiras letras que seria a palavra sirene - depois faremos uma nova subtring como o mac que vem depois
-			//da palavra sirene
-			//sirene74-86-7A-FD-14-7B()
-			//String comando = mensagem.substring(0, mensagem.indexOf('('));
+		} else if (comando.equals("sirene")) {
+		
 			Ligador.ligador(parametros);
+			System.out.println("Sirene("+parametros+")");
+			
 			return;
 
 		} else if (comando.equals("limparDados")) {

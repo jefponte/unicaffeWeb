@@ -197,13 +197,28 @@ public class Perfil {
 	}
 
 	/**
-	 * São registros que são adicionados no sistema quando o UniCafe está em sendo desativado. Faz com que a máquina volte às configurações padrão. 
+	 * São registros que são adicionados no sistema quando o UniCafe está em sendo desativado. 
+	 * Faz com que a máquina volte às configurações padrão. 
 	 * Esses registros são deletados quando o UniCafe liga. 
 	 * @return
 	 */
 	public static ArrayList<Registro> perfilTemporarioDesativado(){
 		
 		ArrayList<Registro> temporario = new ArrayList<Registro>();
+		temporario.add(new Registro("HKEY_CLASSES_ROOT\\lnkfile\\shellex\\ContextMenuHandlers\\OpenContainingFolderMenu", 
+				"", Registro.REG_SZ, "{37ea3a21-7493-4208-a011-7f9ea79ce9f5}", "{37ea3a21-7493-4208-a011-7f9ea79ce9f5}", ""));
+		
+		temporario.add(new Registro("HKEY_CLASSES_ROOT\\LibraryLocation\\ShellEx\\ContextMenuHandlers\\OpenContainingFolderMenu", 
+				"", Registro.REG_SZ, "{37ea3a21-7493-4208-a011-7f9ea79ce9f5}", "{37ea3a21-7493-4208-a011-7f9ea79ce9f5}", ""));
+		
+		temporario.add(new Registro("HKEY_CLASSES_ROOT\\Results\\ShellEx\\ContextMenuHandlers\\OpenContainingFolderMenu", 
+				"", Registro.REG_SZ, "{37ea3a21-7493-4208-a011-7f9ea79ce9f5}", "{37ea3a21-7493-4208-a011-7f9ea79ce9f5}", ""));
+		
+		
+		temporario.add(new Registro("HKEY_CLASSES_ROOT\\.symlink\\shellex\\ContextMenuHandlers\\OpenContainingFolderMenu", 
+				"", Registro.REG_SZ, "{37ea3a21-7493-4208-a011-7f9ea79ce9f5}", "{37ea3a21-7493-4208-a011-7f9ea79ce9f5}", ""));
+		
+		
 		
 		temporario.add(new Registro("HKU\\S-1-5-21-450030969-3659189506-2535807683-1000\\Software\\Microsoft\\Windows\\CurrentVersion\\Group Policy Objects\\{716A25C0-6B71-4F49-9187-11CA3F39AF5C}User\\Software\\Policies\\Microsoft\\Windows\\Explorer", "**del.PowerButtonAction", Registro.REG_EXPAND_SZ, " ", "" ,"Deixar botão de logof no menu iniciar do jeito padrão"));
 

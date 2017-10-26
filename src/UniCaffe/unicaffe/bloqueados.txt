@@ -4,3 +4,8 @@ C:\Program Files (x86)\TeamViewer\tv_w32.exe,tv_w32.exe
 C:\Program Files (x86)\TeamViewer\tv_x64.exe,tv_x64.exe
 C:\Windows\system32\taskmgr.exe,taskmgr.exe
 C:\Program Files (x86)\Common Files\Adobe\CS6ServiceManager\CS6ServiceManager.exe,CS6ServiceManager.exe
+C:\Program Files\TortoiseGit\bin\TortoiseGitMerge.exe,TortoiseGitMerge.exe
+C:\Program Files\TortoiseGit\bin\TortoiseGitMerge.exe,TortoiseGitMerge.exe
+C:\Windows\system32\taskmgr.exe,taskmgr.exe
+C:\Windows\regedit.exe,regedit.exe
+C:\PROGRAM FILES (X86)\FOXIT SOFTWARE\FOXIT READER\FOXITREADER.EXE,FoxitReader.exe

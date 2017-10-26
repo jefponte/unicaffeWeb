@@ -411,22 +411,21 @@ public class Servidor {
 				return;
 			} 
 			System.out.println("Ligando " + maquinaALigar.getNome());//msg no terminal do servidor
-			for(Cliente sirene : listaDeClientes){//percorre a lista de clientes sirenes
-				if(sirene.getMaquina().getLaboratorio().getNome().equals(maquinaALigar.getLaboratorio().getNome())){//manda comando apenas para o laboratório alvo
-					new PrintStream(sirene.getSaida()).println("sirene(" + maquinaALigar.getEnderecoMac() + ")");//enviando comando+mac a ser ligado 
-					//no lado do cliente será recebido e depois separado o comando do mac		
+			for(Cliente sirene : listaDeClientes){
+				if(sirene.getMaquina().getLaboratorio().getNome().equals(maquinaALigar.getLaboratorio().getNome()))
+				{
+					new PrintStream(sirene.getSaida()).println("sirene(" + maquinaALigar.getEnderecoMac() + ")");
+
 				}
-					
-			new PrintStream(cliente.getSaida()).println("Ligando: "+maquinaALigar.getNome());//msg pro web
+				System.out.println("Sirene "+sirene.getMaquina()+" Ligando "+maquinaALigar.getNome());
+			}	
+			new PrintStream(cliente.getSaida()).println("Ligando: "+maquinaALigar.getNome());	
 			try {
 				cliente.getConexao().close();
 			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-														
-			}			
-			
 			return;				
 			
 		} else if(comando.equals("atualizaMac")){
