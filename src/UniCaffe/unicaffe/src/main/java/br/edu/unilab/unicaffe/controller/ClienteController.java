@@ -328,7 +328,7 @@ public class ClienteController {
 	}
 
 	public static String servidorPrimario = "200.129.19.40";
-	public static String servidorSecundario = "200.129.19.41";
+	public static String servidorSecundario = "200.128.19.10";
 	public static int portaServidorPrimario = 27289;
 	public static int portaServidorSecundario = 27289;
 

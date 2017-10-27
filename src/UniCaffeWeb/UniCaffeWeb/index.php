@@ -133,6 +133,7 @@ if (isset ( $_GET ["sair"] )) {
 			echo '<li><a href="?pagina=gerenciamento_relatorios">Acessos por Usuário</a></li>';
 			echo '<li><a href="?pagina=gerenciamento_administrador">Cadastro de Administrador</a></li>';
 			echo '<li><a href="?pagina=relatorios">Utilização Por Turno</a></li>';
+			echo '<li><a href="?pagina=mensagens">Envio de Mensagens</a></li>';
 			echo '</ul>';
 			
 		}
@@ -169,6 +170,9 @@ if (isset ( $_GET ["sair"] )) {
 				
 				case 'inicio' :
 					HomeView::main ();
+					break;
+				case 'mensagens':
+					MensagemController::main($sessao->getNivelAcesso());
 					break;
 				case 'maquinas' :
 					echo '<div class="linha doze colunas fundo-azul1" >

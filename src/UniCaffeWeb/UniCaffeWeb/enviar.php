@@ -18,10 +18,10 @@ function __autoload($classe) {
 }
 
 
-// if($_SESSION['USUARIO_NIVEL'] != 3){
-// 	echo 'Nao autorizado';
-// 	exit(0);
-// }
+if($_SESSION['USUARIO_NIVEL'] != 3){
+	echo 'Nao autorizado';
+	exit(0);
+}
 
 ?>
 
@@ -33,62 +33,13 @@ function __autoload($classe) {
 
 
 ?>
-<h1>Enviar comando diretamente para o UniCafe</h1>
-<form action="" method="post">
-<select name="laboratorio">
+
 
 <?php 
-$laboratorioDao = new LaboratorioDAO();
-$lista = $laboratorioDao->retornaLaboratorios();
-foreach ($lista as $laboratorio){
-    echo "<option value=".$laboratorio->getNome().">".$laboratorio->getNome()."</option>";
-    
-}
-?>
-
-
-</select>
-<br>
-<textarea name="mensagem"></textarea>
-<br>
-<input type="submit" name="enviar" />
-
-</form>
-
-
-<?php
-
-
-
-if(isset($_POST['mensagem'])){
-    
-    $mensagem = $_POST['mensagem'];
-    
-    $nomeLaboratorio = $_POST['laboratorio'];
-    $strComando = "mensagemLaboatorio(".$nomeLaboratorio.", ".$mensagem.")";
-    
-    $unicafe = new UniCaffe();
-    $resposta = $unicafe->dialoga($strComando);
-    echo $resposta;
-    
-}
-
-
-
-// if(isset($_POST['comando'])){
-// 	$config = parse_ini_file ( DAO::ARQUIVO_CONFIGURACAO );
-// 	echo $config ['unicaffe_host'];
-	
-// 	$unicaffe = new UniCaffe($config ['unicaffe_host'], $config ['unicaffe_porta']);
-// 	echo $_POST['comando'].'<br>';
-// 	echo $unicaffe->dialoga($_POST['comando']);
-// 	$unicaffe->close();
-	
-// }
-
 
 
 ?>
+
 
 </body>
 </html>
