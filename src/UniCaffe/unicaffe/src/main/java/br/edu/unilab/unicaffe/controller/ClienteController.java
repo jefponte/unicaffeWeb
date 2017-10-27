@@ -31,6 +31,7 @@ import br.edu.unilab.unicaffe.model.Cliente;
 import br.edu.unilab.unicaffe.model.Maquina;
 import br.edu.unilab.unicaffe.registro.model.Perfil;
 import br.edu.unilab.unicaffe.view.FrameAviso;
+import br.edu.unilab.unicaffe.view.FrameMensagem;
 import br.edu.unilab.unicaffe.view.FrameSplash;
 import br.edu.unilab.unicaffe.view.FrameTelaAcesso;
 import br.edu.unilab.unicaffe.view.FrameTelaBloqueio;
@@ -453,6 +454,9 @@ public class ClienteController {
 	 * @param mensagem
 	 */
 	public synchronized void processaMensagem(String mensagem) {
+		if(mensagem == null)
+			return;
+		
 		if (mensagem.indexOf('(') == -1 || mensagem.indexOf(')') == -1) {
 			return;
 		}
@@ -564,7 +568,23 @@ public class ClienteController {
 			});
 			t.start();
 			return;
-		} else if (comando.equals("venha")) {
+		}else if(comando.equals("printa")){
+			
+			FrameMensagem frameMensagem = new FrameMensagem();
+			frameMensagem.setMensagem(parametros);
+			frameMensagem.setVisible(true);
+			try {
+				Thread.sleep(15000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			frameMensagem.setVisible(false);
+			
+			return;
+		} 
+		
+		else if (comando.equals("venha")) {
 			servidorPrimario = parametros;
 
 			try {
@@ -704,7 +724,13 @@ public class ClienteController {
 							semaforo.release();
 						}
 
-						if (tempo == 300 || tempo == 120 || tempo == 20) {
+						if (tempo == 300 ) {
+							
+							if (getCliente().getSaida() != null) {
+								new PrintStream(getCliente().getSaida()).println("meDaBonus()");
+							}
+						}
+						if (tempo == 120 || tempo == 20) {
 							getFrameAviso().setVisible(true);
 							getFrameTelaAcesso().setVisible(true);
 							getFrameTelaAcesso().setState(JFrame.NORMAL);

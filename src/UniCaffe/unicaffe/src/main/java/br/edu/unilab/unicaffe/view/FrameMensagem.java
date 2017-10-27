@@ -20,6 +20,10 @@ import javax.swing.DropMode;
 
 public class FrameMensagem extends JFrame {
 
+	private JTextArea textAreaMensagem;
+	public void setMensagem(String texto){
+		this.textAreaMensagem.setText(texto);
+	}
 	private JPanel contentPane;
 
 	/**
@@ -74,7 +78,7 @@ public class FrameMensagem extends JFrame {
 		labelLogo.setBounds(0 , 55, getWidth(), 55);
 		contentPane.add(labelLogo);
 		
-		JTextArea textAreaMensagem = new JTextArea("Alguns usuários relcamaram que você está tomando café no laboratório. Tomar café não é algo permitido para o laboratório. Você deve tomar café lá na cantina, onde é espaço destinado para isso. Caso você tome café no laboratório pode correr o risco de que você derrame café na mesa, o que ocasionará uma infestação de formigas, que vão ser atraídas por outros insetos que comem formigas, como baratas e aranhas. Que serão atraídas por ratos, que por fim comerão os cabos dos computadores, que farão com que o laboratório não funcione com sua capacidade máxima, trazendo insatisfação entre os alunos, do qual você faz parte. Então para sua própria satisfação, peço que retire-se.   ");
+		textAreaMensagem = new JTextArea("Alguns usuários relcamaram que você está tomando café no laboratório. Tomar café não é algo permitido para o laboratório. Você deve tomar café lá na cantina, onde é espaço destinado para isso. Caso você tome café no laboratório pode correr o risco de que você derrame café na mesa, o que ocasionará uma infestação de formigas, que vão ser atraídas por outros insetos que comem formigas, como baratas e aranhas. Que serão atraídas por ratos, que por fim comerão os cabos dos computadores, que farão com que o laboratório não funcione com sua capacidade máxima, trazendo insatisfação entre os alunos, do qual você faz parte. Então para sua própria satisfação, peço que retire-se.   ");
 		textAreaMensagem.setEditable(false);
 		textAreaMensagem.setLineWrap(true);
 		textAreaMensagem.setForeground(Color.BLACK);
