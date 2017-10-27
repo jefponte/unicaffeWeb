@@ -29,9 +29,28 @@ function __autoload($classe) {
 <html>
 <body>
 
+<?php 
+
+
+?>
 <h1>Enviar comando diretamente para o UniCafe</h1>
 <form action="" method="post">
-<input type="text" name="comando" />
+<select name="laboratorio">
+
+<?php 
+$laboratorioDao = new LaboratorioDAO();
+$lista = $laboratorioDao->retornaLaboratorios();
+foreach ($lista as $laboratorio){
+    echo "<option value=".$laboratorio->getNome().">".$laboratorio->getNome()."</option>";
+    
+}
+?>
+
+
+</select>
+<br>
+<textarea name="mensagem"></textarea>
+<br>
 <input type="submit" name="enviar" />
 
 </form>
@@ -41,17 +60,31 @@ function __autoload($classe) {
 
 
 
-
-if(isset($_POST['comando'])){
-	$config = parse_ini_file ( DAO::ARQUIVO_CONFIGURACAO );
-	echo $config ['unicaffe_host'];
-	
-	$unicaffe = new UniCaffe($config ['unicaffe_host'], $config ['unicaffe_porta']);
-	echo $_POST['comando'].'<br>';
-	echo $unicaffe->dialoga($_POST['comando']);
-	$unicaffe->close();
-	
+if(isset($_POST['mensagem'])){
+    
+    $mensagem = $_POST['mensagem'];
+    
+    $nomeLaboratorio = $_POST['laboratorio'];
+    $strComando = "mensagemLaboatorio(".$nomeLaboratorio.", ".$mensagem.")";
+    
+    $unicafe = new UniCaffe();
+    $resposta = $unicafe->dialoga($strComando);
+    echo $resposta;
+    
 }
+
+
+
+// if(isset($_POST['comando'])){
+// 	$config = parse_ini_file ( DAO::ARQUIVO_CONFIGURACAO );
+// 	echo $config ['unicaffe_host'];
+	
+// 	$unicaffe = new UniCaffe($config ['unicaffe_host'], $config ['unicaffe_porta']);
+// 	echo $_POST['comando'].'<br>';
+// 	echo $unicaffe->dialoga($_POST['comando']);
+// 	$unicaffe->close();
+	
+// }
 
 
 

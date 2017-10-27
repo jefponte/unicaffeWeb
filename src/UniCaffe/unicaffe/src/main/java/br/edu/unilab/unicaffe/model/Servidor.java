@@ -660,6 +660,19 @@ public class Servidor {
 			return;
 			
 			
+		}else if(comando.equals("mensagemLaboatorio")){
+			String nomeLaboratorio = parametros.substring(0, parametros.indexOf(','));
+			String texto = parametros.substring(parametros.indexOf(',') + 1);
+			
+			for(Cliente c : listaDeClientes){
+				if(c.getMaquina().getLaboratorio().getNome().toLowerCase().trim().equals(nomeLaboratorio.toLowerCase().trim())){
+					new PrintStream(c.getSaida()).println("printa("+texto+")");
+				}
+			}
+			
+			new PrintStream(cliente.getSaida()).println("Mensagem: "+texto+" <br>Enviada para Laboratorio: "+nomeLaboratorio);
+			
+			
 		}
 		else{
 			new PrintStream(cliente.getSaida()).println("Mensagem não encontrada. Digite ajuda para obter ajuda. ");	
