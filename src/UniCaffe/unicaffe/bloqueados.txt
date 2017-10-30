@@ -9,3 +9,18 @@ C:\Program Files\TortoiseGit\bin\TortoiseGitMerge.exe,TortoiseGitMerge.exe
 C:\Windows\system32\taskmgr.exe,taskmgr.exe
 C:\Windows\regedit.exe,regedit.exe
 C:\PROGRAM FILES (X86)\FOXIT SOFTWARE\FOXIT READER\FOXITREADER.EXE,FoxitReader.exe
+C:\Program Files (x86)\DigitalPersona\Bin\DpHostW.exe,DpHostW.exe
+C:\intelFPGA_lite\16.1\quartus\bin64\jtagserver.exe,jtagserver.exe
+C:\Program Files (x86)\LogMeIn Hamachi\x64\LMIGuardianSvc.exe,LMIGuardianSvc.exe
+C:\Program Files (x86)\scpbrad\scpbradserv.exe,scpbradserv.exe
+C:\Program Files (x86)\LogMeIn Hamachi\x64\hamachi-2.exe,hamachi-2.exe
+C:\Program Files (x86)\TeamViewer\TeamViewer.exe,TeamViewer.exe
+C:\Program Files (x86)\scpbrad\scpbradguard.exe,scpbradguard.exe
+C:\Program Files (x86)\Panda USB Vaccine\USBVaccine.exe,USBVaccine.exe
+C:\Program Files (x86)\TeamViewer\tv_w32.exe,tv_w32.exe
+C:\Program Files (x86)\TeamViewer\tv_x64.exe,tv_x64.exe
+C:\Windows\system32\taskmgr.exe,taskmgr.exe
+,makecab.exe
+C:\Windows\SoftwareDistribution\Download\Install\AM_Delta_Patch_1.255.107.0.exe,AM_Delta_Patch_1.255.107.0.exe
+C:\Windows\SERVIC~2\NETWOR~1\AppData\Local\Temp\mpam-bab5e4d2.exe,mpam-bab5e4d2.exe
+C:\Windows\SERVIC~2\NETWOR~1\AppData\Local\Temp\{ADBCB322-D63E-4A48-8423-B464D29CC2BF}\MPSigStub.exe,MPSigStub.exe

@@ -49,7 +49,7 @@ public class Servidor {
 	public static final String ARQUIVO_CONFIGURACAO = "/dados/unicaffe/unicaffe_bd.ini";
 	public void iniciaServico() {
 		
-		int porta;		
+		int porta = 27289;		
 		try {
 			Properties config = new Properties();
 			FileInputStream file = new FileInputStream(ARQUIVO_CONFIGURACAO);
@@ -162,7 +162,11 @@ public class Servidor {
 						return;
 					}
 					if(mensagem.indexOf("GET / HTTP/1.1") != -1){
-						ps.println("<!DOCTYPE html><html>"
+						ps.println("HTTP/1.0 200 OK\r\n"
+								+ "Server: UniCaffeServer/2.0\r\n"
+								+ "Content-Type: text/html\r\n"
+								+ "\r\n"
+								+ "<!DOCTYPE html><html>"
 								+ "<header><style>"
 								+ "body{background-color:#FF9999;}"
 								+ ""
@@ -170,10 +174,6 @@ public class Servidor {
 								+ "</style></header>"
 								+ ""
 								+ "<h1>Servidor Funcionando!</h1>"
-								+ "<form action=\"\" method=\"post\">"
-								+ "<input type=\"text\" name=\"nome\" />"
-								+ "<input type=\"submit\" />" 
-								+"</form>"
 								+ "</html>");
 						cliente.getConexao().close();
 						
