@@ -2,22 +2,12 @@
 <html>
 <head>
 <title>Download UniCafe</title>
-<script>
-function mudaEstado(){
-	if(document.getElementById("form").checked){
 
-		document.getElementById("link_32").style.display = "block";
-	}else{
-		document.getElementById("link_32").style.display = "none";
-
-	}
-}
-</script>
 </head>
 <body>
 
 
-<a id="link_64" href="setupUniCafe64.exe">Download UniCafe 1.0 64 Bits </a>(Recomendável)
+<a id="link_64" href="setupUniCaffe64.exe">Download UniCafe 1.0 64 Bits </a>
 <br>
 <br>
 <br>

@@ -25,7 +25,7 @@ class MensagemController{
 		
 		
 		
-		echo '<div class="detalhe conteudo">';
+	
 		
 		echo '<h1>Enviar mensagem a um laboratório</h1>
 				<form action="" method="get">
@@ -69,8 +69,7 @@ class MensagemController{
 			}
 		
 		}
-		
-		echo '</div>';
+	
 		
 	}
 	

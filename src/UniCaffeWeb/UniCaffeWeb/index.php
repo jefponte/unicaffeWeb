@@ -126,7 +126,6 @@ if (isset ( $_GET ["sair"] )) {
 					</ul>
 					</li>';
 		echo '
-
 				<li><a href="?pagina=relatorio_geral">Gerenciamento</a>';
 		if($sessao->getNivelAcesso() == Sessao::NIVEL_ADMIN || $sessao->getNivelAcesso() == Sessao::NIVEL_SUPER){
 			echo '<ul class="seta-pra-cima">';
@@ -134,20 +133,10 @@ if (isset ( $_GET ["sair"] )) {
 			echo '<li><a href="?pagina=gerenciamento_administrador">Cadastro de Administrador</a></li>';
 			echo '<li><a href="?pagina=relatorios">Utilização Por Turno</a></li>';
 			echo '<li><a href="?pagina=mensagens">Envio de Mensagens</a></li>';
+			echo '<li><a href="downloads/setupUniCaffe64.exe">Download</a></li>';
 			echo '</ul>';
-			
 		}
 		
-// 		
-// 						<li><a href="?pagina=relatorio_geral">Relatorios </a>
-// 							<ul>
-// 								<li><a href="?pagina=relatorio_geral">Geral</a></li>
-// 								';
-// 								if ($sessao->getNivelAcesso () == Sessao::NIVEL_ADMIN || $sessao->getNivelAcesso () == Sessao::NIVEL_SUPER)
-// 									
-// 								echo '						</ul></li>
-		
-
 								
 		echo '			</li>
 					';
@@ -172,7 +161,9 @@ if (isset ( $_GET ["sair"] )) {
 					HomeView::main ();
 					break;
 				case 'mensagens':
+					echo '<br><div class="doze colunas fundo-branco">';
 					MensagemController::main($sessao->getNivelAcesso());
+					echo '</div>';
 					break;
 				case 'maquinas' :
 					echo '<div class="linha doze colunas fundo-azul1" >
@@ -293,9 +284,10 @@ if (isset ( $_GET ["sair"] )) {
 					RelatorioController::main ();
 					echo ' </div>';
 					break;
+					
 				default :
 					echo '<br>';
-					echo '<div id="olinda" class="doze colunas fundo-branco">';
+					echo '<div class="doze colunas fundo-branco">';
 					echo '<h1>404 Not Found</h1>';
 					echo ' </div>';
 					break;
