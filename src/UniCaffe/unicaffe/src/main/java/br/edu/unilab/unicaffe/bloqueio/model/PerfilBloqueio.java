@@ -3663,12 +3663,10 @@ public class PerfilBloqueio {
 					continue;
 				}
 
-				//System.out.println(linha);
 				String[] vDados = linha.split("[,]");
 				this.processosAtivos.add(new Processo(vDados[2], vDados[1],
 						vDados[3]));
 
-//				System.out.println("ID: "+vDados[3]+", Imagem: "+vDados[2]+", pasta: "+vDados[1].replace("","").toString());
 
 			}
 

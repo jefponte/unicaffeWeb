@@ -93,14 +93,14 @@ public class UsuarioDAO extends DAO {
 		} catch (SQLException e1) {
 			e1.printStackTrace();
 		}
-		System.out.println("Cheguei aqui");
+		
 		this.setTipoDeConexao(TIPO_AUTENTICACAO);
 		this.fazerConexao();
 		if (this.autenticaRemoto(usuario)) {
 			try {
 				this.getConexao().close();
 			} catch (SQLException e) {
-				System.out.println("Erro ao tentar fechar conexao com O SIGAA.");
+
 				e.printStackTrace();
 			}
 			this.setTipoDeConexao(TIPO_DEFAULT);
@@ -194,8 +194,7 @@ public class UsuarioDAO extends DAO {
 			ps.setString(1, usuario.getLogin());
 			ResultSet rs = ps.executeQuery();
 			while (rs.next()) {
-				System.out.println(usuario.getLogin() + " Retornou linha");
-				System.out.println("O usuario ja existe, mane");
+				
 				PreparedStatement psUpdate = this.getConexao()
 						.prepareStatement("UPDATE usuario set senha = ? WHERE login = ?");
 				psUpdate.setString(1, usuario.getSenha());
@@ -206,7 +205,6 @@ public class UsuarioDAO extends DAO {
 
 				return false;
 			}
-			System.out.println("O usuario nao existe vamos tentar inserir");
 			// nome email login senha nivel_acesso
 			PreparedStatement ps2 = this.getConexao().prepareStatement(
 					"INSERT into usuario(nome, email, login, senha, id_base_externa, nivel_acesso) VALUES(?, ?, ?, ?, ?, ?)");
