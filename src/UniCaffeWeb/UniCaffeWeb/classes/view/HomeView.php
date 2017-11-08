@@ -25,8 +25,8 @@ class HomeView{
 				O UniCaffé (Sistema de Controle de Acesso de Laboratórios de Universidade), 
 				é um conjunto de softwares, mantido pelo 
 				<a href="#LABPATI">LABPATI - Laboratório de Projetos de Automação e Tecnologias Inovadoras</a>,
-				que permite que os laboratórios de informática 
-				tornem-se autogerenciados na medida em que dispensa necessidade de um atendente.
+				que facilita o gerenciamento dos laboratórios de informática permitindo com que os alunos tenham
+				acesso direto e automatico através do usuário e senha do sistema acadêmico da universidade. 
 				
 				Qualquer membro da comunidade poderá ter acesso a um PC com UniCaffé através de suas 
 				credenciais do sistema acadêmico da universidade, recebendo inicialmente uma hora de acesso. 
