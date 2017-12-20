@@ -382,13 +382,28 @@ public class ClienteController {
 							processaCliente();
 							break;
 						} catch (UnknownHostException e) {
-							getFrameTelaBloqueio().getLabelStatus().setText("Servidor não encontrado. Tentativa: " + i);
+							getFrameTelaBloqueio().getLabelStatus().setText("Servidor não encontrado. Tentativa: " + i);								
 							if (j <= 5)
 								System.out.println("Erro na tentativa de conectar no: " + servidorPrimario);
 							else
 								System.out.println("Erro na tentativa de conectar no: " + servidorSecundario);
 						} catch (IOException e) {
-							getFrameTelaBloqueio().getLabelStatus().setText("Erro no Servidor. Tentativa: " + i);
+							getFrameTelaBloqueio().getLabelStatus().setText("Erro no Servidor. Tentativa: " + i);				
+							//reconfigura a rede na quarta tentativa
+							if (i==2) {
+								getFrameTelaBloqueio().getLabelStatus().setText("Reconfigurando a rede...");
+								try {
+									Runtime.getRuntime().exec("ipconfig /release");
+									Thread.sleep(3000);									
+									Runtime.getRuntime().exec("ipconfig /renew");
+									Thread.sleep(3000);
+								} catch (IOException e1) {
+									// TODO Auto-generated catch block
+									e1.printStackTrace();
+								}
+							}
+							
+							
 						}
 						Thread.sleep(100);
 					} catch (InterruptedException e) {
