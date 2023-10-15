@@ -2,7 +2,7 @@
 <launch4jConfig>
   <dontWrapJar>false</dontWrapJar>
   <headerType>gui</headerType>
-  <jar>..\src\UniCaffe\unicaffe\target\unicaffe-cliente.jar</jar>
+  <jar>..\src\UniCaffe\UniCaffeCliente\target\unicaffe-cliente.jar</jar>
   <outfile>.\UniCafeClient.exe</outfile>
   <errTitle></errTitle>
   <cmdLine></cmdLine>
@@ -10,7 +10,7 @@
   <priority>normal</priority>
   <downloadUrl>http://java.com/download</downloadUrl>
   <supportUrl></supportUrl>
-  <stayAlive>false</stayAlive>
+  <stayAlive>true</stayAlive>
   <restartOnCrash>true</restartOnCrash>
   <manifest></manifest>
   <icon>..\doc\cafe.ico</icon>

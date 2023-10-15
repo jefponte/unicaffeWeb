@@ -1,12 +1,20 @@
 <?php
 
-
+/**
+ * 
+ * Gerenciamento de telas voltadas para laboratório. 
+ * @author Jefferson Uchôa Ponte
+ *
+ */
 class LaboratorioController{
 
+	/**
+	 * Verifica nível de acesso e inicia a tela de visualização. 
+	 * @param integer $nivelDeAcesso
+	 */
 	
-	
-	public static function main($tipoDeTela) {
-		switch ($tipoDeTela) {
+	public static function main($nivelDeAcesso) {
+	    switch ($nivelDeAcesso) {
 			case Sessao::NIVEL_SUPER :
 				$laboratorioController = new LaboratorioController();
 				$laboratorioController->telaVisualizacaoAdm();
@@ -23,10 +31,16 @@ class LaboratorioController{
 		
 		
 	}
+	/**
+	 * Mostra o relatório geral de acesso de laboratórios. 
+	 */
 	public static function mainRelatorioGeral(){
 		$control = new LaboratorioController();
 		$control->geraRelatorioGeral();
 	}
+	/**
+	 * Exibe relatório geral de utilização de laboratórios. 
+	 */
 	public function geraRelatorioGeral(){
 		//Vamos fazer umas tabelas interessantes pra mostrar ao povo. 
 		$dao = new DAO();
@@ -116,42 +130,95 @@ class LaboratorioController{
 		
 	}
 	
+	/**
+	 * 
+	 * @param integer $tipoDeTela
+	 * Tela de cadastro de laboratório. 
+	 */
 	
 	public static function mainCadastro($tipoDeTela){
-		if($tipoDeTela != Sessao::NIVEL_SUPER)
-			return;
-		$mensagem = "";
-		$sucesso = false;
-		$erro = false;
-		if(isset($_POST["formulario_cadastro"])){
-			if(isset($_POST['nome']) && $_POST["nome"]!="")
-			{
-				$valida=new Validacoes();
-				$laboratorio = new Laboratorio();
-				$laboratorio->setNome($_POST['nome']);
-				$labDao= new LaboratorioDAO();
-				if($labDao->inserir($laboratorio)){
-					$sucesso = TRUE;
-					$mensagem ="Inserido com sucesso";
-				}
-				else{
-					$erro = true;
-					$mensagem ="Erro ao tentar inserir";
-				}
-			}else{
-				$erro = true;
-				$mensagem ="Preencha o Formulario";
-			}
-		
-		}
-		$laboratorioView = new LaboratorioView();
-		$laboratorioView->formCadastro($mensagem, $erro, $sucesso);
-		
-		
-		
-		
+	    if($tipoDeTela == Sessao::NIVEL_SUPER){
+	        $controller = new LaboratorioController();
+	        $controller->telaCadastro();
+	        
+	    }else{
+            echo "nao encontrada";
+	    }
 		
 	}
+
+	public function telaCadastro(){
+	    $this->dao = new LaboratorioDAO();
+	    $this->cadastro();
+	    $this->deletar();
+	    if(isset($_GET['deletar_id'])){
+	        return;
+	    }
+	    $this->listar();
+	    
+	}
+
+	public function cadastro(){
+	    $this->view = new LaboratorioView();
+	    $this->view->formCadastro();
+	    
+	    if(!isset($_POST["formulario_cadastro"])){
+	        return;
+	    }
+	    if(!isset($_POST['nome'])){
+	        return;
+	    }
+	    if($_POST["nome"] ==""){
+	        return;
+	    }
+        
+	    $laboratorio = new Laboratorio();
+        $laboratorio->setNome($_POST['nome']);
+       
+        if($this->dao->inserir($laboratorio)){
+        
+            $this->view->mensagem("Inserido com sucesso");
+        }
+        else{
+            $this->view->mensagem("Erro ao tentar inserir");
+
+        }
+        
+        
+        echo '<meta http-equiv="refresh" content="2; url=.\?pagina=laboratorios_cadastro">';
+    
+	    
+	}
+	private $dao;
+	private $view;
+	public function listar(){
+	    $lista = $this->dao->retornaLaboratorios();
+	    $this->view->exibirLista($lista);
+	    
+	}
+	public function deletar(){
+	    if(!isset($_GET['deletar_id'])){
+	        return;
+	    }
+	    $this->view->formConfirmacaoDeletar();
+	    if(!isset($_POST['certeza_deletar'])){
+	        return;
+	    }
+	    
+	    $laboratorio = new Laboratorio();
+	    $laboratorio->setId($_GET['deletar_id']);
+	    
+	    if($this->dao->deletar($laboratorio)){
+	        $this->view->mensagem("Sucesso ao tentar Deletar Laboratorio.");
+	    }else{
+	        $this->view->mensagem("Erro ao tentar deletar Laboratorio");
+	    }
+	    
+	    echo '<meta http-equiv="refresh" content="2; url=.\?pagina=laboratorios_cadastro">';
+	}
+	/**
+	 * Tela de visualização de laboratórios. 
+	 */
 	public function telaVisualizacao()
 	{
 		
@@ -179,13 +246,20 @@ class LaboratorioController{
 		
 		
 	}
+	/**
+	 * Visualização de laboratórios como administrador. 
+	 */
 	public function telaVisualizacaoAdm()
 	{
 		$maquinaDao = new MaquinaDAO();
 		$listaCompleta = $maquinaDao->listaCompleta();
 		
 		$dao = new LaboratorioDAO();
+		$perfilDao = new PerfilDAO($dao->getConexao());
 		$lista = $dao->retornaLaboratorios();
+		foreach($lista as $laboratorio){
+		    $perfilDao->carregarPerfil($laboratorio);
+		}
 		$laboratorioView = new LaboratorioView();
 		foreach($lista as $elemento){
 			$livre = 0;

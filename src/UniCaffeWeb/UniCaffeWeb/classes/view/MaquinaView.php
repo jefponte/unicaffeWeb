@@ -1,81 +1,110 @@
 <?php
-class MaquinaView {
-	
-	
-	public static function segundosParaHora($intTempo) {
-		
-		if($intTempo < 0){
-			$intTempo = 0;
-		}
-		$hours = floor ( $intTempo / 3600 );
-		$intTempo -= $hours * 3600;
-		$minutes = floor ( $intTempo / 60 );
-		$intTempo -= $minutes * 60;
-		$strHoras = "";
-		$strHoras .= str_pad($hours, 2, "0", STR_PAD_LEFT);
-		$strHoras .= ':';
-		
-		$strHoras .= str_pad($minutes, 2, "0", STR_PAD_LEFT);
-		
-		$strHoras .= ':';
-		
-		$strHoras .= str_pad($intTempo, 2, "0", STR_PAD_LEFT);
-		
-		return $strHoras;
-	}
-	
-	public function mostraMaquinaDetalhe(Maquina $maquina) {
-		$admin = true;//Depois a gente muda isso. Vamos futuramente receber por parametro.
-		$valor = "";
-		if(!$maquina->getLaboratorio()->getNome())
-			$maquina->getLaboratorio()->setNome("---");
-		if(!$maquina->getAcesso()->getUsuario()->getEmail())
-			$maquina->getAcesso()->getUsuario()->setEmail("---");
-		if(!$maquina->getAcesso()->getUsuario()->getLogin())
-			$maquina->getAcesso()->getUsuario()->setLogin("---");
-		if(!$maquina->getEnderecoMac())
-			$maquina->setEnderecoMac("---");
-		$cor = 'cinza';
-		$status = "Desconectada";
-		if ($maquina->getStatus () == Maquina::STATUS_DISPONIVEL){
-			$cor = 'verde';
-			$status = "Disponível";
-			$maquina->getAcesso()->getUsuario()->setNome('Livre');
-				
-		}
-		else if ($maquina->getStatus () == Maquina::STATUS_DESCONECTADA){
-			$cor = 'cinza';
-			$status = "Desconectada";
-			$maquina->getAcesso()->getUsuario()->setNome('---');
-		}
-		else if ($maquina->getStatus () == Maquina::STATUS_OCUPADA){
-			$cor = 'laranja';
-			$status = "Ocupada";
-			$valor = "online";
-			if($maquina->getAcesso()->getTempoDisponibilizado() - $maquina->getAcesso()->getTempoUsado() <= 600){
-				$cor = 'vermelho';
-				$status = "Finalizando";
-				if(!$admin)
-					$maquina->getAcesso()->getUsuario()->setNome('Finalizando');
-			}else
-			{
-				if(!$admin)
-					$maquina->getAcesso()->getUsuario()->setNome('Ocupada');
-			}
-				
-		}
-		if($maquina->getStatus() != Maquina::STATUS_DESCONECTADA){
-			$valor = 'online';
-		}
-		
-		if(!$admin){
-			$valor = "";//Desabilitar o menu para n�o administradores.
-		}
-		
-		
-		
-		echo '<div id="'.$maquina->getNome().'" class="maquina detalhes maquina-'.$valor.'">
-				<h2 class="maquina-titulo">Máquina: '.$maquina->getNome().'</h2>
+
+/**
+ * Visualizações voltadas para exibição e insersão de máquinas.
+ * @author Jefferson Uchôa Ponte
+ *
+ *
+ */
+class MaquinaView
+{
+
+    /**
+     * Entre com o tempo em segundos no formato inteiro e receberá
+     * horas minutos e segundos no formato string.
+     *
+     * @param integer $intTempo
+     * @return string
+     */
+    public static function segundosParaHora($intTempo)
+    {
+        if ($intTempo < 0) {
+            $intTempo = 0;
+        }
+        $hours = floor($intTempo / 3600);
+        $intTempo -= $hours * 3600;
+        $minutes = floor($intTempo / 60);
+        $intTempo -= $minutes * 60;
+        $strHoras = "";
+        $strHoras .= str_pad($hours, 2, "0", STR_PAD_LEFT);
+        $strHoras .= ':';
+
+        $strHoras .= str_pad($minutes, 2, "0", STR_PAD_LEFT);
+
+        $strHoras .= ':';
+
+        $strHoras .= str_pad($intTempo, 2, "0", STR_PAD_LEFT);
+
+        return $strHoras;
+    }
+
+    /**
+     * Tela de seleção de máquina.
+     *
+     * @param Maquina $maquina
+     */
+    public function mostraMaquinaDetalhe(Maquina $maquina)
+    {
+        $admin = true; // Depois a gente muda isso. Vamos futuramente receber por parametro.
+        $valor = "";
+        if (! $maquina->getLaboratorio()->getNome())
+            $maquina->getLaboratorio()->setNome("---");
+        if (! $maquina->getAcesso()
+            ->getUsuario()
+            ->getEmail())
+            $maquina->getAcesso()
+                ->getUsuario()
+                ->setEmail("---");
+        if (! $maquina->getAcesso()
+            ->getUsuario()
+            ->getLogin())
+            $maquina->getAcesso()
+                ->getUsuario()
+                ->setLogin("---");
+        if (! $maquina->getEnderecoMac())
+            $maquina->setEnderecoMac("---");
+        $cor = 'cinza';
+        $status = "Desconectada";
+        if ($maquina->getStatus() == Maquina::STATUS_DISPONIVEL) {
+            $cor = 'verde';
+            $status = "Disponível";
+            $maquina->getAcesso()
+                ->getUsuario()
+                ->setNome('Livre');
+        } else if ($maquina->getStatus() == Maquina::STATUS_DESCONECTADA) {
+            $cor = 'cinza';
+            $status = "Desconectada";
+            $maquina->getAcesso()
+                ->getUsuario()
+                ->setNome('---');
+        } else if ($maquina->getStatus() == Maquina::STATUS_OCUPADA) {
+            $cor = 'laranja';
+            $status = "Ocupada";
+            $valor = "online";
+            if ($maquina->getAcesso()->getTempoDisponibilizado() - $maquina->getAcesso()->getTempoUsado() <= 600) {
+                $cor = 'vermelho';
+                $status = "Finalizando";
+                if (! $admin)
+                    $maquina->getAcesso()
+                        ->getUsuario()
+                        ->setNome('Finalizando');
+            } else {
+                if (! $admin)
+                    $maquina->getAcesso()
+                        ->getUsuario()
+                        ->setNome('Ocupada');
+            }
+        }
+        if ($maquina->getStatus() != Maquina::STATUS_DESCONECTADA) {
+            $valor = 'online';
+        }
+
+        if (! $admin) {
+            $valor = ""; // Desabilitar o menu para n�o administradores.
+        }
+
+        echo '<div id="' . $maquina->getNome() . '" class="maquina detalhes maquina-' . $valor . '">
+				<h2 class="maquina-titulo">Máquina: ' . $maquina->getNome() . '</h2>
 				<div class="maquina-icone">
 					<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
 						xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -97,7 +126,7 @@ class MaquinaView {
 		                            C91.529,70.509,89.503,72.527,87.009,72.527z" />
 		                    </g>
 		                    <g>
-		                        <rect class="fill-'.$cor.'2" x="0" y="34.652"
+		                        <rect class="fill-' . $cor . '2" x="0" y="34.652"
 							style="fill:#939393;" width="71.577" height="46.525" />
 		                    </g>
 		                    <g>
@@ -110,12 +139,12 @@ class MaquinaView {
 				</div>
 				<div class="maquina-info">
 					<span class="maquina-tempo maquina-tempo-total">Status</span> <span
-						class="maquina-tempo maquina-tempo-restante">'.$status.'</span> <span
+						class="maquina-tempo maquina-tempo-restante">' . $status . '</span> <span
 						class="maquina-tempo maquina-tempo-total">Laboratório</span> <span
-						class="maquina-tempo maquina-tempo-restante">'.$maquina->getLaboratorio()->getNome().'</span>
+						class="maquina-tempo maquina-tempo-restante">' . $maquina->getLaboratorio()->getNome() . '</span>
 					<span class="maquina-tempo maquina-tempo-total">Endereço Mac</span>
-					<span class="maquina-tempo maquina-tempo-restante">'.$maquina->getEnderecoMac().'</span> 
-							
+					<span class="maquina-tempo maquina-tempo-restante">' . $maquina->getEnderecoMac() . '</span>
+					    
 				</div>
 				<div class="linha">
 					<hr />
@@ -143,12 +172,18 @@ class MaquinaView {
 		        	</svg>
 				</div>
 				<div class="maquina-info">
-					<span class="maquina-usuario">'.$maquina->getAcesso()->getUsuario()->getNome().'</span> <span
+					<span class="maquina-usuario">' . $maquina->getAcesso()
+            ->getUsuario()
+            ->getNome() . '</span> <span
 						class="maquina-tempo maquina-tempo-total">Login</span> <span
-						class="maquina-tempo maquina-tempo-restante">'.$maquina->getAcesso()->getUsuario()->getLogin().'</span> <span
+						class="maquina-tempo maquina-tempo-restante">' . $maquina->getAcesso()
+            ->getUsuario()
+            ->getLogin() . '</span> <span
 						class="maquina-tempo maquina-tempo-total">E-mail</span> <span
-						class="maquina-tempo maquina-tempo-restante">'.$maquina->getAcesso()->getUsuario()->getEmail().'</span>
-					
+						class="maquina-tempo maquina-tempo-restante">' . $maquina->getAcesso()
+            ->getUsuario()
+            ->getEmail() . '</span>
+						    
 				</div>
 				<div class="linha">
 					<hr />
@@ -167,86 +202,200 @@ class MaquinaView {
 		        	</svg>
 				</div>
 				<div class="maquina-info">';
-		
-		if($maquina->getStatus() == Maquina::STATUS_OCUPADA)
-			echo '
-					<span class="maquina-tempo maquina-tempo-total">Hora de Entrada</span> <span
-						class="maquina-tempo maquina-tempo-restante">'.date("H:i:s",intval(($maquina->getAcesso()->getHoraInicial()/1000))).'</span> 
-						<span
-						class="maquina-tempo maquina-tempo-total">Tempo Usado</span>
-					<span class="maquina-tempo maquina-tempo-restante">'.self::segundosParaHora($maquina->getAcesso()->getTempoUsado()).'</span>
-					<span class="maquina-tempo maquina-tempo-total">Tempo Restante</span>
-					<span class="maquina-tempo maquina-tempo-restante">'.self::segundosParaHora($maquina->getAcesso()->getTempoDisponibilizado() - $maquina->getAcesso()->getTempoUsado()).'</span> <span
-						class="maquina-tempo maquina-tempo-total">Ip: </span> 
-					<span class="maquina-tempo maquina-tempo-restante">'.$maquina->getAcesso()->getIp().'</span>';
-		else
-				echo '
-					<span class="maquina-tempo maquina-tempo-total">Hora de Entrada</span> <span
-						class="maquina-tempo maquina-tempo-restante">--:--:--</span> <span
-						class="maquina-tempo maquina-tempo-total">Tempo Usado</span>
-					<span class="maquina-tempo maquina-tempo-restante">--:--:--</span>
-					<span class="maquina-tempo maquina-tempo-total">Tempo Restante</span>
-					<span class="maquina-tempo maquina-tempo-restante">--:--:--</span> <span
-						class="maquina-tempo maquina-tempo-total">Ip: </span> <span
-						class="maquina-tempo maquina-tempo-restante">'.MaquinaDAO::retornaUltimoIP($maquina).'</span>';
-		echo '</div>
+
+        if ($maquina->getStatus() == Maquina::STATUS_OCUPADA) {
+            echo '
+            					<span class="maquina-tempo maquina-tempo-total">Hora de Entrada</span> <span
+            						class="maquina-tempo maquina-tempo-restante">' . date("H:i:s", intval(($maquina->getAcesso()->getHoraInicial() / 1000))) . '</span>
+            						<span
+            						class="maquina-tempo maquina-tempo-total">Tempo Usado</span>
+            					<span class="maquina-tempo maquina-tempo-restante">' . self::segundosParaHora($maquina->getAcesso()->getTempoUsado()) . '</span>
+            					<span class="maquina-tempo maquina-tempo-total">Tempo Restante</span>
+            					<span class="maquina-tempo maquina-tempo-restante">' . self::segundosParaHora($maquina->getAcesso()->getTempoDisponibilizado() - $maquina->getAcesso()->getTempoUsado()) . '</span>
+                                <span class="maquina-tempo maquina-tempo-total">Ip: </span><span class="maquina-tempo maquina-tempo-restante">' . $maquina->getAcesso()->getIp() . '</span>
+                               ';
+        } else {
+            echo ' 
+                					<span class="maquina-tempo maquina-tempo-total">Hora de Entrada</span> <span
+                						class="maquina-tempo maquina-tempo-restante">--:--:--</span> <span
+                						class="maquina-tempo maquina-tempo-total">Tempo Usado</span>
+                					<span class="maquina-tempo maquina-tempo-restante">--:--:--</span>
+                					<span class="maquina-tempo maquina-tempo-total">Tempo Restante</span>
+                					<span class="maquina-tempo maquina-tempo-restante">--:--:--</span> <span
+                						class="maquina-tempo maquina-tempo-total">Ip: </span> <span
+                						class="maquina-tempo maquina-tempo-restante">' . MaquinaDAO::retornaUltimoIP($maquina) . '</span>';
+        }
+
+        echo '
+
+                                <span class="maquina-tempo maquina-tempo-total">Cota: </span><span class="maquina-tempo maquina-tempo-restante">' . self::segundosParaHora($maquina->getCota()) . '</span>
+                                </div>
 				<div class="linha">
 					<hr />
 				</div>
-				
+                                    
 				<div class="comando doze centralizado">
-					<a href="index.php?pagina=maquinas&comando=4&maquina='.$maquina->getNome().'" class="botao b-aviso"><span class="icone-lock"> </span>Bloquear</a>
-					<a href="index.php?pagina=maquinas&comando=2&maquina='.$maquina->getNome().'" class="botao b-sucesso"><span class="icone-books"></span>Aula</a> 
-							<a href="index.php?pagina=maquinas&comando=1&maquina='.$maquina->getNome().'" class="botao b-erro"><span
-						class="icone-switch"> </span>Desligar</a> 
-						<a href="#link" class="botao disabled"><span class="icone-switch"> </span>Ligar</a>
-								</div>
+					<a href="index.php?pagina=maquinas&comando=4&maquina=' . $maquina->getNome() . '&laboratorio=' . $maquina->getLaboratorio()->getNome() . '" class="botao b-aviso"><span class="icone-lock"> </span>Bloquear</a>
+					<a href="index.php?pagina=maquinas&comando=2&maquina=' . $maquina->getNome() . '&laboratorio=' . $maquina->getLaboratorio()->getNome() . '" class="botao b-sucesso"><span class="icone-books"></span>Aula</a>
+					<a href="index.php?pagina=maquinas&comando=1&maquina=' . $maquina->getNome() . '&laboratorio=' . $maquina->getLaboratorio()->getNome() . '" class="botao b-erro"><span class="icone-switch"> </span>Desligar</a>
+                    <a href="index.php?pagina=maquina&maquina=' . $maquina->getNome() . '&liberadorLab=" class="botao b-secundario"><span class="icone-tree"></span> Liberar Progs no Laboratório </a>
+                    <a href="index.php?pagina=maquina&maquina=' . $maquina->getNome() . '&liberadorMaquina=" class="botao b-aviso"><span class="icone-display"></span> Liberar Prog em uma Máquina </a>
+				</div>
+	           	            
 				<div class="linha"></div>
-			</div>';
-	}
-	
-	public function mostraMaquina(Maquina $maquina, $admin = true) {
-		$valor = "";
-		$cor = 'cinza';
-		if ($maquina->getStatus () == Maquina::STATUS_DISPONIVEL){
-			$cor = 'verde';
-			$maquina->getAcesso()->getUsuario()->setNome('Livre');
-			
-		}
-		else if ($maquina->getStatus () == Maquina::STATUS_DESCONECTADA){
-			$cor = 'cinza';
-			$maquina->getAcesso()->getUsuario()->setNome('Indisponível');
-		}
-		else if ($maquina->getStatus () == Maquina::STATUS_OCUPADA){
-			$cor = 'laranja';
-			$valor = "online";
-			if($maquina->getAcesso()->getTempoDisponibilizado() - $maquina->getAcesso()->getTempoUsado() <= 600){
-				$cor = 'vermelho';
+            
+';
 
-				if(!$admin)
-					$maquina->getAcesso()->getUsuario()->setNome('Finalizando');
-			}else
-			{
-				if(!$admin)
-					$maquina->getAcesso()->getUsuario()->setNome('Ocupada');
-			}
-			
-		}
-		if($maquina->getStatus() != Maquina::STATUS_DESCONECTADA){
-			$valor = 'online';
-		}
-		if(!$admin){
-			$valor = "";//Desabilitar o menu para n�o administradores. 
-		}
-// 		if($maquina->getAcesso()->getTempoDisponibilizado() - $maquina->getAcesso()->getTempoUsado() <= 600 && $maquina->getStatus() != Maquina::STATUS_DESCONECTADA){
-// 			$cor = 'vermelho';
-// 			$valor = 'online';
-// 		}
+        if (isset($_GET['liberadorLab'])) {
+            $this->formLiberadorLab($maquina);
+        } elseif (isset($_GET['liberadorMaquina'])) {
+            $this->formLiberadorMaquina($maquina);
+        } else {
+            $this->formAviso($maquina);
+        }
 
-		if($admin)
-			echo '<a href="?pagina=maquina&maquina='.$maquina->getNome().'">';
-		echo ' <div id="'.$maquina->getNome().'" class="maquina maquina-'.$valor.'">
-		  	<h2 class="maquina-titulo">' . $maquina->getNome () . '</h2>
+        echo '
+                </div>
+			';
+    }
+
+    /**
+     * Faz o desenho de uma máquina no UniCaffé Web.
+     *
+     * @param Maquina $maquina
+     * @param boolean $admin
+     */
+    public function formAviso(Maquina $maquina)
+    {
+        echo '<form action="" method="get">
+					<input type="hidden" name="pagina" value="maquinas" />
+                    <input type="hidden" name="maquina" value="' . $maquina->getNome() . '" />
+                    <input type="hidden" name="laboratorio" value="' . $maquina->getLaboratorio()->getNome() . '" />
+                    
+                    <input type="hidden" name="comando" value="' . ComandoController::COMANDO_AVISO . '" />
+<script type="text/javascript">
+function teste(valor){
+    if(valor > 1000) {
+        alert("Mensagem muito grande. Máximo 1000 caracteres. ");
+    }   
+}
+</script><textarea name="texto" cols="42" rows="7" maxlength="1010" required onkeyup="teste(this.value.length)"></textarea>
+			<br><input class="botao b-sucesso" type="submit" name="enviar" value="Enviar Aviso"/>
+			</form>
+';
+    }
+
+    /**
+     * recebe na textArea os ultimos 30 bloqueios
+     * o técnico edita caso necessário e
+     * envia para todos os clientes ou apenas um, a lista de programas
+     * que a partir de então, fará parte do permitidos
+     *
+     * @param Maquina $maquina
+     * @param boolean $admin
+     */
+    public function formLiberadorLab(Maquina $maquina)
+    {
+        $msg = '<p class="justificado"> Esta caixa de texto abaixo, é carregada com os programas bloqueados atualmente na máquina ' . $maquina->getNome() . ' , podendo ser editada conforme necessidade. Ao clicar em liberar processo, todos os computadores do laboratório ' . $maquina->getLaboratorio()->getNome() . ' que estiverem ligados no momento, irão receber a liberação dos programas, para efetivar a liberação é feito um logoff e logon automático</p>';
+
+        echo $msg;
+
+        $controller = new ComandoController();
+        $controller->meDeProcessosBloqueados($maquina->getNome());
+        sleep(2);
+
+        $processosBloqueados = $controller->verProcessosBloqueados($maquina->getNome());
+
+        $processosBloqueados = str_replace('<br/>', '&#10', $processosBloqueados);
+
+        echo '<form action="" method="get">
+					<input type="hidden" name="pagina" value="maquinas" />
+                    <input type="hidden" name="laboratorio" value="' . $maquina->getLaboratorio()->getNome() . '" />
+                    <input type="hidden" name="comando_laboratorio" value="' . $maquina->getLaboratorio()->getNome() . '" />                                            
+                    <input type="hidden" name="comando" value="' . ComandoController::COMANDO_LIBERA_PROCESSOS_BLOQUEADOS . '" />
+                    <textarea name="texto" cols="80" rows="7" >' . $processosBloqueados . '</textarea>						
+            <br><input class="botao b-secundario" type="submit" name="enviar" value="Libera Processos Bloqueados - Laboratório"/>		
+			</form>
+';
+    }
+
+    /**
+     * recebe na textArea os ultimos 30 bloqueios
+     * o técnico edita caso necessário e
+     * envia para todos os clientes ou apenas um, a lista de programas
+     * que a partir de então, fará parte do permitidos
+     *
+     * @param Maquina $maquina
+     * @param boolean $admin
+     */
+    public function formLiberadorMaquina(Maquina $maquina)
+    {
+        $msg = '<p class="justificado"> Esta caixa de texto abaixo, é carregada com os programas bloqueados atualmente na máquina ' . $maquina->getNome() . ' , podendo ser editada conforme necessidade. Para liberar os programas somente na máquina ' . $maquina->getNome() . ' basta clicar em libera processos bloqueados, para efetivar a liberação é feito um logoff e logon automático</p>
+        ';
+        echo $msg;
+
+        $controller = new ComandoController();
+        $controller->meDeProcessosBloqueados($maquina->getNome());
+        sleep(2);
+
+        $processosBloqueados = $controller->verProcessosBloqueados($maquina->getNome());
+
+        $processosBloqueados = str_replace('<br/>', '&#10', $processosBloqueados);
+
+        echo '<form action="" method="get">
+					<input type="hidden" name="pagina" value="maquinas" />
+                    <input type="hidden" name="maquina" value="' . $maquina->getNome() . '" />
+                    <input type="hidden" name="laboratorio" value="' . $maquina->getLaboratorio()->getNome() . '" />                                        
+                    <input type="hidden" name="comando" value="' . ComandoController::COMANDO_LIBERA_PROCESSOS_BLOQUEADOS . '" />
+                    <textarea name="texto" cols="80" rows="7" >' . $processosBloqueados . '</textarea>
+            <br><input class="botao b-aviso" type="submit" name="enviar" value="Libera Processos Bloqueados - Máquina"/>
+			</form>
+';
+    }
+
+    public function mostraMaquina(Maquina $maquina, $admin = true)
+    {
+        $valor = "";
+        $cor = 'cinza';
+        if ($maquina->getStatus() == Maquina::STATUS_DISPONIVEL) {
+            $cor = 'verde';
+            $maquina->getAcesso()
+                ->getUsuario()
+                ->setNome('Livre');
+        } else if ($maquina->getStatus() == Maquina::STATUS_DESCONECTADA) {
+            $cor = 'cinza';
+            $maquina->getAcesso()
+                ->getUsuario()
+                ->setNome('Indisponível');
+        } else if ($maquina->getStatus() == Maquina::STATUS_OCUPADA) {
+            $cor = 'laranja';
+            $valor = "online";
+            if ($maquina->getAcesso()->getTempoDisponibilizado() - $maquina->getAcesso()->getTempoUsado() <= 600) {
+                $cor = 'vermelho';
+
+                if (! $admin)
+                    $maquina->getAcesso()
+                        ->getUsuario()
+                        ->setNome('Finalizando');
+            } else {
+                if (! $admin)
+                    $maquina->getAcesso()
+                        ->getUsuario()
+                        ->setNome('Ocupada');
+            }
+        }
+        if ($maquina->getStatus() != Maquina::STATUS_DESCONECTADA) {
+            $valor = 'online';
+        }
+        if (! $admin) {
+            $valor = "";
+        }
+
+        if ($admin) {
+            echo '<a href="?pagina=maquina&maquina=' . $maquina->getNome() . '">';
+        }
+        echo ' <div id="' . $maquina->getNome() . '" class="maquina maquina-' . $valor . '">
+		  	<h2 class="maquina-titulo">' . $maquina->getNome() . '</h2>
 		  	<div class="maquina-icone">
 				<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 109.602 109.602" style="enable-background:new 0 0 109.602 109.602;" xml:space="preserve">
 		            <g>
@@ -272,41 +421,48 @@ class MaquinaView {
 		        </svg>
 		  	</div>
 		  	<div class="maquina-info">
-		  		<span class="maquina-usuario">' . $maquina->getAcesso ()->getUsuario ()->getNome () . '</span>';
-		
-		if($maquina->getStatus() == Maquina::STATUS_OCUPADA)
-			echo '
-			    	<span class="maquina-tempo maquina-tempo-total">'.self::segundosParaHora($maquina->getAcesso()->getTempoUsado()).'</span>
-			    	<span class="maquina-tempo maquina-tempo-restante">'.self::segundosParaHora($maquina->getAcesso()->getTempoDisponibilizado() - $maquina->getAcesso()->getTempoUsado()).'</span>';
-		
-		else 
-			echo '
-			    	<span class="maquina-tempo maquina-tempo-total">--:--:--</span>
+		  		<span class="maquina-usuario">' . $maquina->getAcesso()
+            ->getUsuario()
+            ->getNome() . '</span>';
+
+        if ($maquina->getStatus() == Maquina::STATUS_OCUPADA) {
+            echo '
+			    	<span class="maquina-tempo maquina-tempo-total">' . $maquina->getVersao() . '</span>
+			    	<span class="maquina-tempo maquina-tempo-restante">' . self::segundosParaHora($maquina->getAcesso()->getTempoUsado()) . '</span>';
+        } else {
+            echo '
+			    	<span class="maquina-tempo maquina-tempo-total">' . $maquina->getVersao() . '</span>
 			    	<span class="maquina-tempo maquina-tempo-restante">--:--:--</span>';
-			
-		echo '
+        }
+        echo '
 			</div>
 		</div>';
-		if($admin)
-			echo '</a>';
-	}
-	public function formPesquisaHistorico(){
-		echo '<div class="resolucao">
-            <div class="doze colunas">
-                <div class="conteudo fundo-branco">';
-		
-		echo '<form action="#" method="get" name="form_pesquisa" id="pesquisa" class="formulario-organizado">
+        if ($admin) {
+            echo '</a>';
+        }
+    }
+
+    /**
+     * Formulário de pesquisa de histórico de acesso.
+     */
+    public function formPesquisaHistorico()
+    {
+        echo '
+            
+                <div class="borda">';
+
+        echo '<form action="#" method="get" name="form_pesquisa" id="pesquisa" class="formulario-organizado">
                       <label for="lab">
                       <object class="">Usuario: </object>
-		
+            
                       <input type="text" name="usuario" id="usuario" />
                       </label>
 						<input type="hidden" name="pagina" value="gerenciamento_relatorios" />
                         <input type="submit" value="enviar" name="form_pesquisa" />
-                    </form></div>
-            </div>
+                    </form>
+            
         </div>';
-	}
+    }
 }
 
 ?>

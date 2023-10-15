@@ -7,14 +7,14 @@
 <body>
 
 
-<a id="link_64" href="setupUniCaffe64.exe">Download UniCafe 1.0 64 Bits </a>
+<a id="link_64" href="setupUniCaffe64.exe">Download UniCafe 2.0.1 64 Bits </a>
 <br>
-<br>
-<br>
-<a id="link_32" href="setupUniCafe32Bits.exe">Download UniCafe 1.0 32 Bits </a>
 <br>
 
+<a id="link_64" href="UniCaffeTokenGerador.exe">Download Gerador de Token UniCafe 2.0.2</a>
+<br>
 
+<br>
 
 
 </body>

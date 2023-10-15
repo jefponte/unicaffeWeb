@@ -1,41 +1,52 @@
 <?php
 
+/**
+ * Visuões relacionadas aos laboratórios. 
+ * @author Jefferson Uchôa Ponte
+ *
+ */
+class LaboratorioView
+{
 
-class LaboratorioView{
-	
-	
-	public function mostraLaboratorio(Laboratorio $laboratorio, $admin = false, $livres, $ocupadas, $desconectadas, $total) {
-		$estado = 'Fechado';
-		$cor = 'cinza';
-		if($livres >= 1){
-			$cor = 'verde';
-			$estado = 'Aberto';
-		}else{
-			if($desconectadas == $total){
-				$cor = 'cinza';
-				$estado = 'Indisponível';
-				
-			}else if($ocupadas == $total){
-				$estado = 'Lotado';
-				$cor = 'laranja';
-			}else if($ocupadas >= 1)
-			{
-				$estado = 'Lotado';
-				$cor = 'laranja';
-			}
-		}
-		
-		
-		echo '<a href="?pagina=maquinas&laboratorio='.$laboratorio->getNome().'">
-				<div class="maquina maquina-verde">
-					<h2 class="maquina-titulo">'.$laboratorio->getNome().'</h2>
+    /**
+     * Mostra um laboratório na tela de listagem de laboratórios. 
+     * @param Laboratorio $laboratorio
+     * @param boolean $admin
+     * @param integer $livres
+     * @param integer $ocupadas
+     * @param integer $desconectadas
+     * @param integer $total
+     */
+    public function mostraLaboratorio(Laboratorio $laboratorio, $admin = false, $livres, $ocupadas, $desconectadas, $total)
+    {
+        $estado = 'Fechado';
+        $cor = 'cinza';
+        if ($livres >= 1) {
+            $cor = 'verde';
+            $estado = 'Aberto';
+        } else {
+            if ($desconectadas == $total) {
+                $cor = 'cinza';
+                $estado = 'Indisponível';
+            } else if ($ocupadas == $total) {
+                $estado = 'Lotado';
+                $cor = 'laranja';
+            } else if ($ocupadas >= 1) {
+                $estado = 'Lotado';
+                $cor = 'laranja';
+            }
+        }
+        
+        echo '<a href="?pagina=maquinas&laboratorio=' . $laboratorio->getNome() . '">
+				<div id="'.$laboratorio->getNome().'" class="maquina maquina-verde">
+					<h2 class="maquina-titulo">' . $laboratorio->getNome() . '</h2> 
 					<div class="maquina-icone">
 						<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg"
 							xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
 							viewBox="0 0 464.309 464.309"
 							style="enable-background: new 0 0 464.309 464.309;"
 							xml:space="preserve">
-					<path class="fill-'.$cor.'2"
+					<path class="fill-' . $cor . '2"
 								d="M453.955,71.625H268.662c-5.709,0-10.354,4.644-10.354,10.352v46.872H206V81.976c0-5.708-4.645-10.352-10.354-10.352H10.354
 						C4.644,71.625,0,76.268,0,81.976v114.961c0,5.709,4.644,10.353,10.354,10.353h63.662v5.768h-8.428
 						c-5.708,0-10.352,4.645-10.352,10.354c0,5.708,4.644,10.352,10.352,10.352h35.473v54.758c0,6.846,5.572,12.415,12.421,12.415h82.392
@@ -51,67 +62,99 @@ class LaboratorioView{
 				</svg>
 					</div>
 					<div class="maquina-info">
-						<span class="maquina-usuario">'.$estado.'</span>
-						<span class="maquina-usuario pequeno">'.$livres.' máquinas livres</span>
-						<span class="maquina-usuario pequeno">'.$ocupadas.' máquinas ocupadas</span>
-						<span class="maquina-usuario pequeno">'.$desconectadas.' máquinas indisponíveis</span>
-						<span class="maquina-usuario pequeno">'.$total.' máquinas </span>
-					</div>';
-		
-		if($admin)
-			echo '
+						<span class="maquina-usuario">' . $estado . '|'.$laboratorio->getPerfil()->getNome().'</span>
+						<span class="maquina-usuario pequeno">' . $livres . ' máquinas livres</span>
+						<span class="maquina-usuario pequeno">' . $ocupadas . ' máquinas ocupadas</span>
+						<span class="maquina-usuario pequeno">' . $desconectadas . ' máquinas indisponíveis</span>
+						<span class="maquina-usuario pequeno">' . $total . ' máquinas </span>
+					</div>
+                   
+
+';
+        
+        if ($admin) {
+            echo '
 			<div class="linha">
 						<hr />
 					</div>
 		
 
 					<div class="comando doze centralizado minimo">
-						<a href="?pagina=maquinas&laboratorio='.$laboratorio->getNome().'&comando_laboratorio='.$laboratorio->getNome().'&comando='.ComandoController::COMANDO_BLOQUEIA.'" class="botao b-aviso"><span class="icone-lock"> </span>Bloquear</a>
-						<a href="?pagina=maquinas&laboratorio='.$laboratorio->getNome().'&comando_laboratorio='.$laboratorio->getNome().'&comando='.ComandoController::COMANDO_AULA.'" class="botao b-sucesso"><span class="icone-books">
-						</span>Aula</a> <a href="?pagina=maquinas&laboratorio='.$laboratorio->getNome().'&comando_laboratorio='.$laboratorio->getNome().'&comando='.ComandoController::COMANDO_DESLIGAR.'" class="botao b-erro"><span
-							class="icone-switch"> </span>Desligar</a> <a href="?pagina=maquinas&laboratorio='.$laboratorio->getNome().'&comando_laboratorio='.$laboratorio->getNome().'&comando='.ComandoController::COMANDO_LIGAR.'"
-							class="botao"><span class="icone-switch"> </span>Ligar</a>
+						<a href="?pagina=maquinas&laboratorio=' . $laboratorio->getNome() . '&comando_laboratorio=' . $laboratorio->getNome() . '&comando=' . ComandoController::COMANDO_BLOQUEIA . '" class="botao b-aviso"><span class="icone-lock"> </span>Bloquear</a>
+					
+                        <a href="?pagina=maquinas&laboratorio=' . $laboratorio->getNome() . '&comando_laboratorio=' . $laboratorio->getNome() . '&comando=' . ComandoController::COMANDO_LIGAR . '"	 class="botao  b-sucesso"><span class="icone-switch"> </span>Ligar</a>	
+                        
+                        <a href="?pagina=maquinas&laboratorio=' . $laboratorio->getNome() . '&comando_laboratorio=' . $laboratorio->getNome() . '&comando=' . ComandoController::COMANDO_DESLIGAR . '" class="botao b-erro">
+                    <span class="icone-switch"> </span>Desligar</a> 
+                    
+                    
 					</div>
 					<div class="linha"></div>';
-		echo '
+
+        }
+        echo '
 				</div>
 			</a>';
-	}
-	
-	/**
-	 * PReencha as entradas para que sejam mostrada mensagem de sucesso ou de erro no formulario. 
-	 * @param string $mensagem
-	 * @param string $erro
-	 * @param string $sucesso
-	 */
-	public function formCadastro($mensagem = "", $erro = false, $sucesso = false){
-		
-		echo '<div class="resolucao">
-            <div class="doze colunas">
-                <div class="conteudo fundo-branco">';
-		
-			if($erro==TRUE)
-				echo '<div class="alerta-erro">
-                            <div class="icone icone-clock2 ix16"></div>
-                            <div class="titulo-alerta">'.$mensagem.'</div>
-                            <div class="subtitulo-alerta">'.$mensagem.'</div>
-                        </div>';
-			if($sucesso==TRUE)
-				echo '<div class="alerta-sucesso">
-                            <div class="icone icone-download ix48"></div>
-                            <div class="titulo-alerta">'.$mensagem.'</div>
-                            <div class="subtitulo-alerta"><?php ?></div>
-                        </div>';
-			echo '<form action="#" method="post" name="formulario_cadastro" id="formulario_cadastro" class="formulario-organizado">
+    }
+
+
+    public function formCadastro()
+    {
+        echo '<div class="borda">';
+        
+        echo '<form action="#" method="post" name="formulario_cadastro" id="formulario_cadastro" class="formulario-organizado">
                       <label for="lab">
                       <object class="">Nome Laboratório: </object> 
                       
                       <input type="text" name="nome" id="nome" />
                       </label>
                         <input type="submit" value="enviar" name="formulario_cadastro" />
-                    </form></div>
-            </div>
-        </div>';
-		
-	}
+                    </form></div>';
+    }
+    
+    public function mensagem($str)
+    {
+        echo '<div class="borda">';
+        echo '<p>'.$str.'</p></div>';
+    }
+    
+    public function exibirLista($lista){
+        echo '
+            <div class="borda" >
+                <table border="1">';
+        if(!count($lista)){
+            echo "Lista Vazia";
+        }else{
+            echo '<tr><th>ID</th><th>Nome</th><th>Deletar</th></tr>';
+            foreach($lista as $laboratorio){
+                
+                echo '<tr><td>'.$laboratorio->getId().'</td><td>'.$laboratorio->getNome().'</td><td><a class="botao" href="?pagina=laboratorios_cadastro&deletar_id='.$laboratorio->getId().'">Deletar</a></td></tr>';
+                
+            }
+        }
+        
+        
+        echo '</table>
+            
+            </div>';
+        
+    }
+    
+    public function formConfirmacaoDeletar(){
+        echo ' <div class="confirmacao">';
+        echo '<p>Tem certeza que Deletar este Laboratorio? </p>';
+        echo '<form method="post" action="">
+                <input type="submit" class="botao b-primario" name="certeza_deletar" value="Confirmar" />
+                <a href="?pagina=perfil" class="botao b-erro" > Cancelar </a>
+                </form>';
+        echo '</div>';
+        
+    }
+    public function printMensagem($str){
+        echo '
+            <div class="borda" >
+                <p>'.$str.'</p>
+            </div>';
+        
+    }
 }

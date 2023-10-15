@@ -1,14 +1,18 @@
 <?php
 /**
- * 
+ * Controller voltado para gerenciamento de usuários e autenticação. 
  * @author Jefferson Uchôa Ponte
  *
  */
 
 class UsuarioController{
 	
-	public static function main($tela){
-		switch ($tela){
+    /**
+     * Verifica o nível de acesso e inicia a tela de login. 
+     * @param integer $tela
+     */
+	public static function main($nivel){
+	    switch ($nivel){
 			case Sessao::NIVEL_SUPER:
 				echo 	'<meta http-equiv="refresh" content=1;url="index.php">';
 				break;
@@ -20,10 +24,11 @@ class UsuarioController{
 				echo 	'<meta http-equiv="refresh" content=1;url="index.php">';
 				break;
 		}
-
-		
 	}
-	
+	/**
+	 * Incia aplicação de gerenciamento de administradores. 
+	 * @param integer $nivelDeAcesso
+	 */
 	public static function gerenciaAdmin($nivelDeAcesso){
 		switch ($nivelDeAcesso)
 		{
@@ -35,6 +40,9 @@ class UsuarioController{
 				break;
 		}
 	}
+	/**
+	 * Inicia aplicação de autenicação. 
+	 */
 	public function telaLogin(){
 		$usuarioView = new UsuarioView();
 		$erro=FALSE;
@@ -62,11 +70,13 @@ class UsuarioController{
 		$usuarioView->mostraFormularioLogin();
 	}
 	/**
-	 * Atravez dessa aplicacao sera possivel definir um usuario para administrar um novo laboratorio. 
+	 * Atravez dessa aplicacao sera possivel definir um usuario para administrar 
+	 * um novo laboratorio. 
 	 */
 	public function gerenciamentoDeAdministrador(){
 		
-		if(isset($_GET['form_gerencia_adm'])){
+		if(isset($_GET['form_gerencia_adm']))
+		{
 			if($_GET['usuario'] && $_GET['laboratorio'])
 			{
 				$usuario = new Usuario();
@@ -103,8 +113,8 @@ class UsuarioController{
 			
 		}
 		
-		echo '<div class="resolucao">
-            <div class="doze colunas">
+		echo '<div class="borda">
+           
                 <div class="conteudo fundo-branco">';
 		echo '<form action="#" method="get" name="form_gerencia_adm" id="pesquisa" class="formulario-organizado">
                       <label for="usuario">
@@ -119,8 +129,9 @@ class UsuarioController{
                       </label>
 						<input type="hidden" name="pagina" value="gerenciamento_administrador" />
                         <input type="submit" value="enviar" name="form_gerencia_adm" />
-                    </form></div>
-            </div>
+                    </form>
+                </div>
+           
         </div>';
 	}
 }

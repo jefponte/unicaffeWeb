@@ -1,12 +1,22 @@
 <?php
 
-
+/**
+ * Visões da página inicial. 
+ * @author Jefferson Uchôa Ponte
+ *
+ */
 class HomeView{
 	
+    /**
+     * Inicia página inicial. 
+     */
 	public static function main(){
 		$homeView = new HomeView();
 		$homeView->mostraPaginaInicial();
 	}
+	/**
+	 * Mostra informações na página inicial. 
+	 */
 	public function mostraPaginaInicial(){
 		echo '
 
@@ -25,7 +35,7 @@ class HomeView{
 				O UniCaffé (Sistema de Controle de Acesso de Laboratórios de Universidade), 
 				é um conjunto de softwares, mantido pelo 
 				<a href="#LABPATI">LABPATI - Laboratório de Projetos de Automação e Tecnologias Inovadoras</a>,
-				que facilita o gerenciamento dos laboratórios de informática permitindo com que os alunos tenham
+				que facilita o gerenciamento de laboratórios de informática permitindo com que os alunos tenham
 				acesso direto e automatico através do usuário e senha do sistema acadêmico da universidade. 
 				
 				Qualquer membro da comunidade poderá ter acesso a um PC com UniCaffé através de suas 

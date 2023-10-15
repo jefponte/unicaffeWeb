@@ -1,34 +1,67 @@
 <?php
-
-/*********
-  * Copyright (c) 12/07/2017 {INITIAL COPYRIGHT UNILAB} {OTHER COPYRIGHT LABPATI/DISUP/DTI}.
-  * All rights reserved. This program and the accompanying materials
-  * are made available under the terms of the Eclipse Public License v1.0
-  * which accompanies this distribution, and is available at
-  * http://www.eclipse.org/legal/epl-v10.html
-  *
-  * Contributors:
-  *    Jefferson Uchôa Ponte - initial API and implementation and/or initial documentation
-  *********/
+/**
+ * Faz conexão com banco de dados e gerencia persistências.
+ * @author Jefferson Uchôa Ponte
+ *
+ */
 class DAO {
+    /**
+     * @var string
+     * Path do arquivo de configuração do banco de dados. 
+     */
 	const ARQUIVO_CONFIGURACAO = "/dados/unicaffe/unicaffe_bd.ini";
+	/**
+	 * @var integer
+	 * Indica conexão com o UniCaffé Servidor. 
+	 */
 	const TIPO_UNICAFFE = 0;
+	/**
+	 * @var integer
+	 * Indica conexão com base de dados padrão. 
+	 */
 	const TIPO_DEFAULT = 1;
+	/**
+	 * @var integer
+	 * Indica conexão com base de dados de usuários. 
+	 */
 	const TIPO_USUARIOS = 2;
+	/**
+	 * @var integer
+	 * Indica conexão de base de dados para autenticação. 
+	 */
 	const TIPO_AUTENTICACAO = 3;
-	
-	
+	/**
+	 * @var mixed 
+	 */
 	protected $conexao;
+	/**
+	 * @var int
+	 */
 	private $tipoDeConexao;
+	/**
+	 * @var string sistema gerenciador de banco de dados.
+	 */
 	private $sgbb;
+	/**
+	 * @var string entidade para autenticação ou busca de usuários. 
+	 */
 	private $entidade;
 	
+	/**
+	 * @return string
+	 */
 	public function getEntidade(){
 		return $this->entidade;
 	}
 	/**
-	 * @param unknown $conexao // Pode ser PDO ou UniCaffe. 
-	 * @param unknown $tipo
+	 * Obtém objeto DAO. Atribua uma conexão no primeiro parâmetro caso queira reaproveitá-la.
+	 * Caso queira abrir uma nova conexão diferente da conexão do banco de dados padrão atribua null
+	 * no primeiro parâmetro e no segundo atribua uma constante da classe DAO para definir o tipo
+	 * de conexão.
+	 *
+	 *
+	 * @param PDO|UniCaffe $conexao
+	 * @param integer $tipo
 	 */
 	public function __construct($conexao = null, $tipo = self::TIPO_DEFAULT) {
 		$this->tipoDeConexao = $tipo;
@@ -38,6 +71,12 @@ class DAO {
 			$this->fazerConexao ();
 		}
 	}
+	/**
+	 * Faz uma conexão com banco de dados ou com o UniCaffé.
+	 *  A biblioteca UniCaffe.php trata conexão com banco de dados com o servidor do UniCaffé
+	 *  de forma muito semelhante à forma usada pelo PDO. Por esse motivo foi adicionado aqui como 
+	 *  um tipo de conexão do DAO. 
+	 */
 	public function fazerConexao() {
 		$config = parse_ini_file ( self::ARQUIVO_CONFIGURACAO );
 		

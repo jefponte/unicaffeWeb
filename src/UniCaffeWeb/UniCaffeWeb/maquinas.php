@@ -12,7 +12,7 @@ include_once 'classes/dao/MaquinaDAO.php';
 include_once 'classes/dao/UniCaffe.php';
 include_once 'classes/view/LaboratorioView.php';
 include_once 'classes/util/Sessao.php';
-
+include_once 'classes/model/Perfil.php';
 
 $sessao = new Sessao ();
 MaquinaController::main($sessao->getNivelAcesso());

@@ -1,2 +1,0 @@
-[Cole aqui os processos do arquivo bloqueados.txt que deseja permitir. Um processo por linha. Não apague esta linha!] 
-C:\Program Files\FileZilla FTP Client\filezilla.exe,filezilla.exe

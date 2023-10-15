@@ -1,27 +1,46 @@
 <?php
 
 /**
- * 
- * @author jefponte
+ * Trata excessões da conexão com o servidor do UniCaffé. 
+ * @author Jefferson Uchôa Ponte
  *
  */
 class UniCaffeException extends Exception {
+    /**
+     * Constrói objeto UniCaffeException
+     * @param string $message
+     * @param number $code
+     * @param string $previous
+     */
 	public function __construct($message, $code = 0, $previous = null) {
 		$this->message = $message;
 		$this->code = $code;
 		$this->message = "Servidor indisponivel";
 	}
 }
+/**
+ * Resultado de instrução enviada para o servidor do UniCaffé. 
+ * @author Jefferson Uchôa Ponte
+ *
+ */
 class UniCaffeStatement implements Iterator {
+   
 	private $position = 0;
 	private $array;
+	/**
+	 * Constrói objeto UniCaffeStatement.
+	 */
 	public function __construct() {
 		$this->position = 0;
 		$this->array = array ();
 	}
+	/**
+	 * @param string[] $matriz
+	 */
 	public function setArray($matriz) {
 		$this->array = $matriz;
 	}
+	
 	function rewind() {
 		$this->position = 0;
 	}
@@ -40,9 +59,9 @@ class UniCaffeStatement implements Iterator {
 }
 
 /**
+ * Faz conexões e envia comandos para o servidor do UniCaffé. 
+ * @author Jefferson Uchôa Ponte
  *
- * @author jefponte
- *        
  */
 class UniCaffe {
 	private $socket;
@@ -50,26 +69,39 @@ class UniCaffe {
 	private $host;
 	private $usuario;
 	private $senha;
-	
+	/**
+	 * Constrói objeto UniCaffe e faz uma conexão com o servidor. 
+	 * @param string $host
+	 * @param integer $porta
+	 * @param string $usuario
+	 * @param string $senha
+	 */
 	public function __construct($host = null, $porta = null, $usuario = null, $senha = null) {
-		
-		$this->host = $host;
+	    $this->host = $host;
 		$this->porta = $porta;
 		$this->usuario = $usuario;
 		$this->senha = $senha;
 		$this->connect();
 	}
+	/**
+	 * Inicia uma conexão com servidor do UniCaffé. 
+	 */
 	public function connect(){
 		$this->socket = unicaffeConnect ( $this->host, $this->porta, $this->usuario, $this->senha );
 	}
+	/**
+	 * Envia um comando para o servidor do UniCaffé. 
+	 * @param string $comando
+	 */
 	public function exec($comando) {
 		unicaffeExec ( $this->socket, $comando );
 	}
 	
 	/**
-	 * Executa uma instru��o SQL, retornando um objeto UniCaffeStatement como resultado.
-	 *
-	 * @return UniCaffeStatement UniCaffe::query retorna um objeto UniCaffeStatement, ou falto se der erro.
+	 * Executa uma instrução SQL, retornando uma lista de elementos. 
+	 * 
+	 * @return UniCaffeStatement UniCaffe::query retorna um objeto UniCaffeStatement, 
+	 * ou falto se der erro.
 	 */
 	public function query($statement) {
 		
@@ -98,32 +130,22 @@ class UniCaffe {
 	}
 	
 	/**
-	 * Passar comandos diretamente para o servidor.
-	 *
-	 * capturando a resposta e retornando do jeito que ele manda.
+	 *Envia uma mensagem ao servidor do UniCaffé e espera uma resposta.  
 	 *
 	 * @param string $comando        	
 	 */
 	public function dialoga($comando) {
 		return unicaffeDialoga ( $this->socket, $comando );
 	}
+	/**
+	 * Fecha a conexão. 
+	 */
 	public function close() {
 		unicaffeClose ( $this->socket );
 	}
 }
 
-/**
- *
- * @author jefponte
- *        
- */
-class UniCaffeResult{
-	public $current_field;
-	public $field_count;
-	public $lengths;
-	public $num_rows;
-	public $type;
-}
+
 /**
  *
  * @param string $servidor        	
@@ -182,7 +204,8 @@ function unicaffeQuery($link, $query) {
 }
 
 /**
- * Função que conversa com o servidor a baixo nível, enviando comandos e esperando resposta completa.
+ * Função que conversa com o servidor a baixo nível, 
+ * enviando comandos e esperando resposta completa.
  *
  * @param resource $link        	
  * @param string $query        	
@@ -196,12 +219,7 @@ function unicaffeDialoga($link, $comando) {
 	return $strJson;
 }
 
-/**
- *
- * @param UniCaffeResult $result        	
- */
-function unicaffeFetchAssoc(UniCaffeResult $result) {
-}
+
 /**
  * Fecha uma conexão com o UniCaffe.
  *

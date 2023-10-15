@@ -8,9 +8,6 @@
 #define MyAppExeName "UniCafeClient.exe"
 
 [Setup]
-; NOTE: The value of AppId uniquely identifies this application.
-; Do not use the same AppId value in installers for other applications.
-; (To generate a new GUID, click Tools | Generate GUID inside the IDE.)
 AppId={{5A8261FA-E5F0-4E9C-8DCD-5B6A24B0C5ED}
 AppName={#MyAppName}
 AppVersion={#MyAppVersion}
@@ -36,12 +33,12 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 
 [Files]
-Source: ".\UniCafeClient.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\UniCaffe\unicaffe\src\main\resources\images\papel-de-parede.jpg"; DestDir:"C:\Windows\Web\Wallpaper\Windows"; Flags: ignoreversion;
-Source: "..\src\UniCaffe\unicaffe\target\unicafe-update.jar"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\UniCaffe\unicaffe\config.ini"; DestDir: "{app}"; Flags: ignoreversion
-Source: "..\src\UniCaffe\unicaffe\permitidos.txt"; DestDir: "{app}"; Flags: ignoreversion
-Source: ".\install.bat"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "UniCafeClient.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: "papel-de-parede.jpg"; DestDir:"C:\Windows\Web\Wallpaper\Windows"; Flags: ignoreversion;
+Source: "install.bat"; DestDir: "{app}"; Flags: ignoreversion;
+Source: "..\src\UniCaffe\UniCaffeUpdate\target\unicafe-update.jar"; DestDir: "{app}"; Flags: ignoreversion;
+Source: "config_unilab\config.ini"; DestDir: "{app}"; Flags: ignoreversion;
+Source: "..\src\UniCaffe\UniCaffeCliente\permitidos.txt"; DestDir: "{app}"; Flags: ignoreversion;
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
@@ -65,5 +62,4 @@ Root: HKLM64; Subkey: "SOFTWARE\Microsoft\Windows NT\CurrentVersion\AppCompatFla
 
 
 [Run]
-Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#StringChange(MyAppName, '&', '&&')}}"; Flags: nowait postinstall skipifsilent
 Filename: "{app}\install.bat"; Parameters: "{app}"
