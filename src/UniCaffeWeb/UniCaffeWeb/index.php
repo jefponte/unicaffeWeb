@@ -106,10 +106,9 @@ if (isset ( $_GET ["sair"] )) {
 		echo '<ol>';
 		echo '<li><a href="?pagina=inicio">Inicio</a></li>';
 		echo '		<li><a href="?pagina=laboratorios">Laboratórios</a>';
-		echo '			<ul class="seta-pra-cima">';
-		echo '<li><a href="?pagina=laboratorios" class="ativo">Visualização</a></li>';
+		
 		if ($sessao->getNivelAcesso () == Sessao::NIVEL_SUPER){
-			echo '<li><a href="?pagina=laboratorios_cadastro">Cadastro</a></li>';
+			echo '<ul class="seta-pra-cima"><li><a href="?pagina=laboratorios_cadastro">Cadastro</a></li>';
 		}
 		echo '</ul></li>';
 		echo '
@@ -118,22 +117,22 @@ if (isset ( $_GET ["sair"] )) {
 						<li><a href="?pagina=maquinas&laboratorio='.$listaDeLaboratorios[0]->getNome().'" class="ativo">Listagem</a>
 							<ul>';
 		foreach($listaDeLaboratorios as $laboratorio){
-			echo '<li><a href="?pagina=maquinas&laboratorio='.$laboratorio->getNome().'">'.$laboratorio->getNome().'</a></li>';
+			echo '<li><a href="?pagina=maquinas&laboratorio='.$laboratorio->getNome().'">'.substr($laboratorio->getNome(), 0, 11).'</a></li>';
 		}
 		echo '						
 							</ul>
 							</li>
 					</ul>
 					</li>';
-		echo '
-				<li><a href="?pagina=relatorio_geral">Gerenciamento</a>';
+		echo '<li><a href="/?pagina=downloads" >Downloads</a>';
 		if($sessao->getNivelAcesso() == Sessao::NIVEL_ADMIN || $sessao->getNivelAcesso() == Sessao::NIVEL_SUPER){
+		    echo '<li><a href="#">Gerenciamento</a>';
 			echo '<ul class="seta-pra-cima">';
 			echo '<li><a href="?pagina=gerenciamento_relatorios">Acessos por Usuário</a></li>';
 			echo '<li><a href="?pagina=gerenciamento_administrador">Cadastro de Administrador</a></li>';
 			echo '<li><a href="?pagina=relatorios">Utilização Por Turno</a></li>';
 			echo '<li><a href="?pagina=mensagens">Envio de Mensagens</a></li>';
-			echo '<li><a href="downloads/setupUniCaffe64.exe">Download</a></li>';
+			echo '<li><a href="?pagina=perfil">Perfil</a></li>';
 			echo '</ul>';
 		}
 		
@@ -233,7 +232,7 @@ if (isset ( $_GET ["sair"] )) {
 							$(\'#olinda\').html(response);
 							}
 							});
-							}, 1000);
+							}, 3000);
 							</script>
 							';
 					echo '<div id="olinda" class="doze colunas fundo-branco">';
@@ -247,7 +246,42 @@ if (isset ( $_GET ["sair"] )) {
 					echo ' </div>';
 					break;
 				case 'laboratorios' :
-					echo '<br><div class="doze colunas fundo-branco">';
+				    $perfilDao = new PerfilDAO($laboratorioDao->getConexao());
+				    $listaDePerfis = $perfilDao->retornaLista();
+				    if($sessao->getNivelAcesso() == Sessao::NIVEL_ADMIN || $sessao->getNivelAcesso() == Sessao::NIVEL_SUPER)
+				    {
+				        echo '<script type="text/javascript">
+                                function enviaComando(comando, valor){
+                                   location.href=\'?pagina=maquinas&laboratorio=\'+valor+\'&comando_laboratorio=\'+valor+\'&comando=\'+comando;
+                                }
+                                function definePerfil(idPerfil){
+                        
+                                   location.href=\'?pagina=laboratorios&laboratorio=\'+that.id+\'&perfil=\'+idPerfil+\'&comando=\'+28;
+                                }
+                           </script>';
+				        echo '	<!-- 	Menu Click Esquerdo - Aparece na pagina de maquinas e laboratorios.  -->
+							<script type="text/javascript" src="js/context.js"></script>
+							<script type="text/javascript" src="js/lab_context_menu.js" charset="UTF-8"></script>
+                            <script type="text/javascript">
+
+                                var subMenu = [';
+				        foreach ($listaDePerfis as $perfil){
+				            echo '{text:\''.$perfil->getNome().'\', action: function(e){
+        			             definePerfil('.$perfil->getId().');
+        		      }},';
+				        }
+				        echo '];
+
+                            </script>
+
+
+                                ';
+				      
+				    }
+				    
+				    
+				    echo '<br><div class="doze colunas fundo-branco">';
+					
 					LaboratorioController::main ( $sessao->getNivelAcesso () );
 					echo ' </div>';
 					break;
@@ -269,7 +303,7 @@ if (isset ( $_GET ["sair"] )) {
 				case 'gerenciamento_administrador' :
 					echo '<br>';
 					echo '<div class="doze colunas fundo-branco">';
-					UsuarioController::gerenciaAdmin ( $sessao->getNivelAcesso () );
+					AdministradorController::main( $sessao->getNivelAcesso () );
 					echo ' </div>';
 					break;
 				case 'relatorio_geral' :
@@ -284,7 +318,34 @@ if (isset ( $_GET ["sair"] )) {
 					RelatorioController::main ();
 					echo ' </div>';
 					break;
-					
+				case 'documentacao':
+				    echo '<div class="linha doze colunas fundo-marrom linha-inicio">
+				    <div class="conteudo">';
+				    echo '<a href="downloads/guiadousuariounicaffe.pdf" target="blank">Guia do Usu&aacute;rio UniCaffé</a>';
+				    echo '</div></div>';
+				    break;
+				case 'downloads':
+				    echo '
+                       <div class="linha doze colunas fundo-marrom linha-inicio">';
+				    echo '<div class="conteudo">';
+				    if($sessao->getNivelAcesso() == Sessao::NIVEL_ADMIN || $sessao->getNivelAcesso() == Sessao::NIVEL_SUPER){
+				        echo '<a id="link_64" href="/downloads/setupUniCaffe64.exe">Download UniCafe 3.63 64 Bits </a>';
+				        echo '<br>';
+				        echo '<a id="link_64" href="/downloads/setupUniCaffe32.exe">Download UniCafe 3.63 32 Bits </a>';
+				        echo '<br><a id="link_64" href="/downloads/UniCaffeTokenGerador.exe">Download Gerador de Token UniCafe 2.0.2</a>';
+				    }
+				    				    
+				    echo '<br><a href="downloads/guiadousuariounicaffe.pdf" target="blank">Guia do Usu&aacute;rio UniCaffé</a>';
+				    echo '</div>';
+				    echo '</div>';
+				    break;
+				case 'bloqueio':
+				    $bloqueioController = new BloqueioController();
+				    $bloqueioController->cadastrar($sessao->getIdUsuario());
+				    break;
+				case 'perfil':
+				    PerfilController::main($sessao->getNivelAcesso());
+				    break;
 				default :
 					echo '<br>';
 					echo '<div class="doze colunas fundo-branco">';

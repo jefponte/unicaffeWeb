@@ -1,5 +1,14 @@
 <?php
+/**
+ * Classe que trabalha com listagem de máquinas. 
+ * @author Jefferson Uchôa Ponte
+ *
+ */
 class MaquinaController {
+    /**
+     * Tela de histórico de acesso dos usuários. 
+     * @param integer $tipoDeTela
+     */
 	public static function mainHistorico($tipoDeTela) {
 		switch ($tipoDeTela) {
 			case Sessao::NIVEL_SUPER :
@@ -11,11 +20,14 @@ class MaquinaController {
 				$maquinaController->telaHistoricoSuper ();
 				break;
 			default :
-				$maquinaController = new MaquinaController ();
-				$maquinaController->telaHistoricoDefault ();
+				echo 'Indisponível';
 				break;
 		}
 	}
+	/**
+	 * Tela de detalhe da máquina. 
+	 * @param integer $tipoDeTela
+	 */
 	public static function mainDetalhe($tipoDeTela) {
 		switch ($tipoDeTela) {
 			case Sessao::NIVEL_SUPER :
@@ -30,11 +42,9 @@ class MaquinaController {
 				break;
 		}
 	}
+
 	/**
-	 * Faremos da mesma forma que a tela de listagem, sendo que apenas mostraremos a m�quina selecionada.
-	 *
-	 * Logo, precisamos que um nome de maquina seja enviado via GET.
-	 * Caso contrario n�o mostraremos nenhuma.
+	 * Tela que exibe a máquina selecionada. 
 	 */
 	public function telaDetalhe() {
 
@@ -51,10 +61,10 @@ class MaquinaController {
 		}
 		
 		$maquinaView->mostraMaquinaDetalhe($maquina);
-		
-
-		
 	}
+	/**
+	 * Mostra histórico de acesso de um usuário selecionado. 
+	 */
 	public function telaHistoricoSuper() {
 		$maquinaView = new MaquinaView ();
 		$maquinaView->formPesquisaHistorico ();
@@ -66,31 +76,25 @@ class MaquinaController {
 			$maquinaDao->pesquisaHistoricoDeUsuario ( $usuario );
 		}
 	}
-	public function telaHistoricoDefault() {
-		echo 'Indisponivel no momento';
-	}
+	/**
+	 * Em todos os casos o usu�rio ver� todas as m�quinas, o status de cada uma e
+	 * tamb�m saber� se est� ou n�o cadastrada.
+	 * Ver� dados de acesso e formul�rio para pesquisar por nome de m�quina.
+	 *
+	 * Se o usu�rio for administrador.
+	 * ter� dados de usu�rio que est� logado.
+	 * Poder� passar comandos para m�quina de seu laborat�rio.
+	 *
+	 * Obs: o comando desativar n�o estar� dispon�vel para usu�rio administrador.
+	 *
+	 * Se for usu�rio super
+	 * Além de poder ver dados de usu�rio poder� enviar comando de cadastro
+	 * Poder� tamb�m enviar comandos quaisquer para qualquer m�quina.
+	 */
+	
 	public static function main($tipoDeTela) {
 		$maquinaController = new MaquinaController ();
 		
-		/*
-		 * Em todos os casos o usu�rio ver� todas as m�quinas, o status de cada uma e
-		 * tamb�m saber� se est� ou n�o cadastrada.
-		 * Ver� dados de acesso e formul�rio para pesquisar por nome de m�quina.
-		 */
-		
-		/*
-		 * Se o usu�rio for administrador.
-		 * ter� dados de usu�rio que est� logado.
-		 * Poder� passar comandos para m�quina de seu laborat�rio.
-		 *
-		 * Obs: o comando desativar n�o estar� dispon�vel para usu�rio administrador.
-		 */
-		
-		/*
-		 * Se for usu�rio super
-		 * Al�m de poder ver dados de usu�rio poder� enviar comando de cadastro
-		 * Poder� tamb�m enviar comandos quaisquer para qualquer m�quina.
-		 */
 		
 		switch ($tipoDeTela) {
 			
@@ -107,7 +111,7 @@ class MaquinaController {
 		}
 	}
 	/**
-	 * Essa tela � vis�vel por qualquer tipo de usu�rio.
+	 * Tela de visualização de máquinas. 
 	 */
 	public function telaMaquinas() {
 		$maquinaView = new MaquinaView ();
@@ -125,7 +129,7 @@ class MaquinaController {
 	}
 	
 	/**
-	 * Nessa � poss�vel cadastrar a m�quina ou atualizar.
+	 * Nessa é possível cadastrar a máquina ou atualizar.
 	 */
 	public function telaMaquinasSuper() {
 		$maquinaView = new MaquinaView ();
@@ -140,12 +144,5 @@ class MaquinaController {
 			} else
 				$maquinaView->mostraMaquina ( $elemento );
 		}
-	}
-	/**
-	 * Em todos os casos o usu�rio ver� todas as m�quinas, o status de cada uma e
-	 * tamb�m saber� se est� ou n�o cadastrada.
-	 * Ver� dados de acesso e formul�rio para pesquisar por nome de m�quina.
-	 */
-	public function telaMaquinasAdmin() {
 	}
 }

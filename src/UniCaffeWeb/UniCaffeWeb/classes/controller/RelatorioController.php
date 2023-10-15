@@ -1,23 +1,26 @@
 <?php
 
 /**
- * 
+ * Gerenciamento de telas de relatórios. 
  * @author Jefferson Uchôa Ponte
  *
  */
 class RelatorioController{
-	
-	
-	const TIPO_HISTOGRAMA_TURNO = 1;
-	
+	/**
+	 * Conexão com banco de dados. 
+	 * @var PDO
+	 */
 	private $dao;
+	/**
+	 * Inicia aplicação de relatórios de histograma. 
+	 */
 	public static function main() {
 		$relatorio = new RelatorioController();
 		$relatorio->gerarHistogramas();
-		
 	}
-	
-	
+	/**
+	 * Gera um histograma. 
+	 */
 	public function gerarHistogramas(){
 		
 		
@@ -179,7 +182,9 @@ class RelatorioController{
 		
 		
 	}
-	
+	/**
+	 * Formulário para exibição de histograma, selecionando por duas datas. 
+	 */
 	public function formularioDuasDatas(){
 		$data1 = date("Y-m-d")."T08:00:00";
 		$data2 = date("Y-m-d")."T23:59:59";
@@ -197,8 +202,8 @@ class RelatorioController{
 	}
 	/**
 	 * 
-	 * @param unknown $data1
-	 * @param unknown $data2
+	 * @param string $data1
+	 * @param string $data2
 	 * O parametro laboratório aceita nulo. Se for nulo não adicionamos filtro de laboratório. 
 	 * @param Laboratorio $laboratorio
 	 */
@@ -394,29 +399,14 @@ class RelatorioController{
 		echo $tabela;
 		echo '</div>';
 		echo '</div>';
-		
-		
 		echo '</div>';
-			
-// 		echo '<div class="seis colunas relatorio">
-// 							
-// 						</div>
-// 						<div class="seis colunas relatorio">
-// 							'..'
-// 						</div>
-					
-				
-				
-				
-				
-// 		';		
-		
-		
-		
-		
-		
-	}
 	
+	}
+	/**
+	 * Converte segundos para string no formato h:m:s
+	 * @param integer $segundos
+	 * @return string
+	 */
 	public static function segundosParaHoras($segundos){
 		$segundos = intval($segundos);
 		

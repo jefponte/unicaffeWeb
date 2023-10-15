@@ -1,43 +1,41 @@
 <?php
+/**
+ * Classe para gerenciar persistência de objetos Usuário no banco de dados. 
+ * @author Jefferson Uchôa Ponte
+ *
+ */
 class UsuarioDAO extends DAO {
+    /**
+     * Verifica se a senha e login correspondem a algum usuário no banco de dados. 
+     * @param Usuario $usuario
+     * @return boolean
+     */
 	public function autentica(Usuario $usuario) {
-		if ($usuario->getLogin () == "admin" && $usuario->getSenha () == "biblioteca@123A") {
-			$usuario->setNivelAcesso ( Sessao::NIVEL_USUARIO_ESPECIAL );
-			$usuario->setId ( 100 );
-			return true;
-		}
 		$login = $usuario->getLogin ();
 		$senha = md5 ( $usuario->getSenha () );
-		$sql = "SELECT * FROM usuario WHERE login ='$login' AND senha = '$senha'";
+		$sql = "SELECT * FROM usuario WHERE login = :login AND senha = :senha";
 		
-		foreach ( $this->getConexao ()->query ( $sql ) as $linha ) {
-			$usuario->setLogin ( $linha ['login'] );
-			$usuario->setId ( $linha ['id_usuario'] );
-			
-			$usuario->setNivelAcesso ( $linha ['nivel_acesso'] );
-			return true;
+		$stmt = $this->conexao->prepare($sql);
+		$stmt->bindParam(":login", $login, PDO::PARAM_STR);
+		$stmt->bindParam(":senha", $senha, PDO::PARAM_STR);
+		$stmt->execute();
+		$result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+		foreach ( $result as $linha ) {
+		    $usuario->setLogin ( $linha ['login'] );
+		    $usuario->setId ( $linha ['id_usuario'] );
+		    
+		    $usuario->setNivelAcesso ( $linha ['nivel_acesso'] );
+		    return true;
 		}
 		return false;
+		
 	}
+
 	/**
-	 * Pesquisaremos primeiro o Login do usuario e depois o nome do laboratorio.
-	 * Apos isso pegaremos o Id de cada um e usaremos numa operacao de insert.
-	 * Mas essa operacao so pode funcionar se ela ainda nao existir com esse usuario e laboratorio.
-	 * Terminando tudo iremos atualizar o nivel do usuario
-	 * 
-	 * @param Usuario $usuario        	
-	 * @param Laboratorio $laboratorio        	
+	 * Preenche os atributos do objeto usuário através do atributo login. 
+	 * @param Usuario $usuario
+	 * @return boolean
 	 */
-	public function tornarAdministrador(Usuario $usuario, Laboratorio $laboratorio) {
-		$login = $usuario->getLogin();
-		$nomeLaboratorio = $laboratorio->getNome();
-		
-		
-		$sqlLaboratorio = "SELECT * FROM laboratorio WHERE nome_laboratorio = $nomeLaboratorio";
-		
-		
-		
-	}
 	public function preenchePorLogin(Usuario $usuario){
 		$login = $usuario->getLogin();
 		$sql = "SELECT * FROM usuario WHERE login = '$login'";
@@ -48,9 +46,12 @@ class UsuarioDAO extends DAO {
 			return $flag;
 		}
 		return $flag;
-		
-		
 	}
+	/**
+	 * Preenche os atributos do objeto laboratório através do atributo login.
+	 * @param Laboratorio $laboratorio
+	 * @return boolean
+	 */
 	public function preenchePorNome(Laboratorio $laboratorio){
 		$nome = $laboratorio->getNome();
 		$sql = "SELECT * FROM laboratorio WHERE nome_laboratorio = '$nome'";
@@ -60,9 +61,18 @@ class UsuarioDAO extends DAO {
 		}
 		return false;
 	}
+	/**
+	 * Verifica se o usuário já é administrador de um laboratório específico.  
+	 * @param Usuario $usuario
+	 * @param Laboratorio $laboratorio
+	 * @return boolean
+	 */
 	public function ehAdministrador(Usuario $usuario, Laboratorio $laboratorio){
 		$idUsuario = $usuario->getId();
 		$idLaboratorio = $laboratorio->getId();
+		if($idLaboratorio == 0){
+		    return true;
+		}
 		$sql= "SELECT * FROM administrador WHERE id_usuario = $idUsuario AND id_laboratorio = $idLaboratorio";
 		$result =$this->getConexao()->query($sql);
 		foreach($result as $linha){
@@ -70,6 +80,12 @@ class UsuarioDAO extends DAO {
 		}
 		return false;
 	}
+	/**
+	 * Torna um usuário administrador de um laboratório. 
+	 * @param Usuario $usuario
+	 * @param Laboratorio $laboratorio
+	 * @return boolean
+	 */
 	public function adicionaAdministrador(Usuario $usuario, Laboratorio $laboratorio){
 		$novoNivel = Sessao::NIVEL_ADMIN;
 		$idUsuario = $usuario->getId();
@@ -88,7 +104,62 @@ class UsuarioDAO extends DAO {
 		return false;
 		
 	}
-	
+	public function tornarSuper(Usuario $usuario){
+	    $novoNivel = Sessao::NIVEL_SUPER;
+	    $idUsuario = $usuario->getId();
+	    
+	    $sqlUpdate = "UPDATE usuario set nivel_acesso = $novoNivel WHERE id_usuario = $idUsuario";
+	    $sqlDelete = "DELETE FROM administrador WHERE id_usuario = $idUsuario";
+	    $this->getConexao()->exec($sqlDelete);
+	    return $this->getConexao()->exec($sqlUpdate);
+	}
+	public function tornarPadrao(Usuario $usuario){
+	    $novoNivel = Sessao::NIVEL_COMUM;
+	    $idUsuario = $usuario->getId();
+	    
+	    $sqlUpdate = "UPDATE usuario set nivel_acesso = $novoNivel WHERE id_usuario = $idUsuario";
+	    $sqlDelete = "DELETE FROM administrador WHERE id_usuario = $idUsuario";
+	    $this->getConexao()->exec($sqlDelete);
+	    return $this->getConexao()->exec($sqlUpdate);
+	}
+	public function retornaAdministradores(){
+	    $lista = array();
+	    $nivelPadrao = Sessao::NIVEL_COMUM;
+	    $sql = "SELECT * FROM usuario WHERE nivel_acesso <> $nivelPadrao";
+	    
+	    
+	    foreach ( $this->getConexao ()->query ( $sql ) as $linha ) {
+	        $usuario = new Usuario();
+	        $usuario->setLogin ( $linha ['login'] );
+	        $usuario->setId ( $linha ['id_usuario'] );
+	        $usuario->setNome($linha['nome']);
+	        $usuario->setEmail($linha['email']);
+	        $usuario->setNivelAcesso($linha['nivel_acesso']);
+	        $usuario->setNivelAcesso ( $linha ['nivel_acesso'] );
+	        $lista[] = $usuario;
+	        
+	    }
+	    
+	    return $lista;
+	}
+	public function retornaLaboratoriosAdm(Usuario $usuario){
+	    $id = $usuario->getId();
+	    $lista = array();
+	    $sql = "SELECT * FROM usuario 
+            INNER JOIN administrador ON usuario.id_usuario = administrador.id_usuario
+            INNER JOIN laboratorio ON administrador.id_laboratorio = laboratorio.id_laboratorio
+            WHERE usuario.id_usuario = $id;";
+	    
+	    
+	    foreach ( $this->getConexao ()->query ( $sql ) as $linha ) {
+
+	        $laboratorio = new Laboratorio();
+	        $laboratorio->setNome($linha['nome_laboratorio']);
+	        $lista[] = $laboratorio;
+	    }
+	    
+	    return $lista;
+	}
 }
 
 ?>

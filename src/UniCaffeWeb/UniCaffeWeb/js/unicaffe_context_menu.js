@@ -17,8 +17,23 @@
         		{text: 'Desligar', action: function(e){
         			enviaComando(1,that.id);
         			}},
+        		{text: 'Atualizar', action: function(e){
+                        enviaComando(26,that.id);
+                        }},
+                {text: 'Manutenção', action: function(e){
+                     enviaComando(300,that.id);
+                            }},
+                {text: 'Limpeza', action: function(e){
+                   	 enviaComando(10,that.id);
+                        }},
         		{text: 'Aula', action: function(e){
         			enviaComando(2,that.id);
+        		}},
+        		{text: 'Sem Internet',  action: function(e){
+        			enviaComando(321,that.id);
+        		}},
+        		{text: 'Com Internet',  action: function(e){
+        			enviaComando(123,that.id);
         		}},
         		{text: 'Bloquear acesso',  action: function(e){
         			enviaComando(4,that.id);

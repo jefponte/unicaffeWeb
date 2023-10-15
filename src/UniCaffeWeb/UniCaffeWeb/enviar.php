@@ -29,15 +29,33 @@ if($_SESSION['USUARIO_NIVEL'] != 3){
 <html>
 <body>
 
+
+
+<form action="" method="get">
+
+<input type="text" name="comando" placeholder="Comando"/>
+<input type="submit" name="enviar" value="Enviar" />
+
+</form>
 <?php 
 
-
-?>
-
-
-<?php 
-
-
+if(isset($_GET['comando'])){
+    
+    $unicaffe = new UniCaffe();
+    $str = $unicaffe->dialoga($_GET['comando']);
+    
+    if($_GET['comando'] == "select"){
+        $lista = explode("|", $str);
+        foreach ($lista as $linha){
+            echo $linha;
+            echo "<br><hr>";
+        }
+        
+    }else{
+        echo $str;
+    }
+    
+}
 ?>
 
 
