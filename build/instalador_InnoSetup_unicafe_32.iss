@@ -21,10 +21,10 @@ AppSupportURL={#MyAppURL}
 AppUpdatesURL={#MyAppURL}
 DefaultDirName={pf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
-LicenseFile=C:\projetos\unicafe\doc\LICENSE.txt
-InfoBeforeFile=C:\projetos\unicafe\doc\NOTICE.txt
-InfoAfterFile=C:\projetos\unicafe\doc\depois.txt
-OutputBaseFilename=setupUniCafe32Bits
+LicenseFile=..\doc\LICENSE.txt
+InfoBeforeFile=..\doc\NOTICE.txt
+InfoAfterFile=..\doc\depois.txt
+OutputBaseFilename=setupUniCaffe32
 Compression=lzma
 SolidCompression=yes
 
@@ -36,12 +36,12 @@ Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{
 
 
 [Files]
-Source: "C:\projetos\unicafe\Build\UniCafeClient.exe"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\projetos\unicafe\src\UniCaffe\unicafe\src\main\resources\images\papel-de-parede.jpg"; DestDir:"C:\Windows\Web\Wallpaper\Windows"; Flags: ignoreversion;
-Source: "C:\projetos\unicafe\src\UniCaffe\unicafe\target\unicafe-update.jar"; DestDir: "{app}"; Flags: ignoreversion
-;Source: "C:\arquivos\jefponte\Documents\workspace\unicafe\config.ini"; DestDir: "{app}"; Flags: ignoreversion
-;Source: "C:\arquivos\jefponte\Documents\workspace\unicafe\liberados.txt"; DestDir: "{app}"; Flags: ignoreversion
-Source: "C:\projetos\unicafe\build\install.bat"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: ".\UniCafeClient.exe"; DestDir: "{app}"; Flags: ignoreversion
+Source: ".\papel-de-parede.jpg"; DestDir:"C:\Windows\Web\Wallpaper\Windows"; Flags: ignoreversion;
+Source: "..\src\UniCaffe\UniCaffeUpdate\target\unicafe-update.jar"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\UniCaffe\UniCaffeCliente\config.ini"; DestDir: "{app}"; Flags: ignoreversion
+Source: "..\src\UniCaffe\UniCaffeCliente\permitidos.txt"; DestDir: "{app}"; Flags: ignoreversion
+Source: ".\install.bat"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 ; NOTE: Don't use "Flags: ignoreversion" on any shared system files
 
 [Icons]
