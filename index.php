@@ -333,6 +333,7 @@ if (isset ( $_GET ["sair"] )) {
 				        echo '<br>';
 				        echo '<a id="link_64" href="/downloads/setupUniCaffe32.exe">Download UniCafe 3.63 32 Bits </a>';
 				        echo '<br><a id="link_64" href="/downloads/UniCaffeTokenGerador.exe">Download Gerador de Token UniCafe 2.0.2</a>';
+						echo '<br> <a  href="https://www.java.com/pt-BR/download/">Download Java 8 - 64 bits</a>';
 				    }
 				    				    
 				    echo '<br><a href="downloads/guiadousuariounicaffe.pdf" target="blank">Guia do Usu&aacute;rio UniCaffé</a>';

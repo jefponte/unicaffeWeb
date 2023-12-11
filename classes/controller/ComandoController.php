@@ -530,7 +530,7 @@ class ComandoController
                 continue;
             }
             
-            $resposta .= $this->gerenciaComando($comando, $maquina->getNome());
+            $resposta .= $this->gerenciaComando($comando, $maquina->getNome());        
         }
         return $resposta;
     }
