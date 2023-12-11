@@ -1,17 +1,17 @@
 <?php
 
 /**
- * 
- * Tela de gerenciamento de comandos administrativos. 
+ *
+ * Tela de gerenciamento de comandos administrativos.
  * @author Jefferson Uchôa Ponte
- * 
+ *
  */
 class ComandoController
 {
 
     /**
      * Comando desligar.
-     * 
+     *
      * @var integer
      */
     const COMANDO_DESLIGAR = 1;
@@ -24,28 +24,28 @@ class ComandoController
     const COMANDO_AULA = 2;
     /**
      * Comando visitante.
-     * 
+     *
      * @var integer
      */
     const COMANDO_VISITANTE = 3;
 
     /**
      * Comando bloqueia
-     * 
+     *
      * @var integer
      */
     const COMANDO_BLOQUEIA = 4;
 
     /**
      * Comando alocar máquina a um laboratório.
-     * 
+     *
      * @var integer
      */
     const COMANDO_ALOCAR = 5;
 
     /**
      * Comando ligar.
-     * 
+     *
      * @var integer
      */
     const COMANDO_LIGAR = 6;
@@ -55,16 +55,16 @@ class ComandoController
      * @var integer
      */
     const COMANDO_AVISO = 7;
-    
+
      /**
      * Apaga arquivos da pasta localunicafe
      * @var integer
      */
     const COMANDO_LIMPAR = 10;
-    
+
     /**
      * Comando atualizar Endereço MAC.
-     * 
+     *
      * @var integer
      */
     const COMANDO_ATUALIZAR_MAC = 25;
@@ -78,15 +78,15 @@ class ComandoController
      * Enviar a lista de programas a serem liberados
      * @var integer
      */
-    const COMANDO_LIBERA_PROCESSOS_BLOQUEADOS = 27;    
+    const COMANDO_LIBERA_PROCESSOS_BLOQUEADOS = 27;
     /**
-     * Define o perfil a um laboratório. 
+     * Define o perfil a um laboratório.
      * @var integer
      */
     const COMANDO_DEFINIR_PERFIL = 28;
 
-    //---------------------------------------------    
-    
+    //---------------------------------------------
+
     /**
      * Comando apagar dados do usuário.
      *
@@ -94,35 +94,27 @@ class ComandoController
      */
 
     const COMANDO_APAGAR = 99;
-    
+
     /**
      * Comando com internet.
      *
      * @var integer
      */
     const COMANDO_COM_INTERNET = 123;
-    
+
     /**
      * Comando manutenção.
      *
      * @var integer
      */
-    
+
     const COMANDO_DESATIVAR = 300;
-    
-    /**
-     * Comando sem internet.
-     *
-     * @var integer
-     */
-    const COMANDO_SEM_INTERNET = 321;
-    
     /**
      * Inicia aplicação que gerencia comandos.
      *
      * @param integer $nivelDeAcesso
      */
-    
+
     public static function main($nivelDeAcesso)
     {
         if (! isset($_GET['comando'])) {
@@ -130,7 +122,7 @@ class ComandoController
         }
         switch ($nivelDeAcesso) {
             case Sessao::NIVEL_SUPER:
-                
+
                 if (isset($_GET['comando_laboratorio'])) {
                     if (! isset($_GET['confirmado'])) {
                         self::formConfirmacao("comando_laboratorio");
@@ -150,7 +142,7 @@ class ComandoController
                         $strGet = "&laboratorio=" . $_GET['laboratorio'];
                     }
                     echo '<meta http-equiv="refresh" content=3;url="index.php?pagina=maquinas' . $strGet . '">';
-                    
+
                     return;
                 }
                 if (isset($_GET['maquina'])) {
@@ -172,20 +164,20 @@ class ComandoController
                         $strGet = "&laboratorio=" . $_GET['laboratorio'];
                     }
                     echo '<meta http-equiv="refresh" content=3;url="index.php?pagina=maquinas' . $strGet . '">';
-                    
+
                     return;
                 }
                 if(isset($_GET['perfil']) && isset($_GET['laboratorio'])){
                     $controller = new ComandoController();
                     $resposta = $controller->definirPerfil($_GET['laboratorio'], $_GET['perfil']);
                     echo ' <div class="confirmacao">';
-                    
+
                     echo '<p>Tentar Adicionar Perfil: '.$resposta.'</p>';
-                    
+
                     echo '</div>';
-                    
+
                     echo '<meta http-equiv="refresh" content=3;url="index.php?pagina=laboratorios">';
-                    
+
                 }
                 break;
             case Sessao::NIVEL_ADMIN:
@@ -208,7 +200,7 @@ class ComandoController
                         $strGet = "&laboratorio=" . $_GET['laboratorio'];
                     }
                     echo '<meta http-equiv="refresh" content=3;url="index.php?pagina=maquinas' . $strGet . '">';
-                    
+
                     return;
                 }
                 if (isset($_GET['maquina'])) {
@@ -235,9 +227,9 @@ class ComandoController
                     $controller = new ComandoController();
                     $resposta = $controller->definirPerfil($_GET['laboratorio'], $_GET['perfil']);
                     echo ' <div class="confirmacao">';
-                    
+
                     echo '<p>Tentar Adicionar Perfil: '.$resposta.'</p>';
-                    
+
                     echo '</div>';
                     echo '<meta http-equiv="refresh" content=3;url="index.php?pagina=laboratorios">';
                 }
@@ -250,7 +242,7 @@ class ComandoController
 
     /**
      * Formulário que é uma tela de confirmação para envio do comando.
-     * 
+     *
      * @param string $strTipoDeComando
      */
     public static function formConfirmacao($strTipoDeComando)
@@ -265,7 +257,7 @@ class ComandoController
         if (isset($_GET['texto'])) {
             echo '<input type="hidden" name="texto" value="' . $_GET['texto'] . '" />';
         }
-        
+
         echo '                      <input type="hidden" name="pagina" value="maquinas" /><br><br>
 
                                 <input type="submit" class="botao b-primario" id="confirmado" name="confirmado" value="Confirmar" />';
@@ -275,21 +267,21 @@ class ComandoController
         }
         echo '                   <a href="index.php?pagina=maquinas' . $strGet . '" class="botao b-erro" > Cancelar </a>
                             </form>
-                            
+
 
                     </div>';
     }
 
     /**
      * Porta de conexão com UniCaffé.
-     * 
+     *
      * @var integer
      */
     private $porta;
 
     /**
      * Host de conexão com UniCaffé.
-     * 
+     *
      * @var string
      */
     private $host;
@@ -309,7 +301,7 @@ class ComandoController
         $unicaffe = new UniCaffe($this->host, $this->porta);
         $resposta = $unicaffe->dialoga('setPerfil('.$idPerfil.','.$nomeLaboratorio.')');
         return $resposta;
-        
+
     }
     /**
      * solicita ao servidor os processos bloqueados
@@ -332,10 +324,10 @@ class ComandoController
         return $resposta;
         $unicaffe->close();
     }
-    
+
     /**
      * Envia o comando para o servidor do UniCaffé.
-     * 
+     *
      * @param integer $comando
      * @param string $nomeMaquina
      * @return string
@@ -344,7 +336,7 @@ class ComandoController
     {
         $resposta = "Servidor não Respondeu.";
         $unicaffe = new UniCaffe($this->host, $this->porta);
-        
+
         switch ($comando) {
             case self::COMANDO_APAGAR:
                 $resposta = $unicaffe->dialoga('limparDados(' . $nomeMaquina . ')');
@@ -357,9 +349,6 @@ class ComandoController
                 break;
             case self::COMANDO_VISITANTE:
                 $resposta = $unicaffe->dialoga('visitante(' . $nomeMaquina . ')');
-                break;
-            case self::COMANDO_SEM_INTERNET :
-                $resposta = $unicaffe->dialoga ( 'semInternet(' . $nomeMaquina . ')' );
                 break;
             case self::COMANDO_COM_INTERNET :
                 $resposta = $unicaffe->dialoga ( 'comInternet(' . $nomeMaquina . ')' );
@@ -391,7 +380,7 @@ class ComandoController
                     $avisoPadrao = str_replace("\n", " ", $avisoPadrao);
                     $avisoPadrao = str_replace("\r", " ", $avisoPadrao);
                 }
-                
+
                 $resposta = $unicaffe->dialoga('aviso(' . $nomeMaquina . ',' . $avisoPadrao . ')');
                 break;
             case self::COMANDO_LIBERA_PROCESSOS_BLOQUEADOS:
@@ -401,7 +390,7 @@ class ComandoController
                     $progsLiberados = str_replace("\n", ";", $progsLiberados);
                     $progsLiberados = str_replace("\r", ";", $progsLiberados);
                 }
-                
+
                 $resposta = $unicaffe->dialoga('liberaProcessosBloqueados(' . $nomeMaquina . ',' . $progsLiberados . ')');
                 break;
             case self::COMANDO_LIMPAR:
@@ -418,7 +407,7 @@ class ComandoController
     /**
      * Envia comandos para o servidor do UniCaffé.
      * Lista diferenciada para administradores.
-     * 
+     *
      * @param integer $comando
      * @param string $nomeMaquina
      * @return void|string
@@ -426,7 +415,7 @@ class ComandoController
     public function gerenciaComandoADM($comando, $nomeMaquina)
     {
         $resposta = "Servidor nao Respondeu.";
-        
+
         $maquina = new Maquina();
         $maquina->setNome($nomeMaquina);
         $maquinaDao = new MaquinaDAO();
@@ -443,7 +432,7 @@ class ComandoController
             return;
         }
         $unicaffe = new UniCaffe($this->host, $this->porta);
-        
+
         switch ($comando) {
             case self::COMANDO_APAGAR:
                 $resposta = $unicaffe->dialoga('limparDados(' . $nomeMaquina . ')');
@@ -459,9 +448,6 @@ class ComandoController
                 break;
             case self::COMANDO_VISITANTE:
                 $resposta = $unicaffe->dialoga('visitante(' . $nomeMaquina . ')');
-                break;
-            case self::COMANDO_SEM_INTERNET :
-                $resposta = $unicaffe->dialoga ( 'semInternet(' . $nomeMaquina . ')' );
                 break;
             case self::COMANDO_COM_INTERNET :
                 $resposta = $unicaffe->dialoga ( 'comInternet(' . $nomeMaquina . ')' );
@@ -490,21 +476,21 @@ class ComandoController
                     $avisoPadrao = str_replace("\n", " ", $avisoPadrao);
                     $avisoPadrao = str_replace("\r", " ", $avisoPadrao);
                 }
-                
+
                 $resposta = $unicaffe->dialoga('aviso(' . $nomeMaquina . ',' . $avisoPadrao . ')');
                 break;
             case self::COMANDO_LIBERA_PROCESSOS_BLOQUEADOS:
                 $progsLiberados = 'libera Bloqueados';
                 if (isset($_GET['texto'])) {
                     $progsLiberados = $_GET['texto'];
-                    
+
                     $progsLiberados = str_replace("\n", ";", $progsLiberados);
-                    $progsLiberados = str_replace("\r", ";", $progsLiberados);                    
+                    $progsLiberados = str_replace("\r", ";", $progsLiberados);
                 }
-                
+
                 $resposta = $unicaffe->dialoga('liberaProcessosBloqueados(' . $nomeMaquina . ',' . $progsLiberados . ')');
                 break;
-            
+
             default:
                 $resposta = 'Comando desconhecido';
                 break;
@@ -515,7 +501,7 @@ class ComandoController
 
     /**
      * Envia comando para todas as máquinas de um laboratório.
-     * 
+     *
      * @param integer $comando
      * @param string $nomeLaboratorio
      * @return string
@@ -529,15 +515,15 @@ class ComandoController
             if (! (strtolower($maquina->getLaboratorio()->getNome()) == strtolower($nomeLaboratorio))) {
                 continue;
             }
-            
-            $resposta .= $this->gerenciaComando($comando, $maquina->getNome());        
+
+            $resposta .= $this->gerenciaComando($comando, $maquina->getNome());
         }
         return $resposta;
     }
 
     /**
      * Envia comando para todas as máquinas de um laboratório, usando a função de adminsitrador.
-     * 
+     *
      * @param integer $comando
      * @param string $nomeLaboratorio
      * @return void|string
@@ -549,7 +535,7 @@ class ComandoController
         $usuario = new Usuario();
         $sessao = new Sessao();
         $usuario->setId($sessao->getIdUsuario());
-        
+
         $maquinaDao = new MaquinaDAO();
         $lista = $maquinaDao->listaCompleta();
         foreach ($lista as $maquina) {
@@ -560,7 +546,7 @@ class ComandoController
                 $resposta = "Voce nao tem jurisdicao sobre este laboratorio";
                 return;
             }
-            
+
             $resposta .= $this->gerenciaComando($comando, $maquina->getNome());
             usleep(250000);
         }
