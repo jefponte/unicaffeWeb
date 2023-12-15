@@ -144,7 +144,7 @@ class MaquinaView
 						class="maquina-tempo maquina-tempo-restante">' . $maquina->getLaboratorio()->getNome() . '</span>
 					<span class="maquina-tempo maquina-tempo-total">Endereço Mac</span>
 					<span class="maquina-tempo maquina-tempo-restante">' . $maquina->getEnderecoMac() . '</span>
-					    
+
 				</div>
 				<div class="linha">
 					<hr />
@@ -183,7 +183,7 @@ class MaquinaView
 						class="maquina-tempo maquina-tempo-restante">' . $maquina->getAcesso()
             ->getUsuario()
             ->getEmail() . '</span>
-						    
+
 				</div>
 				<div class="linha">
 					<hr />
@@ -215,7 +215,7 @@ class MaquinaView
                                 <span class="maquina-tempo maquina-tempo-total">Ip: </span><span class="maquina-tempo maquina-tempo-restante">' . $maquina->getAcesso()->getIp() . '</span>
                                ';
         } else {
-            echo ' 
+            echo '
                 					<span class="maquina-tempo maquina-tempo-total">Hora de Entrada</span> <span
                 						class="maquina-tempo maquina-tempo-restante">--:--:--</span> <span
                 						class="maquina-tempo maquina-tempo-total">Tempo Usado</span>
@@ -233,17 +233,18 @@ class MaquinaView
 				<div class="linha">
 					<hr />
 				</div>
-                                    
+
 				<div class="comando doze centralizado">
 					<a href="index.php?pagina=maquinas&comando=4&maquina=' . $maquina->getNome() . '&laboratorio=' . $maquina->getLaboratorio()->getNome() . '" class="botao b-aviso"><span class="icone-lock"> </span>Bloquear</a>
 					<a href="index.php?pagina=maquinas&comando=2&maquina=' . $maquina->getNome() . '&laboratorio=' . $maquina->getLaboratorio()->getNome() . '" class="botao b-sucesso"><span class="icone-books"></span>Aula</a>
 					<a href="index.php?pagina=maquinas&comando=1&maquina=' . $maquina->getNome() . '&laboratorio=' . $maquina->getLaboratorio()->getNome() . '" class="botao b-erro"><span class="icone-switch"> </span>Desligar</a>
                     <a href="index.php?pagina=maquina&maquina=' . $maquina->getNome() . '&liberadorLab=" class="botao b-secundario"><span class="icone-tree"></span> Liberar Progs no Laboratório </a>
                     <a href="index.php?pagina=maquina&maquina=' . $maquina->getNome() . '&liberadorMaquina=" class="botao b-aviso"><span class="icone-display"></span> Liberar Prog em uma Máquina </a>
+                    <a href="http://unicaffe.unilab.edu.br/index.php?pagina=maquinas&comando=5&maquina=' . $maquina->getLaboratorio()->getNome() . '&laboratorio=teste" class="botao b-aviso"><span class="icone-display"></span> Remover do Laboratório</a>
 				</div>
-	           	            
+
 				<div class="linha"></div>
-            
+
 ';
 
         if (isset($_GET['liberadorLab'])) {
@@ -271,13 +272,13 @@ class MaquinaView
 					<input type="hidden" name="pagina" value="maquinas" />
                     <input type="hidden" name="maquina" value="' . $maquina->getNome() . '" />
                     <input type="hidden" name="laboratorio" value="' . $maquina->getLaboratorio()->getNome() . '" />
-                    
+
                     <input type="hidden" name="comando" value="' . ComandoController::COMANDO_AVISO . '" />
 <script type="text/javascript">
 function teste(valor){
     if(valor > 1000) {
         alert("Mensagem muito grande. Máximo 1000 caracteres. ");
-    }   
+    }
 }
 </script><textarea name="texto" cols="42" rows="7" maxlength="1010" required onkeyup="teste(this.value.length)"></textarea>
 			<br><input class="botao b-sucesso" type="submit" name="enviar" value="Enviar Aviso"/>
@@ -311,10 +312,10 @@ function teste(valor){
         echo '<form action="" method="get">
 					<input type="hidden" name="pagina" value="maquinas" />
                     <input type="hidden" name="laboratorio" value="' . $maquina->getLaboratorio()->getNome() . '" />
-                    <input type="hidden" name="comando_laboratorio" value="' . $maquina->getLaboratorio()->getNome() . '" />                                            
+                    <input type="hidden" name="comando_laboratorio" value="' . $maquina->getLaboratorio()->getNome() . '" />
                     <input type="hidden" name="comando" value="' . ComandoController::COMANDO_LIBERA_PROCESSOS_BLOQUEADOS . '" />
-                    <textarea name="texto" cols="80" rows="7" >' . $processosBloqueados . '</textarea>						
-            <br><input class="botao b-secundario" type="submit" name="enviar" value="Libera Processos Bloqueados - Laboratório"/>		
+                    <textarea name="texto" cols="80" rows="7" >' . $processosBloqueados . '</textarea>
+            <br><input class="botao b-secundario" type="submit" name="enviar" value="Libera Processos Bloqueados - Laboratório"/>
 			</form>
 ';
     }
@@ -345,7 +346,7 @@ function teste(valor){
         echo '<form action="" method="get">
 					<input type="hidden" name="pagina" value="maquinas" />
                     <input type="hidden" name="maquina" value="' . $maquina->getNome() . '" />
-                    <input type="hidden" name="laboratorio" value="' . $maquina->getLaboratorio()->getNome() . '" />                                        
+                    <input type="hidden" name="laboratorio" value="' . $maquina->getLaboratorio()->getNome() . '" />
                     <input type="hidden" name="comando" value="' . ComandoController::COMANDO_LIBERA_PROCESSOS_BLOQUEADOS . '" />
                     <textarea name="texto" cols="80" rows="7" >' . $processosBloqueados . '</textarea>
             <br><input class="botao b-aviso" type="submit" name="enviar" value="Libera Processos Bloqueados - Máquina"/>
@@ -448,19 +449,19 @@ function teste(valor){
     public function formPesquisaHistorico()
     {
         echo '
-            
+
                 <div class="borda">';
 
         echo '<form action="#" method="get" name="form_pesquisa" id="pesquisa" class="formulario-organizado">
                       <label for="lab">
                       <object class="">Usuario: </object>
-            
+
                       <input type="text" name="usuario" id="usuario" />
                       </label>
 						<input type="hidden" name="pagina" value="gerenciamento_relatorios" />
                         <input type="submit" value="enviar" name="form_pesquisa" />
                     </form>
-            
+
         </div>';
     }
 }
