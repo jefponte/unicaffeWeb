@@ -240,7 +240,7 @@ class MaquinaView
 					<a href="index.php?pagina=maquinas&comando=1&maquina=' . $maquina->getNome() . '&laboratorio=' . $maquina->getLaboratorio()->getNome() . '" class="botao b-erro"><span class="icone-switch"> </span>Desligar</a>
                     <a href="index.php?pagina=maquina&maquina=' . $maquina->getNome() . '&liberadorLab=" class="botao b-secundario"><span class="icone-tree"></span> Liberar Progs no Laboratório </a>
                     <a href="index.php?pagina=maquina&maquina=' . $maquina->getNome() . '&liberadorMaquina=" class="botao b-aviso"><span class="icone-display"></span> Liberar Prog em uma Máquina </a>
-                    <a href="http://unicaffe.unilab.edu.br/index.php?pagina=maquinas&comando=5&maquina=' . $maquina->getLaboratorio()->getNome() . '&laboratorio=teste" class="botao b-aviso"><span class="icone-display"></span> Remover do Laboratório</a>
+                    <a href="http://unicaffe.unilab.edu.br/index.php?pagina=maquinas&comando=5&maquina=' . $maquina->getNome() . '&laboratorio=teste" class="botao b-aviso"><span class="icone-display"></span> Remover do Laboratório</a>
 				</div>
 
 				<div class="linha"></div>
